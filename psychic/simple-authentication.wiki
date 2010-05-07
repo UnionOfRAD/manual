@@ -73,7 +73,59 @@ Auth::config(array(
 
 The Session setup is pretty straightforward, and the Auth configuration tells Lithium which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
 
+Note that the configuration information is housed in an array keyed 'customer'. Auth supports many different simultaneous configurations. Here we're only creating one, but you could add more here as needed.
+
 ## Authentication and Controller Actions
 
+The first action you'll need to setup is the one that authenticates your users and adjusts the session to mark the user as identified. You could place this as you please, but it's generally accepted to see it in `Users::login()`. The suggested approach is very simple:
 
+{{{
+namespace app\controllers;
 
+class UsersController extends \lithium\action\Controller {
+
+	public function login() {
+		if (Auth::check('customer', $this->request)) {
+			return $this->redirect('/');
+		}
+	}
+}
+}}}
+
+The meat is a conditional that calls `Auth::check()` and hands it the name of our desired Auth configuration name (remember we named the whole config array 'customer'?), and information about the current request.
+
+If the user has been successfully verified, the session is updated to mark the user as authenticated. If there are problems with the authentication process, the user is redirected to the root of the application.
+
+As a reference, the web form that sends the credentials and is the content of the `login` view at `app/views/users/login.html.php` should contain something that looks like this:
+
+{{{
+<?=$this->form->create(null); ?>
+	<?=$this->form->field('username'); ?>
+	<?=$this->form->field('password', array('type' => 'password')); ?>
+	<?=$this->form->submit('Log in'); ?>
+<?=$this->form->end(); ?>
+}}}
+
+The setup for protecting resources is the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions (or in filters) to make sure that sections in your application are blocked from non-authenticated users.
+
+## Checking Out
+
+Finally, you'll want to create an action that clears an end-user's authentication session on your system. Do that by making a call to `Auth::clear()` in a controller action.
+
+{{{
+namespace app\controllers;
+
+class UsersController extends \lithium\action\Controller {
+
+	public function login() {
+		if (Auth::check('customer', $this->request)) {
+			return $this->redirect('/');
+		}
+	}
+	
+	public function logout() {
+		Auth::clear('customer');
+		return $this->redirect('/');
+	}
+}
+}}}
