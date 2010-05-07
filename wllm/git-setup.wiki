@@ -1,0 +1,30 @@
+## Getting Lithium
+
+Li3's source is housed in a Git repo. Start by creating a new account at http://rad-dev.org/users/add. Once you've successfully created your new account, add your SSH key at http://rad-dev.org/users/account. If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+
+	$ ssh-keygen
+	
+	Generating public/private rsa key pair.
+	Enter file in which to save the key (/Users/lithium/.ssh/id_rsa): 
+	Enter passphrase (empty for no passphrase): 
+	Enter same passphrase again: 
+	Your identification has been saved in /Users/lithium/.ssh/id_rsa.
+	Your public key has been saved in /Users/lithium/.ssh/id_rsa.pub.
+	
+Once the public key has been created, copy and paste it's contents into the Ssh Keys section of your account settings at rad-dev.org. 
+
+Now that your key has been set up, clone yourself a copy of Li3 inside of your webserver's document root:
+
+	$ cd /path/to/docroot
+	$ git clone code@rad-dev.org:lithium.git
+	
+	Initialize lithium/.git
+	Initialized empty Git repository in /path/to/docroot/lithium/.git/
+	Identity added: /Users/lithium/.ssh/id_rsa (/Users/lithium/.ssh/id_rsa)
+	remote: Counting objects: 1638, done.
+	remote: Compressing objects: 100% (1154/1154), done.
+	remote: Total 1638 (delta 863), reused 509 (delta 226)
+	Receiving objects: 100% (1638/1638), 387.74 KiB, done.
+	Resolving deltas: 100% (863/863), done.
+	
+You'll be asked a password during this operation. Make sure to supply the same one you did when you created your SSH key.

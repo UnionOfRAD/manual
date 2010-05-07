@@ -1,0 +1,49 @@
+## Why Cherokee?
+Have you heard of [Cherokee ](http://www.cherokee-project.com/) before?  If you haven't, get in the know because it's quite possibly the fastest web server out there.  Since Lithium is one of the fastest PHP frameworks around, Cherokee and Lithium go hand and hand.  Let's go through the steps necessary to get Cherokee set up, so you can have the fastest dev/production environment possible.
+
+## Step 1 
+[Download ](http://www.cherokee-project.com/downloads.html) the appropriate package for your architecture.  Follow the instructions [here ](http://www.cherokee-project.com/doc/basics.html) to get your main instance configured and running.
+
+## Step 2
+Refer to the Cherokee documentation on how to start an admin instance.  Access that instance (usually at http://localhost:9090/) and go to the 'Virtual Servers' section.  Click 'Wizards', 'Platform', 'Zend' and 'Run Wizard'.  Put the desired hostname (I use 'lithium.local') and the path to app/webroot.
+
+![Screenshot](http://grab.by/2yty)
+
+Click 'Submit'.
+
+## Step 3
+We'll need to reconfigure some of the settings that the Zend wizard uses to make things more lithified. Open up your new virtual server.  Remove the 'index.html' default page, if you wish:
+
+![Screenshot](http://grab.by/2ytI)
+
+Click on 'Host Match' and choose 'Wildcards'.  Add as many hostnames and/or aliases that you will use to access your lithium instance.
+
+![Screenshot](http://grab.by/2ytQ)
+
+Next, click on the 'Behavior' tab, and then the second rule with the type "Full Path".
+
+![Screenshot](http://grab.by/2ytW)
+
+Click on the 'Handler' tab, and change the handler to 'Redirection', set "show" to 'Internal', leave "Regular Expression" blank, but set "Substitution" to 'index.php'.
+
+![Screenshot](http://grab.by/2yua)
+
+Go back to the behaviors list (via clicking the name of your virtual server above), and this time we are going to change the 'Default' rule, and click on the 'Handler' tab. Change it to look like this:
+
+![Screenshot](http://grab.by/2yul)
+
+If you want to cut and paste:
+
+- 'Regular Expression': ^([^\?]*)(\?(.+))?$
+- 'Subtitution': index.php?url=$1&$3
+
+The rest of the settings are optional (and you really shouldn't change them until you get familiar with how Cherokee works).  Choose 'Graceful Restart' and click 'Save' under 'Save Changes'.
+
+![Screenshot](http://grab.by/2yus)
+
+Now, open your browser and go to one of the hostnames you defined:
+
+![Screenshot](http://grab.by/2yuI)
+
+## Step 4
+All done! Now go marvel over the speed!
