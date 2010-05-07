@@ -1,0 +1,34 @@
+# Simple Authentication in Lithium
+
+If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. Lithium's Auth setup is simple and allows you to quickly create a framework for managing and protecting those features.
+
+## Data Setup
+
+The Auth setup makes access decisions based on information in your data store. The first thing you'll need to do is set up a model that handles user credentials. That model first needs a connection: set that up first in `app/config/connections.php`. If you're using MySQL as your data source, it should look something like this:
+
+{{{
+use \lithium\data\Connections;
+
+Connections::add('default', array(
+	'type'     => 'database',
+	'adapter'  => 'MySql',
+	'database' => 'li3',
+	'user'     => 'root',
+	'password' => 'sekrit'
+));
+}}}
+
+If you're running with Mongo, it'll look a bit different:
+
+{{{
+Connections::add('default', array(
+	'type'     => 'MongoDb',
+	'database' => 'li3',
+	'user'     => 'root',
+	'password' => 'sekrit'
+));
+}}}
+
+Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure.
+
+Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using. 
