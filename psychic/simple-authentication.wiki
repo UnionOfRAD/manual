@@ -12,9 +12,9 @@ use \lithium\data\Connections;
 Connections::add('default', array(
 	'type'     => 'database',
 	'adapter'  => 'MySql',
-	'database' => 'li3',
-	'user'     => 'root',
-	'password' => 'sekrit'
+	'database' => 'mydatabase',
+	'user'     => 'myusename',
+	'password' => 'mypassword'
 ));
 }}}
 
@@ -24,11 +24,56 @@ If you're running with Mongo, it'll look a bit different:
 Connections::add('default', array(
 	'type'     => 'MongoDb',
 	'database' => 'li3',
-	'user'     => 'root',
-	'password' => 'sekrit'
+	'user'     => 'myuser',
+	'password' => 'mypassword'
 ));
 }}}
 
-Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure.
+Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure. You can customize the model and fields Auth will use as we'll see later. Make sure to take a moment and set up your `User` model as well in `app/models/User.php`:
+
+{{{
+namespace app\models;
+
+class User extends \lithium\data\Model {
+}
+}}}
 
 Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using. 
+
+## Bootstrapping Auth
+
+Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file. 
+
+First, point Lithium's main bootstrap file to our Auth bootstrap file. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
+
+{{{
+
+require __DIR__ . '/bootstrap/auth.php';
+
+}}}
+
+Next, create a new file at `app/config/bootstrap/auth.php` (if it doesn't already exist). In this auth-specific bootstrap file, we'll need to do a few things. First, make sure the Session setup is using the PHP adapter, then making some initial Auth configurations:
+
+{{{
+use \lithium\storage\Session;
+use \lithium\security\Auth;
+
+Session::config(array(
+	'default' => array('adapter' => 'Php')
+));
+
+Auth::config(array(
+	'customer' => array(
+		'adapter' => 'Form',
+		'model'   => 'User',
+		'fields'  => array('username', 'password')
+	)
+));
+}}}
+
+The Session setup is pretty straightforward, and the Auth configuration tells Lithium which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
+
+## Authentication and Controller Actions
+
+
+
