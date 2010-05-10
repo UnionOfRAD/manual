@@ -113,6 +113,7 @@ You could also create a new filter in `auth.php` that uses the dispatcher's run 
 {{{
 use \lithium\net\http\Router;
 use \lithium\action\Response;
+use \lithium\security\Auth;
 
 Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	$blacklist = array(
