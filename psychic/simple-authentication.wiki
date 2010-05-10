@@ -13,7 +13,7 @@ Connections::add('default', array(
 	'type'     => 'database',
 	'adapter'  => 'MySql',
 	'database' => 'mydatabase',
-	'user'     => 'myusename',
+	'user'     => 'myusername',
 	'password' => 'mypassword'
 ));
 }}}
@@ -24,7 +24,7 @@ If you're running with Mongo, it'll look a bit different:
 Connections::add('default', array(
 	'type'     => 'MongoDb',
 	'database' => 'li3',
-	'user'     => 'myuser',
+	'user'     => 'myusername',
 	'password' => 'mypassword'
 ));
 }}}
@@ -106,7 +106,26 @@ As a reference, the web form that sends the credentials and is the content of th
 <?=$this->form->end(); ?>
 }}}
 
-The setup for protecting resources is the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions (or in filters) to make sure that sections in your application are blocked from non-authenticated users.
+The setup for protecting resources is the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions to make sure that sections in your application are blocked from non-authenticated users.
+
+You could also create a new filter in `auth.php` that uses the dispatcher's run cycle to check the current request against a list of protected URLs:
+
+{{{
+use \lithium\net\http\Router;
+use \lithium\action\Response;
+
+Dispatcher::applyFilter('run', function($self, $params, $chain) {
+	$blacklist = array(
+		'/users/report',
+		'/users/home'
+	);
+	$matches = in_array(Router::match($params['request']->params, $params['request']), $blacklist);
+	if($matches && Auth::check('customer', $params['request'])) {
+	 	echo new Response(array('location' => '/users/login'));
+	}
+	return $chain->next($self, $params, $chain);
+});
+}}}
 
 ## Checking Out
 
