@@ -1,6 +1,14 @@
 # The Lithium Filters Guide
 
-This guide is meant as an introductory course in creating filters in Lithium applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
+This guide is meant as an introductory course in creating filters in Lithium applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
+
+What would you need a filter for? Here are some quick examples:
+
+* A 'before filter' that marks the 'created' column in your database with the current date
+* Intercepting certain requests to deliver raw file contents rather than an HTML response
+* Wrapping profiling measurements around each dispatched request
+* Checking each request to make sure the user has been authenticated
+* Logging
 
 By the end of this guide, you should feel comfortable in understanding the theory and best practices behind filters, as well as identifying filterable logic in Lithium and creating your own custom filters.
 
@@ -12,7 +20,7 @@ There are a few examples of aspects that you're probably already familiar with. 
 
 ## Filter Structure
 
-Long story short, filters are created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Object::_filter()` (or `StaticObject::_filter()`) to allow for chain management.
+Long story short, filters are created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Object::_filter()` (or `StaticObject::_filter()` for static objects) to allow for chain management.
 
 Applying a custom filter to a filterable method is done by calling the `applyFilter()` method of the object. The first argument specifies the method name to filter, and the second argument is the closure that defines what you want the filter to do.
 
@@ -116,6 +124,4 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 });
 }}}
 
-## Creating Filterable Logic
-
-
+## Creating Filter-able Logic
