@@ -111,6 +111,7 @@ The setup for protecting resources is the same as it is for initially authentica
 You could also create a new filter in `auth.php` that uses the dispatcher's run cycle to check the current request against a list of protected URLs:
 
 {{{
+use \lithium\action\Dispatcher;
 use \lithium\net\http\Router;
 use \lithium\action\Response;
 use \lithium\security\Auth;
