@@ -139,3 +139,89 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 }}}
 
 ## Creating Filter-able Logic
+
+If you're planning on creating and distributing your own code (hopefully via the Lithium Laboratory, among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful Lithium filter system, while at the same time helping you avoid writing tons of callback methods in your code.
+
+Let's imagine for a bit that you're creating a social media integration extension for Lithium. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
+
+For example, let's add a filter to the method that posts content to Twitter. It's conceivable that developers might want to filter that logic to shorten URLs using different services, or automatically include hashtags at the end of the tweet. 
+
+First, start with the basics:
+
+{{{
+class Twitter {
+	public function tweet($status, $options) {
+
+		$defaults = array('responseFormat' => 'json');
+		$options += $defaults;
+	
+		// Twitter connection and data transfer logic goes here...
+		return $result;
+	}
+}
+}}}
+
+Here we've got a basic method implementation. Of note is the `$options` parameter: the Lithium API is a big fan of keeping parameter counts small using an options array. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
+
+Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `$this->filter()`, and returning the result of that call. Here's what it looks like:
+
+{{{
+class Twitter {
+	public function tweet($status, $options) {
+
+		$defaults = array('responseFormat' => 'json');
+		$options += $defaults;
+	
+		$params = compact('status', 'options');
+	
+		return $this->filter(__METHOD__, $params, function($self, $params) {
+			// Twitter connection and data transfer logic goes here...
+			return $result;
+		});
+	}
+}
+}}}
+
+The `filter()` method takes three arguments. The first is the name of the method, the second is an array of parameters the original method implementation takes. The last parameter is a closure containing the original method implementation. That's it! If you're doing something pretty simple - that's all you need to do.
+
+There are a few situations that make things a bit different. One example is if your method is accessed statically. Let's adjust our `tweet()` example to illustrate:
+
+{{{
+class Twitter {
+	public static function tweet($status, $options) {
+		
+		$defaults = array('responseFormat' => 'json');
+		$options += $defaults;
+	
+		$params = compact('status', 'options');
+		
+		return static::_filter(__METHOD__, $params, function($self, $params) {
+			// Twitter connection and data transfer logic goes here...
+			return $result;
+		});
+	}
+}
+}}}
+
+Mostly the same... just call `static::_filter()` instead of `$this->_filter()`. 
+
+Another situation that makes things a bit tricky is if your main method implementation requires the use of objects that would normally be out of scope once everything has been wrapped in a closure. For example, let's say our `tweet()` method logic makes use of a class called `OAuth` that's already a property of the Twitter class. 
+
+What you need to do is set up the instance before you start the closure definition, making sure to use the `use` clause with the closure definition:
+
+{{{
+class Twitter {
+	public static function tweet($status, $options) {
+		$auth = static::$oauth;
+		$defaults = array('responseFormat' => 'json');
+		$options += $defaults;
+	
+		$params = compact('status', 'options');
+		
+		return static::_filter(__METHOD__, $params, function($self, $params) use ($auth) {
+			// Twitter connection and data transfer logic goes here...
+			return $result;
+		});
+	}
+}
+}}}
