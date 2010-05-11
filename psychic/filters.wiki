@@ -87,7 +87,7 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	//If this is a match, check it against an Auth configuration.
 	if($matches && !Auth::check('default', $params['request'])) {
 		//If the Auth check can't verify the user, redirect.
-	 	echo new Response(array('location' => '/users/login'));
+	 	return new Response(array('location' => '/users/login'));
 	}
 	
 	//Important: return the results of the next filter in the chain.
