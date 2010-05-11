@@ -123,7 +123,7 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	);
 	$matches = in_array(Router::match($params['request']->params, $params['request']), $blacklist);
 	if($matches && !Auth::check('customer', $params['request'])) {
-	 	echo new Response(array('location' => '/users/login'));
+	 	return new Response(array('location' => '/users/login'));
 	}
 	return $chain->next($self, $params, $chain);
 });
