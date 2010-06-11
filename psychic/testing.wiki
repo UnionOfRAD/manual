@@ -1,0 +1,27 @@
+# Lithium's Unit Testing Framework
+
+Applications with any amount of complexity or reuse necessitate test coverage. Lithium's unit testing framework is home grown, and is used for the framework's own testing. It's simple, lightweight, and ready for immediate use.
+
+## Getting Started
+
+Since the unit testing framework is built into Lithium, you might already have it up and running. Once you've downloaded and installed Lithium, point your web browser to /test under your application's base URL.
+
+The Lithium Unit Test Dashboard is where you'll be able to view test cases, run unit test, and view reports. Initially, you'll only be seeing Lithium's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
+
+All of your application's unit tests will reside in `/app/tests/`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
+
+## Test Cases
+
+The `cases` folder is used to house all the core logic for your unit tests. If you take a peek inside `/app/tests/cases`, you'll see that you already have three folders used to organize your application's unit tests. This folder structure also dictates the namespace for each unit test class.
+
+Let's start out by creating a simple test case as a working example. Our first working example will be a model unit test. Let's start by creating one using the `li3 create` console command.
+
+{{{
+$ cd /path/to/lithium/app
+$ li3 create model Post
+
+Post created in app\models.
+}}}
+
+
+
