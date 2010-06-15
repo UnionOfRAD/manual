@@ -4,15 +4,15 @@ Applications with any amount of complexity or reuse necessitate test coverage. L
 
 ## Getting Started
 
-Since the unit testing framework is built into Lithium, you might already have it up and running. Once you've downloaded and installed Lithium, point your web browser to /test under your application's base URL.
+Since the unit testing framework is built into Lithium, you might already have it up and running. Once you've downloaded and installed Lithium, point your web browser to `/test` under your application's base URL.
 
-The Lithium Unit Test Dashboard is where you'll be able to view test cases, run unit test, and view reports. Initially, you'll only be seeing Lithium's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
+The Lithium Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing Lithium's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
 
 All of your application's unit tests will reside in `/app/tests/`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
 
 ## Test Cases
 
-The `cases` folder is used to house all the core logic for your unit tests. If you take a peek inside `/app/tests/cases`, you'll see that you already have three folders used to organize your application's unit tests. This folder structure also dictates the namespace for each unit test class.
+The `cases` folder is used to house all the core logic for your unit tests. If you take a peek inside `/app/tests/cases`, you'll see that you already have three folders used to organize your application's unit tests. This folder structure dictates the namespace for each unit test class, and should generally mirror your application's class/namespace structure.
 
 Let's start out by creating a simple test case as a working example. Our first working example will be a model unit test. Let's start by creating one using the `li3 create` console command.
 
@@ -51,23 +51,23 @@ class PostTest extends \lithium\test\Unit {
 ?>
 }}}
 
-The two initial methods supplied act as they're named. The `setUp()` method is used to perform any preparation work you'll need to perform your unit testing logic. This might be anything from setting up database connections to initializing mock data. Similarly, `tearDown()` is used to clean up anything that might be left over once a unit test has been completed.
+The two initial methods supplied act as they're named. The `setUp()` method is used to perform any preparation work you'll need to perform your unit testing logic. This might be anything from setting up database connections to initializing mock data. Similarly, `tearDown()` is used to clean up anything that might be left over once a unit test has been completed. These methods are called before and after each method in your unit test case.
 
 The meat of the unit test, however, will be housed inside of methods you create. Each piece of your unit testing logic should be placed inside of a method whose name starts with 'test'. Before we make any adjustments to the `Post` model, let's exercise a bit of TDD and write an example test method first.
 
 Since our test case is a subclass of `lithium\test\Unit`, we have easy access to a number of methods that help us validate test assertions. Since they're plainly named, I'll list some here. For for information, please refer to the API documentation for `lithium\test\Unit`.
 
- - assertEqual
- - assertNotEqual
- - assertIdentical
- - assertTrue
- - assertFalse
- - assertNull
- - assertNoPattern
- - assertPattern
- - assertTags
- - assertCookie
- - expectException
+ - `assertEqual()`
+ - `assertNotEqual()`
+ - `assertIdentical()`
+ - `assertTrue()`
+ - `assertFalse()`
+ - `assertNull()`
+ - `assertNoPattern()`
+ - `assertPattern()`
+ - `assertTags()`
+ - `assertCookie()`
+ - `expectException()`
 
 Every post should have a great title, and any editor worth is salt knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Post model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
 
@@ -128,5 +128,4 @@ class Post extends \lithium\data\Model {
 
 ?>
 }}}
-
 
