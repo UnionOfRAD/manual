@@ -18,7 +18,6 @@ class User extends \lithium\data\Model {
 User::applyFilter('save', function($self, $params, $chain){
 	$document = $params['entity'];
 	if (!$document->id) {
-		$document->created = date('Y-m-d h:i:s');
 		$document->password = \lithium\util\String::hash($document->password);
 	}
 	if (!empty($params['data'])) {
