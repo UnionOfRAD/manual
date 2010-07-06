@@ -110,27 +110,6 @@ As a reference, the web form that sends the credentials and is the content of th
 
 The setup for protecting resources is the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions to make sure that sections in your application are blocked from non-authenticated users.
 
-You could also create a new filter in `auth.php` that uses the dispatcher's run cycle to check the current request against a list of protected URLs:
-
-{{{
-use \lithium\action\Dispatcher;
-use \lithium\net\http\Router;
-use \lithium\action\Response;
-use \lithium\security\Auth;
-
-Dispatcher::applyFilter('run', function($self, $params, $chain) {
-	$blacklist = array(
-		'/users/report',
-		'/users/home'
-	);
-	$matches = in_array(Router::match($params['request']->params, $params['request']), $blacklist);
-	if($matches && !Auth::check('customer', $params['request'])) {
-	 	return new Response(array('location' => '/users/login'));
-	}
-	return $chain->next($self, $params, $chain);
-});
-}}}
-
 ## Checking Out
 
 Finally, you'll want to create an action that clears an end-user's authentication session on your system. Do that by making a call to `Auth::clear()` in a controller action.
