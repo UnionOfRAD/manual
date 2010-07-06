@@ -82,6 +82,8 @@ The first action you'll need to setup is the one that authenticates your users a
 {{{
 namespace app\controllers;
 
+use \lithium\security\Auth;
+
 class UsersController extends \lithium\action\Controller {
 
 	public function login() {
@@ -135,6 +137,8 @@ Finally, you'll want to create an action that clears an end-user's authenticatio
 
 {{{
 namespace app\controllers;
+
+use \lithium\security\Auth;
 
 class UsersController extends \lithium\action\Controller {
 
