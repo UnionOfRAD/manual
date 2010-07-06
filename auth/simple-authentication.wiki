@@ -40,6 +40,8 @@ class User extends \lithium\data\Model {
 
 Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using. 
 
+ [ Creating some users](simple-auth-user.wiki)
+
 ## Bootstrapping Auth
 
 Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file. 
