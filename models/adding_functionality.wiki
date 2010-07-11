@@ -38,7 +38,8 @@ class User extends \lithium\data\Model {
 }}}
 
 ### Using the new method
-
+{{{
 <?php foreach ($users as $user) { ?>
 	<p>Name: <?=$user->name()?></p>
 <?php } ?>
+}}}
