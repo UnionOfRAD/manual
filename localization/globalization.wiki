@@ -27,7 +27,7 @@ Environment::set('development', array(
 ));
 }}}
 
-## Locale Detection 
+## Locale Detection
 
 The _effective locale_ depends on the availability of globalized application content and the locale preferred by the client.
 
@@ -69,7 +69,7 @@ This filter does the following:
 
 1. Checks to see if the request explicitly states the locale to use
 2. In case it does not, detects the locale from request
-3. Sets the effective locale from the request 
+3. Sets the effective locale from the request
 
 Generally speaking, if the preferred locale is available, then it is set as the effective locale. If it's not, the next locale accepted by the client is matched against the available ones. If none of the accepted locales matches, the detection fails.
 
@@ -89,13 +89,13 @@ use \lithium\core\Environment;
 
 class Localized extends \lithium\net\http\Route {
 
-    protected function _init() { 
+    protected function _init() {
         $this->_config['template'] = '/{:locale:[a-z]+[a-z]+}' . $this->_config['template'];
         $this->_config['params'] += array('locale' => null);
         parent::_init();
     }
 
-    public function match(array $options = array(), $context = null) { 
+    public function match(array $options = array(), $context = null) {
         $locale = Environment::get('locale');
         return parent::match($options + compact('locale'), $context);
     }
@@ -236,4 +236,115 @@ Once those changes have been bootstrapped, you can use this g11n-aware validatio
 
 {{{
 Validator::isPhone('PHONE NUMBER US', 'en_US');
+}}}
+
+## Using Localized Content
+
+While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in in your views. Here are the steps we'll cover.
+
+1. Marking messages as translatable.  The `$t()` and `$tn()` shortcut functions help the extraction tools identify where messages have been in views.
+
+1. Extracting marked messages.  Messages can be extracted through the `g11n` command, and placed in a template.
+
+1. Translating messages. Once a template has been created, translators add localized content to them. The completed templates are often stored on disk.
+
+1. Retrieving the translation for a message. The `$t()` and `$tn()` functions are used to output translated content for the correct locale in a view.
+
+## Marking Messages as Translatable
+
+The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—are injected into the view as output filters by default. This allows for the following syntax throughout templates:
+
+{{{
+<?= $t('green'); ?>
+<?= $tn('House', 'Houses', array('count' => 3)); ?>
+<?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
+}}}
+
+If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
+
+{{{
+<?php
+
+use \lithium\g11n\Message;
+
+class PostsController extends \lithium\action\Controller {
+
+	public function add() {
+        extract(Message::aliases());
+		// ...
+		$message = $t('Post successfully added.');
+		// ...
+	}
+}
+?>
+}}}
+
+### Best Practices
+
+Since the marked messages will later be translated by many others, it's important to keep a few best practices in mind.
+
+When embedding translated messages into your application, it's best to use entire sentences as identifiers rather than just single words. Since a translator is often viewing a long list of strings needing to be translated, context is everything.
+
+{{{
+
+Not so great:
+<?= $t('welcome'); ?>
+
+Better:
+<?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
+
+}}}
+
+It's also best to split paragraphs into single sentences as well. This makes things more atomic and granular where large chunks of content may be difficult to work with:
+
+Next, treating text like you would with String::insert() can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
+
+{{{
+
+Not so great:
+<?= "Gary's Fine Clarinets " . $t('is really great'); ?>
+
+Better:
+<?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
+
+}}}
+
+Also, avoid the use of escaped characters, or markup of any kind inside of translated messages. This makes it much less error prone, as your language team may not be as keen on well-structured HTML as you are.
+
+### No Operation
+
+Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
+
+{{{
+<?= $t('foo', array('noop' => true)); ?>
+<?= $tn('foo', 'bar', array('noop' => true)); // we don't need to pass `'count'` in this case ?>
+}}}
+
+File: a.php
+{{{
+<?= $t('foo', array('noop' => true)); // the extractor picks up `foo` ?>
+}}}
+
+File: b.php
+{{{
+<?php $section = 'foo'; ?>
+<?= $t($section); ?>
+}}}
+
+### Knock Out
+
+If you're using templates which use the aliased translation functions but don't want to do any globalization, you can disable the lookup of translations by using a filter.
+
+{{{
+Message::applyFilter('_translated', function($self, $params, $chain) {
+	return null;
+});
+}}}
+
+## Extracting Marked Messages & Creating Templates
+
+Marked messages are extracted using the `g11n` command. This allows for extracting messages and comments from source files, creating and updating files containing message templates, creating and updating files containing translated messages and compilation of those.
+
+{{{
+li3 g11n extract [--source=DIRECTORY] [--destination=DIRECTORY]
 }}}
