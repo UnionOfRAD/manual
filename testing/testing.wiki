@@ -31,7 +31,7 @@ $ li3 create test model Post
 PostTest created for Post in app\tests\cases\models.
 }}}
 
-Doing so creates a test file template class that extends `lithium\test\Unit` and looks like the following:
+Doing so creates a test file template class that extends `\lithium\test\Unit` and looks like the following:
 
 {{{
 <?php
@@ -69,7 +69,7 @@ Since our test case is a subclass of `lithium\test\Unit`, we have easy access to
  - `assertCookie()`
  - `expectException()`
 
-Every post should have a great title, and any editor worth is salt knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Post model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
+Every post should have a great title, and any editor knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Post model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
 
 {{{
 <?php
@@ -128,4 +128,61 @@ class Post extends \lithium\data\Model {
 
 ?>
 }}}
+
+At this point, your test cases should run successfully in the Unit Test Dashboard.
+
+## Mocks
+
+Mocks are used in place of actual sources of information. You can create a mock for just about anything: a data source, model data, a console command response... anything. Since we're dealing primarily with the model in this example, let's continue that train of thought, and use some mocks to help us test our new model functionality.
+
+Let's create a MockPost that returns test data we can use to run through our `isGoodTitle()` method. One easy way to do that is to create a new class that just returns a RecordSet (in the case of an SQL database) or a Document (in the case of a document database) collection.
+
+Start by creating a new file in `app/tests/mocks/data/MockPost.php`:
+
+{{{
+
+<?php
+
+namespace app\tests\mocks\data;
+
+use \lithium\data\collection\RecordSet;
+
+class MockPost extends \app\models\Post {
+	public static function find($type = 'all', array $options = array()) {
+		switch ($type) {
+			case 'first':
+				return new RecordSet(array('items' =>
+					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.')
+				));
+			break;
+			case 'all':
+			default :
+				return new RecordSet(array('items' => array(
+					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.'),
+					array('id' => 2, 'title' => 'Sensationalist Over-dramatization!'),
+					array('id' => 3, 'title' => 'Heavy Editorializing!'),
+				)));
+			break;
+		}
+	}
+}
+
+}}}
+
+What we've got here is essentially a model that spits out hard-coded data when we call `find()`. In some cases, this might really be all we need. Let's use this in our main test case by adding the following function:
+
+{{{
+
+public function testMockTitles() {
+	$results = MockPost::find('all');
+
+	$first = $results->current();
+	$this->assertFalse(MockPost::isGoodTitle($first['title']));
+}
+
+}}}
+
+Head back to the Unit Test Dashboard to make sure this runs successfully, and you're done!
+
+
 
