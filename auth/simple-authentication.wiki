@@ -38,13 +38,33 @@ class User extends \lithium\data\Model {
 }
 }}}
 
-Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using. 
+Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using.
 
- - ### [ Creating some users](simple-auth-user.wiki)
+## User Creation
+
+Creating users that are compatible with the `Auth` setup is worth noting. While configurable, the default setup assumes a users data source with a sha1 hashed password field, and a username field. Please keep these defaults in mind as you create controller logic or view forms that interact with user data.
+
+For convenience, we also recommend setting up a filter to automatically hash user passwords when new users are created:
+
+{{{
+User::applyFilter('save', function($self, $params, $chain){
+	$document = $params['entity'];
+	if (!$document->id) {
+		$document->password = \lithium\util\String::hash($document->password);
+	}
+	if (!empty($params['data'])) {
+		$document->set($params['data']);
+	}
+	$params['entity'] = $document;
+	return $chain->next($self, $params, $chain);
+});
+}}}
+
+This example assumes a document-based datasource. Developers using SQL databases would need to make s few changes: using `$params['record']` and possibly renaming and using `$record` instead of document.
 
 ## Bootstrapping Auth
 
-Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file. 
+Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file.
 
 First, point Lithium's main bootstrap file to our Auth bootstrap file. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
 
@@ -128,7 +148,7 @@ class UsersController extends \lithium\action\Controller {
 			return $this->redirect('/');
 		}
 	}
-	
+
 	public function logout() {
 		Auth::clear('customer');
 		return $this->redirect('/');
