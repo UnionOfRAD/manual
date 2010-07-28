@@ -161,14 +161,14 @@ $data = array(
 );
 Catalog::write('message', 'de', $data, array('name' => 'runtime'));
 
-// Reads from all configured sources
-Catalog::read('message', 'de');
+// Reads from the runtime g11n configuration
+Catalog::read('runtime', message', 'de');
 
 // Results for the `de_DE` locale are merged with those for `de`
-Catalog::read('message', 'de_DE');
+Catalog::read('runtime', 'message', 'de_DE');
 
 // Reads from just the runtime source.
-Catalog::read('message', 'de', array('name' => 'runtime'));
+Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
 }}}
 
 By default, the g11n bootstrap configures a `runtime` (using the Memory adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
@@ -228,7 +228,7 @@ Lithium's g11n framework ships with some localized validation rules for phone nu
 
 {{{
 foreach (array('phone', 'postalCode', 'ssn') as $name) {
-    Validator::add($name, Catalog::read("validation.{$name}", 'en_US'));
+    Validator::add($name, Catalog::read('runtime', "validation.{$name}", 'en_US'));
 }
 }}}
 
