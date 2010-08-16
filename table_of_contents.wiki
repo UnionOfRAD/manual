@@ -34,6 +34,8 @@ This quickstart covers a basic application with 1 or 2 views, 1 controller, and 
 * Record level access control
 * Page view access control
 
+### g11n
+
 ### Text search using search engines
 * Zend_Search_Lucene
 * Solr
