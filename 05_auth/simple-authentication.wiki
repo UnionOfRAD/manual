@@ -48,14 +48,14 @@ For convenience, we also recommend setting up a filter to automatically hash use
 
 {{{
 User::applyFilter('save', function($self, $params, $chain){
-	$record = $params['entity'];
+	$record = $params['record'];
 	if (!$record->id) {
 		$record->password = \lithium\util\String::hash($record->password);
 	}
 	if (!empty($params['data'])) {
 		$record->set($params['data']);
 	}
-	$params['entity'] = $record;
+	$params['record'] = $record;
 	return $chain->next($self, $params, $chain);
 });
 }}}
