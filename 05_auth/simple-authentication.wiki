@@ -48,19 +48,17 @@ For convenience, we also recommend setting up a filter to automatically hash use
 
 {{{
 User::applyFilter('save', function($self, $params, $chain){
-	$document = $params['entity'];
-	if (!$document->id) {
-		$document->password = \lithium\util\String::hash($document->password);
+	$record = $params['entity'];
+	if (!$record->id) {
+		$record->password = \lithium\util\String::hash($record->password);
 	}
 	if (!empty($params['data'])) {
-		$document->set($params['data']);
+		$record->set($params['data']);
 	}
-	$params['entity'] = $document;
+	$params['entity'] = $record;
 	return $chain->next($self, $params, $chain);
 });
 }}}
-
-This example assumes a document-based datasource. Developers using SQL databases would need to make s few changes: using `$params['record']` and possibly renaming and using `$record` instead of document.
 
 ## Bootstrapping Auth
 
