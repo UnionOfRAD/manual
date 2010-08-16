@@ -16,21 +16,21 @@ class User extends \lithium\data\Model {
 }
 
 User::applyFilter('save', function($self, $params, $chain){
-	$document = $params['entity'];
+	$record = $params['record'];
 	if (!$document->id) {
 		$document->password = \lithium\util\String::hash($document->password);
 	}
 	if (!empty($params['data'])) {
 		$document->set($params['data']);
 	}
-	$params['entity'] = $document;
+	$params['record'] = $record;
 	return $chain->next($self, $params, $chain);
 });
 
 ?>
 }}}
 
-## The Controller 
+## The Controller
 
 Create this file : `app/controllers/UsersController`
 
@@ -65,7 +65,7 @@ class UsersController extends \lithium\action\Controller {
 
 ## The views
 
-Create these files: 
+Create these files:
 
 `app/views/users/add.html.php`
 
