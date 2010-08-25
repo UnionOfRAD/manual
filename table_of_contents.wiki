@@ -9,6 +9,11 @@ This quickstart covers a basic application with 1 or 2 views, 1 controller, and 
 * Upgrading
 * Troubleshooting
 
+### Lithium Basics
+* The Big Picture
+* Architecture
+* Filters
+
 ###  Request/Response
 * Quickstart
 * Controllers
