@@ -41,14 +41,6 @@ Finally, pull up li3 in your browser. For this example, we're running Apache loc
 
 At this point, you should be presented with the Li3 default home page. You're up and running!
 
-If, instead of the home page, you get an error that looks like this:
-
-{{{
-	Warning: Unexpected character in input: '\' (ASCII=92) state=1 in /path/to/lithium/app/webroot/index.php on line 22
-}}}
-
-...you're not running PHP 5.3 or later.  Please check your PHP version and update as appropriate.
-
 ## One More Thing
 
 Lastly, you'll want to set up the li3 command so it's easy to use as you move around your filesystem. The li3 command assists in tasks like code generation, documentation, and testing.
