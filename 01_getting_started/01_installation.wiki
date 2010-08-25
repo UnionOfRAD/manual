@@ -1,0 +1,77 @@
+# Installing Lithium
+
+## Getting the Code
+
+Li3's source is housed in a Git repo. Start by creating a new account at [http://rad-dev.org/users/add](http://rad-dev.org/users/add). Once you've successfully created your new account, add your SSH key at [http://rad-dev.org/users/account](http://rad-dev.org/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+
+	$ ssh-keygen
+
+	Generating public/private rsa key pair.
+	Enter file in which to save the key (/Users/lithium/.ssh/id_rsa):
+	Enter passphrase (empty for no passphrase):
+	Enter same passphrase again:
+	Your identification has been saved in /Users/lithium/.ssh/id_rsa.
+	Your public key has been saved in /Users/lithium/.ssh/id_rsa.pub.
+
+Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at rad-dev.org.
+
+Now that your key has been set up, clone yourself a copy of Li3 inside of your web server's document root:
+
+	$ cd /path/to/docroot
+	$ git clone code@rad-dev.org:lithium.git
+
+	Initialize lithium/.git
+	Initialized empty Git repository in /path/to/docroot/lithium/.git/
+	Identity added: /Users/lithium/.ssh/id_rsa (/Users/lithium/.ssh/id_rsa)
+	remote: Counting objects: 1638, done.
+	remote: Compressing objects: 100% (1154/1154), done.
+	remote: Total 1638 (delta 863), reused 509 (delta 226)
+	Receiving objects: 100% (1638/1638), 387.74 KiB, done.
+	Resolving deltas: 100% (863/863), done.
+
+You'll be asked a password during this operation. Make sure to supply the same one you did when you created your SSH key.
+
+## Pedal to the Metal
+
+For the purposes of this guide, we'll assume you're running Apache. Before starting things up, make sure mod_rewrite is enabled, and the AllowOverride directive is set to 'All' on the necessary directories involved. Be sure to restart the server before checking things.
+
+Another quick thing to check is to make sure that magic quotes have been completely disabled in your PHP installation. If you're seeing an exception error message initially, you might have magic quotes enabled. For more information on disabling this feature, see the [PHP manual](http://www.php.net/manual/en/security.magicquotes.disabling.php).
+
+Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
+
+At this point, you should be presented with the Li3 default home page. You're up and running!
+
+If, instead of the home page, you get an error that looks like this:
+
+{{{
+	Warning: Unexpected character in input: '\' (ASCII=92) state=1 in /path/to/lithium/app/webroot/index.php on line 22
+}}}
+
+...you're not running PHP 5.3 or later.  Please check your PHP version and update as appropriate.
+
+## One More Thing
+
+Lastly, you'll want to set up the li3 command so it's easy to use as you move around your filesystem. The li3 command assists in tasks like code generation, documentation, and testing.
+
+To do so, add the Lithium's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
+
+	PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
+
+Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
+
+	USAGE
+		li3 COMMAND [ARGS]
+
+	COMMANDS
+		create
+			The `create` command allows you to rapidly develop your models, views, controllers, and tests
+			by generating the minimum code necessary to test and run your application.
+
+		g11n
+			The `G11n` set of commands deals with the extraction and merging of
+			message templates.
+
+		test
+			Runs a given set unit tests and outputs the results.
+
+	See `li3 help COMMAND` for more information on a specific command.
