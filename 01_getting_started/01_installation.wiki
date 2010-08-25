@@ -2,7 +2,11 @@
 
 ## Getting the Code
 
-Li3's source is housed in a Git repo. Start by creating a new account at [http://rad-dev.org/users/add](http://rad-dev.org/users/add). Once you've successfully created your new account, add your SSH key at [http://rad-dev.org/users/account](http://rad-dev.org/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+This easiest way to get a fresh copy of Lithium is by downloading an archive from our website. You can view and download versions here:
+
+	http://rad-dev.org/lithium/versions
+
+Li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://rad-dev.org/users/add](http://rad-dev.org/users/add). Once you've successfully created your new account, add your SSH key at [http://rad-dev.org/users/account](http://rad-dev.org/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
 
 	$ ssh-keygen
 
@@ -36,6 +40,13 @@ You'll be asked a password during this operation. Make sure to supply the same o
 For the purposes of this guide, we'll assume you're running Apache. Before starting things up, make sure mod_rewrite is enabled, and the AllowOverride directive is set to 'All' on the necessary directories involved. Be sure to restart the server before checking things.
 
 Another quick thing to check is to make sure that magic quotes have been completely disabled in your PHP installation. If you're seeing an exception error message initially, you might have magic quotes enabled. For more information on disabling this feature, see the [PHP manual](http://www.php.net/manual/en/security.magicquotes.disabling.php).
+
+While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your php.ini:
+
+{{{
+	error_reporting  =  E_ALL
+	display_errors   =  true
+}}}
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 
