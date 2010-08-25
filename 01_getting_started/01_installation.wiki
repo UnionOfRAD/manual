@@ -35,6 +35,20 @@ Now that your key has been set up, clone yourself a copy of Li3 inside of your w
 
 You'll be asked a password during this operation. Make sure to supply the same one you did when you created your SSH key.
 
+## Advanced Setup
+
+If you've got a system that's hosting many Lithium apps, sometimes it's beneficial to point a number of applications at the same set of core Lithium libraries. In this case, you'd want to place Lithium somewhere outside of your web server's document root.
+
+For example, let's say we've got lithium installed in `/usr/local/lib/lithium/` and some Lithium applications at `/home/apps/first-app/` and `/home/apps/second-app`.
+
+The two applications mentioned aren't complete copies of the Lithium codebase: they're just copies of the `app` folder (e.g. there should be a `/home/apps/first-app/config` folder).
+
+First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap.php` file like so:
+
+{{{
+define('LITHIUM_LIBRARY_PATH', '/usr/local/lib/lithium/libraries');
+}}}
+
 ## Pedal to the Metal
 
 For the purposes of this guide, we'll assume you're running Apache. Before starting things up, make sure mod_rewrite is enabled, and the AllowOverride directive is set to 'All' on the necessary directories involved. Be sure to restart the server before checking things.
