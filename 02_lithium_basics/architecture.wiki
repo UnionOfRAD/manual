@@ -1,4 +1,4 @@
-#Lithum Structure
+# Lithium Structure
 
 Before you get started with Lithium, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
@@ -76,7 +76,7 @@ The extensions folder is meant to store extension classes that you've created fo
 
 ### Adapter
 
-A number of Lithium classes extend the `lithium\core\Adaptable` static class. This class allows you to take a number of different approaches and easily switch out implementations for an application task. Authentation, session handling, and caching are a few examples of Lithium functionality that have been made adaptable.
+A number of Lithium classes extend the `lithium\core\Adaptable` static class. This class allows you to take a number of different approaches and easily switch out implementations for an application task. Authentication, session handling, and caching are a few examples of Lithium functionality that have been made adaptable.
 
 Custom application adapters should be placed in this folder, organized by subfolder. For example, if I created a custom Auth adapter based on my LDAP setup, I'd create the implementation in `/extensions/adapter/auth/Ldap.php`.
 
