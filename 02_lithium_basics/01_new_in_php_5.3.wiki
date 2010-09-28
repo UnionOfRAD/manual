@@ -1,18 +1,8 @@
-# The Big Picture
+# Lithium & PHP 5.3
 
-This guide serves as a introduction and highlight reel for the Lithium framework. We'd like to cover a little about why we've decided to dive into another framework effort, and spend a bit more bragging about things we like in what we've done. 
+Lithium is the first PHP framework to take advantage of the new features available in PHP 5.3. Besides the performance benefits, there are a number of new concepts in 5.3+ that allow for some elegant development techniques.
 
-After you've read this document, you should be excited as we are about the future of PHP and the Lithium framework.
-
-# Why? No really: why?
-
-Among others, there are two main reasons to consider Lithium over existing framework efforts. First, is that it's the first framework to take advantage of the new features available in PHP 5.3. Besides the performance benefits, there are a number of new concepts in 5.3+ that allow for some elegant development techniques.
-
-Secondly, we've learned alot in past efforts, and those missteps and frustrations have fueled alternative solutions in Lithium. In a sense, Lithium represents the results of years and years of framework architecture and application development experience.
-
-# PHP 5.3
-
-There are a number of new features in PHP 5.3 that Lithium is taking full advantage of. This section aims to cover each feature by showing examples of their implementation inside of Lithium architecture.
+There are a number of new features in PHP 5.3 that Lithium is taking full advantage of. This guide aims to introduce each  of these features and show examples of their implementation inside of Lithium architecture.
 
 ## Namespaces
 
