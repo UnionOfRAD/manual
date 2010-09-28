@@ -1,0 +1,15 @@
+# Controllers
+
+## Controller Actions
+
+## Accessing Request Parameters
+
+## Request Flow Control
+
+## Using Models 
+
+## Moving Data to the View
+
+## Using Core Libraries (Session, Service, etc)
+
+## Filtering Controller Logic

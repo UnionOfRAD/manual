@@ -1,6 +1,6 @@
 # A Typical Lithium Request
 
-When building an application with Lithium, it's important to understand how a typical request is handled. This gives you a better idea of the possibilities inherent in the system, and allows you to better troubleshoot any problems that might arise during development.
+When building an application with Lithium, it's important to understand how a typical request is handled. This gives you a better idea of the possibilities inherent in the system, and allows you to better troubleshoot any problems that might arise during development. This also gives you a good macro view of what's going on before we dive into how controllers, views, and context works inside Lithium.
 
 ## Initial Request and Bootstrapping
 
