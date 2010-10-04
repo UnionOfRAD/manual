@@ -1,0 +1,2 @@
+## Why are there 'Libraries' folder in both the root directory and the app directory?
+Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the '/app/Libraries' directory. Other libraries are shared by one or more apps. The '/Libraries' directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the '/app/Libraries' directories for multiple applications.
