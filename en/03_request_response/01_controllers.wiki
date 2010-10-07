@@ -2,20 +2,20 @@
 
 In an MVC application, the controller's job is to handle user input, and handle that request with a specified action. Though the controller action is where action logic is determined, models are often the real workhorses in the request cycle. Keep in mind as you read this guide to keep your controller action trim, with most of the actual functionality spread across models and other classes.
 
-This guide is mean to introduce you to Lithium controllers: their features, behaviors, and the best practices revolving around them.
+This guide is meant to introduce you to Lithium controllers: their features, behaviors, and the best practices revolving around their usage.
 
 ## Controller Actions
 
-Lithium controllers reside inside the `/app/controllers` directory and extend the `\lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the object they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live. 
+Lithium controllers reside inside the `/app/controllers` directory and extend the `\lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live. 
 
-For example, let's create a new controller GalaxiesController (who doesn't wan't to control their own galaxy, after all). Let's create a new file in `/app/controllers/GalaxiesController.php` that looks like this:
+For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
 {{{
 <?php
 
 namespace app\controllers;
 
-class GalaxiesController extends \lithium\action\Controller { 
+class UsersController extends \lithium\action\Controller { 
 	public function index() {
 		
 	}
@@ -23,23 +23,23 @@ class GalaxiesController extends \lithium\action\Controller {
 ?>
 }}}
 
-Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /galaxies/index). 
+Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /users/index). 
 
-The `index()` action is a special action: if no action name is specified in the URL, Lithium will try to pull up the index action instead. For example, a visitor accessing http://example.com/galaxies/ on your application will see the results of the `index()` action. All other controller actions (unless routed otherwise) are at least accessed by the default route, which is by action name.
+The `index()` action is a special action: if no action name is specified in the URL, Lithium will try to pull up the index action instead. For example, a visitor accessing http://example.com/users/ on your application will see the results of the `index()` action. All other controller actions (unless routed otherwise) are at least accessed by the default route.
 
-Let's create our own action as an example:
+For example, we can create a new controller action that would be accessible at `/users/view/`:
 
 {{{
 <?php
 
 namespace app\controllers;
 
-class GalaxiesController extends \lithium\action\Controller { 
+class UsersController extends \lithium\action\Controller { 
 	public function index() {
 		
 	}
 	
-	public function eliminateResistance() {
+	public function view() {
 	
 	}
 }
@@ -48,7 +48,74 @@ class GalaxiesController extends \lithium\action\Controller {
 
 ## Accessing Request Parameters
 
+An important part of a controller's role in an application is processing incoming request data in to show the correct response. In this section, we'll show a few examples that should help you how to get data into your controller actions.
+
+### GET Parameters
+
+One of the most user-friendly ways to handle incoming data is through the URL. Information passed along with a GET request is handled a number of different ways, based on your preferences.
+
+The easiest way to handle incoming GET data is by realizing that URL segments that follow the action name are mapped to controller action parameters. Here's a few examples:
+
+{{{
+http://example.com/users/view/1  --> UsersController::view($userId);
+
+http://example.com/posts/show/using+controllers/8384/  -->  PostsController::show($title, $postId);
+}}}
+
+GET information passed this way is also accessible via the incoming request object:
+
+{{{
+http://example.com/users/view/1  --> $this->request->params['args'][0]
+}}}
+
+While we'll always recommend using clear URL-based variables, it's important to mention that GET parameters passed as raw query string variables are also available as an attribute of the incoming request:
+
+{{{
+http://example.com/users/view?userId=1  --> $this->request->query['userId']
+}}}
+
+### POSTed Data
+
+POSTed data is also gathered from the request object. Form field data is found on the request object inside an array with keys named after the input elements generated on the referring page. For example, consider an HTML form that included these elements:
+
+{{{
+<input type="text" name="title" value="How to Win Friends and Influence People" />
+<input type="text" name="category" value="Self-Help" />
+}}}
+
+Accessing these values when submitted to a controller action is as easy as:
+
+{{{
+$this->request->data['title'];
+$this->request->data['category']
+}}}
+
 ## Request Flow Control
+
+Occasionally a controller action will want to divert, re-route, or automatically configure the view layer based on an incoming request. There are a number of controller methods to help facilitate request flow handling.
+
+### Redirection
+
+The most basic type of flow control at the controller level is redirection. It's common to redirect a user to a new URL once an action has been performed. This type of control is done through the controller's `redirect()` method. Here's an example of a controller action that redirects the request:
+
+{{{
+
+public function register() {
+	// Validate and save user data POSTed to the 
+	// controller action found in $this->request->data...
+	
+	$this->redirect('/users/welcome');
+}
+	
+}}}
+
+The URL specified can be relative to the application or point to an outside resource. The `redirect()` function also features a second `$options` parameter that also allows you to set HTTP status headers, and make decisions about whether or not to `exit()` after a redirect. Be sure to check the API for `lithium\action\Controller::redirect()` for more details.
+
+### Exceptions and Errors
+
+
+
+### Render Types and Detection
 
 ## Using Models 
 
