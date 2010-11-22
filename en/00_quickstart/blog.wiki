@@ -179,7 +179,7 @@ If for some reason you need to inspect the data (for debugging purposes, for exa
 	    string(7) "Woooooo"
 	  }...
 
-If you're curious, you might also try `$posts->to('json')` to see some additional options.
+If you're curious, you might also try `$posts->to('json')` to see some additional options. To enable this functionality, remember to uncomment the `require __DIR__ . '/bootstrap/media.php';` line in `app/config/bootstrap.php`.
 
 At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Let's start over with our view in `/app/views/posts/index.html.php` with the following:
 {{{
