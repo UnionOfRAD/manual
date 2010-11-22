@@ -10,7 +10,7 @@ This directory index file does two things: first, it loads up Lithium's main boo
 
 ## Request Dispatching & Routing
 
-Once `Dispatcher` has the request, it asks the router to process it. This processing basically matches the request against each configured route, in the order it was defined. Once a match is found, the Router returns parameter information necessary to find a controller class, and dispatch a method call against it.
+Once `Dispatcher` has the request, it asks the router to process it. This processing basically matches the request against each configured route, in the order they were defined. Once a match is found, the Router returns parameter information necessary to find a controller class, and dispatch a method call against it.
 
 Once those parameters have been returned, the Dispatcher uses them to instantiate the correct controller object, and invokes it. The invokation logic in each controller informs it on which action to call to handle the response.
 
