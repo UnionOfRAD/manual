@@ -140,10 +140,20 @@ There's a few things that we're doing here. Early on, we're checking to see if t
 	$post->title = 'First Post';
 	$post->body = 'Body Text!';
 
-At this stage the controller knows nothing about the model, `Post::create()`, in the action; so we must tell it. At the beginning of our file _after_ the namespace we add this:
+At this stage the controller knows nothing about the model, `Post::create()`, in the action; so we must tell it. At the beginning of our file (_after_ the namespace declaration), we add a `use app\models\Post;` line:
 
 {{{
-use app\models\Post;
+<?php
+	namespace app\controllers;
+
+	use app\models\Post;
+
+	class PostsController extends \lithium\action\Controller {
+
+		// ...
+
+	}
+?>
 }}}
 
 Once we've handed the Post model the data, we call `save()` and eventually return the result of the save operation to the view. We can use that data in the view to show some sort of status message like so:
