@@ -198,7 +198,7 @@ class Twitter extends \lithium\core\StaticObject {
 	
 		$params = compact('status', 'options');
 		
-		return static::_filter(__METHOD__, $params, function($self, $params) {
+		return static::_filter(__FUNCTION__, $params, function($self, $params) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
 		});
@@ -222,7 +222,7 @@ class Twitter extends \lithium\core\StaticObject {
 
 		$params = compact('status', 'options');
 
-		return static::_filter(__METHOD__, $params, function($self, $params) use ($auth) {
+		return static::_filter(__FUNCTION__, $params, function($self, $params) use ($auth) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
 		});
