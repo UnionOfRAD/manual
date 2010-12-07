@@ -35,7 +35,7 @@ Setup a site by right clicking **Sites** and click **Add Web Site**
 5. Click "**Import**"
 6. On the right hand side click "**Apply**"
 
-After doing this you should now be able to use your site with lithium. 
+After doing this you should now be able to use your site with lithium.  
 
 ##Notes
 This has only been tested with IIS7 (which is shipped with Windows 7)
