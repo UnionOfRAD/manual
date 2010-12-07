@@ -14,11 +14,12 @@ For a quick setup you can check both of those, if you want to remove specific fe
 Once this is done you can now locate IIS within your start menu or find it through search simply by typing IIS
 
 ##Perparations
-To make IIS work you must install the URL Rewrite extension located on the [a http://www.iis.net/download/URLRewrite](iis.net website - http://www.iis.net/download/URLRewrite) and follow the proper installation instructions located there.
+To make IIS work you must install the URL Rewrite extension located on the [http://www.iis.net/download/URLRewrite](iis.net website - http://www.iis.net/download/URLRewrite) and follow the proper installation instructions located there.
 
-Setup PHP for IIS - [a http://php.iis.net/](http://php.iis.net/)
-- IIS 6.0 - [a http://learn.iis.net/page.aspx/247/using-fastcgi-to-host-php-applications-on-iis-60/](http://learn.iis.net/page.aspx/247/using-fastcgi-to-host-php-applications-on-iis-60/)
-- IIS 7.0 - [a http://learn.iis.net/page.aspx/246/using-fastcgi-to-host-php-applications-on-iis-7/](http://learn.iis.net/page.aspx/246/using-fastcgi-to-host-php-applications-on-iis-7/)
+Setup PHP for IIS - [http://php.iis.net/](http://php.iis.net/)
+	IIS 6.0 - [http://learn.iis.net/page.aspx/247/using-fastcgi-to-host-php-applications-on-iis-60/](http://learn.iis.net/page.aspx/247/using-fastcgi-to-host-php-applications-on-iis-60/)
+	
+	IIS 7.0 - [http://learn.iis.net/page.aspx/246/using-fastcgi-to-host-php-applications-on-iis-7/](http://learn.iis.net/page.aspx/246/using-fastcgi-to-host-php-applications-on-iis-7/)
 
 Setup a site by right clicking **Sites** and click **Add Web Site**
 1. Enter your website name
