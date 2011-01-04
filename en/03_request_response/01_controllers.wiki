@@ -237,10 +237,157 @@ Try the request again, and you'll get your BSON-encoded data, minus the HTML lay
 
 For more ideas on configuring media types, see the documentation for `Media::type()`.
 
-## Using Models 
+## Using Models and Core Libraries
+
+While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside Lithium controllers is simple. Let's start with a bare controller as an example:
+
+{{{
+<?php 
+
+namespace app\controllers;
+
+class ClientsController extends \lithium\action\Controller {
+	public function index() {
+		
+	}
+}
+
+?>
+}}}
+
+While not required, it's helpful to name controllers after the models they primarily use, at least for organizational purposes. To start using your model inside this controller, you'll need to let PHP know you intend to use the model class inside this controller:
+
+{{{
+<?php 
+
+namespace app\controllers;
+
+use \app\models\Client;
+
+class ClientsController extends \lithium\action\Controller {
+	public function index() {
+
+	}
+}
+
+?>	
+}}}
+
+Since most model access is done statically, just access the methods you need in your controller actions directly:
+
+{{{
+<?php 
+
+namespace app\controllers;
+
+use \app\models\Client;
+
+class ClientsController extends \lithium\action\Controller {
+	public function index() {
+		$clients = Client::find('all');
+		return compact('clients');
+	}
+
+	public function details($clientId) {
+		$client = Client::find('first', array(
+			'conditions' => array(
+				'id' => $clientId,
+			)
+		));
+
+		return compact('client');
+	}
+}
+
+?>
+}}}
+
+Using Lithium's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
+
+{{{
+<?php 
+
+namespace app\controllers;
+
+use \lithium\net\http\Service;
+
+class ClientsController extends \lithium\action\Controller {
+	public function index() {
+		$service = new Service(array(
+			'host' => 'api.flickr.com'
+		));
+
+		$response = new \SimpleXmlElement($service->get('/services/feeds/photos_public.gne'));
+		return compact('response');
+	}
+}
+
+?>
+}}}
+
+This is done by declaring the usage of the class by specifying it's fully namespaced path, and later instantiating it inside the action logic.
+
+Also note that usage of core PHP classes (`SimpleXmlElement`, in this case) is done by denoting the class as used from the root namespace (notice the leading `\`).
 
 ## Moving Data to the View
 
-## Using Core Libraries (Session, Service, etc)
+Once your controller action has fetched and processed the data it needs, it's time to push the data to the view layer. There are two main ways to accomplish this: by using the `set()` method of the Controller class, or by simply returning an associative array as the result of a controller action method. 
+
+First, the `set()` method is used to send an associative array to the view. Consider this example controller action method:
+
+{{{
+public function index() {
+	$data = SomeModel::find('all');
+	$this->processData($data);
+
+	$this->set(array('importantData' => $data));
+}
+}}}
+
+This populates the index view for this controller with a variable named `$importantData` with the same contents as `$data`. This same logic could be written a bit more elegantly:
+
+{{{
+public function index() {
+	$data = SomeModel::find('all');
+	$this->processData($data);
+
+	$this->set(compact('data'));
+}
+}}}
+
+One difference to note here is that the view's variable is now named `$data`, just as it was in the controller.
+
+The `set()` method is especially useful when you've got bits of data you want to hand to the view in pieces, or conditionally, as it can be called at any point inside of a controller action method:
+
+{{{
+public function index() {
+	$data = SomeModel::find('all');
+	$this->processData($data);
+	$this->set(array('importantData' => $data));
+
+	$moreData = SomeService::get();
+	$this->processData($moreData);
+
+	if($someCondition) {
+		$this->set($moreData);
+	}
+
+	//...
+}
+}}}
+
+Conversely, sometimes all your data is ready by the end of the method's logic, and you can just return the associative array to hand it to the view:
+
+{{{
+public function index() {
+	$data = SomeModel::find('all');
+	$this->processData($data);
+
+	$moreData = SomeService::get();
+	$this->processData($moreData);
+
+	return compact('data', 'moreData');
+}
+}}}
 
 ## Filtering Controller Logic
