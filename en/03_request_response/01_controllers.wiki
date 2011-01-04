@@ -65,7 +65,7 @@ http://example.com/posts/show/using+controllers/8384/  -->  PostsController::sho
 GET information passed this way is also accessible via the incoming request object:
 
 {{{
-http://example.com/users/view/1  --> $this->request->params['args'][0]
+http://example.com/users/view/1  --> $this->request->args[0]
 }}}
 
 While we'll always recommend using clear URL-based variables, it's important to mention that GET parameters passed as raw query string variables are also available as an attribute of the incoming request:
