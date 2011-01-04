@@ -104,7 +104,7 @@ public function register() {
 	// Validate and save user data POSTed to the 
 	// controller action found in $this->request->data...
 	
-	$this->redirect('/users/welcome');
+	$this->redirect('Users::welcome');
 }
 	
 }}}
