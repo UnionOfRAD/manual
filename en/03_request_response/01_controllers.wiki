@@ -391,3 +391,42 @@ public function index() {
 }}}
 
 ## Filtering Controller Logic
+
+Filtering controller logic can be a bit tricky to the new Lithium user, due to the flexible and elegant way the dispatch cycle executes.
+
+When a request is sent to a Lithium application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked. 
+
+This last invokation step is performed inside of the dispatcher's `_callable()` method. Because of this, filters that wish to inject logic before or after controller actions is often done against `_callable()`. Doing so allows you access to parameters that are normally available to the controller, as well as the right controller instance, allowing you to call its methods.
+
+_Note:_ You might have seen some filters run against the dispatcher's `run()` method instead. In many cases, this should work just fine. The difference in using `_callable()` is that with the latter, you'll end up with access to the active controller instance itself, along with its parameters.
+
+The `g11n` filters that come with Lithium form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
+
+{{{
+use lithium\action\Dispatcher;
+
+Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
+	$request = $params['request'];
+	$controller = $chain->next($self, $params, $chain);
+
+	if (!$request->locale) {
+		$request->params['locale'] = Locale::preferred($request);
+	}
+	Environment::set(Environment::get(), array('locale' => $request->locale));
+	return $controller;
+});
+}}}
+
+Here you can see that you've got access to the request parameters and the controller instance itself in the first two lines of the `applyfilter()` call. In this case, the g11n framework is inspecting the request and setting locale settings accordingly, but when creating your own filter, you'd have access to the same data.
+
+An important case to consider that's also covered in the g11n filters is remembering to also filter Lithium's other dispatcher: the console action dispatcher. In other words, if you truly want to effect every action in an application, you might consider also filtering the `lithium\console\Dispatcher` as well as the `lithium\action\Dispatcher`.
+
+In this case, you'll want to use the special use/as syntax:
+
+{{{
+use lithium\action\Dispatcher as ActionDispatcher;
+use lithium\console\Dispatcher as ConsoleDispatcher;
+
+ActionDispatcher::applyFilter(...);
+ConsoleDispatcher::applyFilter(...);
+}}}
