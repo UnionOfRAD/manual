@@ -1,9 +1,155 @@
 # Views
 
+As one of the three pillars of the Model-View-Controller design pattern, the View class (along with other supporting classes) is responsible for taking the data passed from the request and/or controller, inserting this into the requested view/layout, and then presenting the rendered content in the appropriate content-type.
+
+Unless diverted otherwise, each controller action method results in a rendered view (usually as HTML). View names and locations are determined by convention, according the controller and action names involved. The basic pattern is that views are organized inside `app/views/{controller name}`, with each template named `{action name}.{media}.php`. For example:
+
+ * `Users::login()` --> `/app/views/users/login.html.php` 
+ * `NewsItems::viewAll()` --> `/app/views/news_items/view_all.html.php` 
+
 ## Accessing View Variables
+
+Controller layer data is made available to the template by means of view variables. The names of these variables and their contents depends on how they were passed along by the controller. As covered in the Controller guide, view variables are populated by the use of the `set()` method, or by returning associative arrays from your controller action methods.
+
+Keys in those arrays determine the names of the view variables. The following lines of code placed in a controller action method all result in a view variable named `$foo` with the contents "bar":
+
+{{{
+$this->set(array('foo' => 'bar'));
+
+$foo = 'bar;
+$this->set(compact('foo'));
+
+$foo = 'bar;
+return compact('foo');
+}}}
+
+Once this has been done in the controller, you can access the data like so:
+
+{{{
+<p>Spit out data like this: <?= $foo ?></p>
+}}}
+
+Lithium templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
 
 ## Auto-Escaping
 
-## Layouts
+You might have noticed that the above example uses the short tag syntax to output the contents of a view variable. This syntax is a bit misleading, as Lithium does not depend on or use short tags: this output behavior works a little different that it seems.
 
-## Elements
+When the view layer is rendered, each template is processed by a tokenizer before it is compiled into its final form. During this step something like this:
+
+{{{
+<?= $variable; ?>
+}}}
+
+Is translated into something like this:
+
+{{{
+<?php echo $h($variable); ?>
+}}}
+
+The `$h()` function you see used there escapes HTML. Long story short, this mechanism provides and easy way for you to make sure user-submitted data is safely landing in HTML views. 
+
+We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (and related) attack techniques.
+
+_Note:_ One exception to this rule is when a line of template code references the `$this` object. In those cases, output is piped directly to the template, rather than being filtered through `$h()`. As such, the following two statements are equivalent:
+
+{{{
+<?= $this->form->create(); ?>
+
+<?php echo $this->form->create(); ?>
+}}}
+
+## Layouts & Elements
+
+Because different components of the view layer are often reused, Lithium includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views.
+
+Layouts are defined in `app/views/layouts`. Unless otherwise directed, Lithium will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`. 
+
+### Layout Output Handlers
+
+In the layout context, you'll have a number of different tools at your disposal. Besides PHP itself, layouts feature a number of handlers you can use to print out information to the remote client. 
+
+If you're in the view layer, `$this` refers to the current Renderer adapter. When a renderer is initialized it sets up a number of handlers to help you output content in your views. Lithium's default view renderer features these handlers:
+
+ * `$this->url()`: Used for reverse routing lookups in views. For example: 
+ 
+ {{{
+   $this->url('Posts::index');
+   // Returns the URL for that route, e.g. '/posts/index'
+ }}} 
+ 
+ The `url()` output handler behaves much like [Router::match](http://lithify.me/docs/lithium/net/http/Router::match()).
+ 
+ * `$this->path()`: This handler generates asset paths to physical files. This is especially helpful for applications that will live at different parts of the domain during it's lifecycle.
+ 
+ {{{
+   $this->path('/videos/funny_cats.flv');
+   
+   // If we're running at http://example.com/lithium/, this will return:
+   // /lithium/videos/funny_cats.flv
+   
+   // If we're running at http://example.com/, this will return:
+   // /videos/funny_cats.flv
+ }}}
+ 
+ * `$this->content()`: Prints out the content of the template to be rendered. This is really a requirement for most layouts. 
+ 
+ * `$this->title()`: Prints out the title of the current template. If an argument is supplied, it sets the title for the current template.
+ 
+ {{{
+   // In your view:
+   <?php $this->title('Home');?>
+   
+   // In your layout:
+   <title>My Awesome Application: <?= $this->title(); ?></title>
+ }}}
+ 
+ * `$this->scripts()`: Prints out the scripts specified for the current template. 
+ 
+ {{{
+   // In your view:
+   <?php 
+    $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>'); 
+    $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>');
+   ?>
+   
+   // In your layout:
+   <head>
+     <?= $this->scripts(); ?>
+   </head>
+ }}}
+
+ * `$this->styles()`: Prints out stylesheets specified for the current template.
+ 
+ {{{
+    // In your view:
+    <?php 
+     $this->styles('<link rel="stylesheet" type="text/css" href="/reset.css" />'); 
+     $this->styles('<link rel="stylesheet" type="text/css" href="/users.css" />');
+    ?>
+
+    // In your layout:
+    <head>
+      <?= $this->styles(); ?>
+    </head>
+  }}}
+ 
+## Customizing the View Layer
+
+
+<!-- $view = new \lithium\template\View(array(
+  'paths' => array(
+    'template' => '{:library}/views/bank/paymentreport.html.php',
+    'layout' => '{:library}/views/layout/job.html.php'
+  ),
+  'request' => $this->request
+));
+
+
+So, here's an example in which the View class is being directly instantiated, and pre-populated with paths to look through. Note that each of these paths can also be an array of paths, allowing you to specify fallbacks for different template types.
+
+nateabele: Yeah, $view->render('all')
+[3:13pm] nateabele: Plus whatever template variables you want to send.
+
+
+_psychic_: In the course of designing an application though, you'll usually configure those paths through calls to Media::type(), which delegates configuration to the appropriate view class. -->
