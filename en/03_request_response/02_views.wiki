@@ -133,23 +133,3 @@ If you're in the view layer, `$this` refers to the current Renderer adapter. Whe
       <?= $this->styles(); ?>
     </head>
   }}}
- 
-## Customizing the View Layer
-
-
-<!-- $view = new \lithium\template\View(array(
-  'paths' => array(
-    'template' => '{:library}/views/bank/paymentreport.html.php',
-    'layout' => '{:library}/views/layout/job.html.php'
-  ),
-  'request' => $this->request
-));
-
-
-So, here's an example in which the View class is being directly instantiated, and pre-populated with paths to look through. Note that each of these paths can also be an array of paths, allowing you to specify fallbacks for different template types.
-
-nateabele: Yeah, $view->render('all')
-[3:13pm] nateabele: Plus whatever template variables you want to send.
-
-
-_psychic_: In the course of designing an application though, you'll usually configure those paths through calls to Media::type(), which delegates configuration to the appropriate view class. -->
