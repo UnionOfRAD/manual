@@ -55,7 +55,7 @@ Is translated into something like this:
 <?php echo $h($variable); ?>
 }}}
 
-The `$h()` function you see used there escapes HTML. Long story short, this mechanism provides and easy way for you to make sure all dynamically-generated data is safely landing in HTML template.
+The `$h()` function you see used there escapes HTML. Long story short, this mechanism provides an easy way for you to make sure all dynamically-generated data is safely landing in HTML template.
 
 We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (and related) attack techniques.
 
@@ -67,7 +67,7 @@ We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids gre
 <?php echo $this->form->create(); ?>
 }}}
 
-This is an important consideration when accessing properties and methods from the template renderer. If you intend to echo content directly from `$this` which is not coming from a helper (this is not a common occurance), you must manually escape it manually, like so:
+This is an important consideration when accessing properties and methods from the template renderer. If you intend to echo content directly from `$this` which is not coming from a helper (this is not a common occurence), you must manually escape it, like so:
 
 {{{
 <?php echo $h($this->foo); ?>
