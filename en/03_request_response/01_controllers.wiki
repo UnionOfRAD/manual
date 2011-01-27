@@ -213,7 +213,7 @@ $this->render(array('csv' => Post::find('all')));
 
 #### Handler Registration
 
-As mentioned earlier, type handlers are registered by the `\het\http\Media` class. This is usually done in the `/config/bootstrap/media.php` bootstrap file. Be sure to uncomment the corresponding line in the main bootstrap file to enable this functionality. 
+As mentioned earlier, type handlers are registered by the `\net\http\Media` class. This is usually done in the `/config/bootstrap/media.php` bootstrap file. Be sure to uncomment the corresponding line in the main bootstrap file to enable this functionality. 
 
 Register your type by passing the relevant information to `Media::type()` inside the bootstrap. Here's what the general pattern looks like:
 
