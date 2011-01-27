@@ -38,7 +38,7 @@ Doing so creates a test file template class that extends `\lithium\test\Unit` an
 
 namespace app\tests\cases\models;
 
-use \app\models\Post;
+use app\models\Post;
 
 class PostTest extends \lithium\test\Unit {
 
@@ -76,7 +76,7 @@ Every post should have a great title, and any editor knows that post titles cont
 
 namespace app\tests\cases\models;
 
-use \app\models\Post;
+use app\models\Post;
 
 class PostTest extends \lithium\test\Unit {
 
@@ -145,15 +145,15 @@ Start by creating a new file in `app/tests/mocks/data/MockPost.php`:
 
 namespace app\tests\mocks\data;
 
-use \lithium\data\collection\RecordSet;
+use lithium\data\collection\RecordSet;
 
 class MockPost extends \app\models\Post {
 	public static function find($type = 'all', array $options = array()) {
 		switch ($type) {
 			case 'first':
-				return new RecordSet(array('items' =>
-					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.')
-				));
+				return new RecordSet(array('items' => array(
+					'id' => 1, 'title' => 'Top ten reasons why this is a bad title.'
+				)));
 			break;
 			case 'all':
 			default :

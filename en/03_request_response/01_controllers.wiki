@@ -6,7 +6,7 @@ This guide is meant to introduce you to Lithium controllers: their features, beh
 
 ## Controller Actions
 
-Lithium controllers reside inside the `/app/controllers` directory and extend the `\lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live. 
+Lithium controllers reside inside the `/app/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
 
 For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
@@ -15,11 +15,13 @@ For example, let's create a new controller UsersController. Let's create a new f
 
 namespace app\controllers;
 
-class UsersController extends \lithium\action\Controller { 
+class UsersController extends \lithium\action\Controller {
+
 	public function index() {
-		
+
 	}
 }
+
 ?>
 }}}
 
@@ -34,21 +36,23 @@ For example, we can create a new controller action that would be accessible at `
 
 namespace app\controllers;
 
-class UsersController extends \lithium\action\Controller { 
+class UsersController extends \lithium\action\Controller {
+
 	public function index() {
-		
+
 	}
-	
+
 	public function view() {
-	
+
 	}
 }
+
 ?>
 }}}
 
 ## Accessing Request Parameters
 
-An important part of a controller's role in an application is processing incoming request data in to show the correct response. In this section, we'll show a few examples that should help you how to get data into your controller actions.
+An important part of a controller's role in an application is processing incoming request data to show the correct response. In this section, we'll show a few examples that should help you to get data into your controller actions.
 
 ### GET Parameters
 
@@ -87,7 +91,7 @@ Accessing these values when submitted to a controller action is as easy as:
 
 {{{
 $this->request->data['title'];
-$this->request->data['category']
+$this->request->data['category'];
 }}}
 
 ## Request Flow Control
@@ -103,10 +107,10 @@ The most basic type of flow control at the controller level is redirection. It's
 public function register() {
 	// Validate and save user data POSTed to the 
 	// controller action found in $this->request->data...
-	
+
 	$this->redirect('Users::welcome');
 }
-	
+
 }}}
 
 The URL specified can be relative to the application or point to an outside resource. The `redirect()` function also features a second `$options` parameter that also allows you to set HTTP status headers, and make decisions about whether or not to `exit()` after a redirect. Be sure to check the API for `lithium\action\Controller::redirect()` for more details.
@@ -122,7 +126,7 @@ Let's start by creating a way to handle page not found-like errors. If a request
 Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
 
 {{{
-use \lithium\core\ErrorHandler;
+use lithium\core\ErrorHandler;
 
 ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function($exception, $params) {
 	var_dump(compact('exception', 'params'));
@@ -135,9 +139,9 @@ This simple example shows how you can create a lambda that handles any `Dispatch
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
 {{{
-use \lithium\core\ErrorHandler;
-use \lithium\analysis\Logger;
-use \lithium\template\View;
+use lithium\core\ErrorHandler;
+use lithium\analysis\Logger;
+use lithium\template\View;
 
 Logger::config(array('error' => array('adapter' => 'File')));
 
@@ -262,15 +266,16 @@ While not required, it's helpful to name controllers after the models they prima
 
 namespace app\controllers;
 
-use \app\models\Client;
+use app\models\Client;
 
 class ClientsController extends \lithium\action\Controller {
+
 	public function index() {
 
 	}
 }
 
-?>	
+?>
 }}}
 
 Since most model access is done statically, just access the methods you need in your controller actions directly:
@@ -280,7 +285,7 @@ Since most model access is done statically, just access the methods you need in 
 
 namespace app\controllers;
 
-use \app\models\Client;
+use app\models\Client;
 
 class ClientsController extends \lithium\action\Controller {
 	public function index() {
@@ -309,15 +314,14 @@ Using Lithium's core libraries inside the controller layer is similar, although 
 
 namespace app\controllers;
 
-use \lithium\net\http\Service;
+use SimpleXmlElement;
+use lithium\net\http\Service;
 
 class ClientsController extends \lithium\action\Controller {
-	public function index() {
-		$service = new Service(array(
-			'host' => 'api.flickr.com'
-		));
 
-		$response = new \SimpleXmlElement($service->get('/services/feeds/photos_public.gne'));
+	public function index() {
+		$service = new Service(array('host' => 'api.flickr.com'));
+		$response = new SimpleXmlElement($service->get('/services/feeds/photos_public.gne'));
 		return compact('response');
 	}
 }
@@ -327,11 +331,11 @@ class ClientsController extends \lithium\action\Controller {
 
 This is done by declaring the usage of the class by specifying it's fully namespaced path, and later instantiating it inside the action logic.
 
-Also note that usage of core PHP classes (`SimpleXmlElement`, in this case) is done by denoting the class as used from the root namespace (notice the leading `\`).
+Also note that core PHP classes (`SimpleXmlElement`, in this case) are imported with the `use` statement as well, since they exist in the root namespace.
 
 ## Moving Data to the View
 
-Once your controller action has fetched and processed the data it needs, it's time to push the data to the view layer. There are two main ways to accomplish this: by using the `set()` method of the Controller class, or by simply returning an associative array as the result of a controller action method. 
+Once your controller action has fetched and processed the data it needs, it's time to push the data to the view layer. There are two main ways to accomplish this: by using the `set()` method of the `Controller` class, or by simply returning an associative array as the result of a controller action method.
 
 First, the `set()` method is used to send an associative array to the view. Consider this example controller action method:
 
@@ -339,7 +343,6 @@ First, the `set()` method is used to send an associative array to the view. Cons
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
-
 	$this->set(array('importantData' => $data));
 }
 }}}
@@ -350,7 +353,6 @@ This populates the index view for this controller with a variable named `$import
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
-
 	$this->set(compact('data'));
 }
 }}}
@@ -368,7 +370,7 @@ public function index() {
 	$moreData = SomeService::get();
 	$this->processData($moreData);
 
-	if($someCondition) {
+	if ($someCondition) {
 		$this->set($moreData);
 	}
 
@@ -394,11 +396,11 @@ public function index() {
 
 Filtering controller logic can be a bit tricky to the new Lithium user, due to the flexible and elegant way the dispatch cycle executes.
 
-When a request is sent to a Lithium application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked. 
+When a request is sent to a Lithium application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked.
 
 This last invokation step is performed inside of the dispatcher's `_callable()` method. Because of this, filters that wish to inject logic before or after controller actions is often done against `_callable()`. Doing so allows you access to parameters that are normally available to the controller, as well as the right controller instance, allowing you to call its methods.
 
-_Note:_ You might have seen some filters run against the dispatcher's `run()` method instead. In many cases, this should work just fine. The difference in using `_callable()` is that with the latter, you'll end up with access to the active controller instance itself, along with its parameters.
+ _Note:_ You might have seen some filters run against the dispatcher's `run()` method instead. In many cases, this should work just fine. The difference in using `_callable()` is that with the latter, you'll end up with access to the active controller instance itself, along with its parameters.
 
 The `g11n` filters that come with Lithium form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
 

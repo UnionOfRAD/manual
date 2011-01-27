@@ -7,7 +7,7 @@ If you're doing much more than simple static content delivery, chances are you'l
 The Auth setup makes access decisions based on information in your data store. The first thing you'll need to do is set up a model that handles user credentials. That model first needs a connection: set that up first in `app/config/connections.php`. If you're using MySQL as your data source, it should look something like this:
 
 {{{
-use \lithium\data\Connections;
+use lithium\data\Connections;
 
 Connections::add('default', array(
 	'type'     => 'database',
@@ -75,8 +75,8 @@ require __DIR__ . '/bootstrap/auth.php';
 Next, create a new file at `app/config/bootstrap/auth.php` (if it doesn't already exist). In this auth-specific bootstrap file, we'll need to do a few things. First, make sure the Session setup is using the PHP adapter, then making some initial Auth configurations:
 
 {{{
-use \lithium\storage\Session;
-use \lithium\security\Auth;
+use lithium\storage\Session;
+use lithium\security\Auth;
 
 Session::config(array(
 	'default' => array('adapter' => 'Php')
@@ -102,7 +102,7 @@ The first action you'll need to setup is the one that authenticates your users a
 {{{
 namespace app\controllers;
 
-use \lithium\security\Auth;
+use lithium\security\Auth;
 
 class UsersController extends \lithium\action\Controller {
 
@@ -137,7 +137,7 @@ Finally, you'll want to create an action that clears an end-user's authenticatio
 {{{
 namespace app\controllers;
 
-use \lithium\security\Auth;
+use lithium\security\Auth;
 
 class UsersController extends \lithium\action\Controller {
 

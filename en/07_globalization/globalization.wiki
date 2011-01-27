@@ -83,9 +83,10 @@ A localized route is configured by creating a new application extension containi
 
 {{{
 <?php
+
 namespace app\extensions\route;
 
-use \lithium\core\Environment;
+use lithium\core\Environment;
 
 class Localized extends \lithium\net\http\Route {
 
@@ -100,6 +101,7 @@ class Localized extends \lithium\net\http\Route {
         return parent::match($options + compact('locale'), $context);
     }
 }
+
 ?>
 }}}
 
@@ -107,19 +109,22 @@ Once this as been set up, we can connect routes in our application using this ne
 
 {{{
 <?php
-use \app\extensions\route\Localized;
+
+use app\extensions\route\Localized;
 
 Router::connect(new Localized(array(
     'template' => '/{:controller}/{:action}/{:id:[0-9]+}.{:type}',
-    'params' => array(
-        'id' => null
-))));
+    'params' => array('id' => null)
+)));
+
 Router::connect(new Localized(array(
     'template' => '/{:controller}/{:action}/{:id:[0-9]+}',
 )));
+
 Router::connect(new Localized(array(
     'template' => '/{:controller}/{:action}/{:args}',
 )));
+
 ?>
 }}}
 
@@ -133,11 +138,13 @@ http://example.com/fr/controller/action/param1
 As a final example, here's a bit of view code you could use to switch between locales:
 
 {{{
- <div id="locale-navigation">
+<?php use lithium\core\Environment; ?>
+
+<div id="locale-navigation">
 	<ul>
-	<?php foreach (\lithium\core\Environment::get('locales') as $locale => $name): ?>
-		<li><?=$this->Html->link($name, compact('locale') + $this->_request->params); ?></li>
-	<?php endforeach; ?>
+		<?php foreach (Environment::get('locales') as $locale => $name): ?>
+			<li><?=$this->html->link($name, compact('locale') + $this->_request->params); ?></li>
+		<?php endforeach; ?>
 	</ul>
 </div>
 }}}
@@ -146,7 +153,7 @@ As a final example, here's a bit of view code you could use to switch between lo
 
 G11n data is not just translated messages: it's informed validation rules, date/number/currency formats, and a lot more. Data is grouped into four different kinds of categories: _inflection_ (not yet used), _validation_, _message_ and _list_.
 
-The `Catalog` is a class that allows us to retrieve and store globalized data, providing low-level functionality to other classes. Because it extends `Adaptable`, its interface is similar to classes like Session or Cache, and is extensible through adapters.
+The `Catalog` is a class that allows us to retrieve and store globalized data, providing low-level functionality to other classes. Because it extends `Adaptable`, its interface is similar to classes like `Session` or `Cache`, and is extensible through adapters.
 
 The class is able to aggregate globalized data from different sources, which allows a developer to complement sparse data. Example usage:
 
@@ -171,25 +178,20 @@ Catalog::read('runtime', 'message', 'de_DE');
 Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
 }}}
 
-By default, the g11n bootstrap configures a `runtime` (using the Memory adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
+By default, the g11n bootstrap configures a `runtime` (using the `Memory` adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
 
-For an adhoc solution (i.e. translating api messages) it's workable to utilize the `runtime` catalog, but most other use cases will require storing translated messages in files.
+For an ad-hoc solution (i.e. translating API messages) it's workable to utilize the `runtime` catalog, but most other use cases will require storing translated messages in files.
 
-In order to allow the application to read write gettext resource files (PO and MO) we configure the Catalog as follows:
+In order to allow the application to read write gettext resource files (PO and MO) we configure `Catalog` as follows:
 
 {{{
 Catalog::config(array(
-    'runtime' => array(
-        'adapter' => 'Memory'
-    ),
-  'app' => array(
-      'adapter' => 'Gettext',
-      'path' => LITHIUM_APP_PATH . '/resources/g11n'
-   ),
-    'lithium' => array(
-        'adapter' => 'Php',
-        'path' => LITHIUM_LIBRARY_PATH . '/lithium/g11n/resources/php'
-    )
+	'runtime' => array('adapter' => 'Memory'),
+	'app' => array('adapter' => 'Gettext', 'path' => LITHIUM_APP_PATH . '/resources/g11n'),
+	'lithium' => array(
+		'adapter' => 'Php',
+		'path' => LITHIUM_LIBRARY_PATH . '/lithium/g11n/resources/php'
+	)
 ) + Catalog::config());
 }}}
 
@@ -197,7 +199,7 @@ Catalog::config(array(
 ### Available Catalog Adapters
 
 The **gettext adapter** reads and writes PO and MO files. While the current implementation of gettext is not thread safe, this PHP only implementation is thread safe and allows reading binary MO files independent of the machine it was created on (and its endian-ness). Both 32bit and 64bit systems are also supported.
-Note: Currently contexts are not supported.
+ _Note:_ Currently contexts are not supported.
 
 The **memory adapter** allows for writing and reading globalized data needed at runtime, and as such is helpful in testing.
 
@@ -205,28 +207,28 @@ The **code adapter** extracts message IDs for creating message catalog templates
 
 The **php adapter** allows for reading from files containing data in PHP format.
 {{{
-<?php return array(
-	'the artists' => 'die Künstler'
-); ?>
+<?php return array('the artists' => 'die Künstler'); ?>
 }}}
 
 ### G11n Data Storage
 
 Nearly all adapters require a path to a directory containing globalized data. Data is conventionally stored in the following default locations:
 
-- ```libraries/lithium/g11n/resources[/{php,po}]```
-- ```app/resources/g11n[/{php,po}]```
-- ```app/plugins/PLUGIN/resources/g11n[/{php,po}]```
+- `libraries/lithium/g11n/resources[/{php,po}]`
+- `app/resources/g11n[/{php,po}]`
+- `app/plugins/PLUGIN/resources/g11n[/{php,po}]`
 
-Data can either be stored directly below ```resources/g11n``` or in a subdirectory. If data is stored in a subdirectory, adapters expect a ```php``` subdirectory to contain data for usage with the PHP adapter and ```po``` to contain files for usage with the gettext adapter.
+Data can either be stored directly below `resources/g11n` or in a subdirectory. If data is stored in a subdirectory, adapters expect a `php` subdirectory to contain data for usage with the PHP adapter and `po` to contain files for usage with the gettext adapter.
 
-More information on the directory structures required by the different adapters can be found in the docblocks of the adapters in g11n\catalog\adapter\* namespace.
+More information on the directory structures required by the different adapters can be found in the docblocks of the adapters in `g11n\catalog\adapter\*` namespace.
 
 ## Localized Validation Settings
 
 Lithium's g11n framework ships with some localized validation rules for phone number, postal code and social security number validation rules. The `g11n.php` bootstrap file defines these additions so they're available before you use them:
 
 {{{
+use lithium\util\Validator;
+
 foreach (array('phone', 'postalCode', 'ssn') as $name) {
     Validator::add($name, Catalog::read('runtime', "validation.{$name}", 'en_US'));
 }
@@ -240,7 +242,7 @@ Validator::isPhone('PHONE NUMBER US', 'en_US');
 
 ## Using Localized Content
 
-While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in in your views. Here are the steps we'll cover.
+While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in in your views. Here are the steps we'll cover:
 
 1. Marking messages as translatable.  The `$t()` and `$tn()` shortcut functions help the extraction tools identify where messages have been in views.
 
@@ -265,17 +267,18 @@ If you need access to translated content outside of a view, use `extract()` to u
 {{{
 <?php
 
-use \lithium\g11n\Message;
+use lithium\g11n\Message;
 
 class PostsController extends \lithium\action\Controller {
 
 	public function add() {
-        extract(Message::aliases());
+		extract(Message::aliases());
 		// ...
 		$message = $t('Post successfully added.');
 		// ...
 	}
 }
+
 ?>
 }}}
 
@@ -297,7 +300,7 @@ Better:
 
 It's also best to split paragraphs into single sentences as well. This makes things more atomic and granular where large chunks of content may be difficult to work with:
 
-Next, treating text like you would with String::insert() can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
+Next, treating text like you would with `String::insert()` can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
 
 {{{
 
@@ -320,12 +323,12 @@ Passing the `'noop'` option to `Message::translate()` will result in the default
 <?= $tn('foo', 'bar', array('noop' => true)); // we don't need to pass `'count'` in this case ?>
 }}}
 
-File: a.php
+File: `a.php`:
 {{{
 <?= $t('foo', array('noop' => true)); // the extractor picks up `foo` ?>
 }}}
 
-File: b.php
+File: `b.php`:
 {{{
 <?php $section = 'foo'; ?>
 <?= $t($section); ?>

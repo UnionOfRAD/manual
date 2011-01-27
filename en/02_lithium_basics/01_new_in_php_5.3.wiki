@@ -12,7 +12,9 @@ Here's an example of namespace usage in a Lithium controller:
 
 {{{
 namespace app;
-use \app\models\Post;
+
+use app\models\Post;
+
 class PostsController extends \lithium\action\Controller {
     public function index() {
         $posts = Post:all();
@@ -32,7 +34,7 @@ Anonymous functions are a great tool for packaging up small bits of logic and pa
 {{{
 $cube = function($value) {
     return ($value * $value * $value);
-}
+};
 $result = array_map($cube, array(1, 2, 3));
 
 // $result --> array(1, 8, 27)

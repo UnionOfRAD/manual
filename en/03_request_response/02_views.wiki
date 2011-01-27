@@ -55,7 +55,7 @@ Is translated into something like this:
 <?php echo $h($variable); ?>
 }}}
 
-The `$h()` function you see used there escapes HTML. Long story short, this mechanism provides an easy way for you to make sure all dynamically-generated data is safely landing in HTML template.
+The `$h()` function you see used there escapes HTML. To make a long story short, this mechanism provides an easy way for you to make sure all dynamically-generated data is safely landing in your HTML template.
 
 We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (and related) attack techniques.
 
@@ -83,7 +83,7 @@ Layouts contain the header and footer of a rendered view, and are defined in `ap
 
 In the view rendering context, you'll have a number of different tools at your disposal. Besides PHP itself, the view layer features a number of handlers you can use to print out information in templates.
 
-If you're in the view layer, `$this` refers to the current `Renderer` adapter. Renderers are user to process different types of templates. The default renderer that ships with Lithium is the `File` renderer, which handles plain PHP files (you can also write your own renderers if you wish to use a custom templating engine). When a renderer is initialized it sets up a number of handlers to help you output content in your views. Lithium's default view renderer features these handlers:
+If you're in the view layer, `$this` refers to the current `Renderer` adapter. Renderers are used to process different types of templates. The default renderer that ships with Lithium is the `File` renderer, which handles plain PHP files (you can also write your own renderers if you wish to use a custom templating engine). When a renderer is initialized it sets up a number of handlers to help you output content in your views. Lithium's default view renderer features these handlers:
 
  * `$this->url()`: Used for reverse routing lookups in views. For example: 
 
@@ -94,7 +94,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
 
  The `url()` output handler is a friendly wrapper for [`Router::match()`](http://lithify.me/docs/lithium/net/http/Router::match), and automatically passes some contextual parameters behind-the-scenes.
 
- * `$this->path()`: This handler generates asset paths to physical files. This is especially helpful for applications that will live at different parts of the domain during it's lifecycle.
+ * `$this->path()`: This handler generates asset paths to physical files. This is especially helpful for applications that will live at different parts of the domain during its lifecycle.
 
  {{{
    $this->path('videos/funny_cats.flv');

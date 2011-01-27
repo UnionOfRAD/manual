@@ -1,4 +1,4 @@
-# Creating a user in M, V , C
+# Creating a user in M, V, C
 
 First create a 'users' data source, with at least a primary key (id) and the fields
 `username` and `password` (these could of course be renamed, but that requires more
@@ -39,8 +39,8 @@ Create this file : `app/controllers/UsersController`
 
 namespace app\controllers;
 
-use \lithium\security\Auth;
-use \app\models\User;
+use lithium\security\Auth;
+use app\models\User;
 
 class UsersController extends \lithium\action\Controller {
 
@@ -50,16 +50,15 @@ class UsersController extends \lithium\action\Controller {
 	}
 
 	public function add() {
-		if (empty($this->request->data)) {
-			$user = User::create();
-		} else {
-			$user = User::create($this->request->data);
-			if ($user->save())
-				return $this->redirect('Users::index');
+		$user = User::create($this->request->data);
+
+		if (($this->request->data) && $user->save()) {
+			return $this->redirect('Users::index');
 		}
 		return compact('user');
 	}
 }
+
 ?>
 }}}
 
@@ -71,22 +70,18 @@ Create these files:
 
 {{{
 <h2>Add user</h2>
-<?php
-echo $this->form->create($user);
-echo $this->form->field('username');
-echo $this->form->field('password', array('type' => 'password'));
-echo $this->form->submit('Create me');
-echo $this->form->end();
-?>
+<?=$this->form->create($user); ?>
+<?=$this->form->field('username'); ?>
+<?=$this->form->field('password', array('type' => 'password')); ?>
+<?=$this->form->submit('Create me'); ?>
+<?=$this->form->end(); ?>
 }}}
 
 `app/views/users/index.html.php`
 
 {{{
 <h2>Users</h2>
-<?php
-foreach ($users as $user) {
-	echo $user->username.'<br>';
-}
-?>
+<?php foreach ($users as $user) { ?>
+	<?=$user->username; ?><br />
+<?php } ?>
 }}}
