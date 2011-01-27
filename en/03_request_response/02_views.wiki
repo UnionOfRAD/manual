@@ -141,7 +141,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
     $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>'); 
     $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>');
    ?>
-   
+
    // In your layout:
    <head>
      <?=$this->scripts(); ?>
