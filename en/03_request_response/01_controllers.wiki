@@ -128,7 +128,9 @@ Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
 {{{
 use lithium\core\ErrorHandler;
 
-ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function($exception, $params) {
+$conditions = array('type' => 'lithium\action\DispatchException');
+
+ErrorHandler::apply('lithium\action\Dispatcher', 'run', $conditions, function($exception, $params) {
 	var_dump(compact('exception', 'params'));
 	die();
 });
