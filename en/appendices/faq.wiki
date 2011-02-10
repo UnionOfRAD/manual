@@ -84,6 +84,7 @@ This is happening because you have [ eAccelerator](http://eaccelerator.net/) ins
 
 If you didn't know you had eAccelerator installed, it's because you're running MAMP, which comes pre-bundled with eAccelerator. In this case, the solution is to man up (or woman up) and [get Homebrew](https://github.com/mxcl/homebrew). You'll be glad you did.
 
-## Why are there 'Libraries' folder in both the root directory and the app directory?
-Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the '/app/Libraries' directory. Other libraries are shared by one or more apps. The '/Libraries' directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the '/app/Libraries' directories for multiple applications.
+### Why are there 'libraries' folder in both the root directory and the app directory?
+
+Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the `/app/libraries` directory. Other libraries are shared by one or more apps. The `/libraries` directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the `/app/libraries` directories for multiple applications.
 
