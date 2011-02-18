@@ -65,9 +65,11 @@ SomeClass::applyFilter('methodName', function($self, $params, $chain) {
 
 }}}
 
-Alright: let's use these parameters to our advantage in creating an authentication setup. If we look at the parameters for `Dispatcher::run()` we can see that accepts two: the current request object, and an options array. 
+Alright: let's use these parameters to our advantage in creating an authentication setup. If we look at the parameters for `Dispatcher::_callable()` we can see that accepts three: the current `Request` object (an instance of `lithium\action\Request`), the parameters returned from routing the request, and an options array.
 
-For this filter, let's inspect the request object (an instance of `lithium\action\Request`) to see what route it matches. Once we've got a URL from the matched route, we can check that against a list of protected controller actions. In the end, it should look something like this:
+When designing filters, it's important to have a clear understanding of the method you're hooking into, and where it fits in the framework's lifecycle. The `_callable()` method is invoked immediately after the application's routes have been processed, and routing parameters have been returned. This method's responsibility is to take those routing parameters and convert them to a callable object (i.e. a controller) that can process the request and turn it into a response.
+
+For this filter, we'll intercept the method after it finds a controller object (assuming it finds one), but before it returns it to `Dispatcher::run()`:
 
 {{{
 use lithium\action\Dispatcher;
@@ -76,27 +78,46 @@ use lithium\action\Response;
 use lithium\security\Auth;
 
 Dispatcher::applyFilter('run', function($self, $params, $chain) {
-	// First, define our list of protected actions
-	$blacklist = array(
-		'/users/report',
-		'/users/home'
-	);
-	
-	// Inspect the request to get the URL for the route the request matches
-	$matches = in_array(Router::match($params['request']->params, $params['request']), $blacklist);
-	
-	// If this is a match, check it against an Auth configuration.
-	if($matches && !Auth::check('default', $params['request'])) {
-		// If the Auth check can't verify the user, redirect.
-	 	return new Response(array('location' => '/users/login'));
+	$ctrl = $chain->next($self, $params, $chain);
+
+	if (Auth::check('default')) {
+		return $ctrl;
 	}
-	
-	// Important: return the results of the next filter in the chain.
-	return $chain->next($self, $params, $chain);
+	if (isset($ctrl->publicActions) && in_array($params['action'], $ctrl->publicActions)) {
+		return $ctrl;
+	}
+	return new Response(compact('request') + array('location' => '/users/login'));
 });
 }}}
 
-While this particular setup relies on a few simple Auth configuration steps, hopefully it illustrates how you architect filters in your application logic.
+This particular listing assumes you've set up a configuration with the `Auth` class called `'default'`. Check out the authentication chapter for more on this. Taking it from the top, we can see that the filter first continues executing the chain in order to get the `Controller` object (`$ctrl`) to work with, and does all of its processing _after_ the actual method executes.
+
+Next, it uses the `Auth` class to see if a user is logged in, and if so, allows the application to continue normally. Then, it checks to see if the controller has a `$publicActions` property defined, and if so, checks the array of whitelisted actions to see if the requested one matches, and again, allows processing to continue if so.
+
+Finally, if the user is not logged in, and the requested action is not public, the user is redirected to the login page. Implementing the controller for this page might look something like this:
+
+{{{
+namespace app\controllers;
+
+use lithium\security\Auth;
+
+class UsersController extends \lithium\action\Controller {
+
+	public $publicActions = array('login');
+
+	public function login() {
+		if ($this->request->data) {
+			$success = Auth::check('default', $this->request);
+			// ...
+		}
+		// ...
+	}
+}
+}}}
+
+The rest of the code necessary to implement user authentication is covered in another chapter, but take special note of the `$publicActions` property in the controller. Without this, the `login()` action would be treated as private, resulting in an infinite redirect loop.
+
+Although authentication is a very deep subject, through this example you should be able to see how, whatever your project's rules and constraints are, integrating into your application should be straightforward, and most importantly, unobtrusive.
 
 ## Applying Filters: Logging
 
