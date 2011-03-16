@@ -77,7 +77,7 @@ use lithium\net\http\Router;
 use lithium\action\Response;
 use lithium\security\Auth;
 
-Dispatcher::applyFilter('run', function($self, $params, $chain) {
+Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	$ctrl = $chain->next($self, $params, $chain);
 
 	if (Auth::check('default')) {
@@ -86,7 +86,9 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	if (isset($ctrl->publicActions) && in_array($params['action'], $ctrl->publicActions)) {
 		return $ctrl;
 	}
-	return new Response(compact('request') + array('location' => '/users/login'));
+	return function() use ($request) {
+		return new Response(compact('request') + array('location' => '/users/login'));
+	};
 });
 }}}
 
@@ -94,7 +96,11 @@ This particular listing assumes you've set up a configuration with the `Auth` cl
 
 Next, it uses the `Auth` class to see if a user is logged in, and if so, allows the application to continue normally. Then, it checks to see if the controller has a `$publicActions` property defined, and if so, checks the array of whitelisted actions to see if the requested one matches, and again, allows processing to continue if so.
 
-Finally, if the user is not logged in, and the requested action is not public, the user is redirected to the login page. Implementing the controller for this page might look something like this:
+Finally, if the user is not logged in, and the requested action is not public, the user is redirected to the login page. Note that, as opposed to returning a `Response` object directly, as would be appropriate when filtering other `Dispatcher` methods like `run()` or `_call()`, here we are returning a closure.
+
+It is important when filtering a method that we honor the method's _contract_. That is, when filtering a method, if we intercept and modify its parameters, or if we bypass it and substitute the return value, we must still keep the values within the acceptable range of what the method accepts or produces. In the case of the `_callable()` method, it is expected to produce a callable object. The `Controller` uses PHP's magic `__invoke()` method to achieve this. Therefore, we can interchange controller objects with closures, and vice versa.
+
+Implementing the controller for this example might look something like this:
 
 {{{
 namespace app\controllers;
