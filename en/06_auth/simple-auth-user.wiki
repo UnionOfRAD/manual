@@ -16,14 +16,14 @@ class User extends \lithium\data\Model {
 }
 
 User::applyFilter('save', function($self, $params, $chain){
-	$record = $params['record'];
+	$document = $params['entity'];
 	if (!$document->id) {
 		$document->password = \lithium\util\String::hash($document->password);
 	}
 	if (!empty($params['data'])) {
 		$document->set($params['data']);
 	}
-	$params['record'] = $record;
+	$params['entity'] = $document;
 	return $chain->next($self, $params, $chain);
 });
 
