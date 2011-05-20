@@ -4,7 +4,7 @@ Thanks for trying out Lithium! This guide is meant for PHP users who are looking
 
 ## Setting Up the Lab
 
-First on the checklist is getting a fresh copy of Lithium. If you've not done this already, check out our [Getting Started](http://rad-dev.org/lithium/wiki/guides/installation) guide. Make sure to follow each of the steps in the guide carefully.
+First on the checklist is getting a fresh copy of Lithium. If you've not done this already, check out our [Getting Started](http://dev.lithify.me/lithium/wiki/guides/installation) guide. Make sure to follow each of the steps in the guide carefully.
 
 Once you've got Lithium up and running, we'll need to get some sort of persistent storage layer in place. Traditionally this would be done using some sort of SQL database like MySQL. For this example however, we're going to use something a little different: MongoDB. Using a different setup will show you how flexible the framework is in using different engines.
 
