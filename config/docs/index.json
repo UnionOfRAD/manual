@@ -1,0 +1,75 @@
+{
+	"languages": [ "en", "jp" ],
+	"category": "manuals",
+	"en": {
+		"title": "The Definitive Guide",
+		"path": "/en",
+		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
+		"contents": {
+			"00_quickstart": {
+				"title": "Quickstart",
+				"contents": {
+					"00_quickstart/blog.wiki": { "title": "The Blog Tutorial" }
+				}
+			},
+			"01_getting_started": {
+				"title": "Getting Started",
+				"contents": {
+					"01_getting_started/00_requirements.wiki": { "title": "Requirements" },
+					"01_getting_started/01_installation.wiki": { "title": "Installation" },
+					"01_getting_started/02_troubleshooting.wiki": { "title": "Troubleshooting" },
+					"01_getting_started/data_sources": {
+						"title": "Data Sources",
+						"contents": {
+							"01_getting_started/data_sources/mongodb-setup.wiki": { "title": "MongoDB Setup" }
+						}
+					},
+					"01_getting_started/web_servers": {
+						"title": "Web Servers",
+						"contents": {
+							"01_getting_started/web_servers/apache.wiki": { "title": "Apache" },
+							"01_getting_started/web_servers/cherokee.wiki": { "title": "Cherokee" },
+							"01_getting_started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
+							"01_getting_started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
+						}
+					}
+				}
+			},
+			"02_lithium_basics": {
+				"title": "Lithium Basics",
+				"contents": {
+					"02_lithium_basics/00_architecture.wiki": { "title": "Architecture" },
+					"02_lithium_basics/01_new_in_php_5.3.wiki": { "title": "New in PHP 5.3" },
+					"02_lithium_basics/02_filters.wiki": { "title": "Filters" }
+				}
+			},
+			"03_request_response": {
+				"title": "The Request/Response Cycle",
+				"contents": {
+					"03_request_response/00_quickstart_typical_request.wiki": { "title": "Quickstart: A Typical Request" },
+					"03_request_response/01_controllers.wiki": { "title": "Controllers" },
+					"03_request_response/02_views.wiki": { "title": "Views" },
+					"03_request_response/03_helpers.wiki": { "title": "Helpers" },
+					"03_request_response/04_understanding_context.wiki": { "title": "Understanding Context" }
+				}
+			},
+			"05_models": {
+				"title": "Models",
+				"contents": {
+					"05_models/adding_functionality.wiki": { "title": "Adding Functionality" }
+				}
+			},
+			"06_auth": {
+				"title": "Authentication",
+				"contents": {
+					"06_auth/simple-auth-user.wiki": { "title": "Creating a user in M, V, C" },
+					"06_auth/simple-authentication.wiki": { "title": "Simple Authentication" }
+				}
+			}
+		}
+	},
+	"jp": {
+		"title": "",
+		"description": ""
+	}
+}
