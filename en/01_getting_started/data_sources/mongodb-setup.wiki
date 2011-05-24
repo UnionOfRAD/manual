@@ -1,6 +1,6 @@
 # MongoDB Setup
 
-MongoDB is a 'document oriented' or 'NOSQL' database. Document oriented databases have many advantages over more traditional relational databases, including high performance and much simpler scalability. Many developers also like its schema-less nature, allowing the app to add fields to records as needed.
+MongoDB is a _document-oriented_ or _non-relational_ database. Document-oriented databases have many advantages over more traditional relational databases, including high performance and much simpler scalability. Many developers also like its schema-less nature, allowing the app to add fields to records as needed.
 
 It is important to understand, however, that MongoDB is _not_ a replacement for relational databases. Relational databases maintain the advantage of much more powerful queries—especially when it comes to complex relations.
 
@@ -27,7 +27,7 @@ That's it! Restart your web server, and you're done!
 
 The precompiled driver is available for VC8 and VC9.
 
-Builds for each release are available on [Github](http://github.com/mongodb/mongo-php-driver/downloads). They are all built for PHP 5.3, as PHP 5.2 is no longer supported with VC9.
+Builds for each release are available on [ GitHub](http://github.com/mongodb/mongo-php-driver/downloads). They are all built for PHP 5.3, as PHP 5.2 is no longer supported with VC9.
 
 Binaries for the latest code are also available:
 

@@ -2,15 +2,15 @@
 
 Before you get started with Lithium, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
-* config
-* controllers
-* extensions
-* libraries
-* models
-* resources
-* tests
-* views
-* webroot
+* `config`
+* `controllers`
+* `extensions`
+* `libraries`
+* `models`
+* `resources`
+* `tests`
+* `views`
+* `webroot`
 
 Let's tackle each of these folders one-by-one, covering what each is used for, and how you can best organize your application.
 
@@ -31,7 +31,7 @@ require __DIR__ . '/bootstrap/myconfig.php';
 
 ### Connections
 
-The connections.php file in config lists the connections you have to external data resources, most often some type of database.
+The `connections.php` file in config lists the connections you have to external data resources, most often some type of database.
 
 Connections should be listed in this file, as calls to `Connections::add()`, like so:
 
@@ -68,7 +68,7 @@ More on routes later, but this file should house all such configuration informat
 
 ## Controllers
 
-Application controllers are housed here. Each controller is named in CamelCase, and placed here.
+Application controllers are housed here. Each controller is named in CamelCased, plural format (i.e. `PostsController.php`), and placed here.
 
 ## Extensions
 
@@ -78,7 +78,7 @@ The extensions folder is meant to store extension classes that you've created fo
 
 A number of Lithium classes extend the `lithium\core\Adaptable` static class. This class allows you to take a number of different approaches and easily switch out implementations for an application task. Authentication, session handling, and caching are a few examples of Lithium functionality that have been made adaptable.
 
-Custom application adapters should be placed in this folder, organized by subfolder. For example, if I created a custom Auth adapter based on my LDAP setup, I'd create the implementation in `/extensions/adapter/auth/Ldap.php`.
+Custom application adapters should be placed in this folder, organized by subfolder. For example, if I created a custom adapter for the `Auth` class, based on my LDAP setup, I'd create the implementation in `/extensions/adapter/auth/Ldap.php`.
 
 ### Command
 
@@ -86,13 +86,13 @@ Custom console applications are placed in `command`.  Commands you create should
 
 As an example, say I created a custom mailer queue, and I need to create a command to fill up the queue with announcement emails and trigger the send process. I'd create a new class called `QueueFiller` that extends `lithium\console\Command`, and place it in `app/extensions/command/QueueFiller.php`.
 
-Once there, running `li3 QueueFiller` from the command line will trigger the logic I've written.
+Once there, running `li3 queue-filler` from the command line will trigger the logic I've written.
 
 ### Data
 
 Occasionally a new application will require custom data classes to work with a storage engine not already accommodated for by core classes.
 
-If you've got some proprietary database, and it's result objects or query structures are very customized, you'll extend the classes in ` lithium/data` and place them here for use in your application.
+If you've got some proprietary database, and it's result objects or query structures are very customized, you'll extend the classes in the `lithium\data` namespace (i.e. `Source`, `source\Database` or `source\Http`) and place them here for use in your application.
 
 ### Helper
 
@@ -102,17 +102,17 @@ Custom view helpers are common need. These classes should extend `lithium\templa
 
 The `libraries` folder is meant to house entire Lithium applications—or plugins—that your main application makes use of. 
 
-Any plugins you download from the [ Laboratory](http://lab.lithify.me/), or pull down via the Library li3 command should end up here.
+Any plugins you download from the [ Laboratory](http://lab.lithify.me/), or pull down via the Library `li3` command should end up here.
 
 Third-party, non-Lithium libraries should be placed here as well. If you're integrating with Facebook, or using part of the Zend Framework in your application, place those files here as well.
 
 ## Models
 
-Application models are stored here, in CamelCase naming format.
+Application models are stored here, in CamelCased, plural naming format (i.e. `Posts.php`).
 
 ## Resources
 
-The resources folder is used by a Lithium application as a non-web viewable storage place for application data. By default globalization files (such as .po string files) and temporary application files are stored there.
+The resources folder is used by a Lithium application as a non-web viewable storage place for application data. By default globalization files (such as `.po` string files) and temporary application files are stored there.
 
 As you build your application, the `resources` folder is a great place for other application data like custom cache files, SQLite databases, or a temporary spot for uploaded files.
 

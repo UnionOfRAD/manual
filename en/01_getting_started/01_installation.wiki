@@ -6,7 +6,7 @@ This easiest way to get a fresh copy of Lithium is by downloading an archive fro
 
 	http://dev.lithify.me/lithium/versions
 
-Li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.lithify.me/users/add](http://dev.lithify.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.lithify.me/users/account](http://dev.lithify.me/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+Lithium's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.lithify.me/users/add](http://dev.lithify.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.lithify.me/users/account](http://dev.lithify.me/users/account). If you've never completed that process before, sometimes its as simple as typing `ssh-keygen` into your console:
 
 	$ ssh-keygen
 
@@ -17,7 +17,9 @@ Li3's source is also housed in a Git repo. If you'd like to clone a copy, start 
 	Your identification has been saved in /Users/lithium/.ssh/id_rsa.
 	Your public key has been saved in /Users/lithium/.ssh/id_rsa.pub.
 
-Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at dev.lithify.me.
+Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at [dev.lithify.me](http://dev.lithify.me).
+
+ _Note:_ sometimes `ssh-keygen` will append extra data after the key, such as whitespace, `==`, or a user/machine reference in the form of an email address. Be sure to trim off these extra characters before submitting the key.
 
 Now that your key has been set up, clone yourself a copy of Li3 inside of your web server's document root:
 
@@ -55,7 +57,7 @@ For the purposes of this guide, we'll assume you're running Apache. Before start
 
 Another quick thing to check is to make sure that magic quotes have been completely disabled in your PHP installation. If you're seeing an exception error message initially, you might have magic quotes enabled. For more information on disabling this feature, see the [PHP manual](http://www.php.net/manual/en/security.magicquotes.disabling.php).
 
-While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your php.ini:
+While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
 {{{
 	error_reporting  =  E_ALL
@@ -68,7 +70,7 @@ At this point, you should be presented with the Li3 default home page. You're up
 
 ## One More Thing
 
-Lastly, you'll want to set up the li3 command so it's easy to use as you move around your filesystem. The li3 command assists in tasks like code generation, documentation, and testing.
+Lastly, you'll want to set up the `li3` command so it's easy to use as you move around your filesystem. The `li3` command assists in tasks like code generation, documentation, and testing.
 
 To do so, add the Lithium's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
 
