@@ -5,7 +5,7 @@
 
 Generally, this means that static methods are used in preparation for a accessing data. On the other hand, instance methods are most useful when data has already been accessed.
 
-### Example: Preparing extra data 
+## Example: Preparing extra data 
 
 {{{
 <?php
@@ -43,3 +43,5 @@ class User extends \lithium\data\Model {
 	<p>Name: <?=$user->name()?></p>
 <?php } ?>
 }}}
+
+## Common Model Filters

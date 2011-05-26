@@ -1,0 +1,11 @@
+# Model Associations
+
+## Defining Model Associations
+
+## HasOne
+
+## HasMany
+
+## HasAndBelongsToMany (HABTM)
+
+## Saving Associated Data
