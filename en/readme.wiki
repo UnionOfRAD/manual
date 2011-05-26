@@ -1,7 +1,20 @@
-# The RAD Blog
+# The Lithium Drafts
 
 So you're interested in writing tight apps with the latest RAD techniques? Welcome to Lithium, the most RAD framework.
 
-This guide is meant for PHP developers trying to get a handle on what Lithium can do, and- more importantly- what it can do for you. In this tutorial we'll build a production-quality blog application within a few hours. By the end of this tutorial, you'll know how to do MVC, data access, authentication, authorization, validation, internationalization, layouts, and unit testing. In short, you'll learn how all about Rapid Application Development, Lithium style.
+This set of guides is meant for PHP developers trying to get a handle on what Lithium can do, and—more importantly—what it can do for _you_. This set of guides is meant to give you a world-class tour of the Lithium framework. Once you're done, you'll know how to do MVC, data access, authentication, authorization, validation, internationalization, layouts, and unit testing. In short, you'll learn how all about Rapid Application Development, Lithium style.
 
-Enough talk. Let's get started.
+Enough talk. Let's get started. 
+
+## Contributing
+
+The drafts project is an ongoing work, and we need your help. Lithium users _new_ and _old_ are welcome to join in the fun. If you've struggled with something, help us record the solution so others can find the way more easily. There are many ways you can help:
+
+ * Code examples to enrich current documentation
+ * Lists or tables to help explain concepts
+ * Rough notes that describe an oft-used process
+ * Corrections (typos, inaccuracies, etc.)
+ * Translations
+
+If you'd like to help, please contact one of the core team members. Give us a shout in #li3 on Freenode, or send an email to anderson.johnd at gmail dot com.
+
