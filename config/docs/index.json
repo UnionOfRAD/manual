@@ -74,6 +74,26 @@
 					"06_auth/simple-auth-user.wiki": { "title": "Creating a user in M, V, C" },
 					"06_auth/simple-authentication.wiki": { "title": "Simple Authentication" }
 				}
+			},
+			"07_globalization": {
+				"title": "Globalization",
+				"contents": {
+					"07_globalization/globalization.wiki": { "title": "Globalization Tutorial" }
+				}
+			},
+			"10_testing": {
+				"title": "Testing",
+				"contents": {
+					"10_testing/testing.wiki": { "title": "Lithium's Unit Testing Framework" }
+				}
+			},
+			"appendices": {
+				"title": "Appendices",
+				"contents": {
+					"appendices/faq.wiki": { "title": "FAQ" },
+					"appendices/integrating_zend_framework.wiki": { "title": "Integrating Zend Framework" },
+					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" }
+				}
 			}
 		}
 	},

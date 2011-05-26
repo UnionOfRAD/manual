@@ -49,6 +49,9 @@ This quickstart covers a basic application with 1 or 2 views, 1 controller, and 
 * Requests
 * JSON Response
 
+### Testing
+* Testing
+
 ### Accessing the cloud
 * Quickstart
 * Deploying (Image on EC2, Image for Rackspace, Image for Azure)
