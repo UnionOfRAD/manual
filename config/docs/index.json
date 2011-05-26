@@ -53,10 +53,19 @@
 					"03_request_response/04_understanding_context.wiki": { "title": "Understanding Context" }
 				}
 			},
+			"04_data_sources": {
+				"title": "Data Sources",
+				"contents": {
+					"04_data_sources/01_using_data_sources.wiki": { "title": "Using Data Sources"},
+					"04_data_sources/02_creating_data_sources.wiki": { "title": "Creating Data Sources"}
+				}
+			},
 			"05_models": {
 				"title": "Models",
 				"contents": {
-					"05_models/adding_functionality.wiki": { "title": "Adding Functionality" }
+					"05_models/01_using_models.wiki": { "title": "Using Models" },
+					"05_models/02_associations.wiki": { "title": "Associations" },
+					"05_models/03_adding_functionality.wiki": { "title": "Adding Functionality" }
 				}
 			},
 			"06_auth": {
