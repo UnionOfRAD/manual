@@ -151,13 +151,13 @@ class MockPost extends \app\models\Post {
 	public static function find($type = 'all', array $options = array()) {
 		switch ($type) {
 			case 'first':
-				return new RecordSet(array('items' =>
+				return new RecordSet(array('data' =>
 					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.')
 				));
 			break;
 			case 'all':
 			default :
-				return new RecordSet(array('items' => array(
+				return new RecordSet(array('data' => array(
 					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.'),
 					array('id' => 2, 'title' => 'Sensationalist Over-dramatization!'),
 					array('id' => 3, 'title' => 'Heavy Editorializing!'),
