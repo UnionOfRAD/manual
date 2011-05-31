@@ -1,7 +1,60 @@
 # Creating Data Sources
 
-## Data Source Types
+## Introduction
 
-## Creating a Data Source
+If you're reading this guide, chances are you've looked around for a data source in the Lithium community but haven't yet found it. Whether it's LDAP or the Flickr API you want to connect to, you're in luck. This guide will guide you through the thinking and the process necessary to create your own data source. 
 
-## Model Configuration
+First, we'll discuss some of the overall architectural knowledge needed, then we'll dive into the details with a real example.
+
+## Metadata Methods
+
+When creating a data source, it's important to realize the role of a data source. Data sources provide a layer that assists models, but focuses on the details surrounding connecting to, authenticating, and facilitating generic reads and writes to a certain data store. When creating a data source, work on the generic tasks needed to get the work done rather than the domain-specific work models will perform later on.
+
+As such, it's important for Lithium's models to understand the structure of the underlying data. A well-written data source should provide that information in a format models understand. 
+
+There are two main data source methods you'll want to implement: `entities()` and `describe()`:
+
+<table>
+	<thead>
+	<tr>
+		<th>Method Name</th>
+		<th>Question it Answers</th>
+		<th>RDMBS Example</th>
+		<th>NoSQL Example</th>
+		<th>API/Service Example</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>entities()</td>
+		<td>What objects can models bind to?</td>
+		<td>A list of tables in the database.</td>
+		<td>A list of collections in the database.</td>
+		<td>A list of objects manipulated by the API.</td>
+	</tr>
+	<tr>
+		<td>describe()</td>
+		<td>What properties does each entity have?</td>
+		<td>What columns are in a given table, and what are their types?</td>
+		<td>May only return an empty array, as the schema could be different between documents.</td>
+		<td>Which properties are mutable/searchable on the objects in the API, and what type are they?</td>
+	</tr>
+	</tbody>
+</table>
+
+Focus on understanding the meaning behind these methods for now—we'll be implementing them and discussing the details as we create a real data source shortly.
+
+## Queries and Entities
+
+Once models understand the basic shape for your data, the next step is facilitating communication between the data source and its associated models.
+
+In Lithium, models ask the data source questions through `Query` objects, and the data source answers with `Entity` objects, which are either a `Record` or a `Document`. For example, when a model is used in a controller to find data, it packages up a `Query` object that contains structured data about what sort of data the model is asking for, and in what order it expects it returned in. 
+
+It passes this `Query` to the data source, which connects and authenticates to the data store. It inspects the query to see what the model needs, interacts with the underlying data store, and wraps the response data in some sort of `Entity`. If the response requires more than one `Entity`, it's usually wrapped up in a `Collection` like a `RecordSet` or `DocumentSet`.
+
+Once the model has the `Entity`, it can provide that information back to the controller (or loop through it if it's in a collection).
+
+## Example Data Source: GitHub Issues
+
+
+
