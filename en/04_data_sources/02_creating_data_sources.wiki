@@ -54,7 +54,90 @@ It passes this `Query` to the data source, which connects and authenticates to t
 
 Once the model has the `Entity`, it can provide that information back to the controller (or loop through it if it's in a collection).
 
-## Example Data Source: GitHub Issues
+## Example Data Source: GitHub Issues API
 
+Let's dive into a real-life example of creating a data source. For the remainder of this guide, we'll walk through the process of creating a new data source that connects, authenticates, and moves data to and from the GitHub API. Version 2 of the GitHub API is available via a simple RESTful interface that uses HTTP authentication. We'll be setting up a new data source, using the existing `data\source\Http` class as a starting point.
+
+### Setup
+
+The end result we're looking for is being able to create models that read from and write to GitHub using our data source. Let's get started by creating the data source file and creating a connection to it. First, create a new file in `app/extensions/adapter/data/source/http/GitHub.php`:
+
+{{{
+<?php
+namespace app\extensions\adapter\data\source\http;
+class GitHub extends \lithium\data\source\Http {
+}
+?>
+}}}
+
+Let's also create a connection that uses this new data source. Add a few lines to `app/config/bootstrap/connections.php`:
+
+{{{
+<?php
+Connections::add('github', array(
+	'type'     => 'http',
+	'adapter'  => 'GitHub',
+	'login'    => 'myusername',
+	'password' => '5up3Rs3CrE7',
+	'token'    => 'e83fd93a7e099c8523ab99d003ce939a',
+));
+?>
+}}}
+
+Since the GitHub API allows for an API token to be passed instead of a password, we've added that to the connection information. 
+
+Finally, we'll need to create a new model and controller to test the functionality as we build it:
+
+{{{
+<?php
+namespace app\models;
+class Issue extends \lithium\data\Model {
+	public $_meta = array(
+		'connection' => 'github'
+	);
+}
+?>	
+}}}
+
+{{{
+<?php
+namespace app\controllers;
+use app\models\Issue;
+class IssuesController extends \lithium\action\Controller {
+	public function index() {
+	}
+}
+?>
+}}}
+
+### Connecting & Authentication
+
+Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, you can see that the `\lithium\net\http\Service` object is created in the `_init()` method. By overriding that in our new data source, we'll be able to construct it with the options we want. Add this to the new data source:
+
+{{{
+<?php
+protected function _init() {
+	if(!empty($this->_config['token'])) {
+		$password = '/token' . $this->_config['token'];
+	} else {
+		$password = $this->_config['password'];
+	}
+	
+	$config = array(
+		'scheme' => 'https',
+		'host' => $this->_domain,
+		'auth' => true,
+		'username' => $this->_config['login'],
+		'password' => $password,
+	);
+	$this->connection = $this->_instance('service', $config);
+	parent::_init();
+}
+?>
+}}}
+
+What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the password field as noted on the GitHub API website. Otherwise, we feed the new `Service` object with the configuration options we need. As we make changes, we're using the `$_config` property of the data source, since that's where all the details for the connection have been stored.
+
+_Note:_ The astute reader may notice the usage of the `_instance()` method. That's Lithium's straightforward and simple way of managing dependency injection. We'll cover this more later, but what it does is looks up the class listed in the `$_classes` property and instantiates it using the supplied configuration array. Using `_instance()` rather than manually instantiating classes allows your fellow developers to switch out classes on the fly with others they'd rather use. In this case, we're asking for the service class that's going to be making HTTP requests for the data source.
 
 
