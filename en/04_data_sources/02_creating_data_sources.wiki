@@ -112,32 +112,153 @@ class IssuesController extends \lithium\action\Controller {
 
 ### Connecting & Authentication
 
-Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, you can see that the `\lithium\net\http\Service` object is created in the `_init()` method. By overriding that in our new data source, we'll be able to construct it with the options we want. Add this to the new data source:
+Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, you can see that configuration details for the `\lithium\net\http\Service` object is passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
 
 {{{
 <?php
-protected function _init() {
-	if(!empty($this->_config['token'])) {
-		$password = '/token' . $this->_config['token'];
+public function __construct(array $config = array()) {
+	if(!empty($config['token'])) {
+		$password = '/token' . $config['token'];
 	} else {
-		$password = $this->_config['password'];
+		$password = $config['password'];
 	}
-	
-	$config = array(
-		'scheme' => 'https',
-		'host' => $this->_domain,
-		'auth' => true,
-		'username' => $this->_config['login'],
+	$defaults = array(
+		'adapter'  => 'GitHub',
+		'token'    => null,
+		'scheme'   => 'https',
+		'auth'     => true,
+		'login'    => $config['login'],
 		'password' => $password,
+		'version'  => '1.1',
+		'port'     => 443,
+		'basePath' => '/api/v2/json',
 	);
-	$this->connection = $this->_instance('service', $config);
-	parent::_init();
+	$config['host'] = 'github.com';
+	parent::__construct($config + $defaults);
 }
 ?>
 }}}
 
-What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the password field as noted on the GitHub API website. Otherwise, we feed the new `Service` object with the configuration options we need. As we make changes, we're using the `$_config` property of the data source, since that's where all the details for the connection have been stored.
+What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the password field as noted on the GitHub API website. Otherwise, we'll set the configuration options for the new `Service` object with the details we need. As we make changes, we're using the `$config` parameter of the data source, since that's where all the details from the connection are supplied.
 
-_Note:_ The astute reader may notice the usage of the `_instance()` method. That's Lithium's straightforward and simple way of managing dependency injection. We'll cover this more later, but what it does is looks up the class listed in the `$_classes` property and instantiates it using the supplied configuration array. Using `_instance()` rather than manually instantiating classes allows your fellow developers to switch out classes on the fly with others they'd rather use. In this case, we're asking for the service class that's going to be making HTTP requests for the data source.
+### Reads
+
+Next, let's use our model to read from our data source. This is done by the model's `find()` method. Let's place a find inside our controller, and supply a few parameters the GitHub API is going to need to fetch some issues from a project:
+
+{{{
+<?php
+public function index() {
+	$results = Issue::find('all', array(
+		'conditions' => array(
+			'user' => 'myuser',
+			'repo' => 'myrepo',
+			'state' => 'open',
+		)
+	));
+}
+?>
+}}}
+
+If you try this, `$results` will get filled with the 404 response from GitHub's servers. This is because the default behavior of `read()` doesn't fit our use-case. Let's override it in our new data source in order fix that. Remember that the model layer communicates to the data source via `Query` objects. The first argument for `read()` is the `Query` from our `Issue` model. We can inspect that to find out what the model wants, and translate that into HTTP requests to the GitHub API.
+
+Let's override `read()`, and inspect the `Query` object so we can direct the query to the GitHub API properly.
+
+{{{
+<?php
+public function read($query, array $options = array()) {
+	extract($query->export($this));
+	$path = '';
+	switch ($source) {
+		case 'issues':
+			$path = String::insert(
+				'/issues/list/{:user}/{:repo}/{:state}',
+				array(
+					'user'  => urlencode($conditions['user']),
+					'repo'  => urlencode($conditions['repo']),
+					'state' => urlencode($conditions['state']),
+				)
+			);
+		break;
+	}
+	return json_decode($this->connection->get($this->_config['basePath'] . $path), true);
+}
+?>
+}}}
+
+Basically what we're doing here is checking to see which source the model is looking to read from. If the model is bound to the 'issues' source (which our `Issue` model will automatically do by name-convention), we craft the URL to the GitHub API using the conditions from the `Query`.
+
+At this point, you've got a model that now returns array data that matches the JSON data returned from the GitHub API, but let's take this a bit further. We'll want to take advantage of Lithium's data objects: in this case, the `DocumentSet` and `Document` objects. Doing so allows your application to have a consistent API when it deals with data in controllers and templates.
+
+We'll format the data for use in the model using two important data source methods: `item()` and `cast()`. The `item()` method is used to create data objects, and `cast()` is used by the data source to walk recursively through data structures and format them as you specify.
+
+Both methods use Lithium's dependency injection mechanism to do so. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, Lithium uses class properties to manage class dependencies. If you look at the `$_classes` property of a Lithium object, you'll see the types and fully namespaced classpaths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
+
+{{{
+<?php
+protected $_classes = array(
+	'service' => 'lithium\net\http\Service',
+	'entity'  => 'lithium\data\entity\Document',
+	'set'     => 'lithium\data\collection\DocumentSet',
+);
+?>
+}}}
+
+The 'service' dependency is included in the array because it's needed for the parent `Http` data source class, but it's something we could redefine if needed. The most important points to note are the last two entries: 'entity' and 'set'. By defining these dependencies, we're telling the data source what classes to use to package our data, either in singular or plural form. Because GitHub API data responses are JSON objects (that sometimes include embedded objects), we'll use `Document` rather than `Record`.
+
+Once that's in place, we can adjust our `read()` function to return the results of an `item()` call:
+
+{{{
+<?php
+public function read($query, array $options = array()) {
+	extract($query->export($this));
+	$path = '';
+	switch ($source) {
+		case 'issues':
+			$path = String::insert(
+				'/issues/list/{:user}/{:repo}/{:state}',
+				array(
+					'user'  => urlencode($conditions['user']),
+					'repo'  => urlencode($conditions['repo']),
+					'state' => urlencode($conditions['state']),
+				)
+			);
+		break;
+	}
+	$data = json_decode($this->connection->get($this->_config['basePath'] . $path), true);
+	return $this->item($query->model(), $data[$source], array('class' => 'set'));
+}
+?>
+}}}
+
+The `item()` method needs to know what model the data is coming from, the data itself, along with some options. Here, we're passing along an option that specifies that we want the data we're supplying returned as our defined 'set' dependency. In this case, we've configured that as `lithium\data\collection\DocumentSet`.
+
+Running `find()` on our `Issue` model now gives us a `DocumentSet`, but if we inspect a specific entry in the set (by iterating, for example) we see that the entities in the set are just plain PHP arrays. Let's add the final piece to our data source that will create `Document` objects out of our responses.
+
+The `cast()` method is used by the data source to recursively inspect and transform data as it's placed into a collection. In this case, we'll use cast to transform arrays into `Document` objects:
+
+{{{
+<?php
+public function cast($entity, array $data, array $options = array()) {
+	foreach($data as $key => $val) {
+		if (!is_array($val)) {
+			continue;
+		}
+		$model = $entity->model();
+		$data[$key] = $this->item($model, $val, array('class' => 'entity'));
+	}
+	return parent::cast($entity, $data, $options);
+}
+?>
+}}}
+
+Notice how we're using `item()`, but to create entities rather than sets now? Here's where our 'entity' dependency comes into play. Also note that because `cast()` recursively inspects data, arrays embedded into our GitHub API responses will also be cast as `Document` objects.
+
+At this point, your `Issue` model should be successfully connecting to the API and fetching lists of issues and returning that data in `Documents` inside of `DocumentSet` objects.
+
+### Create
+
+### Update
+
+### Delete
 
 
