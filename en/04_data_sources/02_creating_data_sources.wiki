@@ -118,28 +118,30 @@ Now that we've got the basic classes in place, let's make sure that the model ca
 <?php
 public function __construct(array $config = array()) {
 	if(!empty($config['token'])) {
-		$password = '/token' . $config['token'];
+		$login = $config['login'] . '/token';
+		$password = $config['token'];
 	} else {
+		$login = $config['login'];
 		$password = $config['password'];
 	}
 	$defaults = array(
 		'adapter'  => 'GitHub',
 		'token'    => null,
 		'scheme'   => 'https',
-		'auth'     => true,
-		'login'    => $config['login'],
-		'password' => $password,
+		'auth'     => 'Basic',
 		'version'  => '1.1',
 		'port'     => 443,
 		'basePath' => '/api/v2/json',
 	);
-	$config['host'] = 'github.com';
+	$config['host']     = 'github.com';
+	$config['login']    = $login;
+	$config['password'] = $password;
 	parent::__construct($config + $defaults);
 }
 ?>
 }}}
 
-What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the password field as noted on the GitHub API website. Otherwise, we'll set the configuration options for the new `Service` object with the details we need. As we make changes, we're using the `$config` parameter of the data source, since that's where all the details from the connection are supplied.
+What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the username and password field as noted on the GitHub API website. Otherwise, we'll set the configuration options for the new `Service` object with the details we need. As we make changes, we're using the `$config` parameter of the data source, since that's where all the details from the connection are supplied.
 
 ### Reads
 
@@ -256,6 +258,50 @@ Notice how we're using `item()`, but to create entities rather than sets now? He
 At this point, your `Issue` model should be successfully connecting to the API and fetching lists of issues and returning that data in `Documents` inside of `DocumentSet` objects.
 
 ### Create
+
+Now that we're rocking with some reads, let's hook up the writes. This is done by POSTing some data to the GitHub API. First, let's change our controller so that the model is saving a new `Issue`:
+
+{{{
+<?php
+public function index() {
+	$issue = Issue::create();
+	$issue->user = 'myuser';
+	$issue->repo = 'myrepo';
+	$issue->title = 'Title for my new issue!';
+	$issue->body = 'Here\'s a description of the issue.';
+	
+	$issue->save();
+}
+?>
+}}}
+
+The API specifies that we POST to a URL composed of the user and repository names, and includes data about title and body. We'll need to make a new `create()` method in our data source that assembles the right URL and POST data based off what it receives from the model. In this case, `create()` is handed a `Query` that has an `Entity` property we can inspect and use.
+
+{{{
+<?php
+public function create($query, array $options = array()) {
+	extract($query->export($this));
+	$path = '';
+	switch ($source) {
+		case 'issues':
+			extract($query->entity()->data());
+			$path = String::insert(
+				'/issues/open/{:user}/{:repo}',
+				array(
+					'user'  => urlencode($user),
+					'repo'  => urlencode($repo),
+				)
+			);
+			$data = compact('title', 'body');
+		break;
+	}
+	$result = json_decode($this->connection->post($this->_config['basePath'] . $path, $data), true);
+	return isset($return[$source]);
+}
+?>
+}}}
+
+Since the GitHub API returns a JSON object on success, we inspect the response to make sure it's there, and return a boolean based on the success of the operation.
 
 ### Update
 
