@@ -28,7 +28,7 @@ One last thing: better error handling and debug/production settings are slated f
 
 ## Connection Setup
 
-Now that we have a database up and running, let's inform Lithium about the new setup. Do this by creating a new connection, in `/app/config/connections.php`.
+Now that we have a database up and running, let's inform Lithium about the new setup. Do this by creating a new connection, in `/app/config/bootstrap/connections.php`.
 
 Remove any connections that exist in the file, then add a new connection for our MongoDB setup:
 
