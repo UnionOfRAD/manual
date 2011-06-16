@@ -257,7 +257,7 @@ Notice how we're using `item()`, but to create entities rather than sets now? He
 
 At this point, your `Issue` model should be successfully connecting to the API and fetching lists of issues and returning that data in `Documents` inside of `DocumentSet` objects.
 
-### Create
+### Create, Update, Delete
 
 Now that we're rocking with some reads, let's hook up the writes. This is done by POSTing some data to the GitHub API. First, let's change our controller so that the model is saving a new `Issue`:
 
@@ -303,8 +303,4 @@ public function create($query, array $options = array()) {
 
 Since the GitHub API returns a JSON object on success, we inspect the response to make sure it's there, and return a boolean based on the success of the operation.
 
-### Update
-
-### Delete
-
-
+Updating and deleting works in the same manner: by overriding the corresponding method, inspecting the incoming query object to understand what the model needs, and using supporting classes to connect to the data source. Just remember to make sure that the other methods you create are agnostic as to what objects they're dealing with and leave that logic to the models.
