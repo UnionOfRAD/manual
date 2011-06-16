@@ -26,6 +26,8 @@ If you need to manipulate an object in its un-initialized state, pass `false` as
 
 {{{
 <?php
+use lithium\net\http\Service;
+
 class Foo extends \lithium\core\Object {
 	public $service;
 	
@@ -38,7 +40,7 @@ class Foo extends \lithium\core\Object {
 	
 	public function _init() {
 		parent::_init();
-		$this->service = new lithium\net\http\Service();
+		$this->service = new Service();
 	}
 	
 	public function baz() {
