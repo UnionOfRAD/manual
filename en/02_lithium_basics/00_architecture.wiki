@@ -38,7 +38,7 @@ class Foo extends \lithium\core\Object {
 	
 	public function _init() {
 		parent::_init();
-		$this->service = new \lithium\net\http\Service();
+		$this->service = new lithium\net\http\Service();
 	}
 	
 	public function baz() {

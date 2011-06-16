@@ -12,7 +12,7 @@ Here's an example of namespace usage in a Lithium controller:
 
 {{{
 namespace app;
-use \app\models\Post;
+use app\models\Post;
 class PostsController extends \lithium\action\Controller {
     public function index() {
         $posts = Post:all();
