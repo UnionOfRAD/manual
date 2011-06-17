@@ -100,6 +100,8 @@ $object->getProtected();        // 'testing'
 
 # Managing Dependencies
 
+Objects that subclass Lithium's core `Object` class can also manage dependencies at runtime using a simple dependency injection mechanism. 
+
 # Package Organization
 
 # Exception Handling
