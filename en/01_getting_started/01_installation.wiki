@@ -5,37 +5,21 @@
 This easiest way to get a fresh copy of Lithium is by downloading an archive from our website. You can view and download versions here:
 
 	http://dev.lithify.me/lithium/versions
+	
+Under the hood, Lithium is actually separated in two different repositories. One is called `framework` and the other one `lithium`. The `framework` repository holds everything you need to 
+instantly bootstrap your application, while the `lithium` repository holds the Lithium core. This way you can reuse the Lithium core for other projects or just include some libraries if you 
+need them. 
 
-Lithium's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.lithify.me/users/add](http://dev.lithify.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.lithify.me/users/account](http://dev.lithify.me/users/account). If you've never completed that process before, sometimes its as simple as typing `ssh-keygen` into your console:
+The repositories are hosted in GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching 
+Lithium by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
 
-	$ ssh-keygen
-
-	Generating public/private rsa key pair.
-	Enter file in which to save the key (/Users/lithium/.ssh/id_rsa):
-	Enter passphrase (empty for no passphrase):
-	Enter same passphrase again:
-	Your identification has been saved in /Users/lithium/.ssh/id_rsa.
-	Your public key has been saved in /Users/lithium/.ssh/id_rsa.pub.
-
-Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at [dev.lithify.me](http://dev.lithify.me).
-
- _Note:_ sometimes `ssh-keygen` will append extra data after the key, such as whitespace, `==`, or a user/machine reference in the form of an email address. Be sure to trim off these extra characters before submitting the key.
-
-Now that your key has been set up, clone yourself a copy of Li3 inside of your web server's document root:
-
-	$ cd /path/to/docroot
-	$ git clone code@dev.lithify.me:lithium.git
-
-	Initialize lithium/.git
-	Initialized empty Git repository in /path/to/docroot/lithium/.git/
-	Identity added: /Users/lithium/.ssh/id_rsa (/Users/lithium/.ssh/id_rsa)
-	remote: Counting objects: 1638, done.
-	remote: Compressing objects: 100% (1154/1154), done.
-	remote: Total 1638 (delta 863), reused 509 (delta 226)
-	Receiving objects: 100% (1638/1638), 387.74 KiB, done.
-	Resolving deltas: 100% (863/863), done.
-
-You'll be asked a password during this operation. Make sure to supply the same one you did when you created your SSH key.
+	git clone git://github.com/UnionOfRAD/framework.git my_app
+	cd my_app
+	git submodule init
+	git submodule update
+	
+If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct 
+directory.
 
 ## Advanced Setup
 
