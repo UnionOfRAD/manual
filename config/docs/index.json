@@ -87,6 +87,12 @@
 					"10_testing/testing.wiki": { "title": "Lithium's Unit Testing Framework" }
 				}
 			},
+			"11_cloud": {
+				"title": "Lithium in the Cloud",
+				"contents": {
+					"11_cloud/01_deploying_to_orchestra.wiki": { "title": "Deploying to Orchestra.io" }
+				}
+			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {

@@ -6,7 +6,7 @@ This guide explains some of the ideas and practices behind how Lithium is put to
 
 # Constructors and Initialization
 
-The base class in Lithium's hierarchy, `\lithium\core\Object`, forms the basic logic for all of the concrete classes in the framework. This class defines several conventions for how classes in Lithium should be structured:
+The base class in Lithium's hierarchy, `lithium\core\Object`, forms the basic logic for all of the concrete classes in the framework. This class defines several conventions for how classes in Lithium should be structured:
 
  * Universal constructor
  * Object configuration
@@ -69,7 +69,7 @@ $foo3 = new Foo(array(
 ));
 get_class($foo3->service);  // PHP Warning...
 
-get_class($foo->service);  // '\lithium\net\http\Service'
+get_class($foo->service);  // 'lithium\net\http\Service'
 ?>
 }}}
 

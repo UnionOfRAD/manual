@@ -6,9 +6,9 @@ Lithium helpers take the concept of elements a bit further, and create a place t
 
 Helper usage in Lithium is simple because helpers are lazy-loaded by the renderer. To use a helper in the view layer, just reference it as a property of the renderer:
 
-{{{
-<p>Here is a <?= $this->html->link('link', 'http://lithify.me') ?> you'll all enjoy.</p>
-}}}
+{{{<p>
+	Here is a <?=$this->html->link('link', 'http://lithify.me') ?> you'll all enjoy.
+</p>}}}
 
 This approach means you won't have to declare which helpers you're planning on using. Ever. This also means that things aren't loaded up unless (and until!) you're actually using them.
 
@@ -51,7 +51,7 @@ class AwesomeHtml extends \lithium\template\Helper {
 
 	public function link($title, $url, $options) {
 		$title = $this->escape($title);
-		return $this->_render(__METHOD__, $options['type'], compact($title, $url));
+		return $this->_render(__METHOD__, $options['type'], compact('title', 'url'));
 	}
 }
 
@@ -60,14 +60,12 @@ class AwesomeHtml extends \lithium\template\Helper {
 
 Once this has been setup, we can use the new helper as we would any of the core helpers:
 
-{{{
-<p>
+{{{<p>
 	You should really check out
 	<?=$this->awesomeLink->create('Lithium', 'http://lithify.me', array(
 		'type' => 'super_cool'
 	)) ?>
-</p>
-}}}
+</p>}}}
 
 ## Extending (and replacing) Core Helpers
 
@@ -75,4 +73,4 @@ Lithium gives preference to your classes over the core. If you want to create yo
 
 For example, we can replace Lithium's core `Html` helper class with our newly created helper class by renaming the class and filename to 'Html' rather than 'AwesomeHtml'. Doing this also allows you to leave your templates untouched: calls to `$this->html` will reference your helper automatically.
 
-Also realize that in doing this, you'll probably wish to extend the helper you're replacing to take advantage of the functionality already there. If we took our own advice, the new helper would extend `\lithium\template\helper\Html` and `link()` would be refactored to take advantage of the `Html` helper's existing link function.
+Also realize that in doing this, you'll probably wish to extend the helper you're replacing to take advantage of the functionality already there. If we took our own advice, the new helper would extend `lithium\template\helper\Html` and `link()` would be refactored to take advantage of the `Html` helper's existing link function.
