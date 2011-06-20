@@ -31,7 +31,7 @@ $ li3 create test model Post
 PostTest created for Post in app\tests\cases\models.
 }}}
 
-Doing so creates a test file template class that extends `\lithium\test\Unit` and looks like the following:
+Doing so creates a test file template class that extends `lithium\test\Unit` and looks like the following:
 
 {{{
 <?php

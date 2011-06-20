@@ -128,19 +128,16 @@ Router::connect(new Localized(array(
 ?>
 }}}
 
-Once this is in place, our application's routes will illustrate the effective locale.
+Once this is in place, our application's routes will illustrate the effective locale, i.e.:
 
-{{{
-http://example.com/en/controller/action/param1
-http://example.com/fr/controller/action/param1
-}}}
+ - `http://example.com/en/controller/action/param1`
+ - `http://example.com/fr/controller/action/param1`
 
 As a final example, here's a bit of view code you could use to switch between locales:
 
 {{{
 <?php use lithium\core\Environment; ?>
-
-<div id="locale-navigation">
+ <div id="locale-navigation">
 	<ul>
 		<?php foreach (Environment::get('locales') as $locale => $name): ?>
 			<li><?=$this->html->link($name, compact('locale') + $this->_request->params); ?></li>
@@ -158,10 +155,13 @@ The `Catalog` is a class that allows us to retrieve and store globalized data, p
 The class is able to aggregate globalized data from different sources, which allows a developer to complement sparse data. Example usage:
 
 {{{
+<?php
+
+use lithium\g11n\Catalog;
+
 // Configures the runtime source.
 Catalog::config(array('runtime' => array('adapter' => 'Memory')));
 
-// Write to adapter configured for `'runtime'` only
 $data = array(
 	'laboratory' => 'Labor',
 	'life' => 'Leben'
@@ -176,6 +176,8 @@ Catalog::read('runtime', 'message', 'de_DE');
 
 // Reads from just the runtime source.
 Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
+
+?>
 }}}
 
 By default, the g11n bootstrap configures a `runtime` (using the `Memory` adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
@@ -207,7 +209,7 @@ The **code adapter** extracts message IDs for creating message catalog templates
 
 The **php adapter** allows for reading from files containing data in PHP format.
 {{{
-<?php return array('the artists' => 'die Künstler'); ?>
+return array('the artists' => 'die Künstler');
 }}}
 
 ### G11n Data Storage
@@ -267,6 +269,8 @@ If you need access to translated content outside of a view, use `extract()` to u
 {{{
 <?php
 
+namespace app\controllers;
+
 use lithium\g11n\Message;
 
 class PostsController extends \lithium\action\Controller {
@@ -290,10 +294,10 @@ When embedding translated messages into your application, it's best to use entir
 
 {{{
 
-Not so great:
+// Not so great:
 <?= $t('welcome'); ?>
 
-Better:
+// Better:
 <?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
 
 }}}
@@ -304,10 +308,10 @@ Next, treating text like you would with `String::insert()` can make things easie
 
 {{{
 
-Not so great:
+// Not so great:
 <?= "Gary's Fine Clarinets " . $t('is really great'); ?>
 
-Better:
+// Better:
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
 
 }}}
@@ -320,12 +324,12 @@ Passing the `'noop'` option to `Message::translate()` will result in the default
 
 {{{
 <?= $t('foo', array('noop' => true)); ?>
-<?= $tn('foo', 'bar', array('noop' => true)); // we don't need to pass `'count'` in this case ?>
+<?= $tn('foo', 'bar', array('noop' => true)); /* we don't need to pass `'count'` in this case */ ?>
 }}}
 
 File: `a.php`:
 {{{
-<?= $t('foo', array('noop' => true)); // the extractor picks up `foo` ?>
+<?= $t('foo', array('noop' => true)); /* the extractor picks up `foo` */ ?>
 }}}
 
 File: `b.php`:

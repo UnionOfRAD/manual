@@ -112,7 +112,7 @@ class IssuesController extends \lithium\action\Controller {
 
 ### Connecting & Authentication
 
-Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, you can see that configuration details for the `\lithium\net\http\Service` object is passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
+Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, you can see that configuration details for the `lithium\net\http\Service` object is passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
 
 {{{
 <?php
