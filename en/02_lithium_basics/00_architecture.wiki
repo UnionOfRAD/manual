@@ -26,6 +26,8 @@ If you need to manipulate an object in its un-initialized state, pass `false` as
 
 {{{
 <?php
+namespace app/extensions;
+
 use lithium\net\http\Service;
 
 class Foo extends \lithium\core\Object {
@@ -52,18 +54,20 @@ class Foo extends \lithium\core\Object {
 
 {{{
 <?php
-$foo = new \Foo();
+use app\extensions\Foo;
+
+$foo = new Foo();
 $foo->baz();               // 'bar'
 
-$foo2 = new \Foo(array(
+$foo2 = new Foo(array(
 	'foo' => '123'
 ));
 $foo2->baz();              // '123'
 
-$foo3 = new \Foo(array(
+$foo3 = new Foo(array(
 	'init' => 'false'
 ));
-get_class($foo->service);  // PHP Warning...
+get_class($foo3->service);  // PHP Warning...
 
 get_class($foo->service);  // '\lithium\net\http\Service'
 ?>
