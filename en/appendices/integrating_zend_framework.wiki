@@ -1,49 +1,123 @@
 # Integrating Zend Framework
 
-To use the Zend Framework inside of your Lithium application the first thing you need to do is add some configuration to `app/config/bootstrap.php`.
+Using the Zend Framework inside of your Lithium application requires just two steps: installing the library files and adding the proper library configuration to `config/bootstrap/libraries.php`.
 
-## Configuration
+These steps vary based on which Zend Framework version (i.e. 1.x or 2.x), and where you're installing it from, but they're all similar in terms of where things end up.
 
-This will first add a checkout from the trunk, than the incubator.  Note that `'path'` can be dropped if `trunk/library/Zend` is placed directly into your /libraries directory.
+## Installing 1.x from Git
+
+First, change into your `libraries` directory (app-level or root level) from the command line, and run:
+
+	git clone git://github.com/Enrise/Zend.git
+
+This will clone just the PHP libraries of the Zend Framework into `libraries/Zend`, which will allow the `Libraries` class to auto-detect your ZF installation.
+
+Alternatively, if your application is already in a Git repository, you can run the following from the repository root:
+
+	git submodule add git://github.com/Enrise/Zend.git libraries/Zend
+
+In both cases, the ZF class files will end up stored in `libraries/Zend`.
+
+## Installing 1.x from SVN or Tarball
+
+If you downloaded Zend Framework, or did an SVN checkout, your setup will be a bit different. Instead of placing the package in the `libraries` directory, place it in `libraries/_source`. Then, create a symlink from the PHP source directory inside the package to `libraries/Zend`.
+
+For example, if you downloaded ZF 1.11.7, your symlink mapping would look like this:
+
+	libraries/Zend -> libraries/_source/ZendFramework-1.11.7/library/Zend
+
+This setup not only simplifies the configuration required to add external libraries to your application, but it also gives you the flexibility of easily switching between different versions of vendor libraries, just by changing a symlink.
+
+## Installing 2.x from Git
+
+As with 1.x, there are two options when installing from Git. The first is to change into your `libraries/_source` directory and run the following: 
+
+	git clone git://github.com/zendframework/zf2.git
+
+Or, from the root of your existing Git repository, you can run:
+
+	git submodule add git://github.com/zendframework/zf2.git libraries/_source/zf2
+
+In either case, you'll end up with the ZF2 repository installed at `libraries/_source/zf2`. Next, create a symlink linking the ZF2 source directory with `libraries/Zend`. It should look like this:
+
+	libraries/Zend -> libraries/_source/zf2/library/Zend
+
+## Configuring 1.x
+
+Because Lithium assumes 5.3 standard namespacing in all libraries, some special considerations are necessary for dealing with class libraries written for 5.2 and lower.
 
 {{{
 Libraries::add("Zend", array(
 	"prefix" => "Zend_",
-	'path' => '/htdocs/libraries/Zend/trunk/library/Zend',
-	"includePath" => '/htdocs/libraries/Zend/trunk/library',
+	"includePath" => LITHIUM_LIBRARY_PATH, // or LITHIUM_APP_PATH . '/libraries'
 	"bootstrap" => "Loader/Autoloader.php",
 	"loader" => array("Zend_Loader_Autoloader", "autoload"),
 	"transform" => function($class) { return str_replace("_", "/", $class) . ".php"; }
 ));
+}}}
 
-Libraries::add("Zend_Incubator", array(
+First, because we're dealing with underscore-prefixed classes, we need to override the default prefix. Also, ZF1 depends on being included in PHP's `include_path`, which we can tell `Libraries` to do. If your system is already configured for this, you can omit the `'includePath'` key.
+
+Most importantly, we're overriding how class names are transformed into path names, by passing in a custom function which transforms PEAR-style class names. Finally, to use classes in Zend's incubator, we can add a separate configuration for this.
+
+Note, the following should appear **above** the primary ZF configuration, because they both have the same class prefix. However, this configuration will verify that a file exists before attempting to autoload it, allowing classes to "fall through" to other loaders.
+{{{
+Libraries::add("ZendIncubator", array(
 	"prefix" => "Zend_",
-	"includePath" => '/htdocs/libraries/Zend/incubator/library',
-	"transform" => function($class) { return str_replace("_", "/", $class) . ".php"; }
+	"includePath" => '/path/to/libraries/ZF_Install_Dir/incubator/library',
+	"transform" => function($class) {
+		$file = str_replace("_", "/", $class) . ".php";
+		return file_exists($file) ? $file : null;
+	}
 ));
+}}}
+
+## Configuring 2.x
+
+Because ZF2 uses the same class naming scheme as Lithium, configuring it is quite a bit easier:
+
+{{{
+Libraries::add("Zend");
 }}}
 
 ## Usage
 
-Now that you added the configuration you can access any Zend Framework class by add the all important statement...
-
-`use \Zend_Mail_Storage_Pop3 `
+Now that you've properly installed and configured your chosen version of Zend Framework, you can use its classes as you would any other:
 
 {{{
 namespace app\controllers;
 
-use Zend_Mail_Storage_Pop3;
+/**
+ * Import the class names. Use this style for static dependencies.
+ */
+use Zend_Mail_Storage_Pop3; // For ZF1
+use Zend\Mail\Storage\Pop3; // For ZF2
 
 class EmailController extends \lithium\action\Controller {
 
+	/**
+	 * Use this style for dynamic dependencies.
+	 */
+	protected function _init() {
+		$this->_classes += array(
+			'pop3' => 'Zend_Mail_Storage_Pop3' // ZF1
+			'pop3' => 'Zend\Mail\Storage\Pop3' // ZF2
+		);
+	}
+
 	public function index() {
+		// If used statically:
 		$mail = new Zend_Mail_Storage_Pop3(array(
 			'host' => 'localhost', 'user' => 'test', 'password' => 'test'
 		));
+
+		// If used dynamically:
+		$mail = $this->_instance('pop3', array(
+			'host' => 'localhost', 'user' => 'test', 'password' => 'test'
+		));
+
 		return compact('mail');
 	}
 	
 }
 }}}
-
-Please refer to [the mail documentation provided by Zend Framework](http://framework.zend.com/manual/en/zend.mail.read.html) for using the Zend_Mail classes.
