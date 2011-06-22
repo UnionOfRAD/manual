@@ -29,6 +29,9 @@
 							"01_getting_started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
 							"01_getting_started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
 						}
+					},
+					"01_getting_started/external_libs": {
+						"title": "Working with External Libraries"
 					}
 				}
 			},
@@ -94,7 +97,6 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/integrating_zend_framework.wiki": { "title": "Integrating Zend Framework" },
 					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" }
 				}
 			}
