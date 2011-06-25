@@ -97,7 +97,8 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" }
+					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" },
+					"appendices/creating_a_plugin.wiki": { "title": "Creating a Lithium Plugin" }
 				}
 			}
 		}
