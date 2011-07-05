@@ -85,7 +85,7 @@ A localized route is configured by creating a new application extension containi
 <?php
 namespace app\extensions\route;
 
-use \lithium\core\Environment;
+use lithium\core\Environment;
 
 class Localized extends \lithium\net\http\Route {
 
@@ -107,7 +107,7 @@ Once this as been set up, we can connect routes in our application using this ne
 
 {{{
 <?php
-use \app\extensions\route\Localized;
+use app\extensions\route\Localized;
 
 Router::connect(new Localized(array(
     'template' => '/{:controller}/{:action}/{:id:[0-9]+}.{:type}',
@@ -265,7 +265,7 @@ If you need access to translated content outside of a view, use `extract()` to u
 {{{
 <?php
 
-use \lithium\g11n\Message;
+use lithium\g11n\Message;
 
 class PostsController extends \lithium\action\Controller {
 

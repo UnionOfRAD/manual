@@ -18,7 +18,7 @@ class User extends \lithium\data\Model {
 User::applyFilter('save', function($self, $params, $chain){
 	$record = $params['record'];
 	if (!$document->id) {
-		$document->password = \lithium\util\String::hash($document->password);
+		$document->password = lithium\util\String::hash($document->password);
 	}
 	if (!empty($params['data'])) {
 		$document->set($params['data']);
@@ -39,8 +39,8 @@ Create this file : `app/controllers/UsersController`
 
 namespace app\controllers;
 
-use \lithium\security\Auth;
-use \app\models\User;
+use lithium\security\Auth;
+use app\models\User;
 
 class UsersController extends \lithium\action\Controller {
 

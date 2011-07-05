@@ -1,16 +1,128 @@
-# Lithium Structure
+# Lithium Architecture
+
+Though most of this manual covers how to create your own classes in Lithium (controllers, models, and the like), you may want to familiarize yourself with some of the basic architectural ideas and philosophies behind the framework. As you come to know the code—and start to build plugins and extensions—keeping additions in style with Lithium's architecture becomes important.
+
+This guide explains some of the ideas and practices behind how Lithium is put together, at a fundamental level. Inspecting the core libraries will make much more sense after understanding the principles outlined here.
+
+# Constructors and Initialization
+
+The base class in Lithium's hierarchy, `lithium\core\Object`, forms the basic logic for all of the concrete classes in the framework. This class defines several conventions for how classes in Lithium should be structured:
+
+ * Universal constructor
+ * Object configuration
+ * Object initialization
+ * Filtering
+ * Testing utilities
+
+## Universal Constructor
+
+The `Object` class features a unified constructor, which all classes share. The function takes a single argument, `$config` which is an array of properties that is automatically saved to the `$_config` property of the current object. This approach allows for short constructor signatures and creates a unified way to override object configuration, or set object defaults when subclassing.
+
+## Object Configuration & Initialization
+
+Constructor logic should be kept to a minimum. One of the last steps in the unified constructor is to call the objects `init()` method. Here's where you do your heavy lifting. 
+
+If you need to manipulate an object in its un-initialized state, pass `false` as the value to the `init` key to the constructor. This prevents `init()` from running, and is especially handy when building test cases.
+
+{{{
+<?php
+namespace app/extensions;
+
+use lithium\net\http\Service;
+
+class Foo extends \lithium\core\Object {
+	public $service;
+	
+	public function __construct(array $config = array()) {
+		$defaults = array(
+			'foo' => 'bar'
+		);
+		parent::__construct($config + $defaults);
+	}
+	
+	public function _init() {
+		parent::_init();
+		$this->service = new Service();
+	}
+	
+	public function baz() {
+		echo $this->_config['foo'];
+	}
+} 
+?>
+}}}
+
+{{{
+<?php
+use app\extensions\Foo;
+
+$foo = new Foo();
+$foo->baz();               // 'bar'
+
+$foo2 = new Foo(array(
+	'foo' => '123'
+));
+$foo2->baz();              // '123'
+
+$foo3 = new Foo(array(
+	'init' => 'false'
+));
+get_class($foo3->service);  // PHP Warning...
+
+get_class($foo->service);  // 'lithium\net\http\Service'
+?>
+}}}
+
+## Filtering
+
+The `Object` class also allows subclasses to filter their methods. An entire guide has been dedicated to filters, and you'll find examples and explanations later in this chapter.
+
+Long story short, a filterable method is created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Object::_filter()` (or `StaticObject::_filter()` for static objects) to allow for chain management. 
+
+Subclasses of `Object` use the filter methods to allow other developers to wrap logic around their own without cluttering the object's API.
+
+## Testing and State
+
+One challenge with testing is creating and initializing your objects. The `__set_state()` function allows test writers to quickly create objects with their pre-existing properties and values intact. This method can be called statically on any class that extends `Object` to return an instance of itself.
+
+{{{
+<?php
+class MockObject extends \lithium\core\Object {
+	protected $_protected = null;
+	public function getProtected() {
+		echo $this->$_protected;
+	}
+}
+
+$object = MockObject::__set_state(array(
+	'_protected' => 'testing'
+));
+
+$object->getProtected();        // 'testing'
+?>	
+}}}
+
+# Managing Dependencies
+
+Objects that subclass Lithium's core `Object` class can also manage dependencies at runtime using a simple dependency injection mechanism. 
+
+# Package Organization
+
+# Exception Handling
+
+# Lithium File Structure
 
 Before you get started with Lithium, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
-* `config`
-* `controllers`
-* `extensions`
-* `libraries`
-* `models`
-* `resources`
-* `tests`
-* `views`
-* `webroot`
+ * `config`
+ * `controllers`
+ * `extensions`
+ * `libraries`
+ * `models`
+ * `resources`
+ * `tests`
+ * `views`
+ * `webroot`
 
 Let's tackle each of these folders one-by-one, covering what each is used for, and how you can best organize your application.
 

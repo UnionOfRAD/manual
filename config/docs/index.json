@@ -7,10 +7,7 @@
 		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
 		"contents": {
 			"00_quickstart": {
-				"title": "Quickstart",
-				"contents": {
-					"00_quickstart/blog.wiki": { "title": "The Blog Tutorial" }
-				}
+				"title": "Quickstart"
 			},
 			"01_getting_started": {
 				"title": "Getting Started",
@@ -32,6 +29,9 @@
 							"01_getting_started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
 							"01_getting_started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
 						}
+					},
+					"01_getting_started/external_libs": {
+						"title": "Working with External Libraries"
 					}
 				}
 			},
@@ -78,21 +78,27 @@
 			"07_globalization": {
 				"title": "Globalization",
 				"contents": {
-					"07_globalization/globalization.wiki": { "title": "Globalization Tutorial" }
+					"07_globalization/readme.wiki": { "title": "Globalization Tutorial" }
 				}
 			},
 			"10_testing": {
 				"title": "Testing",
 				"contents": {
-					"10_testing/testing.wiki": { "title": "Lithium's Unit Testing Framework" }
+					"10_testing/readme.wiki": { "title": "Lithium's Unit Testing Framework" }
+				}
+			},
+			"11_cloud": {
+				"title": "Lithium in the Cloud",
+				"contents": {
+					"11_cloud/readme.wiki": { "title": "Deploying to Orchestra.io" }
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
-					"appendices/faq.wiki": { "title": "FAQ" },
-					"appendices/integrating_zend_framework.wiki": { "title": "Integrating Zend Framework" },
-					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" }
+					"appendices/readme.wiki": { "title": "FAQ" },
+					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" },
+					"appendices/creating_a_plugin.wiki": { "title": "Creating a Lithium Plugin" }
 				}
 			}
 		}
