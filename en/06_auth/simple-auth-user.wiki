@@ -27,6 +27,13 @@ User::applyFilter('save', function($self, $params, $chain){
 	return $chain->next($self, $params, $chain);
 });
 
+/* Solution for Sql database */
+User::applyFilter('save', function($self, $params, $chain){
+    if(!$params['entity]->exist()){
+        $params['data'['password'] = lithium\util\String::hash($params['data']['password']);
+    }
+    return $chain->next($self, $params, $chain);
+});
 ?>
 }}}
 
