@@ -83,7 +83,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	if (Auth::check('default')) {
 		return $ctrl;
 	}
-	if (isset($ctrl->publicActions) && in_array($params['action'], $ctrl->publicActions)) {
+	if (isset($ctrl->publicActions) && in_array($params['params']['action'], $ctrl->publicActions)) {
 		return $ctrl;
 	}
 	return function() use ($request) {
