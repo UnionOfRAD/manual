@@ -86,6 +86,9 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	if (isset($ctrl->publicActions) && in_array($params['params']['action'], $ctrl->publicActions)) {
 		return $ctrl;
 	}
+    if(!isset($request)){
+        $request = $params['request'];
+    }
 	return function() use ($request) {
 		return new Response(compact('request') + array('location' => '/users/login'));
 	};
