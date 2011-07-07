@@ -34,7 +34,7 @@ Developers using MySQL will need a `users` table with at least the columns `id`,
 {{{
 namespace app\models;
 
-class Users extends \lithium\data\Model {
+class User extends \lithium\data\Model {
 }
 }}}
 
@@ -48,39 +48,31 @@ For convenience, we also recommend setting up a filter to automatically hash use
 
 {{{
 User::applyFilter('save', function($self, $params, $chain){
-	$entity = $params['entity'];
-	if (!$entity->id) {
-		$params['data']['password'] = \lithium\util\String::hash($params['data']['password']);
+	$record = $params['entity'];
+	if (!$record->id) {
+		$record->password = lithium\util\String::hash($record->password);
 	}
 	if (!empty($params['data'])) {
-		$entity->set($params['data']);
+		$record->set($params['data']);
 	}
-	$params['entity'] = $entity;
+	$params['entity'] = $record;
 	return $chain->next($self, $params, $chain);
 });
-}}}
-
-Then you can create a new user by doing this sort of thing, one time, somewhere in the app:
-
-{{{
-$user = Users::create();
-$user->save(array('email' => 'user@example.com', 'password' => 'thecakeisali3'));
-exit;
 }}}
 
 ## Bootstrapping Auth
 
 Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file.
 
-First, point Lithium's main bootstrap file to our Auth bootstrap file, which is now combined with Session. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
+First, point Lithium's main bootstrap file to our Auth bootstrap file. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
 
 {{{
 
-require __DIR__ . '/bootstrap/session.php';
+require __DIR__ . '/bootstrap/auth.php';
 
 }}}
 
-Next, make sure the Session setup is using the PHP adapter, then making some initial Auth configurations:
+Next, create a new file at `app/config/bootstrap/auth.php` (if it doesn't already exist). In this auth-specific bootstrap file, we'll need to do a few things. First, make sure the Session setup is using the PHP adapter, then making some initial Auth configurations:
 
 {{{
 use lithium\storage\Session;
@@ -91,9 +83,9 @@ Session::config(array(
 ));
 
 Auth::config(array(
-	'default' => array(
+	'customer' => array(
 		'adapter' => 'Form',
-		'model'   => 'Users',
+		'model'   => 'User',
 		'fields'  => array('username', 'password')
 	)
 ));
@@ -115,14 +107,10 @@ use lithium\security\Auth;
 class UsersController extends \lithium\action\Controller {
 
 	public function login() {
-		if ($this->request->data) {
-			if (Auth::check('default', $this->request)) {
-				return $this->redirect('/');
-			}
+		if (Auth::check('customer', $this->request)) {
+			return $this->redirect('/');
 		}
 	}
-
-	/* ... */
 }
 }}}
 
@@ -153,10 +141,14 @@ use lithium\security\Auth;
 
 class UsersController extends \lithium\action\Controller {
 
-	/* ... */
+	public function login() {
+		if (Auth::check('customer', $this->request)) {
+			return $this->redirect('/');
+		}
+	}
 
 	public function logout() {
-		Auth::clear('default');
+		Auth::clear('customer');
 		return $this->redirect('/');
 	}
 }
