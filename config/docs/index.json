@@ -14,47 +14,29 @@
 				"contents": {
 					"getting-started/requirements.wiki": { "title": "Requirements" },
 					"getting-started/installation.wiki": { "title": "Installation" },
-					"getting-started/troubleshooting.wiki": { "title": "Troubleshooting" },
-					"getting-started/data_sources": {
-						"title": "Data Sources",
-						"contents": {
-							"getting-started/data_sources/mongodb-setup.wiki": { "title": "MongoDB Setup" }
-						}
-					},
-					"getting-started/web_servers": {
-						"title": "Web Servers",
-						"contents": {
-							"getting-started/web_servers/apache.wiki": { "title": "Apache" },
-							"getting-started/web_servers/cherokee.wiki": { "title": "Cherokee" },
-							"getting-started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
-							"getting-started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
-						}
-					},
-					"getting-started/external_libs": {
-						"title": "Working with External Libraries"
-					}
+					"getting-started/troubleshooting.wiki": { "title": "Troubleshooting" }
 				}
 			},
 			"lithium_basics": {
 				"title": "Lithium Basics",
 				"contents": {
-					"lithium_basics/00_architecture.wiki": { "title": "Architecture" },
-					"lithium_basics/01_new_in_php_5.3.wiki": { "title": "New in PHP 5.3" },
-					"lithium_basics/02_filters.wiki": { "title": "Filters" }
+					"lithium_basics/architecture.wiki": { "title": "Architecture" },
+					"lithium_basics/new-in-php53.wiki": { "title": "New in PHP 5.3" },
+					"lithium_basics/filters.wiki": { "title": "Aspect Oriented Programming with Filters" }
 				}
 			},
 			"configuration": {
 				"title": "Configuration",
 				"contents": {
-					"configuration/php.wiki" : {"title" : "PHP"} 
+					"configuration/php.wiki" : {"title" : "PHP"},
 					"configuration/servers": {
 						"title": "Servers",
 						"contents": {
 							"configuration/servers/apache.wiki": { "title": "Apache" },
 							"configuration/servers/cherokee.wiki": { "title": "Cherokee" },
 							"configuration/servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
-							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" }
-							"configuration/servers/nginx.wiki"
+							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" },
+							"configuration/servers/nginx.wiki" : { "title": "Nginx" }
 						}
 					},
 					"configuration/connections": {
@@ -62,7 +44,7 @@
 						"contents": {
 							"configuration/connections/mongodb-setup.wiki": { "title": "MongoDB Setup" }
 						}
-					},
+					}
 				}
 			},
 			"quality-code": {
@@ -85,10 +67,17 @@
 				"title": "Working with Data",
 				"contents": {
 					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
-					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"}
-					"working-with-data/using-models.wiki": { "title": "Using Models"}
-					"working-with-data/relationships.wiki": { "title": "Relationships "}
+					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"},
+					"working-with-data/using-models.wiki": { "title": "Using Models"},
+					"working-with-data/relationships.wiki": { "title": "Relationships "},
 					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"}
+				}
+			},
+			"extending-lithium": {
+				"title": "Extending Lithium",
+				"contents": {
+					"extending-lithium/plugins.wiki": { "title": "Plugins" },
+					"extending-lithium/third-party-libraries.wiki": { "title": "3rd Party Libraries" }
 				}
 			},
 			"auth": {
@@ -114,7 +103,7 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" },
+					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" }
 				}
 			}
 		}
