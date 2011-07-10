@@ -46,6 +46,7 @@
 			"configuration": {
 				"title": "Configuration",
 				"contents": {
+					"configuration/php.wiki" : {"title" : "PHP"} 
 					"configuration/servers": {
 						"title": "Servers",
 						"contents": {
@@ -53,8 +54,7 @@
 							"configuration/servers/cherokee.wiki": { "title": "Cherokee" },
 							"configuration/servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
 							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" }
-							"configuration/servers/nginx,wiki"
-							"configuration/servers/php-fpm,wiki"
+							"configuration/servers/nginx.wiki"
 						}
 					},
 					"configuration/connections": {
