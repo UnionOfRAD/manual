@@ -6,99 +6,115 @@
 		"path": "/en",
 		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
 		"contents": {
-			"00_quickstart": {
+			"quickstart": {
 				"title": "Quickstart"
 			},
-			"01_getting_started": {
+			"getting-started": {
 				"title": "Getting Started",
 				"contents": {
-					"01_getting_started/00_requirements.wiki": { "title": "Requirements" },
-					"01_getting_started/01_installation.wiki": { "title": "Installation" },
-					"01_getting_started/02_troubleshooting.wiki": { "title": "Troubleshooting" },
-					"01_getting_started/data_sources": {
+					"getting-started/requirements.wiki": { "title": "Requirements" },
+					"getting-started/installation.wiki": { "title": "Installation" },
+					"getting-started/troubleshooting.wiki": { "title": "Troubleshooting" },
+					"getting-started/data_sources": {
 						"title": "Data Sources",
 						"contents": {
-							"01_getting_started/data_sources/mongodb-setup.wiki": { "title": "MongoDB Setup" }
+							"getting-started/data_sources/mongodb-setup.wiki": { "title": "MongoDB Setup" }
 						}
 					},
-					"01_getting_started/web_servers": {
+					"getting-started/web_servers": {
 						"title": "Web Servers",
 						"contents": {
-							"01_getting_started/web_servers/apache.wiki": { "title": "Apache" },
-							"01_getting_started/web_servers/cherokee.wiki": { "title": "Cherokee" },
-							"01_getting_started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
-							"01_getting_started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
+							"getting-started/web_servers/apache.wiki": { "title": "Apache" },
+							"getting-started/web_servers/cherokee.wiki": { "title": "Cherokee" },
+							"getting-started/web_servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
+							"getting-started/web_servers/lighttpd.wiki": { "title": "LigHTTPD" }
 						}
 					},
-					"01_getting_started/external_libs": {
+					"getting-started/external_libs": {
 						"title": "Working with External Libraries"
 					}
 				}
 			},
-			"02_lithium_basics": {
+			"lithium_basics": {
 				"title": "Lithium Basics",
 				"contents": {
-					"02_lithium_basics/00_architecture.wiki": { "title": "Architecture" },
-					"02_lithium_basics/01_new_in_php_5.3.wiki": { "title": "New in PHP 5.3" },
-					"02_lithium_basics/02_filters.wiki": { "title": "Filters" }
+					"lithium_basics/00_architecture.wiki": { "title": "Architecture" },
+					"lithium_basics/01_new_in_php_5.3.wiki": { "title": "New in PHP 5.3" },
+					"lithium_basics/02_filters.wiki": { "title": "Filters" }
 				}
 			},
-			"03_request_response": {
-				"title": "The Request/Response Cycle",
+			"configuration": {
+				"title": "Configuration",
 				"contents": {
-					"03_request_response/00_quickstart_typical_request.wiki": { "title": "Quickstart: A Typical Request" },
-					"03_request_response/01_controllers.wiki": { "title": "Controllers" },
-					"03_request_response/02_views.wiki": { "title": "Views" },
-					"03_request_response/03_helpers.wiki": { "title": "Helpers" },
-					"03_request_response/04_understanding_context.wiki": { "title": "Understanding Context" }
+					"configuration/servers": {
+						"title": "Servers",
+						"contents": {
+							"configuration/servers/apache.wiki": { "title": "Apache" },
+							"configuration/servers/cherokee.wiki": { "title": "Cherokee" },
+							"configuration/servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
+							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" }
+							"configuration/servers/nginx,wiki"
+							"configuration/servers/php-fpm,wiki"
+						}
+					},
+					"configuration/connections": {
+						"title": "Connections",
+						"contents": {
+							"configuration/connections/mongodb-setup.wiki": { "title": "MongoDB Setup" }
+						}
+					},
 				}
 			},
-			"04_data_sources": {
-				"title": "Data Sources",
+			"quality-code": {
+				"title": "Writing Quality Code",
 				"contents": {
-					"04_data_sources/01_using_data_sources.wiki": { "title": "Using Data Sources"},
-					"04_data_sources/02_creating_data_sources.wiki": { "title": "Creating Data Sources"}
+					"quality-code/testing.wiki": { "title": "Lithium's Unit Testing Framework" }
 				}
 			},
-			"05_models": {
-				"title": "Models",
+			"handling-http-requests": {
+				"title": "Handling Http Requests",
 				"contents": {
-					"05_models/01_using_models.wiki": { "title": "Using Models" },
-					"05_models/02_associations.wiki": { "title": "Associations" },
-					"05_models/03_adding_functionality.wiki": { "title": "Adding Functionality" }
+					"handling-http-requests/overview.wiki": { "title": "Overview: A Typical Request and Response" },
+					"handling-http-requests/controllers.wiki": { "title": "Controllers" },
+					"handling-http-requests/views.wiki": { "title": "Views" },
+					"handling-http-requests/helpers.wiki": { "title": "Helpers" },
+					"handling-http-requests/understanding-context.wiki": { "title": "Understanding Context" }
 				}
 			},
-			"06_auth": {
+			"working-with-data": {
+				"title": "Working with Data",
+				"contents": {
+					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
+					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"}
+					"working-with-data/using-models.wiki": { "title": "Using Models"}
+					"working-with-data/relationships.wiki": { "title": "Relationships "}
+					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"}
+				}
+			},
+			"auth": {
 				"title": "Authentication",
 				"contents": {
-					"06_auth/simple-auth-user.wiki": { "title": "Creating a user in M, V, C" },
-					"06_auth/simple-authentication.wiki": { "title": "Simple Authentication" }
+					"auth/simple-auth-user.wiki": { "title": "Creating a user in M, V, C" },
+					"auth/simple-authentication.wiki": { "title": "Simple Authentication" }
 				}
 			},
-			"07_globalization": {
+			"globalization": {
 				"title": "Globalization",
 				"contents": {
-					"07_globalization/readme.wiki": { "title": "Globalization Tutorial" }
+					"globalization/readme.wiki": { "title": "Globalization Tutorial" }
 				}
 			},
-			"10_testing": {
-				"title": "Testing",
-				"contents": {
-					"10_testing/readme.wiki": { "title": "Lithium's Unit Testing Framework" }
-				}
-			},
-			"11_cloud": {
+			"cloud": {
 				"title": "Lithium in the Cloud",
 				"contents": {
-					"11_cloud/readme.wiki": { "title": "Deploying to Orchestra.io" }
+					"cloud/readme.wiki": { "title": "Deploying to Orchestra.io" }
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
 					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/using_in_external_applications.wiki": { "title": "Using Lithium in external applications" },
-					"appendices/creating_a_plugin.wiki": { "title": "Creating a Lithium Plugin" }
+					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" },
 				}
 			}
 		}
