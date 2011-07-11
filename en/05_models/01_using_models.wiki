@@ -93,6 +93,27 @@ foreach($posts as $post) {
 $plain = $posts->to('array');
 }}}
 
+Although extending models is described in a later chapter, here's another example so you get a 
+glimpse of whats possible with these objects.
+
+{{{
+// In app/models/Posts.php
+namespace app\models;
+class Posts extends \lithium\data\Model {
+	public function fullName($entity) {
+		return $entity->firstname." ".$entity->lastname;
+	}
+}
+
+// In app/views/posts/index.html.php
+foreach($posts as $post) {
+	<?= $post->fullName(); ?>
+}
+}}}
+
+You can add functionality on the fly and provide an extra layer of abstraction around raw database 
+records/documents with very little effort.
+
 Let's get our handy dirty on some code.
 
 ## Basic CRUD
@@ -103,6 +124,65 @@ the end of this chapter you should be able to create and modify datasets, not ti
 in particular.
 
 ### Retrieving Data
+Reading data from your database (or any datasource available) is one of the most basic tasks that 
+you will perform. To make common tasks easy, Lithium provides a central method for reading data and 
+a bunch of wrappers around it. This (static) method is called `find()` and takes at least one param. 
+The first argument tells the method how many records you want to fetch. The optional second argument 
+is an array of params that let you narrow down your search results. Let's go through a bunch of 
+examples:
+
+{{{
+// Read all posts
+$posts = Posts::find('all');
+
+// Read the first post
+$post = Posts::find('first');
+
+// Read all posts with the newest ones first
+$posts = Posts::find('all', array(
+	'order' => array('created' => 'DESC')
+));
+
+// Read the only the title of the newest post
+$post = Posts::find('first', array(
+	'fields' => array('title'), 
+	'order' => array('created' => 'DESC')
+));
+
+// Read only posts where the author name is "michael"
+$posts = Posts::find('all', array(
+	'conditions' => array('author' => 'michael')
+));
+}}}
+
+As mentioned previously, Lithium also provides wrappers around the `find()` method which make your 
+code less verbose and easier to read. 
+
+{{{
+// Read all posts
+$posts = Posts::all();
+
+// Read the first post
+$post = Posts::first();
+
+// Read all posts with the newest ones first
+$posts = Posts::all(array('order' => array('created' => 'DESC')));
+}}}
+
+These "basic" wrappers are nice, but Lithium also provides you with a set of highly dynamic wrappers 
+that match against your dataset.
+
+{{{
+/**
+ * Task: find all posts by username "michael"
+ */
+// Normal approach
+$posts = Posts::find('all', array(
+	'conditions' => array('username' => 'michael')
+));
+// Dynamic approach
+$posts = Posts::findAllByUsername('michael');
+}}}
 
 ### Saving Data
 
