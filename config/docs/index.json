@@ -56,7 +56,7 @@
 				}
 			},
 			"handling-http-requests": {
-				"title": "Handling Http Requests",
+				"title": "Handling HTTP Requests",
 				"contents": {
 					"handling-http-requests/overview.wiki": { "title": "Overview: A Typical Request and Response" },
 					"handling-http-requests/controllers.wiki": { "title": "Controllers" },
