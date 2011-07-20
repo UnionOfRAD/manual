@@ -17,12 +17,12 @@
 					"getting-started/troubleshooting.wiki": { "title": "Troubleshooting" }
 				}
 			},
-			"lithium_basics": {
+			"lithium-basics": {
 				"title": "Lithium Basics",
 				"contents": {
-					"lithium_basics/architecture.wiki": { "title": "Architecture" },
-					"lithium_basics/new-in-php53.wiki": { "title": "New in PHP 5.3" },
-					"lithium_basics/filters.wiki": { "title": "Aspect Oriented Programming with Filters" }
+					"lithium-basics/architecture.wiki": { "title": "Architecture" },
+					"lithium-basics/new-in-php53.wiki": { "title": "New in PHP 5.3" },
+					"lithium-basics/filters.wiki": { "title": "Aspect Oriented Programming with Filters" }
 				}
 			},
 			"configuration": {
