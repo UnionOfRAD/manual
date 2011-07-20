@@ -2,7 +2,7 @@
 
 ## Introduction
 
-## Model Creation and Configuration
+## Defining and Configuring
 
 ### Data Sources (?)
 

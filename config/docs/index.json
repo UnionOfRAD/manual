@@ -69,17 +69,10 @@
 				"title": "Working with Data",
 				"contents": {
 					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
-					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"},
 					"working-with-data/using-models.wiki": { "title": "Using Models"},
 					"working-with-data/relationships.wiki": { "title": "Relationships "},
-					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"}
-				}
-			},
-			"extending-lithium": {
-				"title": "Extending Lithium",
-				"contents": {
-					"extending-lithium/plugins.wiki": { "title": "Plugins" },
-					"extending-lithium/third-party-libraries.wiki": { "title": "3rd Party Libraries" }
+					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"},
+					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"}
 				}
 			},
 			"auth": {
@@ -93,6 +86,13 @@
 				"title": "Globalization",
 				"contents": {
 					"globalization/readme.wiki": { "title": "Globalization Tutorial" }
+				}
+			},
+			"extending-lithium": {
+				"title": "Extending Lithium",
+				"contents": {
+					"extending-lithium/plugins.wiki": { "title": "Plugins" },
+					"extending-lithium/third-party-libraries.wiki": { "title": "3rd Party Libraries" }
 				}
 			},
 			"cloud": {
