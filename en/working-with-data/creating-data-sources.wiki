@@ -63,9 +63,14 @@ The end result we're looking for is being able to create models that read from a
 {{{
 namespace myapp\extensions\adapter\data\source\http;
 
+use lithium\util\String;
+use lithium\util\Inflector;
+
 class GitHub extends \lithium\data\source\Http {
 }
 }}}
+
+This puts the class in the proper namespace, and imports some utility classes we'll be using later on.
 
  _A note on organization:_ Most data source adapters break down into a few basic _types_. For example, all relational databases are of the `database` type. They all work similarly, all share a common base class, and all live in `data\source\database` (in core), or `extensions\adapter\data\source\database` (in an application or plugin). Likewise with data sources that connect to databases or web services over HTTP. However, other data sources like [ `MongoDb`](http://lithify.me/docs/lithium/data/source/MongoDb) don't have a type. This distinction becomes important when configuring them, as seen below.
 
@@ -90,9 +95,7 @@ namespace myapp\models;
 
 class Issues extends \lithium\data\Model {
 
-	public $_meta = array(
-		'connection' => 'github'
-	);
+	public $_meta = array('connection' => 'github');
 }
 }}}
 
@@ -217,9 +220,9 @@ public function read($query, array $options = array()) {
 		return null;
 	}
 	$path = String::insert($paths[$source], array_map('urlencode', (array) $conditions));
-	$data = json_decode($this->connection->get($this->_config['basePath'] . $path), true);
+	$result = json_decode($this->connection->get($this->_config['basePath'] . $path), true);
 
-	return $this->item($query->model(), $data[$source], array('class' => 'set'));
+	return $this->item($query->model(), $result[$source], array('class' => 'set'));
 }
 }}}
 
@@ -247,13 +250,13 @@ Notice how we're using `item()`, but to create entities rather than sets now? He
 
 At this point, your `Issues` model should be successfully connecting to the API and fetching lists of issues and returning that data in `Documents` inside of `DocumentSet` objects.
 
-### Create, Update, Delete
+### Creating and Updating
 
 Now that we're rocking with some reads, let's hook up the writes. This is done by POSTing some data to the GitHub API. First, let's change our controller so that the model is saving a new issue:
 
 {{{
 public function index() {
-	$issue = Issue::create();
+	$issue = Issues::create();
 	$issue->user = 'myuser';
 	$issue->repo = 'myrepo';
 	$issue->title = 'Title for my new issue!';
@@ -273,7 +276,7 @@ public function create($query, array $options = array()) {
 
 	$params = $query->export($this, array('source', 'data'));
 	$source = $params['source'];
-	$data = array_map('urlencode', (array) $params['data']);
+	$data = array_map('urlencode', (array) $params['data']['data']);
 
 	if (!isset($paths[$source])) {
 		return false;
@@ -287,14 +290,156 @@ public function create($query, array $options = array()) {
 		break;
 	}
 	$result = json_decode($this->connection->post($path, $data), true);
-	return isset($result[$source]);
+	$key = Inflector::singularize($source);
+	return isset($result[$key]);
 }
 }}}
 
 As before, we'll create a map of available resources to API endpoints, and then extract out the parameters that we need from the query. _Note_: Sometimes you need lots of parameters, or you might not know all the parameters you need right at the beginning. You can simply omit the second parameter to `export()` to retrieve all of them.
 
-After we've verified the resource we're trying to access is valid, we'll build our API URL just like in read. Next, we'll pull out the data which is to be submitted via the POST request, and whitelist it so we're only pulling the `'title'` and `'body'` fields.
+After we've verified the resource we're trying to access is valid, we'll build our API URL just like in `read()`. Next, we'll pull out the data which is to be submitted via the POST request, and whitelist it so we're only pulling the `'title'` and `'body'` fields.
 
-Since the GitHub API returns a JSON object on success, we inspect the response to make sure it's there, and return a boolean based on the success of the operation.
+Since the GitHub API returns a JSON object on success, we inspect the response to make sure it's there, and return a boolean based on the success of the operation. This works fine, and our controller can check the value of `save()` to ensure that the issue was created successfully.
 
-Updating and deleting work in a similar manner: by overriding the corresponding method, inspecting the incoming query object to understand what the model needs, and using supporting classes to connect to the data source. Just remember to make sure that the other methods you create are agnostic as to what objects they're dealing with and leave that logic to the models.
+However, subsequent code won't be able to verify that `$issue` actually exists in the database, and none of our code will be able to reference it within the GitHub API, because it hasn't received a key (or any other information) that the API has given us. To fix this, we can simply change the last few lines of the `create()` method, as follows:
+
+{{{
+$result = json_decode($this->connection->post($path, $data), true);
+$key = Inflector::singularize($source);
+
+if (!isset($result[$key])) {
+	return false;
+}
+$query->entity()->sync(null, $result[$key]);
+return true;
+}}}
+
+The first thing to do is, instead of simply returning the result of the key check, just bail out if the operation failed. Next, we call the `sync()` method of the `Entity` class. This method lets our `Document` instance know that it is now current with the data stored in the service backend, and also lets us update the `Document`'s internal state with any new information received.
+
+Because the API does not define an explicit primary key for issues, we simply pass `null` as the first parameter (we could create a primary key by convention within our adapter, but that's another matter). To the second parameter, we pass the entire array of new issue data received from the API, including identifier values like `position` and `number`, the `user` name and `gravatar_id` of the GitHub user that posted it, and meta information like the `created_at` timestamp, the current `state` (`'open'`), and the `html_url` of the issue's page within GitHub.
+
+The other important piece of internal state modified by `sync()` indicates to `$issue` whether or not it _exists_ within the service. Without this, calling `$issue->exists()` would continue to return `false`, even if the call to `save()` were successful. It's up to your data source to manage the state of the entity objects it handles.
+
+Finally, for implementing updates, we can follow essentially the same template we did for the `create()` method, with a couple of notable exceptions:
+
+ - Instead of calling `post()` on our `$connection` property, we call `put()`.
+ - When exporting parameters from the `Query` object, we use `$params['data']['update']`, instead of `$params['data']['data']`. This provides us with just the fields that have been updated on the `Document` object.
+
+## Handling Errors
+
+So far, there are two exceptional conditions which we've encountered in our data source. The first is that this data source does not support delete operations. Accordingly, we should override the `delete()` method, so that it raises an exception if called. Lithium's `data` package provides a generic `QueryException` for failed query operations. We can use it to prevent delete operations from proceeding, and notify other developers that these API calls aren't permitted.
+
+First, import `QueryException` at the top of the data source class:
+
+{{{ use lithium\data\model\QueryException; }}}
+
+Then, override the `delete()` method of the parent class, and throw the exception:
+
+{{{
+public function delete($query, array $options = array()) {
+	throw new QueryException("Delete operations are not supported by this API.");
+}
+}}}
+
+The other condition which we have so far not dealt with is that of errors generated by the API. If you've been inspecting the JSON data that the GitHub API returns, you'll have noticed that certain API calls return a JSON structure with an `error` key.
+
+To implement error handling for this case, simply add the following check right below where the return value of `json_decode()` is assigned to `$result` in any of our implemented CRUD methods:
+
+{{{
+	if (isset($result['error'])) {
+		throw new QueryException($result['error']);
+	}
+}}}
+
+This will cause any errors generated by the API to bubble up to our application's error-handling.
+
+## Refactoring and Adding Metadata
+
+So far in our implementation, we've just been doing the simplest thing possible to get working functionality. However, that's left us with some repetitive operations and patterns across our methods. A lot of the work has to do with building queries and URLs, and defining things like `$paths` arrays.
+
+We can clean some of this up by extracting code out into properties and helper methods. This will not only make it easier for our adapter to support new features down the road, but it also helps us extract out some metadata that the model layer can use for introspection.
+
+The first step is to extract out the paths for the available operations on each resource:
+
+{{{
+protected $_sources = array(
+	'issues' => array(
+		'paths' => array(
+			'create' => array(
+				'/issues/open/{:user}/{:repo}' => array('user', 'repo')
+			),
+			'read' => array(
+				'issues/show/{:user}/{:repo}/{:number}' => array('user', 'repo', 'number'),
+				'issues/list/{:user}/{:repo}/{:label}' => array('user', 'repo', 'label'),
+				'issues/list/{:user}/{:repo}/{:state}' => array('user', 'repo', 'state'),
+				'issues/list/{:user}/{:repo}/{:state}/{:search}' => array(
+					'user', 'repo', 'state', 'search'
+				)
+			)
+		)
+	)
+);
+}}}
+
+Here, we have one key for each resource our data source will expose (we can add more later), and within that, we have a listing of paths, one for each operation, with each URL matching up to an array of keys required to use each one. Also note that the URLs are nested within a `'paths'` key. This allows us to associate other data with each resource down the road, i.e. a schema indicating the various fields exposed, and their data types.
+
+Next, we'll implement a method that will generate our new service URLs, which will be used by the various CRUD methods:
+
+{{{
+protected function _path($source, $type, array $params) {
+	if (!isset($this->_sources[$source]['paths'][$type])) {
+		return null;
+	}
+	$keys = array_keys($params);
+	sort($keys);
+
+	foreach ($this->_paths[$source][$type] as $path => $required) {
+		sort($required);
+
+		if ($keys !== $required) {
+			continue;
+		}
+		$params = array_map('urlencode', (array) $params);
+		$result = String::insert($path, $params);
+		return "{$this->_config['basePath']}/{$result}";
+	}
+}
+}}}
+
+This method will first check to see if a path is defined for the resource/operation combination requested. It will then iterate over the available paths, comparing the keys required for each path to the keys provided to the method, in an attempt to find a match.
+
+When a match is found, it uses `$params` to generate an API URL, which is returned to the calling method. Now, let's refactor the `read()` method, by removing the string-handling code that was previously used to generate URLs, and replace it with a simple set-and-check block which calls our new `_path()` method:
+
+{{{
+public function read($query, array $options = array()) {
+	$params = $query->export($this, array('source', 'conditions'));
+	$source = $params['source'];
+	$conditions = (array) $params['conditions'];
+
+	if (!$path = $this->_path($source, __FUNCTION__, $conditions)) {
+		return null;
+	}
+	$result = json_decode($this->connection->get($path), true);
+
+	if (isset($result['error'])) {
+		throw new QueryException($result['error']);
+	}
+	return $this->item($query->model(), $result[$source], array('class' => 'set'));
+}
+}}}
+
+The new implementation uses just a few lines to extract the necessary parameters from the `Query` object, then uses the new helper method to generate the correct URL, calls it and decodes the result, then implements the error-handling we saw above. Finally, if all goes well, it returns the results of the method call, wrapped in an iterable set of `Document` objects.
+
+Now that we've extracted the above information into a class property, we can do other useful things with it, such as implement the `sources()` method described at the beginning of this section. This method is intended to return a simple array indicating the list of resources available to bind to:
+
+{{{
+public function sources($class = null) {
+	return array_keys($this->_sources);
+}
+}}}
+
+## Conclusions
+
+Hopefully this section has armed you with all the knowledge required to create your own data sources. They're a very powerful tool in the framework, that allow you to model many different types of data from disparate sources in a single, unified way.
+
+Just remember, while you may choose to implement your own conventions on data access for the sake of convenience, data sources should only be concerned with interacting with backend data in abstract terms; high-level domain logic should always be implemented in models, or other classes designed to augment models.
