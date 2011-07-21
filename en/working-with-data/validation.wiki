@@ -1,0 +1,9 @@
+# Validation
+
+## Validating Model Data in the Controller
+
+## Specifying Rules
+
+## Showing Errors in the View
+
+## Creating Custom Rules

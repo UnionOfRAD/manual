@@ -70,6 +70,7 @@
 				"contents": {
 					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
 					"working-with-data/using-models.wiki": { "title": "Using Models"},
+					"working-with-data/validation.wiki": { "title": "Validation"},
 					"working-with-data/relationships.wiki": { "title": "Relationships "},
 					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"},
 					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"}
