@@ -15,7 +15,7 @@ By the end of this guide, you should feel comfortable in your understanding of t
 
 ## Aspect-Oriented Programming
 
-Lithium's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems. 
+Lithium's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems.
 
 There are a few examples of aspects that you're probably already familiar with. Logging and authentication are two great ones. Both are used in many different parts of an application, and maintaining something so widespread can get tricky unless you're organized. Not only that, those bits of logic aren't really part of the code that makes up your business logic. In other words, they're separate _concerns_.
 
@@ -73,22 +73,21 @@ For this filter, we'll intercept the method after it finds a controller object (
 
 {{{
 use lithium\action\Dispatcher;
-use lithium\net\http\Router;
 use lithium\action\Response;
 use lithium\security\Auth;
 
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
-	$ctrl = $chain->next($self, $params, $chain);
+    $ctrl = $chain->next($self, $params, $chain);
 
-	if (Auth::check('default')) {
-		return $ctrl;
-	}
-	if (isset($ctrl->publicActions) && in_array($params['action'], $ctrl->publicActions)) {
-		return $ctrl;
-	}
-	return function() use ($request) {
-		return new Response(compact('request') + array('location' => '/users/login'));
-	};
+    if (Auth::check('default')) {
+        return $ctrl;
+    }
+    if (isset($ctrl->publicActions) && in_array($params['request']->action, $ctrl->publicActions)) {
+        return $ctrl;
+    }
+    return function() {
+        return new Response(array('location' => '/users/login'));
+    };
 });
 }}}
 
@@ -159,7 +158,7 @@ Logger::config(array(
 Connections::get('default')->applyFilter('_execute', function($self, $params, $chain) {
 	// Hand the SQL in the params headed to _execute() to the logger:
 	Logger::debug(date("D M j G:i:s") . " " . $params['sql']);
-	
+
 	// Always make sure to keep the filter chain going.
 	return $chain->next($self, $params, $chain);
 });
@@ -200,9 +199,9 @@ class Twitter extends \lithium\core\Object {
 
 		$defaults = array('responseFormat' => 'json');
 		$options += $defaults;
-	
+
 		$params = compact('status', 'options');
-	
+
 		return $this->_filter(__METHOD__, $params, function($self, $params) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
@@ -222,9 +221,9 @@ class Twitter extends \lithium\core\StaticObject {
 
 		$defaults = array('responseFormat' => 'json');
 		$options += $defaults;
-	
+
 		$params = compact('status', 'options');
-		
+
 		return static::_filter(__FUNCTION__, $params, function($self, $params) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
@@ -233,7 +232,7 @@ class Twitter extends \lithium\core\StaticObject {
 }
 }}}
 
-Mostly the same... just call `static::_filter()` instead of `$this->_filter()`. 
+Mostly the same... just call `static::_filter()` instead of `$this->_filter()`.
 
 Another situation that makes things a bit tricky is if your main method implementation requires the use of properties or methods that would normally be out of scope once everything has been wrapped in a closure (i.e. private or protected members). For example, let's say our `tweet()` method logic makes use of a class called `OAuth` that's already a property of the `Twitter` class.
 
