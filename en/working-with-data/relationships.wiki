@@ -18,8 +18,8 @@ Defining this object relationship in Lithium is simple: you populate special pro
 
 {{{
 <?php
-class Category extends \lithium\data\Model {
-	protected $hasMany = array('Product');
+class Categories extends \lithium\data\Model {
+	public $hasMany = array('Products');
 }
 ?>
 }}}
@@ -28,9 +28,9 @@ This simple declaration relies on convention, and is the functional equivalent t
 
 {{{
 <?php
-class Category extends \lithium\data\Model {
-	protected $hasMany = array('Product' => array(
-		'class'      => 'Product',
+class Categories extends \lithium\data\Model {
+	public $hasMany = array('Products' => array(
+		'class'      => 'Products',
 		'key'        => 'category_id',
 		'conditions' => array(),
 		'fields'     => array(),
@@ -47,4 +47,112 @@ All of Lithium's model relationships use these same keys (although there's no re
 
 ## Reading Related Data
 
+Once a relationship as been configured, you can use your models to fetch related data. We can now do this in a controller:
+
+{{{
+<?php
+
+$categories = Categories::find('all', array(
+	'with' => 'Products'
+));
+
+/* 
+	Output of $categories->to('array'):
+	
+	Array
+	(
+	    [id] => 1
+	    [name] => Audio
+	    [products] => Array
+	        (
+	            [0] => Array
+	                (
+	                    [id] => 1
+	                    [category_id] => 1
+	                    [name] => Headphones
+	                    [price] => 21.99
+	                )
+	            [1] => Array
+	                (
+	                    [id] => 2
+	                    [category_id] => 1
+	                    [name] => Desk Speakers
+	                    [price] => 39.95
+	                )
+	            [2] => Array
+	                (
+	                    [id] => 3
+	                    [category_id] => 1
+	                    [name] => Portable Radio
+	                    [price] => 9.95
+	                )
+	        )
+	)
+*/
+?>
+}}}
+
+Notice the new `with` key supplied to the model? This tells Lithium that you want related data joined to the normal response.
+
+As you can see from the output, the related data has been added on to the model response. While we're printing out array contents here, you can as easily loop through or access the same information at `$categories->products` in this case as well.
+
 ## Saving Related Data
+
+Because Lithium's relationship setup is simple, so is saving related data. To make sure a newly created a product is also as simple. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly. 
+
+Here's a simplified example of how we'd save a newly created product, matched up to a category. First, the `ProductsController`:
+
+{{{
+<?php
+namespace app\controllers;
+
+use \app\models\Products;
+use \app\models\Categories;
+
+class ProductsController extends \lithium\action\Controller {
+	public function create() {
+		// If form data has been submitted, create a new Product.
+		if($this->request->data) {
+			Products::create($this->request->data)->save();
+		}
+		// Create a list of categories to send to the view.
+		$categories = Categories::find('all');
+		$categoryList = array();
+		foreach($categories as $category) {
+			$categoryList[$category->id] = $category->name;
+		}
+		
+		$this->set(compact('categoryList'));
+	}
+}
+?>
+}}}
+
+Here's the view that contains the form:
+
+{{{
+<?php
+<?= $this->form->create() ?>
+
+<div>
+	<?= $this->form->label('category') ?>
+	<?= $this->form->select('category_id', $categoryList) ?>
+</div>
+
+<div>
+	<?= $this->form->label('name') ?>
+	<?= $this->form->text('name'); ?>
+</div>
+
+<div>
+	<?= $this->form->label('price'); ?>
+	<?= $this->form->text('price'); ?>
+</div>
+
+<div>
+	<?= $this->form->submit('Create Product') ?>
+</div>
+
+<?= $this->form->end(); ?>
+?>
+}}}
