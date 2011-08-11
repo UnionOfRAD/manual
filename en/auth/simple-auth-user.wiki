@@ -49,17 +49,17 @@ Create this file in `controllers/UsersController`:
 namespace app\controllers;
 
 use lithium\security\Auth;
-use app\models\User;
+use app\models\Users;
 
 class UsersController extends \lithium\action\Controller {
 
 	public function index() {
-		$users = User::all();
+		$users = Users::all();
 		return compact('users');
 	}
 
 	public function add() {
-		$user = User::create($this->request->data);
+		$user = Users::create($this->request->data);
 
 		if (($this->request->data) && $user->save()) {
 			return $this->redirect('Users::index');
