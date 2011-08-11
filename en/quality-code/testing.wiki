@@ -18,17 +18,17 @@ Let's start out by creating a simple test case as a working example. Our first w
 
 {{{
 $ cd /path/to/lithium/app
-$ li3 create model Post
+$ li3 create model Posts
 
-Post created in app\models.
+Posts created in app\models.
 }}}
 
 We can also use the `li3 create` command to create our test case class.
 
 {{{
-$ li3 create test model Post
+$ li3 create test model Posts
 
-PostTest created for Post in app\tests\cases\models.
+PostsTest created for Posts in app\tests\cases\models.
 }}}
 
 Doing so creates a test file template class that extends `lithium\test\Unit` and looks like the following:
@@ -38,9 +38,9 @@ Doing so creates a test file template class that extends `lithium\test\Unit` and
 
 namespace app\tests\cases\models;
 
-use app\models\Post;
+use app\models\Posts;
 
-class PostTest extends \lithium\test\Unit {
+class PostsTest extends \lithium\test\Unit {
 
 	public function setUp() {}
 
@@ -53,7 +53,7 @@ class PostTest extends \lithium\test\Unit {
 
 The two initial methods supplied act as they're named. The `setUp()` method is used to perform any preparation work you'll need to perform your unit testing logic. This might be anything from setting up database connections to initializing mock data. Similarly, `tearDown()` is used to clean up anything that might be left over once a unit test has been completed. These methods are called before and after each method in your unit test case.
 
-The meat of the unit test, however, will be housed inside of methods you create. Each piece of your unit testing logic should be placed inside of a method whose name starts with 'test'. Before we make any adjustments to the `Post` model, let's exercise a bit of TDD and write an example test method first.
+The meat of the unit test, however, will be housed inside of methods you create. Each piece of your unit testing logic should be placed inside of a method whose name starts with 'test'. Before we make any adjustments to the `Posts` model, let's exercise a bit of TDD and write an example test method first.
 
 Since our test case is a subclass of `lithium\test\Unit`, we have easy access to a number of methods that help us validate test assertions. Since they're plainly named, I'll list some here. For for information, please refer to the API documentation for `lithium\test\Unit`.
 
@@ -69,31 +69,31 @@ Since our test case is a subclass of `lithium\test\Unit`, we have easy access to
  - `assertCookie()`
  - `expectException()`
 
-Every post should have a great title, and any editor knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Post model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
+Every post should have a great title, and any editor knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Posts model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
 
 {{{
 <?php
 
 namespace app\tests\cases\models;
 
-use app\models\Post;
+use app\models\Posts;
 
-class PostTest extends \lithium\test\Unit {
+class PostsTest extends \lithium\test\Unit {
 
 	public function setUp() {}
 
 	public function tearDown() {}
 
 	public function testIsGoodTitle() {
-		$this->assertTrue(Post::isGoodTitle("How to Win Friends and Influence People"));
-		$this->assertFalse(Post::isGoodTitle("The Top 10 Best Top Ten Lists"));
+		$this->assertTrue(Posts::isGoodTitle("How to Win Friends and Influence People"));
+		$this->assertFalse(Posts::isGoodTitle("The Top 10 Best Top Ten Lists"));
 	}
 }
 
 ?>
 }}}
 
-Turn back to your browser showing the Unit Test Dashboard, and refresh it. You should see a new entry at the top of the list on the left hand side that shows our `PostTest` unit test case. Clicking on the `PostTest` test case should show you the test results. At this point you won't get far—the model will likely complain about a missing connection or function: as it should!
+Turn back to your browser showing the Unit Test Dashboard, and refresh it. You should see a new entry at the top of the list on the left hand side that shows our `PostsTest` unit test case. Clicking on the `PostsTest` test case should show you the test results. At this point you won't get far—the model will likely complain about a missing connection or function: as it should!
 
 Let's start working on the model so we can get that test to pass. First, let's specify our model as not having any connection. We'll adjust this later, but let's do this now for simplicity's sake.
 
@@ -102,7 +102,7 @@ Let's start working on the model so we can get that test to pass. First, let's s
 
 namespace app\models;
 
-class Post extends \lithium\data\Model {
+class Posts extends \lithium\data\Model {
 	protected $_meta = array('connection' => false);
 	public $validates = array();
 }
@@ -117,7 +117,7 @@ Once that's in place, running the test again should have it barking about how `i
 
 namespace app\models;
 
-class Post extends \lithium\data\Model {
+class Posts extends \lithium\data\Model {
 	protected $_meta = array('connection' => false);
 	public $validates = array();
 
@@ -135,9 +135,9 @@ At this point, your test cases should run successfully in the Unit Test Dashboar
 
 Mocks are used in place of actual sources of information. You can create a mock for just about anything: a data source, model data, a console command response... anything. Since we're dealing primarily with the model in this example, let's continue that train of thought, and use some mocks to help us test our new model functionality.
 
-Let's create a MockPost that returns test data we can use to run through our `isGoodTitle()` method. One easy way to do that is to create a new class that just returns a RecordSet (in the case of an SQL database) or a Document (in the case of a document database) collection.
+Let's create a MockPosts that returns test data we can use to run through our `isGoodTitle()` method. One easy way to do that is to create a new class that just returns a RecordSet (in the case of an SQL database) or a Document (in the case of a document database) collection.
 
-Start by creating a new file in `app/tests/mocks/data/MockPost.php`:
+Start by creating a new file in `app/tests/mocks/data/MockPosts.php`:
 
 {{{
 
@@ -147,7 +147,7 @@ namespace app\tests\mocks\data;
 
 use lithium\data\collection\RecordSet;
 
-class MockPost extends \app\models\Post {
+class MockPosts extends \app\models\Posts {
 	public static function find($type = 'all', array $options = array()) {
 		switch ($type) {
 			case 'first':
@@ -174,15 +174,13 @@ What we've got here is essentially a model that spits out hard-coded data when w
 {{{
 
 public function testMockTitles() {
-	$results = MockPost::find('all');
+	$results = MockPosts::find('all');
 
 	$first = $results->current();
-	$this->assertFalse(MockPost::isGoodTitle($first['title']));
+	$this->assertFalse(MockPosts::isGoodTitle($first['title']));
 }
 
 }}}
 
 Head back to the Unit Test Dashboard to make sure this runs successfully, and you're done!
-
-
 
