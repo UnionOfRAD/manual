@@ -6,7 +6,7 @@ There are some [wiki:tools tools] which help you keeping in line with the standa
 
 ## Files
 
-File names should be created with *CamelCase* (according to the class they contain).
+File names should be created with _CamelCase_ (according to the class they contain).
 
 PHP files (files with the php suffix), should not have any whitespaces before or after the opening and closing php tag. The closing tag is preceded by an empty line.<sup>?</sup>
 
@@ -128,17 +128,19 @@ However there are a few exceptions to the spacing rule<sup>?</sup>:
 	case 'x':
 	:x
 
-In order to increase readability of the code it is allowed to use spaces **or** tabs before operators in certain cases.
+In order to increase readability of the code it is allowed to use spaces (not tabs) before operators in certain cases.
 
 1. Multiple function calls.
+	{{{
+		$those    = examples($are);
+		$the      = best($ones);
+	}}}
 
 2. Concatenating a long message.
-
-	$those    = examples($are);
-	$the      = best($ones);
-
-	$message  = 'this message is spread over ';
-	$message .= 'multiple lines.';
+	{{{
+		$message  = 'this message is spread over ';
+		$message .= 'multiple lines.';
+	}}}
 
 
 ## Control Structures
@@ -206,7 +208,7 @@ Parentheses _may_ be added to the conditional expression or entire ternary state
 
 ## Variables
 
-Variable names should be as descriptive as possible, but also as short as possible. Normal variables should start with a lowercase letter, and should be written in [wiki:CamelBack camelBack] in case of multiple words. Note that even variables containing objects must **not** start with a capital letter.
+Variable names should be as descriptive as possible, but also as short as possible. Normal variables should start with a lowercase letter, and should be written in _camelBack_ in case of multiple words. Note that even variables containing objects must **not** start with a capital letter.
 
 	$user = 'John';
 	$users = array('John', 'Hans', 'Arne');
