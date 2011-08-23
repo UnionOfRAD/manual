@@ -31,7 +31,7 @@ This simple declaration relies on convention, and is the functional equivalent t
 class Categories extends \lithium\data\Model {
 	public $hasMany = array('Products' => array(
 		'class'      => 'Products',
-		'keys'       => 'category_id',
+		'key'       => 'category_id',
 		'conditions' => array(),
 		'fields'     => array(),
 		'order'      => null,
