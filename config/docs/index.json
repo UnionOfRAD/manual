@@ -59,6 +59,7 @@
 				"title": "Handling HTTP Requests",
 				"contents": {
 					"handling-http-requests/overview.wiki": { "title": "Overview: A Typical Request and Response" },
+					"handling-http-requests/routing.wiki": { "title": "Request Routing" },
 					"handling-http-requests/controllers.wiki": { "title": "Controllers" },
 					"handling-http-requests/views.wiki": { "title": "Views" },
 					"handling-http-requests/helpers.wiki": { "title": "Helpers" },
