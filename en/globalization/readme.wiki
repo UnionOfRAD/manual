@@ -79,51 +79,14 @@ While this setup should meet most g11n needs, feel free to implement your own ac
 
 There is [ a great deal of thought](http://h3h.net/2007/01/designing-urls-for-multilingual-web-sites/) on the different approaches to embedding locale information in URLs. While each have their respective advantages, the Lithium g11n framework uses prefixed routes.
 
-A localized route is configured by creating a new application extension containing new routes information. This example creates a new file at `app/extensions/route/Localized.php`, a new class that extends `lithium\net\http\Route`:
+A localized route is configured by connecting a continuation route. This example shows how such a route looks like.
+
+Once the route has been connected, all the other application routes become localized and may now carry a locale:
 
 {{{
 <?php
 
-namespace app\extensions\route;
-
-use lithium\core\Environment;
-
-class Localized extends \lithium\net\http\Route {
-
-    protected function _init() {
-        $this->_config['template'] = '/{:locale:[a-z]+[a-z]+}' . $this->_config['template'];
-        $this->_config['params'] += array('locale' => null);
-        parent::_init();
-    }
-
-    public function match(array $options = array(), $context = null) {
-        $locale = Environment::get('locale');
-        return parent::match($options + compact('locale'), $context);
-    }
-}
-
-?>
-}}}
-
-Once this as been set up, we can connect routes in our application using this new localized route:
-
-{{{
-<?php
-
-use app\extensions\route\Localized;
-
-Router::connect(new Localized(array(
-    'template' => '/{:controller}/{:action}/{:id:[0-9]+}.{:type}',
-    'params' => array('id' => null)
-)));
-
-Router::connect(new Localized(array(
-    'template' => '/{:controller}/{:action}/{:id:[0-9]+}',
-)));
-
-Router::connect(new Localized(array(
-    'template' => '/{:controller}/{:action}/{:args}',
-)));
+Router::connect('/{:locale:[a-z]{2}}/{:args}', array(), array('continue' => true));
 
 ?>
 }}}
