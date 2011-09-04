@@ -86,7 +86,7 @@ Once the route has been connected, all the other application routes become local
 {{{
 <?php
 
-Router::connect('/{:locale:[a-z]{2}}/{:args}', array(), array('continue' => true));
+Router::connect('/{:locale:[a-zA-Z_]+}/{:args}', array(), array('continue' => true));
 
 ?>
 }}}
