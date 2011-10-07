@@ -15,27 +15,19 @@ server {
         access_log /var/log/DOMAIN.com/access.log;
         error_log /var/log/DOMAIN.com/error.log warn;
 
-		index  index.php index.html;
+        index  index.php index.html;
+
+        try_files $uri $uri/ /index.php?$args
 
         location ~ \.php$
         {
                 fastcgi_pass 127.0.0.1:9000;
-		        fastcgi_index  index.php;
+                fastcgi_index  index.php;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 include /etc/nginx/fastcgi_params;
         }
-
-        location / {
-                if ($request_filename ~ "favicon\.ico$") {
-                        break;
-                }
-                if (-e $request_filename) {
-                        break;
-                }
-                if (!-e $request_filename) {
-                        rewrite ^/(.+)$ /index.php?url=$1 last;
-                        break;
-                }
+        location ~ /\.ht {
+                deny all;
         }
 }
 }}}
