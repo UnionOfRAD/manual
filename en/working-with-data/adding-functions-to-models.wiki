@@ -143,7 +143,7 @@ class Users extends \lithium\data\Model {
 	public function fullName($entity, $suffix = false) {
 		$name = $entity->firstName . ' ' . $entity->middleInitial . '. ' . $entity->lastName;
 		if($suffix) {
-			$name . ' ' . $entity->suffix;
+			$name .= ' ' . $entity->suffix;
 		}
 		return $name;
 	}
