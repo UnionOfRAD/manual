@@ -8,13 +8,12 @@ Enough talk. Let's get started.
 
 ## Contributing
 
-This project is an ongoing work, and we need your help. Lithium users _new_ and _old_ are welcome to join in the fun. If you've struggled with something, help us record the solution so others can find the way more easily. There are many ways you can help:
+This project is an ongoing work, and we need your help. Lithium users _new_ and _old_ are welcome to join in the fun. If you've struggled with something, help us record and share the solution so others can find the way more easily. There are many ways you can help:
 
  * Code examples to enrich current documentation
- * Lists or tables to help explain concepts
+ * Do lists or tables to help explain concepts
  * Rough notes that describe an oft-used process
  * Corrections (typos, inaccuracies, etc.)
  * Translations
 
-If you'd like to help, simply [fork the project on GitHub](https://github.com/UnionOfRAD/manual), [open a new issue](https://github.com/UnionOfRAD/manual/issues), or get in contact with one of the core team members. You can give us a shout in #li3 on Freenode, or send an email to anderson.johnd at gmail dot com.
-
+If you'd like to help, simply [fork the project on GitHub](https://github.com/UnionOfRAD/manual), [open a new issue](https://github.com/UnionOfRAD/manual/issues), or get in contact with one of the core team members. You can give us a shout in channel #li3 on server Freenode, or send an email to anderson.johnd at gmail dot com.
