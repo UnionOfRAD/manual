@@ -29,10 +29,10 @@ For example, let's say we've got lithium installed in `/usr/local/lib/lithium/` 
 
 The two applications mentioned aren't complete copies of the Lithium codebase: they're just copies of the `app` folder (e.g. there should be a `/home/apps/first-app/config` folder).
 
-First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap.php` file like so:
+First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap/libraries.php` file like so:
 
 {{{
-define('LITHIUM_LIBRARY_PATH', '/usr/local/lib/lithium/libraries');
+define('LITHIUM_LIBRARY_PATH', dirname('/usr/local/lib/lithium'));
 }}}
 
 ## Pedal to the Metal
