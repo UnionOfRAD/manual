@@ -32,7 +32,7 @@ The two applications mentioned aren't complete copies of the Lithium codebase: t
 First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap/libraries.php` file like so:
 
 {{{
-define('LITHIUM_LIBRARY_PATH', dirname('/usr/local/lib/lithium');
+define('LITHIUM_LIBRARY_PATH', dirname('/usr/local/lib/lithium'));
 }}}
 
 ## Pedal to the Metal
