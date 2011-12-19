@@ -36,6 +36,7 @@
 							"configuration/servers/cherokee.wiki": { "title": "Cherokee" },
 							"configuration/servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
 							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" },
+							"configuration/servers/litespeed.wiki": { "title": "Litespeed" },
 							"configuration/servers/nginx.wiki" : { "title": "Nginx" }
 						}
 					},
