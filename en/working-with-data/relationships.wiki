@@ -98,7 +98,7 @@ As you can see from the output, the related data has been added on to the model 
 
 ## Saving Related Data
 
-Because Lithium's relationship setup is simple, so is saving related data. To make sure a newly created a product is also as simple. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly. 
+Because Lithium's relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly. 
 
 Here's a simplified example of how we'd save a newly created product, matched up to a category. First, the `ProductsController`:
 
