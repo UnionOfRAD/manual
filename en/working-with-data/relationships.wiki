@@ -128,31 +128,13 @@ class ProductsController extends \lithium\action\Controller {
 ?>
 }}}
 
-Here's the view that contains the form:
+And, here is the view that contains the form:
 
 {{{
-<?php
 <?= $this->form->create() ?>
-
-<div>
-	<?= $this->form->label('category') ?>
 	<?= $this->form->select('category_id', $categoryList) ?>
-</div>
-
-<div>
-	<?= $this->form->label('name') ?>
 	<?= $this->form->text('name'); ?>
-</div>
-
-<div>
-	<?= $this->form->label('price'); ?>
 	<?= $this->form->text('price'); ?>
-</div>
-
-<div>
 	<?= $this->form->submit('Create Product') ?>
-</div>
-
 <?= $this->form->end(); ?>
-?>
 }}}
