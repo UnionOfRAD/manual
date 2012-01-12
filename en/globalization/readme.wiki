@@ -132,7 +132,7 @@ $data = array(
 Catalog::write('message', 'de', $data, array('name' => 'runtime'));
 
 // Reads from the runtime g11n configuration
-Catalog::read('runtime', message', 'de');
+Catalog::read('runtime', 'message', 'de');
 
 // Results for the `de_DE` locale are merged with those for `de`
 Catalog::read('runtime', 'message', 'de_DE');
