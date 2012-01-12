@@ -54,14 +54,12 @@ One of the last things that `g11n.php` does in the bootstrap process is apply a 
 
 {{{
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
-    $request = $params['request'];
-    $controller = $chain->next($self, $params, $chain);
+	if (!$params['request']->locale()) {
+		$params['request']->locale(Locale::preferred($params['request']));
+	}
+	Environment::set(true, array('locale' => $params['request']->locale()));
 
-    if (!$request->locale) {
-        $request->params['locale'] = Locale::preferred($request);
-    }
-    Environment::set(Environment::get(), array('locale' => $request->locale));
-    return $controller;
+	return $chain->next($self, $params, $chain);
 });
 }}}
 
