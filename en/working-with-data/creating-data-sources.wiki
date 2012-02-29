@@ -8,7 +8,7 @@ If you're reading this guide, chances are you've looked around for a data source
 
 When creating a data source, it's important to realize the role of a data source. Data sources provide a layer that assists models, but focuses on the details surrounding connecting to, authenticating, and facilitating generic reads and writes to a certain data store. When creating a data source, work on the generic tasks needed to get the work done rather than the domain-specific work models will perform later on.
 
-As such, it's important for Lithium's models to understand the structure of the underlying data. A well-written data source should provide that information in a format models understand. 
+As such, it's important for Lithium's models to understand the structure of the underlying data. A well-written data source should provide that information in a format models understand.
 
 There are two main metadata methods your data source will want to implement &mdash; `sources()` and `describe()`:
 
@@ -166,7 +166,7 @@ public function read($query, array $options = array()) {
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
 	);
 
-	$params = $query->export($this, array('source', 'conditions'));
+	$params = $query->export($this, array('keys' => array('source', 'conditions')));
 	$source = $params['source'];
 	$conditions = (array) $params['conditions'] + array(
 		'user' => '', 'repo' => '', 'state' => ''
@@ -261,7 +261,7 @@ public function index() {
 	$issue->repo = 'myrepo';
 	$issue->title = 'Title for my new issue!';
 	$issue->body = 'Here\'s a description of the issue.';
-	
+
 	$issue->save();
 }
 }}}
