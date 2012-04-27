@@ -2,7 +2,7 @@
 
 Lithium core developers use the following coding standards. We suggest you follow the same standards when developing Lithium applications and plugins.
 
-There are some [wiki:tools tools] which help you keeping in line with the standards. We make use of the `Syntax` command which comes with the [Lithium QA](http://github.com/UnionOfRAD/lithium_qa) Application. Rules which have a corresponding check in Lithium QA are marked with the `?` symbol.
+There are some [wiki:tools tools] which help you keeping in line with the standards. We make use of the `Syntax` command which comes with the [QA plugin for Lithium](http://github.com/UnionOfRAD/li3_qa). Rules which have a corresponding check in Lithium QA are marked with the `?` symbol.
 
 ## Files
 
