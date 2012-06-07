@@ -32,7 +32,7 @@ In production, it is recommended that you set `AllowOverride` to `None` and inst
 		RewriteCond %{REQUEST_FILENAME} !-d
 		RewriteCond %{REQUEST_FILENAME} !-f
 		RewriteCond %{REQUEST_FILENAME} !favicon.ico$
-		RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+		RewriteRule ^ index.php [QSA,L]
 	</Directory>
 </VirtualHost>
 }}}
