@@ -23,7 +23,7 @@ class PostsController extends \lithium\action\Controller {
 
 Pretty straightforward. Using namespaces keeps your application's classes separate from the Lithium core and third-party plugins, allowing for commonly used class names (File, Folder, etc.) to be used in both places.
 
-Lithium classes also follow the [PHP Standards Working Group namespace standard](http://groups.google.com/group/php-standards/web/psr-0-final-proposal) in order allow for easy autoloading of class file, and cross-library interoperability. This keeps your class files clean from messy include statements.
+Lithium classes also follow the [PHP Standards Working Group namespace standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) in order allow for easy autoloading of class file, and cross-library interoperability. This keeps your class files clean from messy include statements.
 
 ## Anonymous Functions, Lambdas & Closures
 

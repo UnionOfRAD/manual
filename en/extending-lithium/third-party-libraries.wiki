@@ -4,7 +4,7 @@ Lithium applications are made up of collections of _libraries_. A library is any
 
 ## Basics
 
-Libraries are managed by the `lithium\core\Libraries` class, which handles auto-loading, service location, and introspecting available classes. When loading classes, Lithium assumes a [PSR-0 compatible](http://groups.google.com/group/php-standards/web/psr-0-final-proposal) class mapping structure. For more information, see the [documentation for the `Libraries` class](http://lithify.me/docs/lithium/core/Libraries).
+Libraries are managed by the `lithium\core\Libraries` class, which handles auto-loading, service location, and introspecting available classes. When loading classes, Lithium assumes a [PSR-0 compatible](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) class mapping structure. For more information, see the [documentation for the `Libraries` class](http://lithify.me/docs/lithium/core/Libraries).
 
 The default Lithium distribution ships with two `libraries` directories: one located at the root of the distribution, and one located in the `app` folder (or any application you generate with the console tooling). Libraries can be installed into either of these directories, and both are used interchangeably throughout this guide. The global `libraries` directory is intended for libraries which are shared across multiple applications, whereas the local directory is intended for application-specific ones, and will override the global directory in the event of a conflict.
 
