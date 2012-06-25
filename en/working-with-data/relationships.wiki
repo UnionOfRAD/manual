@@ -30,12 +30,12 @@ This simple declaration relies on convention, and is the functional equivalent t
 <?php
 class Categories extends \lithium\data\Model {
 	public $hasMany = array('Products' => array(
-		'class'      => 'Products',
-		'key'       => 'category_id',
-		'conditions' => array(),
-		'fields'     => array(),
-		'order'      => null,
-		'limit'      => null
+		'to'          => 'Products',
+		'key'         => 'category_id',
+		'constraints' => array(),
+		'fields'      => array(),
+		'order'       => null,
+		'limit'       => null
 	));
 }
 ?>
@@ -56,9 +56,9 @@ $categories = Categories::find('all', array(
 	'with' => 'Products'
 ));
 
-/* 
+/*
 	Output of $categories->to('array'):
-	
+
 	Array
 	(
 	    [id] => 1
@@ -98,7 +98,7 @@ As you can see from the output, the related data has been added on to the model 
 
 ## Saving Related Data
 
-Because Lithium's relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly. 
+Because Lithium's relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly.
 
 Here's a simplified example of how we'd save a newly created product, matched up to a category. First, the `ProductsController`:
 
@@ -121,7 +121,7 @@ class ProductsController extends \lithium\action\Controller {
 		foreach($categories as $category) {
 			$categoryList[$category->id] = $category->name;
 		}
-		
+
 		$this->set(compact('categoryList'));
 	}
 }
