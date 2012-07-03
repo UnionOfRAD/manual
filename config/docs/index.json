@@ -6,109 +6,113 @@
 		"path": "/en",
 		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
 		"contents": {
-			"quickstart": {
-				"title": "Quickstart"
-			},
-			"getting-started": {
-				"title": "Getting Started",
+			"installation": {
+				"title": "Installation",
 				"contents": {
-					"getting-started/requirements.wiki": { "title": "Requirements" },
-					"getting-started/installation.wiki": { "title": "Installation" },
-					"getting-started/troubleshooting.wiki": { "title": "Troubleshooting" }
+					"installation/requirements.wiki": {"title": "Requirements"},
+					"installation/installation.wiki": {"title": "Installing"},
+					"installation/configuration.wiki": {"title": "Configuration"},
+					"installation/troubleshooting.wiki": {"title": "Troubleshooting"}
 				}
 			},
-			"lithium-basics": {
-				"title": "Lithium Basics",
+			"quickstart": {
+				"title": "Quickstart",
 				"contents": {
-					"lithium-basics/architecture.wiki": { "title": "Architecture" },
-					"lithium-basics/new-in-php53.wiki": { "title": "New in PHP 5.3" },
-					"lithium-basics/filters.wiki": { "title": "Aspect Oriented Programming with Filters" }
+					"quickstart/readme.wiki": {"title": "The Blog Tutorial"}
+				}
+			},
+			"design-principles": {
+				"title": "Design Principles",
+				"contents": {
+					"design-principles/mvc.wiki": {"title": "Model View Controller"},
+					"design-principles/aop.wiki": {"title": "Aspect Oriented Programming"}
 				}
 			},
 			"configuration": {
 				"title": "Configuration",
 				"contents": {
-					"configuration/php.wiki" : {"title" : "PHP"},
-					"configuration/servers": {
-						"title": "Servers",
-						"contents": {
-							"configuration/servers/apache.wiki": { "title": "Apache" },
-							"configuration/servers/cherokee.wiki": { "title": "Cherokee" },
-							"configuration/servers/iis.wiki": { "title": "Internet Information Services (IIS)" },
-							"configuration/servers/lighttpd.wiki": { "title": "LigHTTPD" },
-							"configuration/servers/litespeed.wiki": { "title": "Litespeed" },
-							"configuration/servers/nginx.wiki" : { "title": "Nginx" }
-						}
-					},
-					"configuration/connections": {
-						"title": "Connections",
-						"contents": {
-							"configuration/connections/mongodb-setup.wiki": { "title": "MongoDB Setup" }
-						}
-					}
+					"configuration/bootstrapping.wiki": {"title": "Bootstrapping"},
+					"configuration/libraries.wiki": {"title": "Libraries"}
+				}
+			},
+			"models": {
+				"title": "Models",
+				"contents": {
+					"models/connections.wiki": {"title": "Connections"},
+					"models/using-models.wiki": {"title": "Using Models"},
+					"models/entities-collections.wiki": {"title": "Entities and Collections"},
+					"models/adding-functions-to-models.wiki": {"title": "Adding Functionality"},
+					"models/schema.wiki": {"title": "Model Schema"},
+					"models/relationships.wiki": {"title": "Relationships"},
+					"models/using-data-sources.wiki": {"title": "Using and Creating Data Sources"},
+					"models/validation.wiki": {"title": "Validation"}
+				}
+			},
+			"controllers": {
+				"title": "Controllers",
+				"contents": {
+					"controllers/actions.wiki": {"title": "Actions"},
+					"controllers/parameters.wiki": {"title": "Parameters"},
+					"controllers/routing.wiki": {"title": "Routes"},
+					"controllers/flow-control.wiki": {"title": "Flow Control"},
+					"controllers/exceptions-errors.wiki": {"title": "Exceptions and Errors"},
+					"controllers/type-rendering-detection.wiki": {"title": "Type Rendering and Detection"}
+				}
+			},
+			"views": {
+				"title": "Views",
+				"contents": {
+					"views/views.wiki": {"title": "View Variables"},
+					"views/auto-escaping.wiki": {"title": "Auto Escaping"},
+					"views/layouts.wiki": {"title": "Layouts"},
+					"views/elements.wiki": {"title": "Elements"},
+					"views/helpers.wiki": {"title": "Helpers"},
+					"views/static-content.wiki": {"title": "Static Content"}
 				}
 			},
 			"quality-code": {
-				"title": "Writing Quality Code",
+				"title": "Quality Code",
 				"contents": {
-					"quality-code/coding-standards.wiki": { "title": "Coding Standards" },
-					"quality-code/lithium_qa.wiki": { "title": "QA: static code analysis" },
-					"quality-code/testing.wiki": { "title": "Unit Testing" }
+					"quality-code/coding-standards.wiki": {"title": "Coding Standards"},
+					"quality-code/static-analysis.wiki": {"title": "Static Code Analysis"},
+					"quality-code/li3_qa.wiki": {"title": "li3_qa"},
+					"quality-code/testing.wiki": {"title": "Unit Testing"}
 				}
 			},
-			"handling-http-requests": {
-				"title": "Handling HTTP Requests",
+			"common-tasks": {
+				"title": "Common Tasks",
 				"contents": {
-					"handling-http-requests/overview.wiki": { "title": "Overview: A Typical Request and Response" },
-					"handling-http-requests/routing.wiki": { "title": "Request Routing" },
-					"handling-http-requests/controllers.wiki": { "title": "Controllers" },
-					"handling-http-requests/views.wiki": { "title": "Views" },
-					"handling-http-requests/helpers.wiki": { "title": "Helpers" },
-					"handling-http-requests/understanding-context.wiki": { "title": "Understanding Context" }
+					"common-tasks/debugging.wiki": {"title": "Debugging"},
+					"common-tasks/error-handling.wiki": {"title": "Error Handling"},
+					"common-tasks/logging.wiki": {"title": "Logging"},
+					"common-tasks/caching.wiki": {"title": "Caching"},
+					"common-tasks/console-applications.wiki": {"title": "Console Applications"},
+					"common-tasks/basic-filters.wiki": {"title": "Basic Filtering"},
+					"common-tasks/simple-authentication.wiki": {"title": "Authentication"},
+					"common-tasks/globalization.wiki": {"title": "Globalization"},
+					"common-tasks/plugins.wiki": {"title": "Plugins"},
+					"common-tasks/extending-lithium.wiki": {"title": "Extending Lithium"}
 				}
 			},
-			"working-with-data": {
-				"title": "Working with Data",
+			"advanced-tasks": {
+				"title": "Advanced Tasks",
 				"contents": {
-					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
-					"working-with-data/using-models.wiki": { "title": "Using Models"},
-					"working-with-data/validation.wiki": { "title": "Validation"},
-					"working-with-data/relationships.wiki": { "title": "Relationships "},
-					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"},
-					"working-with-data/creating-data-sources.wiki": { "title": "Creating Data Sources"}
-				}
-			},
-			"auth": {
-				"title": "Authentication",
-				"contents": {
-					"auth/simple-auth-user.wiki": { "title": "Creating a user in M, V, C" },
-					"auth/simple-authentication.wiki": { "title": "Simple Authentication" }
-				}
-			},
-			"globalization": {
-				"title": "Globalization",
-				"contents": {
-					"globalization/readme.wiki": { "title": "Globalization Tutorial" }
-				}
-			},
-			"extending-lithium": {
-				"title": "Extending Lithium",
-				"contents": {
-					"extending-lithium/plugins.wiki": { "title": "Plugins" },
-					"extending-lithium/third-party-libraries.wiki": { "title": "3rd Party Libraries" }
-				}
-			},
-			"cloud": {
-				"title": "Lithium in the Cloud",
-				"contents": {
-					"cloud/readme.wiki": { "title": "Deploying to Orchestra.io" }
+					"advanced-tasks/http-services.wiki": {"title": "HTTP Services"},
+					"advanced-tasks/adaptable.wiki": {"title": "Adaptable"},
+					"advanced-tasks/dependency-injection.wiki": {"title": "Dependency Injection"},
+					"advanced-tasks/cloud.wiki": {"title": "Lithium in the Cloud"},
+					"advanced-tasks/response-lifecycle.wiki": {"title": "The Response Lifecycle"},
+					"advanced-tasks/advanced-filtering.wiki": {"title": "Advanced Filtering"},
+					"advanced-tasks/architecture.wiki": {"title": "Lithium Object Architecture"}
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
-					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" }
+					"appendices/example-applications.wiki": {"title": "Example Applications"},
+					"appendices/launch-checklist.wiki": {"title": "Launch Checklist"},
+					"appendices/faqs.wiki": {"title": "FAQs"},
+					"appendices/using-in-other-applications.wiki": {"title": "Lithium in Other Apps"}
 				}
 			}
 		}
