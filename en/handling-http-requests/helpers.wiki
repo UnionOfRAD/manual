@@ -69,7 +69,7 @@ Once this has been setup, we can use the new helper as we would any of the core 
 
 ## Extending (and replacing) Core Helpers
 
-Lithium gives preference to your classes over the core. If you want to create your own version of the core helpers, it's as easy as creating a new class inside the `app/extensions/helpers` directory with the same name.
+Lithium gives preference to your classes over the core. If you want to create your own version of the core helpers, it's as easy as creating a new class inside the `app/extensions/helper` directory with the same name.
 
 For example, we can replace Lithium's core `Html` helper class with our newly created helper class by renaming the class and filename to 'Html' rather than 'AwesomeHtml'. Doing this also allows you to leave your templates untouched: calls to `$this->html` will reference your helper automatically.
 
