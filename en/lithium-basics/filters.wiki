@@ -166,6 +166,22 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 });
 }}}
 
+## Applying Filters Lazily
+
+One issue that may arise when applying filters to static classes inside of bootstrap logic is triggering the autoloading of those classes. This consumes memory, as well as invoking any other processes which may be triggered when a class is loaded.
+
+For this reason, it is sometimes preferrable to apply filters to a class without direct invocation. The `Filters` class, which powers the filter system, includes an `apply` method that enables this.
+
+Using the fully-qualified name of the class to which you want to apply the filter, you may invoke `Filters::apply()`, which will store the filter until the method to which it is applied first executes:
+
+{{{
+use lithium\util\collection\Filters;
+
+Filters::apply('blog\models\Posts', 'find', function($self, $params, $chain) {
+	// Filter logic is then written the same as it would be for non-lazy filters
+});
+}}}
+
 ## Creating Filter-able Logic
 
 If you're planning on creating and distributing your own code (hopefully via the [Lithium Laboratory](http://lab.lithify.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful Lithium filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
