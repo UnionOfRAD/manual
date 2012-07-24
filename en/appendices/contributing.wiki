@@ -1,0 +1,79 @@
+# Contributing to Lithium
+
+Thanks for your interest in contributing to Lithium! This project is built a thriving community of developers who value cutting-edge technology and concise, maintainable code. If you've found a bug, or have an idea for a feature, we encourage your participation in making Lithium better for everybody.
+
+## tl;dr
+
+ _In a hurry? Here's what you need to stick to in order to have the best chance of getting your code pushed to the core:_
+<br /><br />
+
+ * **Conceptual integrity**: code should conform to the goals of the framework
+ * **Maintainability**: code should pass existing tests, should have adequate test coverage, and should conform to coding standards & QA guidelines
+ * **Comprehensibility**: Code should be concise and expressive, and should be accompanied by new documentation as appropriate, or updates to existing docs
+ * **Integration**: Finally, pull requests should be submitted against the [`dev`](https://github.com/UnionOfRAD/lithium/tree/dev) branch for integration testing
+
+## Types of Contributions
+
+Whatever you'd like to contribute to the project, you may wish to discuss it with the core team and development community before beginning your work. This happens in one of two ways: you can [open an appropriately-labeled issue](https://github.com/UnionOfRAD/lithium/issues/new) in GitHub, or you can chat directly with a core team member by joining the [#li3-core](irc://irc.freenode.net/#li3-core) IRC channel on Freenode.
+
+We value collaboration, and believe that the best solutions are usually found through use-case-oriented discussions and, occasionally, a little healthy debate. If you have an idea for a killer feature or think you've found a bug, but are new to the framework, talk it over in IRC with someone more seasoned.
+
+Combining great new ideas with the wisdom of experience can help make the best feature possible, and talking through a bug with a core team member can help ensure that it gets fixed properly, rather than have the core littered with patches for symptoms of an underlying flaw.
+
+### Bugs
+
+
+
+### Security Vulnerabilities
+
+As an especially sensitive class of bug, security vulnerabilities should be reported directly to [security@union-of-rad.com](mailto:security@union-of-rad.org), and should not be disclosed publicly. When reporting security vulnerabilities, please specify the version affected, relevant reproduce code, and any other pertinent information relative to addressing the vulnerability, such as 3rd-party software or components.
+
+If you report a confirmed security vulnerability, you will receive a response from a core team member within 24 hours containing next steps as well as any follow-up questions necessary to produce a patch and publish a security update.
+
+### Enhancements and New Features
+
+One of the goals we strive for is keeping a light, clean core. This means all new features should be considered very carefully. Here's some of the criteria we go by when deciding whether to incorporate a new feature into the framework:<br /><br />
+
+ * **Does it fit within the existing set of features?** Lots of features are great ideas in their own right, but might not be right for integration with the core itself. Examples are  wholly new pieces of functionality that could easily fit within a plugin, or adapters for technologies that aren't widely used.<br /><br />Often, even in cases where integration for a widely-used technology might otherwise make an obvious addition, we choose to keep things in plugins in order to ensure the core always stays as light as possible. Every new feature introduced has a permanent cost in terms of maintence and documentation, increases testing burden, and couples additional code to every release cycle.
+
+ * **Is the feature not easily replicated with a few lines of app code?** Sometimes it's tempting to implement a new option flag or class property that make's your application code a little more convenient in a small subset of cases, but a lack of careful editing leads not only to high maintenance overhead, but to a lack of long-term flexibility in evolving the API. The framework is designed to be modular and extensible, and should be treated as such.<br /><br />If there's enough code to justify a plugin, publish it as such. Many times, features that don't make the cut in one version are implemented as plugins which gain wide acceptance, and are integrated into the core in subsequent versions.
+
+### Documentation
+
+
+
+## Branching
+
+The Lithium core is managed on a very simple branching workflow: when developing new features or bug fixes, a topic branch with a relevant name is created, such as `new-media-encode` or `model-find-fix`. Using comprehensible branch names helps to make sense of the source history as branches are merged.
+
+Once commits on a topic branch have been verified through testing, properly documented, and pass QA checks, the topic branch will be merged to `dev`, the integration branch. Ordinarily, you'll want to point your pull requests at this branch.
+
+For long-running feature branches, like `data`, you can point relevant pull requests there instead.
+
+
+<br />
+<table style="width: 50%; border: 0;">
+	<tr>
+		<td style="border: 0;">Master Branch (Stable)</td>
+		<td style="border: 0;">
+			<a href="http://travis-ci.org/UnionOfRAD/lithium" style="border: 0; padding: 0;">
+				<img
+					src="https://secure.travis-ci.org/UnionOfRAD/lithium.png?branch=master"
+					alt="Build Status: Master"
+				/>
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: 0;">Development / Integration Branch (Unstable)</td>
+		<td style="border: 0;">
+			<a href="http://travis-ci.org/UnionOfRAD/lithium" style="border: 0; padding: 0;">
+				<img
+					src="https://secure.travis-ci.org/UnionOfRAD/lithium.png?branch=dev"
+					alt="Build Status: Dev"
+				/>
+			</a>
+		</td>
+	</tr>
+</table>
+
