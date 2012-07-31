@@ -108,7 +108,8 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/readme.wiki": { "title": "FAQ" },
-					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" }
+					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" },
+					"appendices/contributing.wiki": { "title": "Contributing to Lithium" }
 				}
 			}
 		}
