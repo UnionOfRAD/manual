@@ -1,6 +1,6 @@
 # Contributing to Lithium
 
-Thanks for your interest in contributing to Lithium! This project is built by a thriving community of developers who value cutting-edge technology and concise, maintainable code. If you've found a bug, or have an idea for a feature, we encourage your participation in making Lithium better for everybody.
+Thank you for your interest in contributing to Lithium! This project is built by a thriving community of developers who value cutting-edge technology and concise, maintainable code. If you've found a bug, or have an idea for a feature, we encourage your participation in making Lithium better for everybody.
 
 ## tl;dr
 
