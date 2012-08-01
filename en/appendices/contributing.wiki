@@ -16,9 +16,9 @@ Thank you for your interest in contributing to Lithium! This project is built by
 
 Whatever you'd like to contribute to the project, you may wish to discuss it with the core team and development community before beginning your work. This can happen in one of two ways: you can [open an appropriately-labeled issue](https://github.com/UnionOfRAD/lithium/issues/new) in GitHub, or you can chat directly with a core team member by joining the [#li3-core](irc://irc.freenode.net/#li3-core) IRC channel on Freenode.
 
-We value collaboration and believe that the best solutions are usually found through use-case-oriented discussions and, occasionally, some healthy debate. If you're new to the framework and have an idea for a killer new feature or think you've found a bug, please talk it over in IRC with a seasoned member of the team.
+We value collaboration and believe that the best solutions are usually found through use-case-oriented discussions and, occasionally, some healthy debate. If you're new to the framework and have an idea for a killer new feature or think you've found a bug, please talk it over with a seasoned member of the team on IRC.
 
-Combining great new ideas with the wisdom of experience will help us make the best possible features for Lithium.  Likewise, talking through a bug with a core team member will help ensure it gets the best possible fix.  We'll all benefit from a lean, clean core, rather than one littered with patches for symptoms of an underlying flaw.
+Combining great new ideas with the wisdom of experience will help us create the best possible features for Lithium.  Likewise, talking through a bug with a core team member will help us ensure it gets the best possible fix.  We're striving to maintain a lean, clean core and want to avoid introducing patches for symptoms of an underlying flaw.
 
 
 ### Bugs
@@ -27,7 +27,7 @@ Combining great new ideas with the wisdom of experience will help us make the be
 
 ### Security Vulnerabilities
 
-Security vulnerabilities are an especially sensitive class of bug and should be reported directly and confidentially to [security@union-of-rad.com](mailto:security@union-of-rad.org). Please do not disclose any details publicly. When reporting security vulnerabilities, please specify the version affected, include relevant reproduction code along with any other pertinent information relative to addressing the vulnerability, such as 3rd-party software or components, etc.
+Security vulnerabilities are an especially sensitive class of bug and should be confidentially reported directly to [security@union-of-rad.com](mailto:security@union-of-rad.org). Please do not disclose any details publicly. When reporting security vulnerabilities, please specify the version affected, include relevant reproduction code along with any other pertinent information relevant to addressing the vulnerability, such as 3rd-party software or components, etc.
 
 On reporting a confirmed security vulnerability, you can expect to receive a response from a core team member within 24 hours containing next steps as well as any follow-up questions necessary to produce a patch and publish a security update.
 
