@@ -8,7 +8,7 @@ Thank you for your interest in contributing to Lithium! This project is built by
 <br /><br />
 
  * **Conceptual integrity**: code should conform to the goals of the framework
- * **Maintainability**: code should pass existing tests, have adequate test coverage and should conform to our coding standards & QA guideli
+ * **Maintainability**: code should pass existing tests, have adequate test coverage and should conform to our coding standards & QA guidelines
  * **Comprehensibility**: Code should be concise and expressive, and should be accompanied by new documentation as appropriate, or updates to existing docs
  * **Integration**: Finally, pull requests should be submitted against the [`dev`](https://github.com/UnionOfRAD/lithium/tree/dev) branch for integration testing
 
