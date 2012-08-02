@@ -1,7 +1,7 @@
 # The Quintessential Blog Tutorial
 
 Thanks for trying out Lithium! This section of the manual is for PHP users who want to see what Lithium can do and diving into the code like this is a great way to get a feel for Rapid Application Development!
-By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual also explain the concepts you'll use here in more detail.
+By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual explain the concepts you'll use here in more detail.
 
 ## Setting Up Lithium
 
@@ -31,7 +31,11 @@ So that PHP can talk to Mongo you'll also need to install the Mongo PECL module.
 
 	sudo pecl install mongo
 
-Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file and restart the server (`sudo /etc/init.d/apache2 restart`). The `php.ini` file will be stored in a directory like `/etc/php5/apache2` (exactly where depends on your system and server). There may also be a `php.ini` file for CLI. We don't use the `li3` command line application in this quickstart, but you might as well add `extension=mongo.so` to this other `php.ini` file as well to enable the command line application for the future.
+Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file and restart the server, e.g.:
+
+	sudo /etc/init.d/apache2 restart
+
+The `php.ini` file will be stored in a directory like `/etc/php5/apache2` (exactly where depends on your system and server). There may also be a `php.ini` file for CLI. We don't use the `li3` command line application in this quickstart, but you might as well add `extension=mongo.so` to this other `php.ini` file as well to enable the command line application for the future.
 
 Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://www.mongodb.org/display/DOCS/Getting+Started) is a great place to get some help.
 
@@ -44,7 +48,7 @@ Now that we have a database up and running and talking to PHP, let's tell Lithiu
 	
 The first parameter just names the connection something that can be read by people. Lithium also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used for connection configuration.  First specify the`'type'` as either the name of a class (as in the above example). Instead of `'type'` the adapter to be used can be specified in other ways as well, and other parameters can specify the name of the database and the server where it is hosted. In this case, we've asked Lithium to use a database called `'blog'` at the `'localhost'` MongoDB server.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the [API documentation](http://lithify.me/docs/app/config/bootstrap/connections) for more information.
 
 Editing bootstrap files like this is a common way of configuring Lithium. For example, you might want to set up some quick and dirty error handling by adding `ini_set("display_errors", 1);` to `my_app/app/config/bootstrap.php` - see [this section](../configuration/bootstrapping.wiki) of the manual for more detail on how to configure Lithium. Lithium is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 
@@ -247,6 +251,6 @@ As you can see, `Post` model `Document` objects expose their data through proper
 
 ### Post Mortem and Next Steps
 
-There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what Lithium can do, and how much it does for you, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
+There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what Lithium can do, and also how much it does for you, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
 
 Of course, there's plenty more to Lithium - and plenty more to do before you have the next WordPress or Blogger on your hands! Check out the [common tasks](../common-tasks) and [advanced tasks](../advanced-tasks) sections of the manual for some ideas!
