@@ -53,7 +53,7 @@ Above all, remember that _volunteers_ are going to be responding to these reques
 
 ### Security Vulnerabilities
 
-Security vulnerabilities are an especially sensitive class of bug and should be confidentially reported directly to [security@union-of-rad.com](mailto:security@union-of-rad.org). Please do not disclose any details publicly. When reporting security vulnerabilities, please specify the version affected, include relevant reproduction code along with any other pertinent information relevant to addressing the vulnerability, such as 3rd-party software or components, etc.
+Security vulnerabilities are an especially sensitive class of bug and should be confidentially reported directly to [security@union-of-rad.org](mailto:security@union-of-rad.org). Please do not disclose any details publicly. When reporting security vulnerabilities, please specify the version affected, include relevant reproduction code along with any other pertinent information relevant to addressing the vulnerability, such as 3rd-party software or components, etc.
 
 On reporting a confirmed security vulnerability, you can expect to receive a response from a core team member within 24 hours containing next steps as well as any follow-up questions necessary to produce a patch and publish a security update.
 
