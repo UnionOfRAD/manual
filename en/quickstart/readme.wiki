@@ -1,47 +1,62 @@
 # The Quintessential Blog Tutorial
 
-Thanks for trying out Lithium! This guide is meant for PHP users who are looking to get a good idea of what Lithium can do, and what developing an application using the framework is like. Diving into the code and creating a simple example application is a great way to test the waters and get a good feel for rapid application development, Lithium style.
+Thanks for trying out Lithium! This section of the manual is for PHP users who want to see what Lithium can do and diving into the code like this is a great way to get a feel for Rapid Application Development!
+By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual explain the concepts you'll use here in more detail.
 
-## Setting Up the Lab
+## Setting Up Lithium
 
-First on the checklist is getting a fresh copy of Lithium. If you've not done this already, check out our [Getting Started](http://lithify.me/docs/manual/getting-started/installation.wiki) guide. Make sure to follow each of the steps in the guide carefully.
+First things first: let's make sure Lithium is installed and working. If you haven't already installed Lithium then check out the [installation guide](../installation/installation.wiki) in this manual. Make sure to follow each of the steps in the guide carefully.
 
-Once you've got Lithium up and running, we'll need to get some sort of persistent storage layer in place. Traditionally this would be done using some sort of SQL database like MySQL. For this example however, we're going to use something a little different: MongoDB. Using a different setup will show you how flexible the framework is in using different engines.
+After completing installation, you should be able to navigate your browser to the path that you installed Lithium to (e.g. `my_app`, the rest of this blog tutorial assumes you have installed Lithium here) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 
-MongoDB is a hybrid solution, made from the good parts of both key/value data stores and traditional RDBMS systems. Setup is fast and easy.
+----
+
+![Example initial Lithium homepage](http://www.syntilect.com/temp/lithium-working.png "Example initial Lithium homepage")
+
+----
+
+## MongoDB
+
+As well as Lithium itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use MongoDB (http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with Lithium's RAD approach to development!
 
 The easiest way to get started is by downloading a binary from the MongoDB website. Check their [downloads page](http://www.mongodb.org/display/DOCS/Downloads), and fetch the binary that corresponds to your platform.
 
 Next, perform a bit of setup by creating a data directory for Mongo. Do this by creating a `/data/db` directory on your system (`C:\data\db` for our Windows friends).
 
-Finally, start up the database engine. Run `/path/to/mongodb/bin/mongod`, and wait for the initialization information to finish showing. If you run into any problems along the way, MongoDB's [Getting Started guide](http://www.mongodb.org/display/DOCS/Getting+Started) is a great place to get some help.
+Finally, start up the database engine. Run `/path/to/mongodb/bin/mongod`, and wait for the initialization information to finish showing.
 
-For MongoDB + PHP goodness, you'll need to install the Mongo PECL module. For most systems [(not Windows](http://www.mongodb.org/display/DOCS/Installing+the+PHP+Driver#InstallingthePHPDriver-WindowsInstall)), this is as easy as:
+## PHP and Mongo
+
+So that PHP can talk to Mongo you'll also need to install the Mongo PECL module. For most systems ([not Windows](http://www.mongodb.org/display/DOCS/Installing+the+PHP+Driver#InstallingthePHPDriver-WindowsInstall)), this is as easy as:
 
 	sudo pecl install mongo
 
-Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file.
+Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file and restart the server, e.g.:
 
-One last thing: better error handling and debug/production settings are slated for an upcoming release. Until then, you might want to square away a spot in `/app/config/bootstrap.php` for making your own error display decisions. For now, I'd suggest you enable the display of errors for your PHP installation or by using `ini_set()` to enable it temporarily while we're developing.
+	sudo /etc/init.d/apache2 restart
 
-	ini_set("display_errors", 1);
+The `php.ini` file will be stored in a directory like `/etc/php5/apache2` (exactly where depends on your system and server). There may also be a `php.ini` file for CLI. We don't use the `li3` command line application in this quickstart, but you might as well add `extension=mongo.so` to this other `php.ini` file as well to enable the command line application for the future.
+
+Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://www.mongodb.org/display/DOCS/Getting+Started) is a great place to get some help.
 
 ## Connection Setup
 
-Now that we have a database up and running, let's inform Lithium about the new setup. Do this by creating a new connection, in `/app/config/bootstrap/connections.php`.
-
-Remove any connections that exist in the file, then add a new connection for our MongoDB setup:
+Now that we have a database up and running and talking to PHP, let's tell Lithium about it. Do this by editing `my_app/app/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
 
 	// MongoDB Connection
 	Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'host' => 'localhost'));
 	
-The first parameter just names the connection something that can be read by people. Naming the connection `'default'` means that our Lithium models will use this connection unless otherwise specified.
+The first parameter just names the connection something that can be read by people. Lithium also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The last parameter is used for connection configuration.  First specify the`'type'` as either the name of a class (as in the above example) or the namespace containing the `'adapter'`. In this case, we tell Lithium we want to use a MongoDB database called `'blog'`.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the [API documentation](http://lithify.me/docs/app/config/bootstrap/connections) for more information.
+
+Editing bootstrap files like this is a common way of configuring Lithium. For example, you might want to set up some quick and dirty error handling by adding `ini_set("display_errors", 1);` to `my_app/app/config/bootstrap.php` - see [this section](../configuration/bootstrapping.wiki) of the manual for more detail on how to configure Lithium. Lithium is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 
 ## MVC Starts with M
 
-Let's create your first Lithium model. This model will handle domain logic for blog posts. Let's create a new file at `/app/models/Posts.php`. Because we're relying on convention to do the heavy (and monotonous) lifting, the model file itself is short and simple.
+Lithium uses the [MVC pattern](../design-principles/mvc.wiki). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first Lithium model, a `Posts` model that will handle the domain logic for blog posts.
+
+First, create a new file at `my_app/app/models/Posts.php`. If you name your files and structure your code according to Lithium's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
 {{{
 <?php
@@ -54,13 +69,15 @@ class Posts extends \lithium\data\Model {
 ?>
 }}}
 	
-There's a lot going on (for free!) in the background here. First, Lithium knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Posts`, it'll use a MongoDB collection called 'posts'.
+There's a lot going on (for free!) in the background here. First, Lithium knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Posts`, it'll use a MongoDB collection called 'posts'. We've also inherited a lot of useful methods for querying the database, and we'll learn more about some of those in later sections of this tutorial.
 
-Wait, what? What about the schema setup? Actually MongoDB doesn't require you set it up first - it just waits until you want to insert or query a collection, and handles the request appropriately.
+But wait, what? What about the schema setup? Actually, MongoDB doesn't require you to set it up first - it just waits until you want to insert or query the database and handles the request appropriately. That's RAD!
+
+
 
 ## In Control
 
-The controller setup is just as simple when getting started. Create a new file at `/app/controllers/PostsController.php` and fill it with the following:
+The controller setup is just as simple when getting started. Create a new file at `my_app/app/controllers/PostsController.php` and fill it with the following:
 
 {{{
 <?php
@@ -73,9 +90,9 @@ class PostsController extends \lithium\action\Controller {
 ?>
 }}}
 
-You may start noticing a trend: filenames are CamelCase, as are classnames. File paths also match their respective namespace, and are under_scored.
+You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the Lithium [coding convention](../quality-code/coding-standards.wiki), and you should stick to it to take full advantage of the framework's automagic.
 
-Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we get crazy with model goodness, let's just set up a simple action that pushes data to the view. Here's how it's done:
+Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we try and link all three of the model, controller and viewer together, let's just set up a simple action that pushes some dummy data to the view. Here's how it's done:
 
 {{{
 <?php
@@ -96,27 +113,30 @@ Lithium actions send data to the view by returning an associative array that det
 
 	return compact('lions', 'tigers', 'bears');
 
+
+
 ## What a View
 
-Let's see what that looks like in a view. 
+Next, let's create a `View` that uses the dummy data from `PostsController::index()`.
 
-Start by creating a new file at `/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
+Start by creating a new file at `my_app/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
 	Lithium is less dense than <?=$foo;?>ium.
 
-What you're seeing here in this view is the default and preferred way to output data to an HTML page. Using the `<?= ?>` syntax automatically escapes output and keeps you safe from the legions of attacks based from unescaped output. If you really need it, there's always `<?php echo ?>`. The view code you're seeing doesn't end up as short tags when it gets to PHP's parser: Lithium's view transparently rewrites these tags to automatically escape your view output &mdash; so don't worry about your PHP installation or short tag handling.
+Save this file, and now you can view the Posts index page by pointing your browser to `my_app/posts`. Lithium handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.wiki) of the manual.
 
-You can now view your Posts index page by viewing `/posts/` in your browser.
+What you're seeing used here in this view's code is also the default and preferred way to output data to an HTML page in Lithium. The short tags (`<?= ... ?>`) are automatically rewritten by Lithium to escape the output and keep you safe from the legions of attacks based on unescaped output. This means that the view code you're seeing doesn't end up as short tags when it gets to PHP's parser, so don't worry about your PHP installation or short tag handling. If you really need it, there's also always `<?php echo ... ?>`.
+
+
 
 ## First Post!
 
-Now that we've got our requests running smoothly, let's get the model more involved. Our first step will be to create a new action that handles the addition of new posts. To do that, we'll create a new action called `add()` and fill it with HTML form goodness. First, the new (empty) action in our `PostsController`:
+Now that you've built a Lithium application that displays some dummy data, it's time to extend it so that users can write posts.
 
-	public function add() {
-		
-	}
+First, create a new action in `PostsController` called `add()`:
 
-Next, create a new file at `/app/views/posts/add.html.php`:
+Next, create a new file at `my_app/app/views/posts/add.html.php`:
+
 {{{
 <?=$this->form->create(); ?>
 	<?=$this->form->field('title');?>
@@ -124,9 +144,10 @@ Next, create a new file at `/app/views/posts/add.html.php`:
 	<?=$this->form->submit('Add Post'); ?>
 <?=$this->form->end(); ?>
 }}}
-This view code sets up a simple HTML form, using a view layer assistance class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
-One note: because the call to `$this->form->create()` doesn't include any parameter, Lithium assumes you mean the `add()` method of the current controller. In this case, it's pointed to `/posts/add`, just as we need.
+This view code sets up a simple HTML form, using a view helper class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
+
+Note that because the call to `$this->form->create()` doesn't include any parameter, Lithium assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how Lithium defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `my_app/posts/add`, just as we need.
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
@@ -142,7 +163,15 @@ public function add() {
 }
 }}}
 
-There's a few things that we're doing here. Early on, we're checking to see if there's any data in the response. In this case, it will be filled with our form data. Next, we create a new Post model with the request data. To give you a little more of an idea what's going on here, the following pieces of code are equivalent:
+Because the form we've created in the view submits its data back to the same controller action, all controller code for adding a new Post happens in this method. First, the method checks to see if there's any POST data in the response. In this case, it would be filled with our form data so we `create()` a new Post model with the request data and save it to the database with `save()`. The result of any save operation (`$success`) is then passed back to the view so we could display a message to the user, and we could use that data in the view to show some sort of status message like so:
+
+{{{
+<?php if ($success): ?>
+	<p>Post Successfully Saved</p>
+<?php endif; ?>
+}}}
+
+To give you a little more of an idea what Lithium's doing "behind the scenes" here, the following pieces of code are equivalent:
 
 {{{
 $post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
@@ -154,7 +183,7 @@ $post->title = 'First Post';
 $post->body = 'Body Text!';
 }}}
 
-At this stage the controller knows nothing about the model, `Posts::create()`, in the action; so we must tell it. At the beginning of our file, and _after_ the namespace declaration, we add a `use app\models\Posts;` line:
+If you run this code right now though it won't work and will generate an error message. That's because the controller knows nothing about the model and its `create()` or `save()` methods, so we must tell it! At the beginning of our `PostsController.php` file, but _after_ the namespace declaration, we add a `use app\models\Posts;` line:
 
 {{{
 <?php
@@ -164,25 +193,19 @@ namespace app\controllers;
 use app\models\Posts;
 
 class PostsController extends \lithium\action\Controller {
-
 	// ...
-
 }
 
 ?>
 }}}
 
-Once we've handed the Post model the data, we call `save()` and eventually return the result of the save operation to the view. We can use that data in the view to show some sort of status message like so:
+Feel free now to have a play with this method and use your browser to add a few posts to your blog. Coming up next: displaying them!
 
-{{{
-<?php if ($success): ?>
-	<p>Post Successfully Saved</p>
-<?php endif; ?>
-}}}
-	
-## Checking the Post
 
-Now that we've stocked our database, let's use our Post model to pull the data. Let's rewrite the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
+
+## Viewing your posts
+
+Now that we've stocked our database, let's use our Post model to pull the data. We can do this by rewriting the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
 
 {{{
 	public function index() {
@@ -191,39 +214,43 @@ Now that we've stocked our database, let's use our Post model to pull the data. 
 	}
 }}}
 
-The object returned from `Post:all()` - which is equivalent to `Posts::find('all')` - is a Lithium `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not quite a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
+The object returned from `Post:all()` - which is equivalent to `Posts::find('all')` - is a Lithium `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
 
-If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object. 
+If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object.
 
-	var_dump($posts->data());
+	var_dump($posts->to('array'));
 	
-	// Output
-	
-	[0]=>
-	  array(3) {
-	    ["_id"]=>
-	    string(24) "4afddab78bd3c34f41757396"
-	    ["title"]=>
-	    string(11) "First Post!"
-	    ["body"]=>
-	    string(7) "Woooooo"
-	  }...
+	// Example output:
+	//
+	// [0]=>
+	//  array(3) {
+	//    ["_id"]=>
+	//    string(24) "4afddab78bd3c34f41757396"
+	//    ["title"]=>
+	//    string(11) "First Post!"
+	//    ["body"]=>
+	//    string(7) "Woooooo"
+	//  }
 
 If you're curious, you might also try `$posts->to('json')` to see some additional options. To enable this functionality, remember to uncomment the `require __DIR__ . '/bootstrap/media.php';` line in `app/config/bootstrap.php`.
 
-At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Let's start over with our view in `/app/views/posts/index.html.php` with the following:
+At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Replace the existing code in `/app/views/posts/index.html.php` with the following:
+
 {{{
 <?php foreach($posts as $post): ?>
 <article>
-	<h1><?=$post->title ?></h1>
-	<p><?=$post->body ?></p>
+	<h1><?= $post->title ?></h1>
+	<p><?= $post->body ?></p>
 </article>
 <?php endforeach; ?>
 }}}
-As you can see, `Post` model objects expose their data through properties. Once this view has been saved, fire up your browser and check `/posts` to see the output.
 
-## Post Mortem
+As you can see, `Post` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `my_app/posts` to see the output.
 
-There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what Lithium can (and will be able to) do, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
 
-More fresh code is on the way, so stay tuned as more features come online.
+
+### Post Mortem and Next Steps
+
+There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what Lithium can do, and also how much it does for you, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
+
+Of course, there's plenty more to Lithium - and plenty more to do before you have the next WordPress or Blogger on your hands! Check out the [common tasks](../common-tasks) and [advanced tasks](../advanced-tasks) sections of the manual for some ideas!
