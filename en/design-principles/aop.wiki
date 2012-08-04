@@ -1,6 +1,6 @@
 # Aspect-Oriented Programming
 
-If you've been a programmer for a while, or have received formal training as a programmer, it's very likely you've heard of Object-Oriented programming, or OOP. This method of formulating code focuses on creating objects that represent the data and behavior of real-world objects. OOP programmers tend to organize modules into groups that inherit from each other and are (hopefully) loosely coupled or independent of one another.
+If you've been a programmer for a while, or have received formal training as a programmer, it's very likely you've heard of Object-Oriented programming, or OOP. This way of viewing code focuses on creating objects that represent the data and behavior of real-world objects. OOP programmers tend to organize modules into groups that inherit from each other and are (hopefully) loosely coupled or independent of one another.
 
 ## Cause for Concern
 
