@@ -31,7 +31,7 @@
 				"title": "Configuration",
 				"contents": {
 					"configuration/bootstrapping.wiki": {"title": "Bootstrapping"},
-					"configuration/libraries.wiki": {"title": "Libraries"}
+					"configuration/environment.wiki": {"title": "Environment"}
 				}
 			},
 			"models": {
