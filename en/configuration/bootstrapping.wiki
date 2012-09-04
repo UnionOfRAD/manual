@@ -4,7 +4,7 @@ Configuration in Lithium is meant to be minimal and easy to understand. As such,
 
 The core configuration sets are either actively required from this main file, or commented out (because we like to run lean by default). Before creating new files, peruse the configurations in `app/config/bootstrap`, as many commonly used mechanisms (caching, sessions, globalization) already have configuration examples in this folder. 
 
-While we've included a lot of examples you get you started, feel free to add new files to the `boostrap` directory and require them from the main `bootstrap.php` file. If you're working in the cloud or interacting with a specific set of APIs or just need a place to keep a few global constants, those configurations are well-placed in this organization scheme.
+While we've included a lot of examples for you get you started, feel free to add new files to the `boostrap` directory and require them from the main `bootstrap.php` file. If you're working in the cloud or interacting with a specific set of APIs or just need a place to keep a few global constants, those configurations are well-placed in this organization scheme.
 
 ### Action
 
@@ -36,7 +36,7 @@ Every collection of classes located in a single base directory is handled as a _
 
 The first part of this configuration file sets up the main path components the rest of Lithium will base itself from. Unless you're doing some customization, you can probably leave this as-is. It actually keeps things running a bit faster than they would otherwise. 
 
-At the bottom of the file, however, you'll see the main components of the appliation being registered by the `Libraries::add()` method. Note that the "app" library, including Lithium itself are handled just like any other third-party addon or plugin.
+At the bottom of the file, however, you'll see the main components of the application being registered by the `Libraries::add()` method. Note that the "app" library, including Lithium itself, is handled just like any other third-party addon or plugin.
 
 This manual is also a library: enabled by downloading the codebase to `/libraries` (or `app/libraries`) and adding this to `libraries.php`:
 
