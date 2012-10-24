@@ -18,14 +18,14 @@ class User extends lithium\data\Model {
 		'username' => array(
 			array(
 				'notEmpty',
-				'required' => true
+				'required' => true,
 				'message' => 'Please supply a username.'
 			)
 		),
 		'password' => array(
 			array(
 				'notEmpty',
-				'required' => true
+				'required' => true,
 				'message' => 'Please supply a password.'
 			)
 		)
