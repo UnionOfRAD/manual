@@ -70,8 +70,10 @@
 			"working-with-data": {
 				"title": "Working with Data",
 				"contents": {
+                    "working-with-data/data-concepts.wiki": { "title": "Data Concepts"},
 					"working-with-data/using-data-sources.wiki": { "title": "Using Data Sources"},
-					"working-with-data/using-models.wiki": { "title": "Using Models"},
+					"working-with-data/setting-up-models.wiki": { "title": "Setting up Models"},
+                    "working-with-data/working-with-records.wiki": { "title": "Working with Records"},
 					"working-with-data/validation.wiki": { "title": "Validation"},
 					"working-with-data/relationships.wiki": { "title": "Relationships "},
 					"working-with-data/adding-functions-to-models.wiki": { "title": "Adding Functionality to Models"},

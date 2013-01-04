@@ -17,7 +17,7 @@ Lithium provides a number of data sources your models can utilize. The list is g
 
 ## Data Sources and Models
 
-Most of the time, using a data source is an automatic part of setting up a connection to your data store. This is usually done in the `config/boostrap/connections.php` bootstrap file:
+Most of the time, using a data source is an automatic part of setting up a connection to your data store. This is usually done in the `config/bootstrap/connections.php` bootstrap file:
 
 {{{
 <?php
