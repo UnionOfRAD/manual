@@ -52,7 +52,7 @@
 				"title": "Writing Quality Code",
 				"contents": {
 					"quality-code/coding-standards.wiki": { "title": "Coding Standards" },
-					"quality-code/lithium_qa.wiki": { "title": "QA: static code analysis" },
+					"quality-code/li3_qa.wiki": { "title": "QA: static code analysis" },
 					"quality-code/testing.wiki": { "title": "Unit Testing" }
 				}
 			},
