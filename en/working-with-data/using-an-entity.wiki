@@ -5,7 +5,7 @@
 * [Setting Default Query Options](#opts)
 * [Creating Entities](#create)
 * [Retrieving Entities](#ret)
-* [Custom Record Finders](#finders)
+* [Custom Finders](#finders)
 * [Updating Entities](#update)
 * [Deleting Entities](#delete)
 * [Saving Data](#save)
@@ -126,8 +126,8 @@ $posts = Posts::find('all', array(
 
 * **TIP:** _You can quickly get your data into a multidimensional array in the form of $array[keyValue][fieldName] by chaining the ->to('array') method to the end of the find() method call.  **Example:** `$posts = Posts::find('all')->to('array')`_
 
-### Dynamic Finder Methods
-Lithium also provides dynamically generated methods around the `find()` method which make your code less verbose and easier to read:
+### Basic Finder Methods
+Lithium also provides some additional basic methods around the `find()` method which make your code less verbose and easier to read:
 
 {{{
 // Read all posts
@@ -140,8 +140,8 @@ $post = Posts::first();
 $posts = Posts::all(array('order' => array('created' => 'DESC')));
 }}}
 
-### Dynamic Wrappers
-The basic wrappers are nice, but Lithium also provides you with a set of highly dynamic wrappers that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell Lithium to filter by a specific field name and value.
+### Dynamic Finder Methods
+The basic finder methods are nice, but Lithium also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell Lithium to filter by a specific field name and value.
 
 {{{
 // Bare approach
@@ -216,7 +216,7 @@ Returns finder definition if querying, or `null` if setting.
 <a id="update"></a>
 ---
 
-## Updating Records
+## Updating Entities
 #### ModelName::update($data, [$conditions], [$options])
 Update multiple records or documents with the given data, restricted by the given set of criteria (optional).
 
