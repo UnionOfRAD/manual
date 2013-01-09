@@ -3,11 +3,11 @@
 # Using Entities
 
 * [Setting Default Query Options](#opts)
-* [Creating Records](#create)
-* [Retrieving Records](#ret)
+* [Creating Entities](#create)
+* [Retrieving Entities](#ret)
 * [Custom Record Finders](#finders)
-* [Updating Records](#update)
-* [Deleting Records](#delete)
+* [Updating Entities](#update)
+* [Deleting Entities](#delete)
 * [Saving Data](#save)
 
 ##Entity Defined
@@ -33,7 +33,7 @@ The settable elements are:
 
 <a id="create"></a>
 
-## Creating Records ##
+## Creating Entities ##
 #### ModelName::create($data, [$options])
 Instantiates a new record or document object, initialized with any data passed in.
 
@@ -71,7 +71,7 @@ A new, _un-saved_ record or document object. In addition to the values passed to
 <a id="ret"></a>
 
 ---
-## Basic Record Retrieval ##
+## Basic Entity Retrieval ##
 #### ModelName::find($type, [$options])
  Reading data from your database (or any data source available) is one of the most basic tasks that you will perform. To make common tasks easy, Lithium provides a central method for reading data. The main (static) method used to read data is called `find()` and takes at least one parameter.
 
@@ -126,8 +126,8 @@ $posts = Posts::find('all', array(
 
 * **TIP:** _You can quickly get your data into a multidimensional array in the form of $array[keyValue][fieldName] by chaining the ->to('array') method to the end of the find() method call.  **Example:** `$posts = Posts::find('all')->to('array')`_
 
-### Find Wrappers
-Lithium also provides wrappers around the `find()` method which make your code less verbose and easier to read:
+### Dynamic Finder Methods
+Lithium also provides dynamically generated methods around the `find()` method which make your code less verbose and easier to read:
 
 {{{
 // Read all posts
@@ -177,7 +177,7 @@ Some finder implementations might require a little processing in addition to a d
 
 {{{
 <?php
-Comments::finder('recentCategories', function($self, $params, $chain){
+Comments::finder('recentCategories', function($self, $params, $chain) {
 
 	// Set up default conditions
 	$defaults = array(
@@ -246,9 +246,11 @@ Posts::update(array('title' => 'Fixme'), array('title' => ''));
 <a id="delete"></a>
 ---
 
-## Deleting Records
+## Deleting Entities
+Deleting entities from your datasource is accomplished using either the `remove()` or `delete()` methods.
+
 #### ModelName::remove([$conditions], [$options])
-Deleting records from your datasource is accomplished using the `remove()` method.
+Removes data (documents, records, etc.) based on specified conditions & options.
 
 **Parameters**
 
@@ -269,7 +271,30 @@ $success = Posts::remove();
 Posts::remove(array('title' => ''));
 }}}
 
-* **WARNING!** _Using the `remove()` method with no `$conditions` parameter specified will delete all records in your data source._
+* **WARNING!** _Using the `remove()` method with no `$conditions` parameter specified will delete all entities in your data source._
+
+####ModelName::delete($entity, [$options])
+To delete the data associated with the a specified entity, user the `delete()` method.
+
+**Parameters**
+
+* `$entity` is the entity to be deleted
+* The `$options` parameter is an array specifies any database-specific options to use when performing the operation.  The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
+
+**Return Value**
+
+`true` if the update operation succeeded, otherwise `false`.
+
+**Usage Example**
+
+{{{
+// Read the first post
+$post = Posts::first();
+
+// Delete the data associated with the first post
+$result = Posts::delete($post);
+}}}
+
 
 [back to top](#top)
 
@@ -278,7 +303,7 @@ Posts::remove(array('title' => ''));
 
 ## Saving Data
 #### ModelName::save([$entity], [$data], [$options])
-Persisting data means that new data is being stored or updated. Before you can save your data, you have to initialize a `Model`. This can either be done with the `find()` methods shown earlier or—if you want to create a new record—with the static `create()` method.  `save()` is a method (called on record and document objects) to create or update the record or document in the database that corresponds to `$entity`.
+Persisting data means that new data is being stored or updated. Before you can save your data, you have to initialize a `Model`. This can either be done with the `find()` methods shown earlier or—if you want to create a new entity with the static `create()` method.  `save()` is a method (called on record and document objects) to create or update the record or document in the database that corresponds to `$entity`.
 
 **EXAMPLE: Saving a Record or Document**
 {{{

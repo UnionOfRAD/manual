@@ -32,15 +32,15 @@ $plain = $posts->to('array');
 Although extending models is beyond the scope of this page, here's another example so you get a glimpse of what's possible with these objects.
 
 {{{
-// In app/models/Posts.php
+// In app/models/People.php
 namespace app\models;
-class Person extends \lithium\data\Model {
+class People extends \lithium\data\Model {
 	public function fullName($entity) {
 		return $entity->firstname." ".$entity->lastname;
 	}
 }
 
-// In app/views/posts/index.html.php
+// In app/views/people/index.html.php
 foreach($people as $person) {
 	echo $person->fullName();
 }
