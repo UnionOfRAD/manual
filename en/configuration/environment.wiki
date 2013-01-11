@@ -1,1 +1,39 @@
 # Environment Configuration
+
+Most applications use a set of different environments to validate new features and test the fixes for bugs before letting the end users see it. Lithium's `Environment` class offers a way to organize settings and make logic in your application conditional based on where the application thinks it resides.
+
+Rather than wrapping conditionals around all of your database settings and API keys and endpoints, you can use the `Environment` class to direct the application automatically, based on context.
+
+Lithium offers a default set of environments (development, test, and production) as well as a starting point for determining which one the application resides in. This guide covers the process of showing Lithium how to detect and define your different environments and use them in configuration details.
+
+## Getting Started: Detection
+
+The first step in using different environmental settings is telling Lithium how to detect where it is operating from. There are a number of clues often used in determining the environment: IP address or ranges, hostname pattern matching, or possibly even looking at the filesystem or database.
+
+Environment detection is determined by default as follows:
+
+ * The request is local (IP address 127.0.0.1, etc.): _development_.
+ * The request URL or hostname starts with "test": _test_.
+ * Neither of the above: _production_.
+
+To customize this behavior, use the `Environment::is()` method inside a bootstrap file. Supply a closure that inspects an incoming `Request` and returns the name of the environment deteted. Here's a simple example:
+
+{{{
+Environment::is(function($request){
+  $host = $request->env('HTTP_HOST');
+  if ($host == 'myapp.local' || $host == 'localhost') {
+    return 'development';
+  }
+  if (preg_match('/^qe/', $host)) {
+    return 'qe';
+  }
+  if(preg_match('/beta/', $host)) {
+    return 'staging';
+  }
+  return 'production';
+});
+}}}
+
+This code defines four custom environments: _development_ if the hostname matches a predetermined set of hostnames, _qe_ if the hostname begins with "qe" (qe1.example.com, qe2.example.com), and _staging_ if the hostname contains "beta" (beta.example.com, www.example-beta.com).
+
+If none of those conditions are met, the default is production.
