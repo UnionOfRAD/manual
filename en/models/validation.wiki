@@ -1,10 +1,19 @@
+<a id="top"></a>
 # Validation
+
+* [Setting up Validation](#setup)
+* [Form Validation](#form)
+* [Creating Custom Rules](#custom)
 
 Part of a model's responsibility in an MVC application is to be the gatekeeper for the data it handles. While a great deal of a model's functionality deals with fetching and relating data, validation is an important part of keeping your data clean and secure.
 
 This section focuses on validation in the model layer, as well as covering Lithium's core utility class `Validator`.
 
-## Setting up the Model
+---
+
+<a id="setup"></a>
+
+## Setting up the Model's Validation
 
 Because it's likely the most common case, we'll start with a simple model data validation example based around an HTML form. Let's consider an application that handles user registration. We'll define a `User` model and create some simple validation logic in order to make sure submitted user information is complete and in the correct form.
 
@@ -18,14 +27,14 @@ class User extends lithium\data\Model {
 		'username' => array(
 			array(
 				'notEmpty',
-				'required' => true
+				'required' => true,
 				'message' => 'Please supply a username.'
 			)
 		),
 		'password' => array(
 			array(
 				'notEmpty',
-				'required' => true
+				'required' => true,
 				'message' => 'Please supply a password.'
 			)
 		)
@@ -72,6 +81,12 @@ class User extends lithium\data\Model {
 }
 ?>
 }}}
+
+[back to top](#top)
+
+<a id="form"></a>
+
+---
 
 ## Form Validation
 
@@ -133,6 +148,12 @@ class UsersController extends lithium\action\Controller {
 }}}
 
 Note: you can also manually invalidate model fields by calling `errors()` and supplying key/value pairs to denote problems. While you'll usually want to create custom rules (covered next), this is sometimes a helpful trick to use in model filters, etc.
+
+[back to top](#top)
+
+<a id="custom"></a>
+
+---
 
 ## Creating Custom Rules
 
