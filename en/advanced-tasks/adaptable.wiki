@@ -1,1 +1,3 @@
 # Adaptable
+
+* Environment-specific settings
