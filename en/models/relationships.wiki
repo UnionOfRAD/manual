@@ -1,15 +1,7 @@
-<a id="top"></a>
 # Model Relationships
-
-* [Defining Relationships](#define)
-* [Reading Related Data](#read)
-* [Saving Related Data](#save)
-
 The data that applications manipulate is usually structured in some way. Objects have links to other objects, and the model layer that represents that data should reflect the structure inherent in the data it represents and interacts with.
 
 Lithium's data layer offers a way to facilitate data relationships and structure. This guide is meant to show you how to specify and define these data relationships and use them to your advantage as you build your application.
-
-<a id="define"></a>
 
 ## Defining Model Relationships
 
@@ -51,12 +43,6 @@ class Categories extends \lithium\data\Model {
 Unless specified otherwise, the relationship assumes you're using the exact class name specified, with a key that is an under_scored version of the model's class name, suffixed with `_id`. All other sorting and limit options are assumed to be empty.
 
 All of Lithium's model relationships use these same keys (although there's no reason to order or limit hasOne or belongsTo) and can be configured likewise.
-
-[back to top](#top)
-
-<a id="read"></a>
-
----
 
 ## Reading Related Data
 
@@ -108,12 +94,6 @@ $categories = Categories::find('all', array(
 Notice the new `with` key supplied to the model? This tells Lithium that you want related data joined to the normal response.
 
 As you can see from the output, the related data has been added on to the model response. While we're printing out array contents here, you can as easily loop through or access the same information at `$categories->products` in this case as well.
-
-[back to top](#top)
-
-<a id="save"></a>
-
----
 
 ## Saving Related Data
 
