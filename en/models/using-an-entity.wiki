@@ -173,7 +173,7 @@ $post = Posts::first();
 $result = Posts::delete($post);
 }}}
 
-## Saving Data
+## Saving Entities
 Persisting data means that new data is being stored or updated. Before you can save your data, you have to initialize a `Model`. This can either be done with the `find()` methods shown earlier or—if you want to create a new entity with the static `create()` method.  `save()` is a method (called on record and document objects) to create or update the record or document in the database that corresponds to `$entity`.
 
 **EXAMPLE: Saving a Record or Document**
