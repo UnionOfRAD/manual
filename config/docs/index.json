@@ -38,8 +38,9 @@
 				"title": "Models",
 				"contents": {
 					"models/connections.wiki": {"title": "Connections"},
-					"models/using-models.wiki": {"title": "Using Models"},
+					"models/setting-up-models.wiki": {"title": "Setting Up Models"},
 					"models/entities-collections.wiki": {"title": "Entities and Collections"},
+					"models/using-an-entity.wiki": {"title": "Using an Entity"},
 					"models/adding-functions-to-models.wiki": {"title": "Adding Functionality"},
 					"models/schema.wiki": {"title": "Model Schema"},
 					"models/relationships.wiki": {"title": "Relationships"},

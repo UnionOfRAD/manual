@@ -1,5 +1,4 @@
 # Model Relationships
-
 The data that applications manipulate is usually structured in some way. Objects have links to other objects, and the model layer that represents that data should reflect the structure inherent in the data it represents and interacts with.
 
 Lithium's data layer offers a way to facilitate data relationships and structure. This guide is meant to show you how to specify and define these data relationships and use them to your advantage as you build your application.
@@ -41,7 +40,7 @@ class Categories extends \lithium\data\Model {
 ?>
 }}}
 
-Unless specified otherwise, the relationship assumes you're using the exact classname specified, with a key that is an under_scored version of the model's class name, suffixed with `_id`. All other sorting and limit options are assumed to be empty.
+Unless specified otherwise, the relationship assumes you're using the exact class name specified, with a key that is an under_scored version of the model's class name, suffixed with `_id`. All other sorting and limit options are assumed to be empty.
 
 All of Lithium's model relationships use these same keys (although there's no reason to order or limit hasOne or belongsTo) and can be configured likewise.
 
