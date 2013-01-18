@@ -9,111 +9,111 @@
 			"installation": {
 				"title": "Installation",
 				"contents": {
-					"installation/requirements.wiki": {"title": "Requirements"},
-					"installation/installation.wiki": {"title": "Installing"},
-					"installation/troubleshooting.wiki": {"title": "Troubleshooting"}
+					"installation/requirements.md": {"title": "Requirements"},
+					"installation/installation.md": {"title": "Installing"},
+					"installation/troubleshooting.md": {"title": "Troubleshooting"}
 				}
 			},
 			"quickstart": {
 				"title": "Quickstart",
 				"contents": {
-					"quickstart/readme.wiki": {"title": "The Blog Tutorial"}
+					"quickstart/readme.md": {"title": "The Blog Tutorial"}
 				}
 			},
 			"design-principles": {
 				"title": "Design Principles",
 				"contents": {
-					"design-principles/mvc.wiki": {"title": "Model View Controller"},
-					"design-principles/aop.wiki": {"title": "Aspect Oriented Programming"}
+					"design-principles/mvc.md": {"title": "Model View Controller"},
+					"design-principles/aop.md": {"title": "Aspect Oriented Programming"}
 				}
 			},
 			"configuration": {
 				"title": "Configuration",
 				"contents": {
-					"configuration/bootstrapping.wiki": {"title": "Bootstrapping"},
-					"configuration/environment.wiki": {"title": "Environment"}
+					"configuration/bootstrapping.md": {"title": "Bootstrapping"},
+					"configuration/environment.md": {"title": "Environment"}
 				}
 			},
 			"models": {
 				"title": "Models",
 				"contents": {
-					"models/connections.wiki": {"title": "Connections"},
-					"models/setting-up-models.wiki": {"title": "Setting Up Models"},
-					"models/entities-collections.wiki": {"title": "Entities and Collections"},
-					"models/using-an-entity.wiki": {"title": "Using an Entity"},
-					"models/adding-functions-to-models.wiki": {"title": "Adding Functionality"},
-					"models/schema.wiki": {"title": "Model Schema"},
-					"models/relationships.wiki": {"title": "Relationships"},
-					"models/using-data-sources.wiki": {"title": "Using and Creating Data Sources"},
-					"models/validation.wiki": {"title": "Validation"}
+					"models/connections.md": {"title": "Connections"},
+					"models/setting-up-models.md": {"title": "Setting Up Models"},
+					"models/entities-collections.md": {"title": "Entities and Collections"},
+					"models/using-an-entity.md": {"title": "Using an Entity"},
+					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
+					"models/schema.md": {"title": "Model Schema"},
+					"models/relationships.md": {"title": "Relationships"},
+					"models/using-data-sources.md": {"title": "Using and Creating Data Sources"},
+					"models/validation.md": {"title": "Validation"}
 				}
 			},
 			"controllers": {
 				"title": "Controllers",
 				"contents": {
-					"controllers/actions.wiki": {"title": "Actions"},
-					"controllers/parameters.wiki": {"title": "Parameters"},
-					"controllers/routing.wiki": {"title": "Routes"},
-					"controllers/flow-control.wiki": {"title": "Flow Control"},
-					"controllers/exceptions-errors.wiki": {"title": "Exceptions and Errors"},
-					"controllers/type-rendering-detection.wiki": {"title": "Type Rendering and Detection"}
+					"controllers/actions.md": {"title": "Actions"},
+					"controllers/parameters.md": {"title": "Parameters"},
+					"controllers/routing.md": {"title": "Routes"},
+					"controllers/flow-control.md": {"title": "Flow Control"},
+					"controllers/exceptions-errors.md": {"title": "Exceptions and Errors"},
+					"controllers/type-rendering-detection.md": {"title": "Type Rendering and Detection"}
 				}
 			},
 			"views": {
 				"title": "Views",
 				"contents": {
-					"views/views.wiki": {"title": "View Variables"},
-					"views/auto-escaping.wiki": {"title": "Auto Escaping"},
-					"views/layouts.wiki": {"title": "Layouts"},
-					"views/elements.wiki": {"title": "Elements"},
-					"views/helpers.wiki": {"title": "Helpers"},
-					"views/static-content.wiki": {"title": "Static Content"}
+					"views/views.md": {"title": "View Variables"},
+					"views/auto-escaping.md": {"title": "Auto Escaping"},
+					"views/layouts.md": {"title": "Layouts"},
+					"views/elements.md": {"title": "Elements"},
+					"views/helpers.md": {"title": "Helpers"},
+					"views/static-content.md": {"title": "Static Content"}
 				}
 			},
 			"quality-code": {
 				"title": "Quality Code",
 				"contents": {
-					"quality-code/coding-standards.wiki": {"title": "Coding Standards"},
-					"quality-code/static-analysis.wiki": {"title": "Static Code Analysis"},
-					"quality-code/li3_qa.wiki": {"title": "li3_qa"},
-					"quality-code/testing.wiki": {"title": "Unit Testing"}
+					"quality-code/coding-standards.md": {"title": "Coding Standards"},
+					"quality-code/static-analysis.md": {"title": "Static Code Analysis"},
+					"quality-code/li3_qa.md": {"title": "li3_qa"},
+					"quality-code/testing.md": {"title": "Unit Testing"}
 				}
 			},
 			"common-tasks": {
 				"title": "Common Tasks",
 				"contents": {
-					"common-tasks/debugging.wiki": {"title": "Debugging"},
-					"common-tasks/error-handling.wiki": {"title": "Error Handling"},
-					"common-tasks/logging.wiki": {"title": "Logging"},
-					"common-tasks/caching.wiki": {"title": "Caching"},
-					"common-tasks/console-applications.wiki": {"title": "Console Applications"},
-					"common-tasks/basic-filters.wiki": {"title": "Basic Filtering"},
-					"common-tasks/simple-authentication.wiki": {"title": "Authentication"},
-					"common-tasks/globalization.wiki": {"title": "Globalization"},
-					"common-tasks/plugins.wiki": {"title": "Plugins"},
-					"common-tasks/extending-lithium.wiki": {"title": "Extending Lithium"}
+					"common-tasks/debugging.md": {"title": "Debugging"},
+					"common-tasks/error-handling.md": {"title": "Error Handling"},
+					"common-tasks/logging.md": {"title": "Logging"},
+					"common-tasks/caching.md": {"title": "Caching"},
+					"common-tasks/console-applications.md": {"title": "Console Applications"},
+					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
+					"common-tasks/simple-authentication.md": {"title": "Authentication"},
+					"common-tasks/globalization.md": {"title": "Globalization"},
+					"common-tasks/plugins.md": {"title": "Plugins"},
+					"common-tasks/extending-lithium.md": {"title": "Extending Lithium"}
 				}
 			},
 			"advanced-tasks": {
 				"title": "Advanced Tasks",
 				"contents": {
-					"advanced-tasks/http-services.wiki": {"title": "HTTP Services"},
-					"advanced-tasks/adaptable.wiki": {"title": "Adaptable"},
-					"advanced-tasks/dependency-injection.wiki": {"title": "Dependency Injection"},
-					"advanced-tasks/cloud.wiki": {"title": "Lithium in the Cloud"},
-					"advanced-tasks/response-lifecycle.wiki": {"title": "The Response Lifecycle"},
-					"advanced-tasks/advanced-filtering.wiki": {"title": "Advanced Filtering"},
-					"advanced-tasks/architecture.wiki": {"title": "Lithium Object Architecture"}
+					"advanced-tasks/http-services.md": {"title": "HTTP Services"},
+					"advanced-tasks/adaptable.md": {"title": "Adaptable"},
+					"advanced-tasks/dependency-injection.md": {"title": "Dependency Injection"},
+					"advanced-tasks/cloud.md": {"title": "Lithium in the Cloud"},
+					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
+					"advanced-tasks/advanced-filtering.md": {"title": "Advanced Filtering"},
+					"advanced-tasks/architecture.md": {"title": "Lithium Object Architecture"}
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
-					"appendices/example-applications.wiki": {"title": "Example Applications"},
-					"appendices/launch-checklist.wiki": {"title": "Launch Checklist"},
-					"appendices/faqs.wiki": {"title": "FAQs"},
-					"appendices/using-in-other-applications.wiki": { "title": "Using Lithium in Other Applications" },
-					"appendices/contributing.wiki": { "title": "Contributing to Lithium" }
+					"appendices/example-applications.md": {"title": "Example Applications"},
+					"appendices/launch-checklist.md": {"title": "Launch Checklist"},
+					"appendices/faqs.md": {"title": "FAQs"},
+					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" },
+					"appendices/contributing.md": { "title": "Contributing to Lithium" }
 				}
 			}
 		}
