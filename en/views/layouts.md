@@ -1,31 +1,31 @@
 # Layouts
 A layout is the basic skeleton of an HTML page.  Within a layout file, you might typically have a header, footer, and any other HTML code that should appear on every page that uses the layout.
 
-For layouts, all files should be located in the `/app/views/layouts`  directory.  When naming an HTML layout file, the naming convention is `{layout_name}.html.php`.
+For layouts, all files should be located in the application's `views/layouts`  directory.  When naming an HTML layout file, the naming convention is `{layout_name}.html.php`.
 
-As an example, the default template in Lithium would be found at `/app/views/layouts/default.html.php`.  You can also have layouts for other formats, such as XML, and you would name the file accordingly (e.g. `default.xml.php`).
+As an example, the default template in Lithium would be found at `views/layouts/default.html.php`.  You can also have layouts for other formats, such as XML, and you would name the file accordingly (e.g. `default.xml.php`).
 
 A layout file looks like what you might typically expect of an HTML file.  Below is the code for the default template that ships with Lithium:
 
 {{{<!doctype html>
    <html>
    <head>
-   	<?php echo $this->html->charset();?>
-   	<title>Application > <?php echo $this->title(); ?></title>
-   	<?php echo $this->html->style(array('debug', 'lithium')); ?>
-   	<?php echo $this->scripts(); ?>
-   	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
+   	<?=$this->html->charset();?>
+   	<title>Application > <?=$this->title();?></title>
+   	<?=$this->html->style(array('debug', 'lithium'));?>
+   	<?=$this->scripts();?>
+   	<?=$this->html->link('Icon', null, array('type' => 'icon'));?>
    </head>
    <body class="app">
    	<div id="container">
    		<div id="header">
    			<h1>Application</h1>
    			<h2>
-   				Powered by <?php echo $this->html->link('Lithium', 'http://lithify.me/'); ?>.
+   				Powered by <?=$this->html->link('Lithium', 'http://lithify.me/');?>.
    			</h2>
    		</div>
    		<div id="content">
-   			<?php echo $this->content(); ?>
+   			<?=$this->content();?>
    		</div>
    	</div>
    </body>
@@ -43,7 +43,7 @@ Once you have created a layout, it is just a matter of applying the layout to yo
 }
 }}}
 
-If you do not specify a layout in the render call, Lithium will use the default layout, which is found in `/app/views/layouts/default.html.php`.  You can also disable the layout altogether by setting the layout's value to false (e.g. `$this->render(array('layout' => false))`).
+If you do not specify a layout in the render call, Lithium will use the default layout, which is found in `views/layouts/default.html.php`.  You can also disable the layout altogether by setting the layout's value to false (e.g. `$this->render(array('layout' => false))`).
 
 ##Setting a Default Layout
 You can also specify a default layout to be used for all methods in a controller.  This is done through the use of the protected `init()` method.  An example of how to set the default layout is shown below:
