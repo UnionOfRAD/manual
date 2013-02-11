@@ -1,7 +1,7 @@
 # Actions
-Lithium controllers reside inside the `/app/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
+Lithium controllers reside inside the application's `/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
 
-For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
+For example, let's create a new controller UsersController. Let's create a new file in `/controllers/UsersController.php` that looks like this:
 
 {{{
 <?php
