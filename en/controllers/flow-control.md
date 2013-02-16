@@ -7,11 +7,11 @@ Occasionally a controller action will want to divert, re-route, or automatically
 
 The most basic type of flow control at the controller level is redirection. It's common to redirect a user to a new URL once an action has been performed. This type of control is done through the controller's `redirect()` method. Here's an example of a controller action that redirects the request:
 
-{{{public function register() {
+{{{public function add() {
 	// Validate and save user data POSTed to the
 	// controller action found in $this->request->data...
 
-	$this->redirect('Users::welcome');
+	return $this->redirect(["Users::view", "id" => $user->id, "?" => "welcome"]);
 }
 }}}
 
