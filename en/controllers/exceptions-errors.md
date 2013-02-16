@@ -43,8 +43,7 @@ $render = function($template, $content) {
 		'type' => 'html'
 	));
 };
-
-ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function($exception, $params) use ($render) {
+ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exception, $params) {
 	Logger::write('error', "Page Not Found...");
 	$render('404', compact('exception', 'params'));
 });
