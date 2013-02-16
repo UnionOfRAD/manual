@@ -5,17 +5,17 @@ The `Cache` static class provides a consistent interface to configure and utiliz
 ## Included Adapters
 Lithium ships with several adapters for caching.  The adapters can be found in `lithium/storage/cache/adapter`.
 
-* `Apc.php`: Alternative PHP Cache (APC)
-* `File.php`: A minimal file-based cache (file)
-* `Memcahce.php`: Memcache (libmemcached)
-* `Memory.php`: A minimal in-memory cache
-* `Redis.php`: Redis (phpredis)
-* `Xcache.php`: XCache opcode cache
+* `Apc`: Alternative PHP Cache
+* `File`: A minimal file-based cache (file)
+* `Memcahce` (libmemcached)
+* `Memory`: A minimal in-memory cache
+* `Redis` (phpredis)
+* `Xcache`opcode cache
 
 Each adapter provides a consistent interface for the basic cache operations of `write`, `read`, `delete` and `clear`, which can be used interchangeably between all adapters. Some adapters may provide additional methods that are not consistently available across other adapters.
 
 ## Enabling/Disabling Caching
-To control whether or not caching is enabled, you can either comment or uncomment the following line in your application's `config\bootstrap.php` file:
+To control whether or not caching is enabled, you can either comment or uncomment the following line in your application's `config/bootstrap.php` file:
 
 {{{
 /**
