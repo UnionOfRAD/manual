@@ -25,9 +25,9 @@ Combining great new ideas with the wisdom of experience will help us create the 
 One of Lithium's key goals is a light, clean core, which means careful consideration of new features. Here are some of the criteria we go by when deciding whether or not to incorporate a new feature into the framework:<br /><br />
 
  * **Does it fit within the existing set of features?** Lots of features are great ideas in their own right, but might not be right for integration with the core itself. Examples include wholly new pieces of functionality that could easily fit within a plugin, or adapters for technologies that aren't widely used.<br /><br />Often, even in cases where integration for a widely-used technology might otherwise make an obvious addition, we choose to keep things in plugins in order to ensure the core always stays as light as possible. Every new feature introduced has a permanent cost in terms of maintenance and documentation, increases testing burden and couples additional code to every release cycle.
- 
+
  * **Is the feature not easily replicated with a few lines of app code?** Sometimes it's tempting to implement a new option flag or class property that makes your application code a little more convenient in a small subset of cases, but a lack of careful editing leads not only to high maintenance overhead, but to a lack of long-term flexibility in evolving the API. The framework is designed to be modular and extensible, and should be treated as such.<br /><br />If there's enough code to justify a plugin, publish it as such. Many times, features that don't make the cut in one version are implemented as plugins which gain wide acceptance, and are integrated into the core in subsequent versions.
- 
+
 If your idea passes these two basic tests, it's time to engage a core team member to get started on the idea. Every new feature is handled differently, but the basic workflow usually ends up playing out something like this:
 
  1. Contacting a core team member via email, or GitHub issue ticket
@@ -35,7 +35,7 @@ If your idea passes these two basic tests, it's time to engage a core team membe
  3. Initial implementation, often in a pre-identified branch or fork
  4. Test case and documentation development (or updates)
  5. Code review and merge into mainline
- 
+
 ### Bugs
 
 Helping to fix bugs is a huge help to the core team, who is often burdened with more they can already handle. Fixing exising issues is also a great way to free up core team time for adding new feaures!
@@ -44,11 +44,11 @@ Helping with bugs follows the same 5-step process outlined above: just be sure t
 
 If you're looking to report an issue, there are a few things you'll want to consider before submitting an issue on one of our GitHub repos:
 
- * Make sure you're using the latest code. It's possible your issue is already fixed! 
+ * Make sure you're using the latest code. It's possible your issue is already fixed!
  * Search the issues list to make sure the problem hasn't already been reported.
  * Add a descriptive title and summary. Phrases like "doesn't work" aren't really helpful without lots of supporting details.
  * Submit a test case with the issue. This helps us both reproduce the issue and also verify possible fixes.
- 
+
 Above all, remember that _volunteers_ are going to be responding to these requests for help. Politeness and respect go a long ways, as do humor, preventative research, and bribery.
 
 ### Security Vulnerabilities
@@ -72,7 +72,7 @@ If you'd like to help, simply [fork the project on GitHub](https://github.com/Un
 
 ## Branching
 
-The Lithium core is managed on a very simple branching workflow: when developing new features or bug fixes, a topic branch with a relevant name is created, such as `new-media-encode` or `model-find-fix`. Using comprehensible branch names helps us make sense of the source history as branches are merged.
+The Lithium core is managed on a very simple branching workflow: when developing new features or bug fixes, a topic branch, starting with `bug/` or `feature/`, with a relevant name is created, such as `feature/newMediaEncode` or `bug/modelFindFix`. Using comprehensible branch names helps us make sense of the source history as branches are merged.
 
 Once commits on a topic branch have been verified through testing, are properly documented and pass our QA checks, the topic branch will be merged into the `dev` integration branch. Ordinarily, you'll want to point your pull requests at this branch.
 
