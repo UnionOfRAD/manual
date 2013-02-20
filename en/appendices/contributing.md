@@ -72,7 +72,7 @@ If you'd like to help, simply [fork the project on GitHub](https://github.com/Un
 
 ## Branching
 
-The Lithium core is managed on a very simple branching workflow: when developing new features or bug fixes, a topic branch with a relevant name is created, such as `new-media-encode` or `model-find-fix`. Using comprehensible branch names helps us make sense of the source history as branches are merged.
+The Lithium core is managed on a very simple branching workflow: when developing new features or bug fixes, a topic branch, starting with `bug/` or `feature/`, with a relevant name is created, such as `feature/newMediaEncode` or `bug/modelFindFix`. Using comprehensible branch names helps us make sense of the source history as branches are merged.
 
 Once commits on a topic branch have been verified through testing, are properly documented and pass our QA checks, the topic branch will be merged into the `dev` integration branch. Ordinarily, you'll want to point your pull requests at this branch.
 
