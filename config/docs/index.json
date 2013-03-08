@@ -39,10 +39,8 @@
 				"contents": {
 					"models/connections.md": {"title": "Connections"},
 					"models/setting-up-models.md": {"title": "Setting Up Models"},
-					"models/entities-collections.md": {"title": "Entities and Collections"},
 					"models/using-an-entity.md": {"title": "Using an Entity"},
 					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
-					"models/schema.md": {"title": "Model Schema"},
 					"models/relationships.md": {"title": "Relationships"},
 					"models/using-data-sources.md": {"title": "Using and Creating Data Sources"},
 					"models/validation.md": {"title": "Validation"}
@@ -82,7 +80,6 @@
 			"common-tasks": {
 				"title": "Common Tasks",
 				"contents": {
-					"common-tasks/debugging.md": {"title": "Debugging"},
 					"common-tasks/error-handling.md": {"title": "Error Handling"},
 					"common-tasks/logging.md": {"title": "Logging"},
 					"common-tasks/caching.md": {"title": "Caching"},
@@ -90,27 +87,20 @@
 					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
 					"common-tasks/simple-authentication.md": {"title": "Authentication"},
 					"common-tasks/globalization.md": {"title": "Globalization"},
-					"common-tasks/plugins.md": {"title": "Plugins"},
-					"common-tasks/extending-lithium.md": {"title": "Extending Lithium"}
+					"common-tasks/plugins.md": {"title": "Plugins"}
 				}
 			},
 			"advanced-tasks": {
 				"title": "Advanced Tasks",
 				"contents": {
-					"advanced-tasks/http-services.md": {"title": "HTTP Services"},
-					"advanced-tasks/adaptable.md": {"title": "Adaptable"},
-					"advanced-tasks/dependency-injection.md": {"title": "Dependency Injection"},
 					"advanced-tasks/cloud.md": {"title": "Lithium in the Cloud"},
 					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
-					"advanced-tasks/advanced-filtering.md": {"title": "Advanced Filtering"},
 					"advanced-tasks/architecture.md": {"title": "Lithium Object Architecture"}
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
-					"appendices/example-applications.md": {"title": "Example Applications"},
-					"appendices/launch-checklist.md": {"title": "Launch Checklist"},
 					"appendices/faqs.md": {"title": "FAQs"},
 					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" },
 					"appendices/contributing.md": { "title": "Contributing to Lithium" }
