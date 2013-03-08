@@ -53,7 +53,6 @@
 					"controllers/parameters.md": {"title": "Parameters"},
 					"controllers/routing.md": {"title": "Routes"},
 					"controllers/flow-control.md": {"title": "Flow Control"},
-					"controllers/exceptions-errors.md": {"title": "Exceptions and Errors"},
 					"controllers/type-rendering-detection.md": {"title": "Type Rendering and Detection"}
 				}
 			},
