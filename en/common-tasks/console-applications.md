@@ -128,3 +128,32 @@ class Repos extends \lithium\console\Command {
   }
 }
 }}}
+
+Here's a sample of the output:
+
+{{{
+$ li3 repos UnionOfRad
+Org: UnionOfRad
+/-----------------
+UnionOfRad Repos:
+/-----------------
+UnionOfRAD/phpca
+UnionOfRAD/li3_sqlsrv
+UnionOfRAD/framework
+UnionOfRAD/li3_docs
+UnionOfRAD/lithium_bin
+UnionOfRAD/li3_design
+UnionOfRAD/manual
+UnionOfRAD/lithium
+UnionOfRAD/li3_qa
+UnionOfRAD/li3_cldr
+UnionOfRAD/li3_lab
+UnionOfRAD/li3_bot
+UnionOfRAD/li3_lldr
+UnionOfRAD/li3_quality
+UnionOfRAD/li3_queue
+UnionOfRAD/sphere
+UnionOfRAD/li3_couchbase
+UnionOfRAD/li3_sqltools
+UnionOfRAD/li3_fixtures
+}}}
