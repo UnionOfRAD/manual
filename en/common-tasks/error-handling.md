@@ -19,7 +19,7 @@ ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exc
 });
 }}}
 
-This simple example shows how you can create a lambda that handles any `DispatchException`s being thrown in your entire application. The function you pass to apply() can be more involved, depending on what you want to do, however.
+This simple example shows how you can create a lambda that handles any `DispatchException`s being thrown in your entire application. The function you pass to `apply()` can be more involved, depending on what you want to do, however.
 
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
