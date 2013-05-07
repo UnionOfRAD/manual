@@ -21,6 +21,13 @@ Lithium by source is to clone the `framework` repository and then install `lithi
 If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct 
 directory.
 
+## Getting the most recent revision (optional)
+
+The method described in the previous section will download the most recent tagged version of Lithium. In some cases, it may be desirable to update Lithium to the very latest available revision, which may not have been tagged yet.
+
+	cd libraries/lithium
+	git pull origin master
+
 ## Advanced Setup
 
 If you've got a system that's hosting many Lithium apps, sometimes it's beneficial to point a number of applications at the same set of core Lithium libraries. In this case, you'd want to place Lithium somewhere outside of your web server's document root.
