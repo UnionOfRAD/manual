@@ -47,6 +47,7 @@
 					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
 					"models/relationships.md": {"title": "Relationships"},
 					"models/meta.md": {"title": "Meta Information"},
+					"models/mongodb.md": {"title": "MongoDB Advanced"},
 					"models/using-data-sources.md": {"title": "Using Data Sources"},
 					"models/creating-data-sources.md": {"title": "Creating Data Sources"}
 				}
