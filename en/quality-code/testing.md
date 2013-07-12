@@ -55,7 +55,7 @@ The two initial methods supplied act as they're named. The `setUp()` method is u
 
 The meat of the unit test, however, will be housed inside of methods you create. Each piece of your unit testing logic should be placed inside of a method whose name starts with 'test'. Before we make any adjustments to the `Posts` model, let's exercise a bit of TDD and write an example test method first.
 
-Since our test case is a subclass of `lithium\test\Unit`, we have easy access to a number of methods that help us validate test assertions. Since they're plainly named, I'll list some here. For for information, please refer to the API documentation for `lithium\test\Unit`.
+Since our test case is a subclass of `lithium\test\Unit`, we have easy access to a number of methods that help us validate test assertions. Since they're plainly named, I'll list some here. For more information, please refer to the API documentation for `lithium\test\Unit`.
 
  - `assertEqual()`
  - `assertNotEqual()`
