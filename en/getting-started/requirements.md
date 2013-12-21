@@ -13,6 +13,14 @@ Applications built with Lithium often feature some sort of data store. As such, 
  * SQLite
  * CouchDB
 
+Lithium doesn't support certain features as it considers them broken, experimental or a hack:
+
+ * Magic Quotes must be disabled.
+ * Register Globals must be disabled.
+ * Function overloading must be disabled when using the `mbstring` extension.
+ * PHP should not be compiled with curlwrappers.
+ * Short Open Tags should be disabled. Not a strict requirement.
+
 While not absolutely essential, a working knowledge of the [Git version control system](http://git-scm.com/) is useful for most aspects of development in general, and Lithium specifically. The Lithium plugin installation/repository tools rely on Git, and the workflow for contributing to projects is Git-based.
 
  * Git
