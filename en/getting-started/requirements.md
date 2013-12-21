@@ -9,6 +9,7 @@ Applications built with Lithium often feature some sort of data store. As such, 
 
  * MongoDB
  * MySQL
+ * PostgreSQL
  * SQLite
  * CouchDB
 
