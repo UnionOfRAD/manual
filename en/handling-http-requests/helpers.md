@@ -7,7 +7,7 @@ Lithium helpers take the concept of elements a bit further, and create a place t
 Helper usage in Lithium is simple because helpers are lazy-loaded by the renderer. To use a helper in the view layer, just reference it as a property of the renderer:
 
 {{{<p>
-	Here is a <?=$this->html->link('link', 'http://lithify.me') ?> you'll all enjoy.
+	Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
 </p>}}}
 
 This approach means you won't have to declare which helpers you're planning on using. Ever. This also means that things aren't loaded up unless (and until!) you're actually using them.
@@ -62,7 +62,7 @@ Once this has been setup, we can use the new helper as we would any of the core 
 
 {{{<p>
 	You should really check out
-	<?=$this->awesomeHtml->link('Lithium', 'http://lithify.me', array(
+	<?=$this->awesomeHtml->link('Lithium', 'http://li3.me', array(
 		'type' => 'super_cool'
 	)) ?>
 </p>}}}

@@ -26,7 +26,7 @@ Never use short open tags:
 
 	<?
 
-Well, unless you are in a view and want the variable data to be automatically escaped. See the Lithium [template namespace documentation](http://lithify.me/docs/lithium/template) for more information on this exception.
+Well, unless you are in a view and want the variable data to be automatically escaped. See the Lithium [template namespace documentation](http://li3.me/docs/lithium/template) for more information on this exception.
 
 	<?=$post->title;?>
 

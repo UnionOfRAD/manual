@@ -2,7 +2,7 @@
 
 ### PHP short tags in templates? Haven't those been deprecated for, like, ever?
 
-You may have noticed that Lithium templates use PHP short tags (i.e. `<?=`). Don't worry though, these aren't actually interpreted by PHP. Instead, Lithium uses an internal template compiler to change these tags into full `<?php echo ... ?>` statements, with the added benefit of automatic content escaping, so you don't have to think about XSS attacks. Also, the compiler is smart enough to recognize content coming from helpers, etc., so it won't double-escape. For more info, check out the documentation on [the templating system](http://lithify.me/docs/lithium/template).
+You may have noticed that Lithium templates use PHP short tags (i.e. `<?=`). Don't worry though, these aren't actually interpreted by PHP. Instead, Lithium uses an internal template compiler to change these tags into full `<?php echo ... ?>` statements, with the added benefit of automatic content escaping, so you don't have to think about XSS attacks. Also, the compiler is smart enough to recognize content coming from helpers, etc., so it won't double-escape. For more info, check out the documentation on [the templating system](http://li3.me/docs/lithium/template).
 
 ### You guys use statics all over the place. Aren't those really hard to test?
 
@@ -22,7 +22,7 @@ The essential problem with this is that there's often no way to determine at any
 
 Fortunately, all static classes in Lithium are either composed of _referentially transparent_ methods, or methods whose usage patterns are oriented around _immutability_. Some examples of referentially transparent methods are `lithium\util\String::insert()`, which inserts values into a template string, or `lithium\util\Inflector::camelize()`, which produces a version of a word or phrase. These functions have no external side-effects, and produce predictable output based on their parameters.
 
-Examples of immutable static classes would be any class extends [`Adaptable`](http://lithify.me/docs/lithium/core/Adaptable), i.e. `Cache`, `Connections`, etc. These classes model and provide access to system-level resources such as database connections, user sessions, and caching configurations. These classes are configured with information on how to access and operate on their respective resources using the `config()` method of each class. This happens once and only once, during the application's bootstrap process. Subsequent access to those classes (i.e. through the `adapter()` method) always returns the same adapter instance with the same attributes. This avoids the problem of having our application's state change out from under us.
+Examples of immutable static classes would be any class extends [`Adaptable`](http://li3.me/docs/lithium/core/Adaptable), i.e. `Cache`, `Connections`, etc. These classes model and provide access to system-level resources such as database connections, user sessions, and caching configurations. These classes are configured with information on how to access and operate on their respective resources using the `config()` method of each class. This happens once and only once, during the application's bootstrap process. Subsequent access to those classes (i.e. through the `adapter()` method) always returns the same adapter instance with the same attributes. This avoids the problem of having our application's state change out from under us.
 
 The other issue often referred to when testing statics is that they're difficult to mock, or replace dependencies. Consider the following:
 

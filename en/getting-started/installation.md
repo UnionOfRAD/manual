@@ -4,7 +4,7 @@
 
 This easiest way to get a fresh copy of Lithium is by downloading an archive from our website. You can view and download versions here:
 
-	http://dev.lithify.me/lithium/versions
+	http://dev.li3.me/lithium/versions
 	
 Under the hood, Lithium is actually separated in two different repositories. One is called `framework` and the other one `lithium`. The `framework` repository holds everything you need to 
 instantly bootstrap your application, while the `lithium` repository holds the Lithium core. This way you can reuse the Lithium core for other projects or just include some libraries if you 

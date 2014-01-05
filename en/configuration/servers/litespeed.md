@@ -35,8 +35,8 @@ $_ENV['PHP_SELF'] = $_SERVER['PHP_SELF'];
 
 See the following docs for more info on how the base path and other environment values are determined by Lithium:
 
-* [http://lithify.me/docs/lithium/action/Request::_base()](http://lithify.me/docs/lithium/action/Request::_base)
-* [http://lithify.me/docs/lithium/action/Request::env()](http://lithify.me/docs/lithium/action/Request::env)
-* [http://lithify.me/docs/lithium/action/Request::_init()](http://lithify.me/docs/lithium/action/Request::_init)
+* [http://li3.me/docs/lithium/action/Request::_base()](http://li3.me/docs/lithium/action/Request::_base)
+* [http://li3.me/docs/lithium/action/Request::env()](http://li3.me/docs/lithium/action/Request::env)
+* [http://li3.me/docs/lithium/action/Request::_init()](http://li3.me/docs/lithium/action/Request::_init)
 
 
