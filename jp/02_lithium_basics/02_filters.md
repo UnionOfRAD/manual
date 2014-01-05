@@ -140,7 +140,7 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 
 ## Creating Filter-able Logic
 
-If you're planning on creating and distributing your own code (hopefully via the [Lithium Laboratory](http://lab.lithify.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful Lithium filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
+If you're planning on creating and distributing your own code (hopefully via the [Lithium Laboratory](http://lab.li3.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful Lithium filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
 
 Let's imagine for a bit that you're creating a social media integration extension for Lithium. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
 

@@ -102,7 +102,7 @@ Custom view helpers are common need. These classes should extend `lithium\templa
 
 The `libraries` folder is meant to house entire Lithium applications—or plugins—that your main application makes use of. 
 
-Any plugins you download from the [ Laboratory](http://lab.lithify.me/), or pull down via the Library li3 command should end up here.
+Any plugins you download from the [ Laboratory](http://lab.li3.me/), or pull down via the Library li3 command should end up here.
 
 Third-party, non-Lithium libraries should be placed here as well. If you're integrating with Facebook, or using part of the Zend Framework in your application, place those files here as well.
 

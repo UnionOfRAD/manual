@@ -4,9 +4,9 @@
 
 This easiest way to get a fresh copy of Lithium is by downloading an archive from our website. You can view and download versions here:
 
-	http://dev.lithify.me/lithium/versions
+	http://dev.li3.me/lithium/versions
 
-Li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.lithify.me/users/add](http://dev.lithify.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.lithify.me/users/account](http://dev.lithify.me/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+Li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.li3.me/users/add](http://dev.li3.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.li3.me/users/account](http://dev.li3.me/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
 
 	$ ssh-keygen
 
@@ -17,12 +17,12 @@ Li3's source is also housed in a Git repo. If you'd like to clone a copy, start 
 	Your identification has been saved in /Users/lithium/.ssh/id_rsa.
 	Your public key has been saved in /Users/lithium/.ssh/id_rsa.pub.
 
-Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at dev.lithify.me.
+Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at dev.li3.me.
 
 Now that your key has been set up, clone yourself a copy of Li3 inside of your web server's document root:
 
 	$ cd /path/to/docroot
-	$ git clone code@dev.lithify.me:lithium.git
+	$ git clone code@dev.li3.me:lithium.git
 
 	Initialize lithium/.git
 	Initialized empty Git repository in /path/to/docroot/lithium/.git/

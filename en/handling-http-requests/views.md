@@ -142,7 +142,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
    // Returns the URL for the matching route, e.g. '/posts/view/13'
  }}}
 
- The `url()` output handler is a friendly wrapper for [`Router::match()`](http://lithify.me/docs/lithium/net/http/Router::match), and automatically passes some contextual parameters behind-the-scenes.
+ The `url()` output handler is a friendly wrapper for [`Router::match()`](http://li3.me/docs/lithium/net/http/Router::match), and automatically passes some contextual parameters behind-the-scenes.
 
  * `$this->path()`: This handler generates asset paths to physical files. This is especially helpful for applications that will live at different parts of the domain during its lifecycle.
 
@@ -155,7 +155,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
    // If we're running at http://example.com/, this will return:
    // /videos/funny_cats.flv
  }}}
- Like `url()`, this handler is a wrapper for another class method, [`Media::asset()`](http://lithify.me/docs/lithium/net/http/Media::asset). Therefore, options that this method accepts can be passed to `path()` as well. For example, if you want to verify that the asset exists before returning the path, you can do the following:
+ Like `url()`, this handler is a wrapper for another class method, [`Media::asset()`](http://li3.me/docs/lithium/net/http/Media::asset). Therefore, options that this method accepts can be passed to `path()` as well. For example, if you want to verify that the asset exists before returning the path, you can do the following:
 
  {{{
   // Returns the path if the file exists, otherwise false.
@@ -183,7 +183,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
    <title>My Awesome Application: <?= $this->title(); ?></title>
  }}}
 
- * `$this->scripts()`: Prints out the scripts specified for the current template. Usually, this is used by the [`script()` method of the `Html` helper](http://lithify.me/docs/lithium/template/helper/Html::script) when the `'inline'` option is set to `false`. However, you can append tags manually as well:
+ * `$this->scripts()`: Prints out the scripts specified for the current template. Usually, this is used by the [`script()` method of the `Html` helper](http://li3.me/docs/lithium/template/helper/Html::script) when the `'inline'` option is set to `false`. However, you can append tags manually as well:
 
  {{{
    // In your view:
@@ -210,7 +210,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
   <?php $this->scripts(ob_get_clean()); ?>
  }}}
 
- * `$this->styles()`: Much the same as `scripts()` above, the `styles()` handler acts as a repository for any page-specific style sheets to be included in the layout. While primarily used by the [`style()` method of the `Html` helper](http://lithify.me/docs/lithium/template/helper/Html::style) (again, see the `'inline'` option), it may be used manually as well:
+ * `$this->styles()`: Much the same as `scripts()` above, the `styles()` handler acts as a repository for any page-specific style sheets to be included in the layout. While primarily used by the [`style()` method of the `Html` helper](http://li3.me/docs/lithium/template/helper/Html::style) (again, see the `'inline'` option), it may be used manually as well:
 
  {{{
     // In your view:
