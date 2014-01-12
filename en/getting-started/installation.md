@@ -49,7 +49,7 @@ Another quick thing to check is to make sure that magic quotes have been complet
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
 	error_reporting  =  E_ALL
-	display_errors   =  true
+	display_errors   =  On
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 
