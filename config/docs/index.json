@@ -70,10 +70,7 @@
 			"quality-code": {
 				"title": "Quality Code",
 				"contents": {
-					"quality-code/coding-standards.md": {"title": "Coding Standards"},
-					"quality-code/static-analysis.md": {"title": "Static Code Analysis"},
-					"quality-code/li3_qa.md": {"title": "li3_qa"},
-					"quality-code/testing.md": {"title": "Unit Testing"}
+					"quality-code/readme.md": {"title": "Quality Code"}
 				}
 			},
 			"common-tasks": {
