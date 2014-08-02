@@ -60,7 +60,7 @@ Let's dive into a real-life example of creating a data source. For the remainder
 
 The end result we're looking for is being able to create models that read from and write to GitHub using our data source. Let's get started by creating the data source file and creating a connection to it. First, create a new file in `extensions/adapter/data/source/http/GitHub.php`, inside your app or plugin:
 
-{{{
+```
 namespace myapp\extensions\adapter\data\source\http;
 
 use lithium\util\String;
@@ -68,7 +68,7 @@ use lithium\util\Inflector;
 
 class GitHub extends \lithium\data\source\Http {
 }
-}}}
+```
 
 This puts the class in the proper namespace, and imports some utility classes we'll be using later on.
 
@@ -76,7 +76,7 @@ This puts the class in the proper namespace, and imports some utility classes we
 
 Now, let's create a connection that uses this new data source. Add a few lines to `config/bootstrap/connections.php`:
 
-{{{
+```
 Connections::add('github', array(
 	'type'     => 'http',
 	'adapter'  => 'GitHub',
@@ -84,24 +84,24 @@ Connections::add('github', array(
 	'password' => '5up3Rs3CrE7',
 	'token'    => 'e83fd93a7e099c8523ab99d003ce939a',
 ));
-}}}
+```
 
 Since the GitHub API allows for an API token to be passed instead of a password, we've added that to the connection information.
 
 Finally, we'll need to create a new model and controller to test the functionality as we build it:
 
-{{{
+```
 namespace myapp\models;
 
 class Issues extends \lithium\data\Model {
 
 	public $_meta = array('connection' => 'github');
 }
-}}}
+```
 
 These can be saved in `models/Issues.php`, and `controllers/IssuesController.php`, respectively.
 
-{{{
+```
 namespace myapp\controllers;
 
 use myapp\models\Issues;
@@ -111,13 +111,13 @@ class IssuesController extends \lithium\action\Controller {
 	public function index() {
 	}
 }
-}}}
+```
 
 ### Connecting & Authenticating
 
 Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, we can see that the configuration details for the `lithium\net\http\Service` object are passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
 
-{{{
+```
 public function __construct(array $config = array()) {
 	$defaults = array(
 		'scheme'   => 'https',
@@ -138,7 +138,7 @@ public function __construct(array $config = array()) {
 	}
 	parent::__construct($config + $defaults);
 }
-}}}
+```
 
 What we're doing here is checking to see if there's a token related to the connection. If so, we use it and adjust the username and password field as noted on the GitHub API website. Otherwise, we'll just pass up the configuration to the parent constructor, which will set the configuration options for the new `Service` object with the details we need. As we make changes, we're using the `$config` parameter of the data source. This constructor parameter is populated with the same data we passed into `Connections::add()`.
 
@@ -146,7 +146,7 @@ What we're doing here is checking to see if there's a token related to the conne
 
 Next, let's use our model to read from the data source. This is done by the model's `find()` method. Let's place a call to `find()` inside our controller, and supply a few parameters the GitHub API is going to need to fetch some issues from a project:
 
-{{{
+```
 public function index() {
 	$results = Issues::find('all', array(
 		'conditions' => array(
@@ -154,13 +154,13 @@ public function index() {
 		)
 	));
 }
-}}}
+```
 
 If you try this, `$results` will get filled with the 404 response from GitHub's servers. This is because the default behavior of `read()` doesn't fit our use-case. Let's override it in our new data source in order fix that. Remember that the model layer communicates to the data source via `Query` objects. The first argument for `read()` is the `Query` from our `Issues` model. We can inspect that to find out what the model wants, and translate that into HTTP requests to the GitHub API.
 
 Let's override `read()`, and inspect the `Query` object so we can direct the query to the GitHub API properly.
 
-{{{
+```
 public function read($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
@@ -178,7 +178,7 @@ public function read($query, array $options = array()) {
 	$path = String::insert($paths[$source], array_map('urlencode', (array) $conditions));
 	return json_decode($this->connection->get($this->_config['basePath'] . $path), true);
 }
-}}}
+```
 
 First, what we're doing is defining an array that maps resource names to API URLs. This makes our design more extensible, as we can come back later and map other API resources.
 
@@ -192,19 +192,19 @@ We'll format the data for use in the model using two important data source metho
 
 Both methods use Lithium's dependency injection mechanism to know what classes to use. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, Lithium uses class properties to manage class dependencies. If you look at the `$_classes` property of a Lithium object, you'll see the types and fully namespaced class paths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
 
-{{{
+```
 protected $_classes = array(
 	'service' => 'lithium\net\http\Service',
 	'entity'  => 'lithium\data\entity\Document',
 	'set'     => 'lithium\data\collection\DocumentSet',
 );
-}}}
+```
 
 The `'service'` dependency is included in the array because it's needed for the parent `Http` data source class, but it's something we could redefine if needed. The most important points to note are the last two entries: `'entity'` and `'set'`. By defining these dependencies, we're telling the data source what classes to use to package our data, either in singular or plural form. Because GitHub API data responses are JSON objects (that sometimes include embedded objects), we'll use `Document` rather than `Record`.
 
 Once that's in place, we can adjust our `read()` function to return the results of an `item()` call:
 
-{{{
+```
 public function read($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
@@ -224,7 +224,7 @@ public function read($query, array $options = array()) {
 
 	return $this->item($query->model(), $result[$source], array('class' => 'set'));
 }
-}}}
+```
 
 The `item()` method needs to know what model the data is coming from, the data itself, along with some options. Here, we're passing along an option that specifies that we want the data we're supplying returned as our defined `'set'` dependency. In this case, we've configured that as `lithium\data\collection\DocumentSet`.
 
@@ -232,7 +232,7 @@ Running `find()` on our `Issues` model now gives us a `DocumentSet`, but if we i
 
 The `cast()` method is used by the data source to recursively inspect and transform data as it's placed into a collection. In this case, we'll use `cast()` to transform arrays into `Document` objects:
 
-{{{
+```
 public function cast($entity, array $data, array $options = array()) {
 	$model = $entity->model();
 
@@ -244,7 +244,7 @@ public function cast($entity, array $data, array $options = array()) {
 	}
 	return parent::cast($entity, $data, $options);
 }
-}}}
+```
 
 Notice how we're using `item()`, but to create entities rather than sets now? Here's where our `'entity'` dependency comes into play. Also note that because `cast()` recursively inspects data, arrays embedded into our GitHub API responses will also be cast as `Document` objects.
 
@@ -254,7 +254,7 @@ At this point, your `Issues` model should be successfully connecting to the API 
 
 Now that we're rocking with some reads, let's hook up the writes. This is done by POSTing some data to the GitHub API. First, let's change our controller so that the model is saving a new issue:
 
-{{{
+```
 public function index() {
 	$issue = Issues::create();
 	$issue->user = 'myuser';
@@ -264,11 +264,11 @@ public function index() {
 
 	$issue->save();
 }
-}}}
+```
 
 The API specifies that we POST to a URL composed of the user and repository names, and includes data about title and body. We'll need to make a new `create()` method in our data source that assembles the right URL and POST data based off what it receives from the model. In this case, `create()` is handed a `Query` that has an `Entity` we can inspect and use.
 
-{{{
+```
 public function create($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/open/{:user}/{:repo}'
@@ -293,7 +293,7 @@ public function create($query, array $options = array()) {
 	$key = Inflector::singularize($source);
 	return isset($result[$key]);
 }
-}}}
+```
 
 As before, we'll create a map of available resources to API endpoints, and then extract out the parameters that we need from the query. _Note_: Sometimes you need lots of parameters, or you might not know all the parameters you need right at the beginning. You can simply omit the second parameter to `export()` to retrieve all of them.
 
@@ -303,7 +303,7 @@ Since the GitHub API returns a JSON object on success, we inspect the response t
 
 However, subsequent code won't be able to verify that `$issue` actually exists in the database, and none of our code will be able to reference it within the GitHub API, because it hasn't received a key (or any other information) that the API has given us. To fix this, we can simply change the last few lines of the `create()` method, as follows:
 
-{{{
+```
 $result = json_decode($this->connection->post($path, $data), true);
 $key = Inflector::singularize($source);
 
@@ -312,7 +312,7 @@ if (!isset($result[$key])) {
 }
 $query->entity()->sync(null, $result[$key]);
 return true;
-}}}
+```
 
 The first thing to do is, instead of simply returning the result of the key check, just bail out if the operation failed. Next, we call the `sync()` method of the `Entity` class. This method lets our `Document` instance know that it is now current with the data stored in the service backend, and also lets us update the `Document`'s internal state with any new information received.
 
@@ -331,25 +331,25 @@ So far, there are two exceptional conditions which we've encountered in our data
 
 First, import `QueryException` at the top of the data source class:
 
-{{{ use lithium\data\model\QueryException; }}}
+``` use lithium\data\model\QueryException; ```
 
 Then, override the `delete()` method of the parent class, and throw the exception:
 
-{{{
+```
 public function delete($query, array $options = array()) {
 	throw new QueryException("Delete operations are not supported by this API.");
 }
-}}}
+```
 
 The other condition which we have so far not dealt with is that of errors generated by the API. If you've been inspecting the JSON data that the GitHub API returns, you'll have noticed that certain API calls return a JSON structure with an `error` key.
 
 To implement error handling for this case, simply add the following check right below where the return value of `json_decode()` is assigned to `$result` in any of our implemented CRUD methods:
 
-{{{
+```
 	if (isset($result['error'])) {
 		throw new QueryException($result['error']);
 	}
-}}}
+```
 
 This will cause any errors generated by the API to bubble up to our application's error-handling.
 
@@ -361,7 +361,7 @@ We can clean some of this up by extracting code out into properties and helper m
 
 The first step is to extract out the paths for the available operations on each resource:
 
-{{{
+```
 protected $_sources = array(
 	'issues' => array(
 		'paths' => array(
@@ -379,13 +379,13 @@ protected $_sources = array(
 		)
 	)
 );
-}}}
+```
 
 Here, we have one key for each resource our data source will expose (we can add more later), and within that, we have a listing of paths, one for each operation, with each URL matching up to an array of keys required to use each one. Also note that the URLs are nested within a `'paths'` key. This allows us to associate other data with each resource down the road, i.e. a schema indicating the various fields exposed, and their data types.
 
 Next, we'll implement a method that will generate our new service URLs, which will be used by the various CRUD methods:
 
-{{{
+```
 protected function _path($source, $type, array $params) {
 	if (!isset($this->_sources[$source]['paths'][$type])) {
 		return null;
@@ -404,13 +404,13 @@ protected function _path($source, $type, array $params) {
 		return "{$this->_config['basePath']}/{$result}";
 	}
 }
-}}}
+```
 
 This method will first check to see if a path is defined for the resource/operation combination requested. It will then iterate over the available paths, comparing the keys required for each path to the keys provided to the method, in an attempt to find a match.
 
 When a match is found, it uses `$params` to generate an API URL, which is returned to the calling method. Now, let's refactor the `read()` method, by removing the string-handling code that was previously used to generate URLs, and replace it with a simple set-and-check block which calls our new `_path()` method:
 
-{{{
+```
 public function read($query, array $options = array()) {
 	$params = $query->export($this, array('source', 'conditions'));
 	$source = $params['source'];
@@ -426,17 +426,17 @@ public function read($query, array $options = array()) {
 	}
 	return $this->item($query->model(), $result[$source], array('class' => 'set'));
 }
-}}}
+```
 
 The new implementation uses just a few lines to extract the necessary parameters from the `Query` object, then uses the new helper method to generate the correct URL, calls it and decodes the result, then implements the error-handling we saw above. Finally, if all goes well, it returns the results of the method call, wrapped in a set of `Document` objects that can be iterated over.
 
 Now that we've extracted the above information into a class property, we can do other useful things with it such as implement the `sources()` method described at the beginning of this section. This method is intended to return a simple array indicating the list of resources available to bind to:
 
-{{{
+```
 public function sources($class = null) {
 	return array_keys($this->_sources);
 }
-}}}
+```
 
 ## Conclusions
 

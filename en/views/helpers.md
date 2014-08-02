@@ -6,9 +6,11 @@ Lithium helpers take the concept of elements a bit further, and create a place t
 
 Helper usage in Lithium is simple because helpers are lazy-loaded by the renderer. To use a helper in the view layer, just reference it as a property of the renderer:
 
-{{{<p>
-	Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
-</p>}}}
+```
+<p>
+	Here is a <?=$this->html->link('link', 'http://lithify.me') ?> you'll all enjoy.
+</p>
+```
 
 This approach means you won't have to declare which helpers you're planning on using. Ever. This also means that things aren't loaded up unless (and until!) you're actually using them.
 
@@ -18,7 +20,7 @@ Remember, you can use helpers anywhere in the view layer: inside layouts, view t
 
 To create a custom helper, create a class in the `app/extensions/helper/` directory that extends Lithium's base `Helper` class. As a simple example, let's create a simple helper that creates a special sort of link by creating a new file in `app/extensions/helper/AwesomeHtml.php`:
 
-{{{
+```
 <?php
 
 namespace app\extensions\helper;
@@ -31,13 +33,13 @@ class AwesomeHtml extends \lithium\template\Helper {
 }
 
 ?>
-}}}
+```
 
 One important note to consider here is that the contents of `$title` and `$url` aren't escaped since they're being returned raw from the helper method. _Make sure you make liberal usage of the `escape()` method of the `Helper` class to keep things safe_.
 
 Because string construction can get a little messy, you may wish to make use of the `_render()` method of the `Helper` class as well. This works when you create an array of string templates as the `_strings` property of a helper. Let's secure our example helper and make it a bit more flexible:
 
-{{{
+```
 <?php
 
 namespace app\extensions\helper;
@@ -56,16 +58,16 @@ class AwesomeHtml extends \lithium\template\Helper {
 }
 
 ?>
-}}}
+```
 
 Once this has been setup, we can use the new helper as we would any of the core helpers:
 
-{{{<p>
+```<p>
 	You should really check out
 	<?=$this->awesomeHtml->link('Lithium', 'http://li3.me', array(
 		'type' => 'super_cool'
 	)) ?>
-</p>}}}
+</p>```
 
 ## Extending (and replacing) Core Helpers
 

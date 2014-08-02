@@ -10,7 +10,7 @@ Lithium controllers reside inside the `/app/controllers` directory and extend th
 
 For example, let's create a new controller GalaxiesController (who doesn't wan't to control their own galaxy, after all). Let's create a new file in `/app/controllers/GalaxiesController.php` that looks like this:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -21,7 +21,7 @@ class GalaxiesController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /galaxies/index). 
 
@@ -29,7 +29,7 @@ The `index()` action is a special action: if no action name is specified in the 
 
 Let's create our own action as an example:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -44,7 +44,7 @@ class GalaxiesController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 ## Accessing Request Parameters
 

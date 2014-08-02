@@ -17,13 +17,13 @@ Each adapter provides a consistent interface for the basic cache operations of `
 ## Enabling/Disabling Caching
 To control whether or not caching is enabled, you can either comment or uncomment the following line in your application's `config/bootstrap.php` file:
 
-{{{
+```
 /**
  * This file contains configurations for connecting to external caching resources, as well as
  * default caching rules for various systems within your application
  */
 require __DIR__ . '/bootstrap/cache.php';
-}}}
+```
 
 > NOTE:
 
@@ -34,7 +34,7 @@ require __DIR__ . '/bootstrap/cache.php';
 In most cases, you will configure various named cache configurations in your bootstrap process,
 which will then be available to you in all other parts of your application. A simple example configuration:
 
-{{{
+```
 Cache::config(array(
     'local' => array('adapter' => 'Apc'),
     'distributed' => array(
@@ -43,7 +43,7 @@ Cache::config(array(
     ),
     'default' => array('adapter' => 'File')
 ));
-}}}
+```
 
 ## More information
 * [Cache Class API Documentation](http://lithify.me/docs/lithium/storage/Cache)

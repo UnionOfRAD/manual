@@ -109,13 +109,13 @@ Now that we've got our requests running smoothly, let's get the model more invol
 	}
 
 Next, create a new file at `/app/views/posts/add.html.php`:
-{{{
+```
 	<?=$this->form->create(); ?>
 		<?=$this->form->field('title');?>
 		<?=$this->form->field('body', array('type' => 'textarea'));?>
 		<?=$this->form->submit('Add Post'); ?>
 	<?=$this->form->end(); ?>
-}}}
+```
 This view code sets up a simple HTML form, using a view layer assistance class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
 One note: because the call to `$this->form->create()` doesn't include any parameter, Lithium assumes you mean the `add()` method of the current controller. In this case, it's pointed to `/posts/add`, just as we need.
@@ -142,9 +142,9 @@ There's a few things that we're doing here. Early on, we're checking to see if t
 
 At this stage the controller knows nothing about the model, `Post::create()`, in the action; so we must tell it. At the beginning of our file _after_ the namespace we add this:
 
-{{{
+```
 use app\models\Post;
-}}}
+```
 
 Once we've handed the Post model the data, we call `save()` and eventually return the result of the save operation to the view. We can use that data in the view to show some sort of status message like so:
 
@@ -182,14 +182,14 @@ If for some reason you need to inspect the data (for debugging purposes, for exa
 If you're curious, you might also try `$posts->to('json')` to see some additional options.
 
 At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Let's start over with our view in `/app/views/posts/index.html.php` with the following:
-{{{
+```
 	<?php foreach($posts as $post): ?>
 	<article>
 	 	<h1><?=$post->title ?></h1>
 		<p><?=$post->body ?></p>
 	</article>
 	<?php endforeach; ?>
-}}}
+```
 As you can see, `Post` model objects expose their data through properties. Once this view has been saved, fire up your browser and check `/posts` to see the output.
 
 ## Post Mortem

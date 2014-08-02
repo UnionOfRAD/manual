@@ -3,7 +3,7 @@ Lithium controllers reside inside the application's `/controllers` directory and
 
 For example, let's create a new controller UsersController. Let's create a new file in `/controllers/UsersController.php` that looks like this:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -16,7 +16,7 @@ class UsersController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /users/index).
 
@@ -24,7 +24,7 @@ The `index()` action is a special action: if no action name is specified in the 
 
 For example, we can create a new controller action that would be accessible at `/users/view/`:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -41,4 +41,4 @@ class UsersController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```

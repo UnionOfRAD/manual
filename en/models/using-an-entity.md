@@ -22,11 +22,11 @@ The `create()` method instantiates a new record or document object, initialized 
 
 **Example:**
 
-{{{
+```
 $post = Posts::create(array('title' => 'New post'));
 echo $post->title; // echoes 'New post'
 $success = $post->save();
-}}}
+```
 
 > **Caution**
 
@@ -34,11 +34,11 @@ $success = $post->save();
 
 This method can also be used to simulate loading a pre-existing object from the database, without actually querying the database:
 
-{{{
+```
 $post = Posts::create(array('id' => $id, 'moreData' => 'foo'), array('exists' => true));
 $post->title = 'New title';
 $success = $post->save();
-}}}
+```
 
 This will create an update query against the object with an ID matching `$id`. Also note that only the `title` field will be updated.
 
@@ -64,7 +64,7 @@ The second parameter allows you to specify options for the query.  The options a
 
 **EXAMPLES:**
 
-{{{
+```
 // Read all posts
 $posts = Posts::find('all');
 
@@ -86,7 +86,7 @@ $post = Posts::find('first', array(
 $posts = Posts::find('all', array(
 	'conditions' => array('author' => 'michael')
 ));
-}}}
+```
 
 > **Tip**
 
@@ -97,7 +97,7 @@ $posts = Posts::find('all', array(
 ### Basic Finder Methods
 Lithium also provides some additional basic methods around the `find()` method which make your code less verbose and easier to read:
 
-{{{
+```
 // Read all posts
 $posts = Posts::all();
 
@@ -106,19 +106,19 @@ $post = Posts::first();
 
 // Read all posts with the newest ones first
 $posts = Posts::all(array('order' => array('created' => 'DESC')));
-}}}
+```
 
 ### Dynamic Finder Methods
 The basic finder methods are nice, but Lithium also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell Lithium to filter by a specific field name and value.
 
-{{{
+```
 // Bare approach
 $posts = Posts::find('all', array(
 	'conditions' => array('username' => 'michael')
 ));
 // Dynamic approach
 $posts = Posts::findAllByUsername('michael');
-}}}
+```
 
 Lithium also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
 
@@ -129,13 +129,13 @@ The `$data` parameter is typically an array of key/value pairs that specify the 
 
 **Examples**
 
-{{{
+```
 // Change the author for all documents.
 $success = Posts::update(array('author' => 'Michael'));
 
 // Set a default title for all empty titles
 Posts::update(array('title' => 'Fixme'), array('title' => ''));
-}}}
+```
 
 ## Deleting Entities
 Deleting entities from your datasource is accomplished using either the `remove()` or `delete()` methods.
@@ -146,13 +146,13 @@ The `$conditions` parameter is first and is an array of key/value pairs represen
 
 **Usage Examples**
 
-{{{
+```
 // Delete all posts.
 $success = Posts::remove();
 
 // Delete all posts with an empty title.
 Posts::remove(array('title' => ''));
-}}}
+```
 
 > **WARNING!**
 
@@ -165,19 +165,19 @@ The parameter `$entity` is the entity to be deleted and as with `remove()`,  the
 
 **Usage Example**
 
-{{{
+```
 // Read the first post
 $post = Posts::first();
 
 // Delete the data associated with the first post
 $result = Posts::delete($post);
-}}}
+```
 
 ## Saving Entities
 Persisting data means that new data is being stored or updated. Before you can save your data, you have to initialize a `Model`. This can either be done with the `find()` methods shown earlier or—if you want to create a new entity with the static `create()` method.  `save()` is a method (called on record and document objects) to create or update the record or document in the database that corresponds to `$entity`.
 
 **EXAMPLE: Saving a Record or Document**
-{{{
+```
 // Create a new post, add title and author, then save.
 $post         = Posts::create();
 $post->title  = "My first blog post.";
@@ -195,11 +195,11 @@ $post = Posts::create($data)->save();
 $post = Posts::first();
 $post->author = "Michael";
 $post->save();
-}}}
+```
 
 Note that `save()` also validates your data if you have any validation rules defined in your model. It returns either `true` or `false`, depending on the success of the validation and saving process. You'll normally use this in your controller like so:
 
-{{{
+```
 public function add() {
 	$post = Posts::create();
 	if($this->request->data && $post->save($this->request->data)) {
@@ -207,16 +207,16 @@ public function add() {
 	}
 	return compact('post');
 }
-}}}
+```
 This redirects the user only to the `index` action if the saving process was successful. If not, the form is rendered again and errors are shown in the view.
 
 To override the validation checks and save anyway, you can pass the `'validate'` option:
 
-{{{
+```
 $post->title = "We Don't Need No Stinkin' Validation";
 $post->body = "I know what I'm doing.";
 $post->save(null, array('validate' => false));
-}}}
+```
 
 > **Note**
 

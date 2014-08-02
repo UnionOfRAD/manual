@@ -26,7 +26,7 @@ Examples of immutable static classes would be any class extends [`Adaptable`](ht
 
 The other issue often referred to when testing statics is that they're difficult to mock, or replace dependencies. Consider the following:
 
-{{{
+```
 class A {
     public static function foo() {
         // return some calculated value
@@ -40,11 +40,11 @@ class B {
         return $result;
     }
 }
-}}}
+```
 
 In this example, every call to `B::bar()` results in a call to `A::foo()`. It is impossible to test `B` in isolation, because it is impossible _not_ to also call `A`. In PHP 5.2 and below, there was no solution to this. However, PHP 5.3 allows "dynamic" static method calls, which enable the following:
 
-{{{
+```
 class B {
     public static function bar($dependency) {
         $result = $dependency::foo();
@@ -52,12 +52,12 @@ class B {
         return $result;
     }
 }
-}}}
+```
 
 This allows `A` to be swapped out for another class, and makes `B` much easier to test, since `$dependency` can be the name of a mock class that can act as a control during testing. This also has the pleasant side-effect of making `B`'s design more flexible.
 
 Lithium addresses this issue of dependencies in a uniform way, using the protected `$_classes` attribute. Consider the following snippet from the `lithium\action\Dispatcher` class:
-{{{
+```
 class Dispatcher extends \lithium\core\StaticObject {
 
 	// ...
@@ -66,13 +66,13 @@ class Dispatcher extends \lithium\core\StaticObject {
 	);
 	// ...
 }
-}}}
+```
 
 The `Dispatcher`'s dependencies may then be dynamically configured to use a different routing class with the `config()` method. Internally, calling the `Router` looks like this:
-{{{
+```
 $router = static::$_classes['router'];
 $result = $router::process($request);
-}}}
+```
 
 Not all dependencies are configured this way, but it is the predominant convention throughout the framework. In almost all other cases, dependencies which cannot be changed are dependencies on utility methods, which are almost always referentially transparent. Because of this, these hard-coded dependencies add no difficulty or complexity in testing.
 

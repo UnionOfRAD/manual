@@ -30,9 +30,9 @@ The following examples should give you an overview of the various approaches to 
 
 For example, the image manipulation library [ Imagine](https://github.com/avalanche123/Imagine), once installed according to the above (with `lib/Imagine` symlinked to `libraries/Imagine`), can be configured simply with the following:
 
-{{{
+```
 Libraries::add('Imagine');
-}}}
+```
 
 Again, because it conforms to the 5.3 namespacing standard, and because (using the symlink) Lithium knows how to locate its class files, no other configuration is required.
 
@@ -40,7 +40,7 @@ Again, because it conforms to the 5.3 namespacing standard, and because (using t
 
 Since PEAR is typically installed into a system directory (i.e. `/usr/local/lib/php`), you should first symlink it to `libraries/PEAR`, then add the following:
 
-{{{
+```
 Libraries::add("PEAR", array(
 	"prefix" => false,
 	"includePath" => true,
@@ -49,7 +49,7 @@ Libraries::add("PEAR", array(
 		return file_exists($file) ? $file : null;
 	}
 ));
-}}}
+```
 
 There are a number of things to note about this configuration. First, while PEAR classes use package prefix, there is no standard vendor prefix, so the `'prefix'` setting must be overridden accordingly.
 
@@ -65,7 +65,7 @@ If you downloaded ZF1, or did an SVN checkout, you'll follow the alternative ins
 
 Once installed, ZF1 can be configured per the following. Again, because Lithium assumes 5.3 standard namespacing in all libraries, some special considerations are necessary for dealing with class libraries written for 5.2 and lower.
 
-{{{
+```
 Libraries::add("Zend", array(
 	"prefix" => "Zend_",
 	"includePath" => LITHIUM_LIBRARY_PATH, // or LITHIUM_APP_PATH . '/libraries'
@@ -73,7 +73,7 @@ Libraries::add("Zend", array(
 	"loader" => array("Zend_Loader_Autoloader", "autoload"),
 	"transform" => function($class) { return str_replace("_", "/", $class) . ".php"; }
 ));
-}}}
+```
 
 First, because we're dealing with underscore-prefixed classes, we need to override the default prefix. Also, ZF1 depends on its parent directory being included in PHP's `include_path`, which we can tell `Libraries` to do, using the directory constants to provide an absolute path. Again, if your system is already configured for this, you can omit the `'includePath'` key.
 
@@ -82,7 +82,7 @@ Next, since ZF1 uses its own autoloader, we can tell `Libraries` to delegate to 
 Most importantly, we're overriding how class names are transformed into path names, by passing in a custom function which transforms PEAR-style class names. Finally, to use classes in Zend's incubator, we can add a separate configuration for this.
 
 Note, the following should appear **above** the primary ZF configuration, because they both have the same class prefix. However, this configuration will verify that a file exists before attempting to autoload it, allowing classes to "fall through" to other loaders.
-{{{
+```
 Libraries::add("ZendIncubator", array(
 	"prefix" => "Zend_",
 	"includePath" => '/path/to/libraries/ZF_Install_Dir/incubator/library',
@@ -91,7 +91,7 @@ Libraries::add("ZendIncubator", array(
 		return file_exists($file) ? $file : null;
 	}
 ));
-}}}
+```
 
 ### Zend Framework 2.x
 
@@ -99,9 +99,9 @@ Fortunately, installing and configuring ZF2 is quite a bit easier. It can be clo
 
 Because ZF2 uses the same class naming scheme as Lithium, configuring it is quite a bit easier:
 
-{{{
+```
 Libraries::add("Zend");
-}}}
+```
 
 As with ZF1 above, using Zend's native autoloader is technically optional. Here, it is omitted specifically because both Lithium and ZF2 class loading rules were written to the same specification, and using this approach, Lithium can cache ZF class paths along with its own.
 
@@ -109,7 +109,7 @@ As with ZF1 above, using Zend's native autoloader is technically optional. Here,
 
 Once you've properly installed and configured your chosen version of Zend Framework, you can use its classes as you would any other:
 
-{{{
+```
 namespace app\controllers;
 
 /**
@@ -145,7 +145,7 @@ class EmailController extends \lithium\action\Controller {
 	}
 	
 }
-}}}
+```
 
 
 ### TCPDF
@@ -154,7 +154,7 @@ Some legacy vendor libraries have no consistent class-to-file mapping scheme wha
 
  _Note_: For larger libraries, generating the map by hand can be tedious. Check out [the `Inspector` class](http://li3.me/docs/lithium/analysis/Inspector), which can be used to introspect classes and files to generate a map automatically.
 
-{{{
+```
 Libraries::add('tcpdf', array(
 	'prefix' => false,
 	'transform' => function($class, $config) {
@@ -172,6 +172,6 @@ Libraries::add('tcpdf', array(
 		return "{$config['path']}/{$map[$class]}{$config['suffix']}";
 	}
 ));
-}}}
+```
 
 Again, the lack of vendor prefix is denoted by setting `'prefix'` to `false`. Next, the class-to-file mapping function is passed in the `'transform'` key, which contains an array mapping class names to file names. These are then used to generate and return a full physical path to the correct file.

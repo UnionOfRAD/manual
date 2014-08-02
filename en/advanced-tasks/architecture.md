@@ -24,7 +24,7 @@ Constructor logic should be kept to a minimum. One of the last steps in the unif
 
 If you need to manipulate an object in its un-initialized state, pass `false` as the value to the `init` key to the constructor. This prevents `init()` from running, and is especially handy when building test cases.
 
-{{{
+```
 <?php
 namespace app/extensions;
 
@@ -50,9 +50,9 @@ class Foo extends \lithium\core\Object {
 	}
 } 
 ?>
-}}}
+```
 
-{{{
+```
 <?php
 use app\extensions\Foo;
 
@@ -71,7 +71,7 @@ get_class($foo3->service);  // PHP Warning...
 
 get_class($foo->service);  // 'lithium\net\http\Service'
 ?>
-}}}
+```
 
 ## Filtering
 
@@ -85,7 +85,7 @@ Subclasses of `Object` use the filter methods to allow other developers to wrap 
 
 One challenge with testing is creating and initializing your objects. The `__set_state()` function allows test writers to quickly create objects with their pre-existing properties and values intact. This method can be called statically on any class that extends `Object` to return an instance of itself.
 
-{{{
+```
 <?php
 class MockObject extends \lithium\core\Object {
 	protected $_protected = null;
@@ -100,7 +100,7 @@ $object = MockObject::__set_state(array(
 
 $object->getProtected();        // 'testing'
 ?>	
-}}}
+```
 
 # Managing Dependencies
 
@@ -136,10 +136,10 @@ The main bootstrap file in the config folder is `bootstrap.php`. This file is se
 
 The best practice for bootstrapping parts of your application is by writing specific bootstrap files and placing them in `config/bootstrap/filename.php`. Once written, include the configuration into the main bootstrap file:
 
-{{{
+```
 // Adding my custom configuration or initialization...
 require __DIR__ . '/bootstrap/myconfig.php';
-}}}
+```
 
 ### Connections
 
@@ -147,7 +147,7 @@ The `connections.php` file in config lists the connections you have to external 
 
 Connections should be listed in this file, as calls to `Connections::add()`, like so:
 
-{{{
+```
 Connections::add('default', array(
     'type' => 'database',
     'adapter' => 'MySql',
@@ -162,7 +162,7 @@ Connections::add('couch', array(
 ));
 
 Connections::add('mongo', array('type' => 'MongoDb', 'database' => 'my_app'));
-}}}
+```
 
 The particulars on the adapter will shape how the connection definition is put together, but this list should constitute what you've got in `connections.php`.
 
@@ -172,9 +172,9 @@ Routes definitions is how you inform the framework how URLs and bits of code mat
 
 For example, I could specify that any request  to `/login` is handled by `UsersController::login()` like this:
 
-{{{
+```
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
-}}}
+```
 
 More on routes later, but this file should house all such configuration information.
 

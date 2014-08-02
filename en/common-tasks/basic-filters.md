@@ -33,13 +33,13 @@ Since it's likely to be more common, let's tackle applying filters first. The lo
 
 Let's imagine for a moment that we're aiming to add a filter to a Lithium application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
 
-{{{
+```
 use lithium\action\Dispatcher;
 
 Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	return $chain->next($self, $params, $chain);
 });
-}}}
+```
 
 This is the basic structure for applying a filter: call the apply `applyFilter()` method on the class or object in question, hand it the name of the method you'd like to filter, then a closure that implements your filter logic. Let's talk about the parameters involved in the closure:
 
@@ -55,7 +55,7 @@ Next, `$params` gives you access to any parameters that original method implemen
 
 The last parameter is important. You can see above that right now the closure returns the results of the logic next in line in the filter chain. Unless you want to short-circuit filter execution (which includes the base logic of the method you're filtering), you'll want to include this somewhere in your filter logic. The position this call has in your filter also might be important. For example, if you're creating a filter you want to have happen __after__ a certain method, your custom filter logic should follow the `next()` call rather than proceed it:
 
-{{{
+```
 
 SomeClass::applyFilter('methodName', function($self, $params, $chain) {
 	$result = $chain->next($self, $params, $chain);
@@ -63,7 +63,7 @@ SomeClass::applyFilter('methodName', function($self, $params, $chain) {
 	// Custom logic goes here.
 });
 
-}}}
+```
 
 Alright: let's use these parameters to our advantage in creating an authentication setup. If we look at the parameters for `Dispatcher::_callable()` we can see that accepts three: the current `Request` object (an instance of `lithium\action\Request`), the parameters returned from routing the request, and an options array.
 
@@ -71,7 +71,7 @@ When designing filters, it's important to have a clear understanding of the meth
 
 For this filter, we'll intercept the method after it finds a controller object (assuming it finds one), but before it returns it to `Dispatcher::run()`:
 
-{{{
+```
 use lithium\action\Dispatcher;
 use lithium\action\Response;
 use lithium\security\Auth;
@@ -91,7 +91,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 		return new Response(compact('request') + array('location' => 'Sessions::add'));
 	};
 });
-}}}
+```
 
 This particular listing assumes you've set up a configuration with the `Auth` class called `'default'`. Check out the authentication chapter for more on this. Taking it from the top, we can see that the filter first continues executing the chain in order to get the `Controller` object (`$ctrl`) to work with, and does all of its processing _after_ the actual method executes.
 
@@ -103,7 +103,7 @@ It is important when filtering a method that we honor the method's _contract_. T
 
 Implementing the controller for this example might look something like this:
 
-{{{
+```
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -120,7 +120,7 @@ class SessionsController extends \lithium\action\Controller {
 		// ...
 	}
 }
-}}}
+```
 
 The rest of the code necessary to implement user authentication is covered in another chapter, but take special note of the `$publicActions` property in the controller. Without this, the `add()` action would be treated as private, resulting in an infinite redirect loop.
 
@@ -132,7 +132,7 @@ One more example is common enough to cover: logging. When building a large appli
 
 The approach here requires a bit of understanding how Lithium's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
-{{{
+```
 Connections::add('default', array(
 	'type' => 'database',
 	'adapter' => 'MySql',
@@ -141,13 +141,13 @@ Connections::add('default', array(
 	'password' => 'mypassword',
 	'database' => 'app_name'
 ));
-}}}
+```
 
 What we need to do is get a reference to the instance of the actual connection object define here so we can filter its methods. In this case, we'll use `Connections::get()` to get a reference to the actual adapter handling this connection. Since we've specified 'MySQL' as the adapter type, we'll get an instance of `lithium\data\source\database\adapter\MySql` when we call `Connections::get('default')`.
 
 Looking at the API shows us that there's an `_execute()` method we can filter. It's only parameter is the SQL being executed, and that's exactly what we'll need for our filter logic. Here's one way this could look:
 
-{{{
+```
 use lithium\analysis\Logger;
 use lithium\data\Connections;
 
@@ -164,7 +164,7 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 	// Always make sure to keep the filter chain going.
 	return $chain->next($self, $params, $chain);
 });
-}}}
+```
 
 ## Applying Filters Lazily
 
@@ -174,13 +174,13 @@ For this reason, it is sometimes preferrable to apply filters to a class without
 
 Using the fully-qualified name of the class to which you want to apply the filter, you may invoke `Filters::apply()`, which will store the filter until the method to which it is applied first executes:
 
-{{{
+```
 use lithium\util\collection\Filters;
 
 Filters::apply('blog\models\Posts', 'find', function($self, $params, $chain) {
 	// Filter logic is then written the same as it would be for non-lazy filters
 });
-}}}
+```
 
 ## Creating Filter-able Logic
 
@@ -192,7 +192,7 @@ For example, let's add a filter to the method that posts content to Twitter. It'
 
 First, start with the basics:
 
-{{{
+```
 class Twitter {
 
 	public function tweet($status, $options) {
@@ -204,13 +204,13 @@ class Twitter {
 		return $result;
 	}
 }
-}}}
+```
 
 Here we've got a basic method implementation. Of note is the `$options` parameter: the Lithium API is a big fan of keeping parameter counts small using options arrays. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
 
 Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `$this->_filter()`, and returning the result of that call. Here's what it looks like:
 
-{{{
+```
 class Twitter extends \lithium\core\Object {
 
 	public function tweet($status, $options) {
@@ -226,13 +226,13 @@ class Twitter extends \lithium\core\Object {
 		});
 	}
 }
-}}}
+```
 
 The `filter()` method takes three arguments. The first is the name of the method, the second is an array of parameters the original method implementation takes. The last parameter is a closure containing the original method implementation. That's it! If you're doing something pretty simple - that's all you need to do. Note that in order to call `$this->_filter()`, the class must extend `lithium\core\Object` (or a subclass thereof).
 
 There are a few situations that make things a bit different. One example is if your method is accessed statically. Let's adjust our `tweet()` example to illustrate (note that the parent class also changes):
 
-{{{
+```
 class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
@@ -248,7 +248,7 @@ class Twitter extends \lithium\core\StaticObject {
 		});
 	}
 }
-}}}
+```
 
 Mostly the same... just call `static::_filter()` instead of `$this->_filter()`.
 
@@ -256,7 +256,7 @@ Another situation that makes things a bit tricky is if your main method implemen
 
 What you need to do is set up a local reference before you start the closure definition, making sure to use the `use` clause within the closure definition:
 
-{{{
+```
 class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
@@ -272,4 +272,4 @@ class Twitter extends \lithium\core\StaticObject {
 		});
 	}
 }
-}}}
+```

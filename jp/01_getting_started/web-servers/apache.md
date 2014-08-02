@@ -6,14 +6,14 @@ In order to provide Lithium applications with clean URLs, Lithium ships with a s
 
 By default, these files can be utilized by finding all references to `AllowOverride` in your `httpd.conf` configuration file and setting the values to `All`. On an OS X system, your setup may look something like this:
 
-{{{
+```
 <Directory "/Library/WebServer/Documents">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
     Order allow,deny
     Allow from all
 </Directory>
-}}}
+```
 
 Once you've made sure `AllowOverride` has been set correctly, you can toss a copy of Lithium in your DocumentRoot. Using the past example, placing Lithium in `/Library/WebServer/Documents/lithium` would allow you to access your application at http://localhost/lithium.
 
@@ -21,7 +21,7 @@ Once you've made sure `AllowOverride` has been set correctly, you can toss a cop
 
 In production, it is recommended that you set `AllowOverride` to `None` and instead, create a `<VirtualHost />` configuration pointed at your application's `webroot` directory, which contains the rewrite rules. For example, if your application is located in `/var/www/html/your_app`, your configuration would resemble the following:
 
-{{{
+```
 <VirtualHost *:80>
 	ServerName example.com
 	DocumentRoot "/var/www/html/your_app/webroot"
@@ -35,6 +35,6 @@ In production, it is recommended that you set `AllowOverride` to `None` and inst
 		RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 	</Directory>
 </VirtualHost>
-}}}
+```
 
 In this case, your app is available at http://example.com.

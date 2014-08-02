@@ -12,14 +12,14 @@ Once you've got Mongo itself installed, follow the directions below, depending o
 
 For MongoDB + PHP goodness, you'll need the Mongo PECL module. For most *NIX systems, this is as easy as:
 
-{{{
+```
 $ sudo pecl install mongo
-}}}
+```
 
 Now add the following line to your php.ini:
-{{{
+```
 	extension=mongo.so
-}}}
+```
 
 That's it! Restart your web server, and you're done!
 
@@ -41,9 +41,9 @@ Once you've identified the correct version for your system:
  * Download and extract the .zip file. Make sure PHP version_ matches the version of PHP you are running (e.g., if you are running PHP 5.3.2, download the driver for PHP 5.3).
  * Copy php_mongo.dll to your PHP extensions directory (see "extension_dir" in php.ini).
  * Add the following line to your php.ini:
-{{{
+```
 extension=php_mongo.dll
-}}}
+```
 
 Restart your web server, and you're done!
 

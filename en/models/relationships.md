@@ -15,17 +15,17 @@ If you're having a hard time remembering hasOne/hasMany versus belongsTo, just r
 
 Defining this object relationship in Lithium is simple: you populate special properties on the model object. For example, let's say we're building an online store. Each `Category` is filled with many `Product` objects. In this case, we'd want to specify `Category` hasMany `Product`. Let's see how this is done:
 
-{{{
+```
 <?php
 class Categories extends \lithium\data\Model {
 	public $hasMany = array('Products');
 }
 ?>
-}}}
+```
 
 This simple declaration relies on convention, and is the functional equivalent to this:
 
-{{{
+```
 <?php
 class Categories extends \lithium\data\Model {
 	public $hasMany = array('Products' => array(
@@ -38,7 +38,7 @@ class Categories extends \lithium\data\Model {
 	));
 }
 ?>
-}}}
+```
 
 Unless specified otherwise, the relationship assumes you're using the exact class name specified, with a key that is an under_scored version of the model's class name, suffixed with `_id`. All other sorting and limit options are assumed to be empty.
 
@@ -48,7 +48,7 @@ All of Lithium's model relationships use these same keys (although there's no re
 
 Once a relationship as been configured, you can use your models to fetch related data. We can now do this in a controller:
 
-{{{
+```
 <?php
 
 $categories = Categories::find('all', array(
@@ -89,7 +89,7 @@ $categories = Categories::find('all', array(
 	)
 */
 ?>
-}}}
+```
 
 Notice the new `with` key supplied to the model? This tells Lithium that you want related data joined to the normal response.
 
@@ -101,7 +101,7 @@ Because Lithium's relationship setup is simple, so is saving related data. When 
 
 Here's a simplified example of how we'd save a newly created product, matched up to a category. First, the `ProductsController`:
 
-{{{
+```
 <?php
 namespace app\controllers;
 
@@ -125,15 +125,15 @@ class ProductsController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 And, here is the view that contains the form:
 
-{{{
+```
 <?= $this->form->create() ?>
 	<?= $this->form->select('category_id', $categoryList) ?>
 	<?= $this->form->text('name'); ?>
 	<?= $this->form->text('price'); ?>
 	<?= $this->form->submit('Create Product') ?>
 <?= $this->form->end(); ?>
-}}}
+```

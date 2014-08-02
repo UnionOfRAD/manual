@@ -28,7 +28,7 @@ The second part of a connection is an array of configuration options specific to
 
 A quick look at the examples in the default `connections.php` file illustrate the possibilities:
 
-{{{
+```
 
 Connections::add('default', array(
 	'type' => 'MongoDb',
@@ -53,13 +53,13 @@ Connections::add('default', array(
 	'encoding' => 'UTF-8'
 ));
 
-}}}
+```
 
 ## Configuring Models
 
 As mentioned, models will look for the "default" connection first. If you've got more than one connection you're using, or wish a model to use an alternate, specify the connection name in the model's `$_meta` property:
 
-{{{
+```
 
 class Users extends \lithium\data\Model {
 	protected $_meta = array(
@@ -67,7 +67,7 @@ class Users extends \lithium\data\Model {
 	);
 }
 
-}}}
+```
 
 ## Connections and Environments
 
@@ -75,7 +75,7 @@ Many applications use different databases depending on which environment the app
 
 Once your environments have been defined, use their names as keys in the configuration array, as shown here:
 
-{{{
+```
 Connections:add('default', array( // 'default' is the name of the connection
 	'development' => array(
 		'type'     => 'MongoDb',
@@ -90,4 +90,4 @@ Connections:add('default', array( // 'default' is the name of the connection
 		'password' => 'mysecret'
 	)	
 ));
-}}}
+```

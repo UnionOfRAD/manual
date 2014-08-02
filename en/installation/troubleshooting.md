@@ -24,16 +24,16 @@ Make sure to place the RewriteBase directive just after `RewriteEngine on`.
 
 Usually this is a result of `.htaccess` files not being parsed. Make sure that the the directives that cover your Lithium installation include the following line:
 
-{{{
+```
 	AllowOverride all
-}}}
+```
 
 ## Unexpected Character Input
 
 If you get an error that looks like this:
 
-{{{
+```
 	Warning: Unexpected character in input: '\' (ASCII=92) state=1 in /path/to/lithium/app/webroot/index.php on line 22
-}}}
+```
 
 This means you're not running PHP 5.3 or later.  Please check your PHP version and update as appropriate.

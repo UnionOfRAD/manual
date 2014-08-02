@@ -14,13 +14,13 @@ Let us assume for this example that you're developing locally and would like you
 
 First, enable `mod_magnet` in your `lighttpd.conf`.
 
-{{{
+```
 	server.modules += ( "mod_magnet" )
-}}}
+```
 
 Then, save the following script in a file named `li3.lua`, preferably somewhere near your `lighttpd.conf`.
 
-{{{
+```
 	-- Helper function
 	function file_exists(path)
 	  local attr = lighty.stat(path)
@@ -55,21 +55,21 @@ Then, save the following script in a file named `li3.lua`, preferably somewhere 
 	end
 	-- Fallthrough will put it back into the lighty request loop..
 	-- That means we get the 304 handling for free. ;)
-}}}
+```
 
 Finally, in your `lighttpd.conf`, add the following conditional:
 
-{{{
+```
 	$HTTP["host"] =~ "lithium.local" {
 		server.document-root = "/path/to/your/app/webroot/"
 		magnet.attract-physical-path-to = ( "/path/to/li3.lua" )
 	}
-}}}
+```
 
 You'll probably need to add a line item in your `/etc/hosts` file as well:
 
-{{{
+```
 	127.0.0.1 lithium.local
-}}}
+```
 
 Restart your lighttpd process, and you're done!

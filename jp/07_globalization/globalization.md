@@ -10,9 +10,9 @@ Globalization in Lithium is a core framework feature, and Lithium has been devel
 
 Enabling g11n in your application starts by loading it in the Lithium bootstrap process. Start by uncommenting the g11n line in `bootstrap.php`. The `g11n.php` file contains your application's globalization rules, including inflections, transliterations, localized validation, and how localized text should be loaded.
 
-{{{
+```
 require __DIR__ . '/bootstrap/g11n.php';
-}}}
+```
 
 ## Creating Default Locale Settings
 
@@ -20,12 +20,12 @@ The settings for the current locale (and available locales) are kept as environm
 
 Here, you can decide which locale is your default effective locale, and also which locales your application will support. Do so by defining environment variables like so:
 
-{{{
+```
 Environment::set('development', array(
     'locale' => 'en', // the default effective locale
     'locales' => array('en' => 'English') // locales available for your application
 ));
-}}}
+```
 
 ## Locale Detection
 
@@ -52,7 +52,7 @@ While determining the effective locale in an semi-automatic way works well for c
 
 One of the last things that `g11n.php` does in the bootstrap process is apply a filters to both the console command and controller action dispatchers. Here is the perfect place to decide how we set and switch between locales based on the information we have from the request and user agent.
 
-{{{
+```
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	if (!$params['request']->locale()) {
 		$params['request']->locale(Locale::preferred($request));
@@ -61,7 +61,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 
 	return $chain->next($self, $params, $chain);
 });
-}}}
+```
 
 This filter does the following:
 
@@ -79,7 +79,7 @@ There is [ a great deal of thought](http://h3h.net/2007/01/designing-urls-for-mu
 
 A localized route is configured by creating a new application extension containing new routes information. This example creates a new file at `app/extensions/route/Localized.php`, a new class that extends `lithium\net\http\Route`:
 
-{{{
+```
 <?php
 namespace app\extensions\route;
 
@@ -99,11 +99,11 @@ class Localized extends \lithium\net\http\Route {
     }
 }
 ?>
-}}}
+```
 
 Once this as been set up, we can connect routes in our application using this new localized route:
 
-{{{
+```
 <?php
 use app\extensions\route\Localized;
 
@@ -119,18 +119,18 @@ Router::connect(new Localized(array(
     'template' => '/{:controller}/{:action}/{:args}',
 )));
 ?>
-}}}
+```
 
 Once this is in place, our application's routes will illustrate the effective locale.
 
-{{{
+```
 http://example.com/en/controller/action/param1
 http://example.com/fr/controller/action/param1
-}}}
+```
 
 As a final example, here's a bit of view code you could use to switch between locales:
 
-{{{
+```
  <div id="locale-navigation">
 	<ul>
 	<?php foreach (\lithium\core\Environment::get('locales') as $locale => $name): ?>
@@ -138,7 +138,7 @@ As a final example, here's a bit of view code you could use to switch between lo
 	<?php endforeach; ?>
 	</ul>
 </div>
-}}}
+```
 
 ## Globalization Catalog Adapters
 
@@ -148,7 +148,7 @@ The `Catalog` is a class that allows us to retrieve and store globalized data, p
 
 The class is able to aggregate globalized data from different sources, which allows a developer to complement sparse data. Example usage:
 
-{{{
+```
 // Configures the runtime source.
 Catalog::config(array('runtime' => array('adapter' => 'Memory')));
 
@@ -167,7 +167,7 @@ Catalog::read('runtime', 'message', 'de_DE');
 
 // Reads from just the runtime source.
 Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
-}}}
+```
 
 By default, the g11n bootstrap configures a `runtime` (using the Memory adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
 
@@ -175,7 +175,7 @@ For an adhoc solution (i.e. translating api messages) it's workable to utilize t
 
 In order to allow the application to read write gettext resource files (PO and MO) we configure the Catalog as follows:
 
-{{{
+```
 Catalog::config(array(
     'runtime' => array(
         'adapter' => 'Memory'
@@ -189,7 +189,7 @@ Catalog::config(array(
         'path' => LITHIUM_LIBRARY_PATH . '/lithium/g11n/resources/php'
     )
 ) + Catalog::config());
-}}}
+```
 
 
 ### Available Catalog Adapters
@@ -202,11 +202,11 @@ The **memory adapter** allows for writing and reading globalized data needed at 
 The **code adapter** extracts message IDs for creating message catalog templates from source code. PHP is supported through a parser (using the built-in tokenizer) but future support for other formats (i.e. JavaScript) is possible too.
 
 The **php adapter** allows for reading from files containing data in PHP format.
-{{{
+```
 <?php return array(
 	'the artists' => 'die Künstler'
 ); ?>
-}}}
+```
 
 ### G11n Data Storage
 
@@ -224,17 +224,17 @@ More information on the directory structures required by the different adapters 
 
 Lithium's g11n framework ships with some localized validation rules for phone number, postal code and social security number validation rules. The `g11n.php` bootstrap file defines these additions so they're available before you use them:
 
-{{{
+```
 foreach (array('phone', 'postalCode', 'ssn') as $name) {
     Validator::add($name, Catalog::read('runtime', "validation.{$name}", 'en_US'));
 }
-}}}
+```
 
 Once those changes have been bootstrapped, you can use this g11n-aware validation logic in your application logic like so:
 
-{{{
+```
 Validator::isPhone('PHONE NUMBER US', 'en_US');
-}}}
+```
 
 ## Using Localized Content
 
@@ -252,15 +252,15 @@ While it may seem like a simple process from the outside, message globalization 
 
 The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—are injected into the view as output filters by default. This allows for the following syntax throughout templates:
 
-{{{
+```
 <?= $t('green'); ?>
 <?= $tn('House', 'Houses', array('count' => 3)); ?>
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
-}}}
+```
 
 If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
 
-{{{
+```
 <?php
 
 use lithium\g11n\Message;
@@ -275,7 +275,7 @@ class PostsController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 ### Best Practices
 
@@ -283,7 +283,7 @@ Since the marked messages will later be translated by many others, it's importan
 
 When embedding translated messages into your application, it's best to use entire sentences as identifiers rather than just single words. Since a translator is often viewing a long list of strings needing to be translated, context is everything.
 
-{{{
+```
 
 Not so great:
 <?= $t('welcome'); ?>
@@ -291,13 +291,13 @@ Not so great:
 Better:
 <?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
 
-}}}
+```
 
 It's also best to split paragraphs into single sentences as well. This makes things more atomic and granular where large chunks of content may be difficult to work with:
 
 Next, treating text like you would with String::insert() can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
 
-{{{
+```
 
 Not so great:
 <?= "Gary's Fine Clarinets " . $t('is really great'); ?>
@@ -305,7 +305,7 @@ Not so great:
 Better:
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
 
-}}}
+```
 
 Also, avoid the use of escaped characters, or markup of any kind inside of translated messages. This makes it much less error prone, as your language team may not be as keen on well-structured HTML as you are.
 
@@ -313,36 +313,36 @@ Also, avoid the use of escaped characters, or markup of any kind inside of trans
 
 Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
 
-{{{
+```
 <?= $t('foo', array('noop' => true)); ?>
 <?= $tn('foo', 'bar', array('noop' => true)); // we don't need to pass `'count'` in this case ?>
-}}}
+```
 
 File: a.php
-{{{
+```
 <?= $t('foo', array('noop' => true)); // the extractor picks up `foo` ?>
-}}}
+```
 
 File: b.php
-{{{
+```
 <?php $section = 'foo'; ?>
 <?= $t($section); ?>
-}}}
+```
 
 ### Knock Out
 
 If you're using templates which use the aliased translation functions but don't want to do any globalization, you can disable the lookup of translations by using a filter.
 
-{{{
+```
 Message::applyFilter('_translated', function($self, $params, $chain) {
 	return null;
 });
-}}}
+```
 
 ## Extracting Marked Messages & Creating Templates
 
 Marked messages are extracted using the `g11n` command. This allows for extracting messages and comments from source files, creating and updating files containing message templates, creating and updating files containing translated messages and compilation of those.
 
-{{{
+```
 li3 g11n extract [--source=DIRECTORY] [--destination=DIRECTORY]
-}}}
+```

@@ -6,7 +6,7 @@ If you're doing much more than simple static content delivery, chances are you'l
 
 The default auth setup makes decisions based on information in your data store. The first thing you'll need to do is set up a model that handles user credentials. That model first needs a connection: set that up first in `config/bootstrap/connections.php`. If you're using MySQL as your data source, it should look something like this:
 
-{{{
+```
 use lithium\data\Connections;
 
 Connections::add('default', array(
@@ -16,25 +16,25 @@ Connections::add('default', array(
 	'user'     => 'myusername',
 	'password' => 'mypassword'
 ));
-}}}
+```
 
 If you're running with Mongo, it'll look a bit different:
 
-{{{
+```
 Connections::add('default', array(
 	'type'     => 'MongoDb',
 	'database' => 'mydatabase',
 ));
-}}}
+```
 
 Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure. You can customize the model and fields that `Auth` will use as we'll see later. Make sure to take a moment and set up your `Users` model as well in `models/Users.php`:
 
-{{{
+```
 namespace app\models;
 
 class Users extends \lithium\data\Model {
 }
-}}}
+```
 
 Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using.
 
@@ -50,15 +50,15 @@ Once the data handling is in place, Lithium needs to know you intend to use auth
 
 Lithium's default application template ships with a file called `config/bootstrap/session.php`, which contains default session storage settings, as well as a commented-out default authentication configuration. To enable this configuration, first edit `config/bootstrap.php` to include (or uncomment) the line requiring the session bootstrap file:
 
-{{{
+```
 
 require __DIR__ . '/bootstrap/session.php';
 
-}}}
+```
 
 Next, make sure your `Session` setup is using the PHP adapter, then create or uncomment the initial `Auth` configuration:
 
-{{{
+```
 use lithium\storage\Session;
 use lithium\security\Auth;
 
@@ -69,7 +69,7 @@ Session::config(array(
 Auth::config(array(
 	'default' => array('adapter' => 'Form')
 ));
-}}}
+```
 
 The `Session` setup is pretty straightforward, and the `Auth` configuration tells Lithium which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
 
@@ -81,7 +81,7 @@ If you're editing the bootstrap files that ship with each new application, you'l
 
 The first action you'll need to setup is the one that authenticates your users and adjusts the session to mark the user as identified. You could place this as you please, but it's generally accepted to create it in `SessionsController::add()`. The suggested approach is very simple:
 
-{{{
+```
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -97,7 +97,7 @@ class SessionsController extends \lithium\action\Controller {
 
 	/* ... */
 }
-}}}
+```
 
 The meat is the part of the conditional that calls `Auth::check()` and hands it the name of our desired `Auth` configuration name (remember we named the whole config array `'default'`?), and information about the current request.
 
@@ -105,19 +105,19 @@ If the user has been successfully verified, the session is updated to mark the u
 
 As a reference, the web form that sends the credentials and is the content of the `add` view at `views/sessions/add.html.php` should contain something that looks like this:
 
-{{{
+```
 <?=$this->form->create(null); ?>
 	<?=$this->form->field('username'); ?>
 	<?=$this->form->field('password', array('type' => 'password')); ?>
 	<?=$this->form->submit('Log in'); ?>
 <?=$this->form->end(); ?>
-}}}
+```
 
 ## Protecting Resources
 
 The setup for protecting resources is almost the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions to make sure that sections in your application are blocked from non-authenticated users. For example:
 
-{{{
+```
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -132,13 +132,13 @@ class PostsController extends \lithium\action\Controller {
 		/* ... */
 	}
 }
-}}}
+```
 
 ## Checking Out
 
 Next, you'll want to create an action that clears an end-user's authentication session on your system. Do that by making a call to `Auth::clear()` in a controller action.
 
-{{{
+```
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -152,16 +152,16 @@ class SessionsController extends \lithium\action\Controller {
 		return $this->redirect('/');
 	}
 }
-}}}
+```
 
 ## Routing
 
 Finally, in order to give users slightly friendlier URLs than `/sessions/add` and `/sessions/delete`, you can wire up some very simple custom routes in `config/routes.php`. Since these are very specific routes, you'll want to add them at or near the top of your routes file:
 
-{{{
+```
 Router::connect('/login', 'Sessions::add');
 Router::connect('/logout', 'Sessions::delete');
-}}}
+```
 
 ## More Information
 

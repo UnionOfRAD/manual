@@ -13,9 +13,9 @@ Simply defined, static code analysis reviews and analyzes code outside of the ru
 
 The `li3_quality` plugin for Lithium is available at `git://github.com/UnionOfRAD/li3_quality.git`.  Once the repository is cloned into your `libraries` folder, It is activated by adding the following code to `config/bootstrap/libraries.php` file:
 
-{{{
+```
 Libraries::add('li3_quality');
-}}}
+```
 
 ### Available Tools
 
@@ -36,7 +36,7 @@ Once you have made a choice on what is going to be tested from the left menu, op
 
 `li3_quality` is also available for use from the command line:
 
-{{{
+```
 $ li3 quality
 
 Lithium console started in the development environment. Use the --env=environment key to alter this.
@@ -44,4 +44,4 @@ USAGE
     li3 quality syntax
     li3 quality documented
     li3 quality coverage
-}}}
+```

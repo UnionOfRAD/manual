@@ -45,9 +45,9 @@ The two applications mentioned aren't complete copies of the Lithium codebase: t
 
 First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap.php` file like so:
 
-{{{
+```
 define('LITHIUM_LIBRARY_PATH', '/usr/local/lib/lithium/libraries');
-}}}
+```
 
 ## Pedal to the Metal
 
@@ -57,10 +57,10 @@ Another quick thing to check is to make sure that magic quotes have been complet
 
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your php.ini:
 
-{{{
+```
 	error_reporting  =  E_ALL
 	display_errors   =  true
-}}}
+```
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 

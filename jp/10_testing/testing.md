@@ -16,24 +16,24 @@ The `cases` folder is used to house all the core logic for your unit tests. If y
 
 Let's start out by creating a simple test case as a working example. Our first working example will be a model unit test. Let's start by creating one using the `li3 create` console command.
 
-{{{
+```
 $ cd /path/to/lithium/app
 $ li3 create model Post
 
 Post created in app\models.
-}}}
+```
 
 We can also use the `li3 create` command to create our test case class.
 
-{{{
+```
 $ li3 create test model Post
 
 PostTest created for Post in app\tests\cases\models.
-}}}
+```
 
 Doing so creates a test file template class that extends `\lithium\test\Unit` and looks like the following:
 
-{{{
+```
 <?php
 
 namespace app\tests\cases\models;
@@ -49,7 +49,7 @@ class PostTest extends \lithium\test\Unit {
 }
 
 ?>
-}}}
+```
 
 The two initial methods supplied act as they're named. The `setUp()` method is used to perform any preparation work you'll need to perform your unit testing logic. This might be anything from setting up database connections to initializing mock data. Similarly, `tearDown()` is used to clean up anything that might be left over once a unit test has been completed. These methods are called before and after each method in your unit test case.
 
@@ -71,7 +71,7 @@ Since our test case is a subclass of `lithium\test\Unit`, we have easy access to
 
 Every post should have a great title, and any editor knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Post model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
 
-{{{
+```
 <?php
 
 namespace app\tests\cases\models;
@@ -91,13 +91,13 @@ class PostTest extends \lithium\test\Unit {
 }
 
 ?>
-}}}
+```
 
 Turn back to your browser showing the Unit Test Dashboard, and refresh it. You should see a new entry at the top of the list on the left hand side that shows our `PostTest` unit test case. Clicking on the `PostTest` test case should show you the test results. At this point you won't get far—the model will likely complain about a missing connection or function: as it should!
 
 Let's start working on the model so we can get that test to pass. First, let's specify our model as not having any connection. We'll adjust this later, but let's do this now for simplicity's sake.
 
-{{{
+```
 <?php
 
 namespace app\models;
@@ -108,11 +108,11 @@ class Post extends \lithium\data\Model {
 }
 
 ?>
-}}}
+```
 
 Once that's in place, running the test again should have it barking about how `isGoodTitle()` hasn't been defined. Let's provide a rudimentary implementation in the model to satisfy it:
 
-{{{
+```
 <?php
 
 namespace app\models;
@@ -127,7 +127,7 @@ class Post extends \lithium\data\Model {
 }
 
 ?>
-}}}
+```
 
 At this point, your test cases should run successfully in the Unit Test Dashboard.
 
@@ -139,7 +139,7 @@ Let's create a MockPost that returns test data we can use to run through our `is
 
 Start by creating a new file in `app/tests/mocks/data/MockPost.php`:
 
-{{{
+```
 
 <?php
 
@@ -167,11 +167,11 @@ class MockPost extends \app\models\Post {
 	}
 }
 
-}}}
+```
 
 What we've got here is essentially a model that spits out hard-coded data when we call `find()`. In some cases, this might really be all we need. Let's use this in our main test case by adding the following function:
 
-{{{
+```
 
 public function testMockTitles() {
 	$results = MockPost::find('all');
@@ -180,7 +180,7 @@ public function testMockTitles() {
 	$this->assertFalse(MockPost::isGoodTitle($first['title']));
 }
 
-}}}
+```
 
 Head back to the Unit Test Dashboard to make sure this runs successfully, and you're done!
 

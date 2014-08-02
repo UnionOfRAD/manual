@@ -6,7 +6,7 @@ First, create a database with a `users` table or collection, with at least a pri
 
 Create the model in `models/Users.php`:
 
-{{{
+```
 <?php
 
 namespace app\models;
@@ -15,11 +15,11 @@ class Users extends \lithium\data\Model {
 }
 
 ?>
-}}}
+```
 
 Then, create a model filter in a new bootstrap file in `app/config/bootstrap/` called `user.php`. This file will automatically hash user passwords before the accounts are created. The `Password` class will automatically use the most secure hashing method available on your system:
 
-{{{
+```
 <?php
 
 use app\models\Users;
@@ -37,7 +37,7 @@ Users::applyFilter('save', function($self, $params, $chain) {
 });
 
 ?>
-}}}
+```
 
 Now add the following line to app/config/bootstrap.php to include your new user.php bootstrap file.
 
@@ -49,7 +49,7 @@ require __DIR__ . '/bootstrap/user.php';
 
 Create this file in `controllers/UsersController`:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -75,7 +75,7 @@ class UsersController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 ## The views
 
@@ -83,18 +83,18 @@ Then create the templates.
 
 `views/users/add.html.php`:
 
-{{{
+```
 	<h2>Add user</h2>
 	<?=$this->form->create($user); ?>
 		<?=$this->form->field('username'); ?>
 		<?=$this->form->field('password', array('type' => 'password')); ?>
 		<?=$this->form->submit('Create me'); ?>
 	<?=$this->form->end(); ?>
-}}}
+```
 
 `views/users/index.html.php`:
 
-{{{
+```
 	<h2>Users</h2>
 
 	<ul>
@@ -102,4 +102,4 @@ Then create the templates.
 			<li><?=$user->username; ?></li>
 		<?php } ?>
 	</ul>
-}}}
+```

@@ -10,7 +10,7 @@ There are a number of new features in PHP 5.3 that Lithium is taking full advant
 
 Here's an example of namespace usage in a Lithium controller:
 
-{{{
+```
 namespace app;
 
 use app\models\Post;
@@ -21,7 +21,7 @@ class PostsController extends \lithium\action\Controller {
         return compact('posts');
     }
 }
-}}}
+```
 
 Pretty straightforward. Using namespaces keeps your application's classes separate from the Lithium core and third-party plugins, allowing for commonly used class names (File, Folder, etc.) to be used in both places.
 
@@ -31,7 +31,7 @@ Lithium classes also follow the [PHP Standards Working Group namespace standard]
 
 Anonymous functions are a great tool for packaging up small bits of logic and passing them from place to place inside a system. PHP 5.3 now allows anonymous functions to be created and assigned to variables. For example:
 
-{{{
+```
 $cube = function($value) {
     return ($value * $value * $value);
 };
@@ -42,26 +42,26 @@ $result = array_map($cube, array(1, 2, 3));
 $result = $cube(4);
 
 // $result --> int 64
-}}}
+```
 
 You can also use these anonymous functions in method parameters to create closures. Notice the use of use() in order to bring outside variables in scope for the closure logic:
 
-{{{
+```
 $data = 'bad apple';
 $result = array_filter(array(1, 2, 'bad apple'), function ($value) use ($data) {
     return ($value !== $data);
 });
 
 // $result --> array(1, 2)
-}}}
+```
 
 Closures are used in a number of places in Lithium. One places is to create data validation rules on the fly:
 
-{{{
+```
 Validator::add('validRole', function($value, $format, $options) {
     return(in_array($value, array('user', 'admin', 'editor')));
 });
-}}}
+```
 
 Closures are also used to create filters in Lithium: filters are a way to modify core functionality by inserting anonymous functions into an existing logic chain. More on that later.
 
@@ -69,7 +69,7 @@ Closures are also used to create filters in Lithium: filters are a way to modify
 
 Also new in PHP 5.3 is the idea of late static binding. This feature allows us to create static classes that are smarter about class inheritance. It's little hard to explain in prose: here's some code that shows the difference between the new static:: and old self:: patterns:
 
-{{{
+```
 <?php
 
 class Person {
@@ -94,7 +94,7 @@ echo Developer::testSelf();    // "Person"
 echo Developer::testStatic();  // "Developer"
 
 ?>
-}}}
+```
 
 Many classes (such as models) are statically accessed in Lithium. This allows for easy access, a stateless design, and better overall application design in general.
 
@@ -108,14 +108,14 @@ There are a few OOP "magic" enhancements we're also taking advantage of. The fir
 
 The Lithium Validator class is a perfect example. If you recall, the Validator class statically provides data validation logic in your application. You can access this logic via rule(), or you can access the logic via the rule's name, which relies on __callStatic(). See these two equivalent examples:
 
-{{{
+```
 Validator::rule('email', $email);
 Validator::isEmail($email);
-}}}
+```
 
 Another addition is the new __invoke() method. This method defines what happens when an object is called as if it was a function. This is what allows closures to work. Here's a basic example to show you how this works:
 
-{{{
+```
 class WakeUpCall {
     function __invoke($message) {
         echo $message;
@@ -124,7 +124,7 @@ class WakeUpCall {
 
 $wakeUp = new WakeUpCall;
 $wakeUp('Good Morning!');
-}}}
+```
 
 A great __invoke() example in Lithium is how Controller has been architected. When a request is received, the Dispatcher passes it to a Controller object it has instantiated. The controller is then invoked and the proper action is called based on the routing information stored in the request object.
 
@@ -134,9 +134,9 @@ Lithium also takes advantage of a new PHP feature that allows groups of files to
 
 PHARs are more that just compressed PHP files: they're accessible through a stream wrapper allowing you to include files inside the archive:
 
-{{{
+```
 include 'phar:///path/to/archive.phar/file.php';
-}}}
+```
 
 In fact, the phar:/// works very similar to the file:/// syntax you might already be used to. This allows you to use fopen() and opendir() on a phar much like you would on a conventional filesystem setup.
 
@@ -165,7 +165,7 @@ The Internationalization extension contains a number of classes that enable deve
 
 This extension was created to make informed guesses about files based on their extension, and certain magic byte sequences at specific points in the file. This ability, while not a perfect indicator, still can give a developer a great idea about the data hidden inside of a file or stream.
 
-{{{
+```
 <?php
 $info = new \finfo(FILEINFO_MIME);
 $result = $info->file(__FILE__);
@@ -178,7 +178,7 @@ var_dump($result);
 
 // 'text/x-php; charset=us-ascii'
 ?>
-}}} 
+``` 
 
 ### Sqlite3
 

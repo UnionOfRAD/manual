@@ -10,7 +10,7 @@ Since different components of the view layer are often reused, Lithium includes 
 
 Unless otherwise configured, elements are defined in `app/views/elements`. Inside this folder, the files you define will be tailored to display the output for your chosen element.  As an example, the code below defines the navigation element for Lithium.  The file name is `app/views/elements/nav.html.php`.
 
-{{{ <?php
+``` <?php
 if (!isset($object) || !$object) {
 	return;
 }
@@ -37,17 +37,17 @@ if (!isset($object) || !$object) {
 			<?php endforeach; ?>
 		</ul>
 	</aside>
-</div>}}}
+</div>```
 
 ###Displaying an Element###
 Displaying an element is accomplished via the `View::render()` method.  In the following example, the default layout for Lithium uses the navigation element, with the element being displayed by using the following code:
 
-{{{<div class="nav">
+```<div class="nav">
 	   <nav>
 		   <?php echo $this->_view->render(
 			   array('element' => 'nav'), compact('object'), array('library' => 'li3_docs')
 		   ); ?>
 	   </nav>
-   </div>}}}
+   </div>```
 
 A complete description of the `render()` method can be found in the Lithium API documentation under [View::render()](http://lithify.me/docs/lithium/template/View::render)

@@ -7,7 +7,7 @@ Generally, this means that static methods are used in preparation for a accessin
 
 ### Example: Preparing extra data 
 
-{{{
+```
 <?php
 namespace app\models;
 
@@ -19,13 +19,13 @@ class User extends \lithium\data\Model {
 		return static::$_roles;
 	}
 }
-}}}
+```
 
 
 
 ### Example: Adding a name method for displaying in the view
 
-{{{
+```
 <?php
 namespace app\models;
 
@@ -35,11 +35,11 @@ class User extends \lithium\data\Model {
 		return "{$record->firstName} {$record->lastName}";
 	}
 }
-}}}
+```
 
 ### Using the new method
-{{{
+```
 <?php foreach ($users as $user) { ?>
 	<p>Name: <?=$user->name()?></p>
 <?php } ?>
-}}}
+```

@@ -58,13 +58,13 @@ Lithium uses the [MVC pattern](../design-principles/mvc.md). If you're not famil
 
 First, create a new file at `my_app/app/models/Posts.php`. If you name your files and structure your code according to Lithium's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
-{{{
+```
 <?php
 namespace app\models;
 class Posts extends \lithium\data\Model {
 }
 ?>
-}}}
+```
 
 There's a lot going on (for free!) in the background here. First, Lithium knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Posts`, it'll use a MongoDB collection called 'posts'. We've also inherited a lot of useful methods for querying the database, and we'll learn more about some of those in later sections of this tutorial.
 
@@ -76,19 +76,19 @@ But wait, what? What about the schema setup? Actually, MongoDB doesn't require y
 
 The controller setup is just as simple when getting started. Create a new file at `my_app/app/controllers/PostsController.php` and fill it with the following:
 
-{{{
+```
 <?php
 namespace app\controllers;
 class PostsController extends \lithium\action\Controller {
 }
 ?>
-}}}
+```
 
 You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the Lithium [coding convention](../quality-code/coding-standards.md), and you should stick to it to take full advantage of the framework's automagic.
 
 Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we try and link all three of the model, controller and viewer together, let's just set up a simple action that pushes some dummy data to the view. Here's how it's done:
 
-{{{
+```
 <?php
 namespace app\controllers;
 class PostsController extends \lithium\action\Controller {
@@ -97,13 +97,13 @@ class PostsController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 Lithium actions send data to the view by returning an associative array that determines the respective view's variables. In the example above, our view will have access to the string `'bar'` in `$foo` and `'Posts'` in `$title` (`$title` will be used to set the page's title tag). This setup is also handy for fans of the [`compact()` function](http://php.net/compact). If I have a series of variables I'd like to pass along, it's as easy as:
 
-{{{
+```
 return compact('lions', 'tigers', 'bears');
-}}}
+```
 
 ## What a View
 
@@ -111,9 +111,9 @@ Next, let's create a `View` that uses the dummy data from `PostsController::inde
 
 Start by creating a new file at `my_app/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
-{{{
+```
 Lithium is less dense than <?=$foo;?>ium.
-}}}
+```
 
 Save this file, and now you can view the Posts index page by pointing your browser to `my_app/posts`. Lithium handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.md) of the manual.
 
@@ -129,13 +129,13 @@ First, create a new action in `PostsController` called `add()`:
 
 Next, create a new file at `my_app/app/views/posts/add.html.php`:
 
-{{{
+```
 <?=$this->form->create(); ?>
 	<?=$this->form->field('title');?>
 	<?=$this->form->field('body', array('type' => 'textarea'));?>
 	<?=$this->form->submit('Add Post'); ?>
 <?=$this->form->end(); ?>
-}}}
+```
 
 This view code sets up a simple HTML form, using a view helper class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
@@ -143,7 +143,7 @@ Note that because the call to `$this->form->create()` doesn't include any parame
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
-{{{
+```
 public function add() {
 	$success = false;
 	if ($this->request->data) {
@@ -152,19 +152,19 @@ public function add() {
 	}
 	return compact('success');
 }
-}}}
+```
 
 Because the form we've created in the view submits its data back to the same controller action, all controller code for adding a new Post happens in this method. First, the method checks to see if there's any POST data in the response. In this case, it would be filled with our form data so we `create()` a new Post model with the request data and save it to the database with `save()`. The result of any save operation (`$success`) is then passed back to the view so we could display a message to the user, and we could use that data in the view to show some sort of status message like so:
 
-{{{
+```
 <?php if ($success): ?>
 	<p>Post Successfully Saved</p>
 <?php endif; ?>
-}}}
+```
 
 To give you a little more of an idea what Lithium's doing "behind the scenes" here, the following pieces of code are equivalent:
 
-{{{
+```
 $post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
 
 // or:
@@ -172,11 +172,11 @@ $post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
 $post = Posts::create();
 $post->title = 'First Post';
 $post->body = 'Body Text!';
-}}}
+```
 
 If you run this code right now though it won't work and will generate an error message. That's because the controller knows nothing about the model and its `create()` or `save()` methods, so we must tell it! At the beginning of our `PostsController.php` file, but _after_ the namespace declaration, we add a `use app\models\Posts;` line:
 
-{{{
+```
 <?php
 namespace app\controllers;
 use app\models\Posts;
@@ -184,7 +184,7 @@ class PostsController extends \lithium\action\Controller {
 	// ...
 }
 ?>
-}}}
+```
 
 Feel free now to have a play with this method and use your browser to add a few posts to your blog. Coming up next: displaying them!
 
@@ -194,18 +194,18 @@ Feel free now to have a play with this method and use your browser to add a few 
 
 Now that we've stocked our database, let's use our Post model to pull the data. We can do this by rewriting the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
 
-{{{
+```
 public function index() {
   $posts = Posts::all();
 	return compact('posts');
 }
-}}}
+```
 
 The object returned from `Post:all()` - which is equivalent to `Posts::find('all')` - is a Lithium `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
 
 If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object.
 
-{{{
+```
 var_dump($posts->to('array'));
 // example output:
 //
@@ -218,20 +218,20 @@ var_dump($posts->to('array'));
 //    ["body"]=>
 //    string(7) "Woooooo"
 //  }
-}}}
+```
 
 If you're curious, you might also try `$posts->to('json')` to see some additional options. To enable this functionality, remember to uncomment the `require __DIR__ . '/bootstrap/media.php';` line in `app/config/bootstrap.php`.
 
 At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Replace the existing code in `/app/views/posts/index.html.php` with the following:
 
-{{{
+```
 <?php foreach($posts as $post): ?>
 <article>
 	<h1><?= $post->title ?></h1>
 	<p><?= $post->body ?></p>
 </article>
 <?php endforeach; ?>
-}}}
+```
 
 As you can see, `Post` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `my_app/posts` to see the output.
 

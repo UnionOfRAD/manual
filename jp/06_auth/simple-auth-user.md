@@ -7,7 +7,7 @@ configuration).
 ## The model
 
 Create this file `app/models/User.php`
-{{{
+```
 <?php
 
 namespace app\models;
@@ -28,13 +28,13 @@ User::applyFilter('save', function($self, $params, $chain){
 });
 
 ?>
-}}}
+```
 
 ## The Controller
 
 Create this file : `app/controllers/UsersController`
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -61,7 +61,7 @@ class UsersController extends \lithium\action\Controller {
 	}
 }
 ?>
-}}}
+```
 
 ## The views
 
@@ -69,7 +69,7 @@ Create these files:
 
 `app/views/users/add.html.php`
 
-{{{
+```
 <h2>Add user</h2>
 <?php
 echo $this->form->create($user);
@@ -78,15 +78,15 @@ echo $this->form->field('password', array('type' => 'password'));
 echo $this->form->submit('Create me');
 echo $this->form->end();
 ?>
-}}}
+```
 
 `app/views/users/index.html.php`
 
-{{{
+```
 <h2>Users</h2>
 <?php
 foreach ($users as $user) {
 	echo $user->username.'<br>';
 }
 ?>
-}}}
+```

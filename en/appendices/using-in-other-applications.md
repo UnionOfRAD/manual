@@ -4,11 +4,11 @@ Because Lithium is so flexible, you can bootstrap the core framework into any ap
 
 To use Lithium classes, simply load the class that manages libraries (`lithium\core\Libraries`), and register the Lithium library itself, as follows:
 
-{{{
+```
 include "/path/to/classes/libraries/lithium/core/Libraries.php";
 
 lithium\core\Libraries::add('lithium');
-}}}
+```
 
 Note that `"path/to/classes"` may be relative to your include path.
 
@@ -16,10 +16,10 @@ Note that `"path/to/classes"` may be relative to your include path.
 
 CakePHP provides a convenient place to add this configuration: `app/config/bootstrap.php`.  Additionally, if you'd like to intermingle Lithium classes (models and controllers) with their CakePHP counterparts, you can add the following (again, to `bootstrap.php`):
 
-{{{
+```
 define("LITHIUM_APP_PATH", dirname(__DIR__));
 lithium\core\Libraries::add('app', array('bootstrap' => false));
-}}}
+```
 
 This correctly locates your app directory in Lithium's class loader, and suppresses `app`'s default bootstrap file.  You may now import your namespaced app classes in your CakePHP classes, and use Lithium and CakePHP models and other classes in parallel. Note that `LITHIUM_APP_PATH` should be defined _before_ `Libraries.php` is included.
 

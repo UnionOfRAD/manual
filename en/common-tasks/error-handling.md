@@ -8,7 +8,7 @@ Let's start by creating a way to handle page not found-like errors. If a request
 
 Start by creating a new bootstrap file in the application directory called `/config/bootstrap/error.php`:
 
-{{{
+```
 use lithium\core\ErrorHandler;
 
 $conditions = array('type' => 'lithium\action\DispatchException');
@@ -17,13 +17,13 @@ ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exc
 	var_dump(compact('exception', 'params'));
 	die();
 });
-}}}
+```
 
 This simple example shows how you can create a lambda that handles any `DispatchException`s being thrown in your entire application. The function you pass to `apply()` can be more involved, depending on what you want to do, however.
 
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
-{{{
+```
 use lithium\core\ErrorHandler;
 use lithium\analysis\Logger;
 use lithium\template\View;
@@ -47,6 +47,6 @@ ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exc
 	Logger::write('error', "Page Not Found...");
 	$render('404', compact('exception', 'params'));
 });
-}}}
+```
 
 If you've got more than one type of exception you want to handle, just add more calls to `apply()` in your error bootstrap file.

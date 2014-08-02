@@ -10,7 +10,7 @@ Lithium controllers reside inside the `/app/controllers` directory and extend th
 
 For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -23,7 +23,7 @@ class UsersController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /users/index). 
 
@@ -31,7 +31,7 @@ The `index()` action is a special action: if no action name is specified in the 
 
 For example, we can create a new controller action that would be accessible at `/users/view/`:
 
-{{{
+```
 <?php
 
 namespace app\controllers;
@@ -48,7 +48,7 @@ class UsersController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 ## Accessing Request Parameters
 
@@ -60,39 +60,39 @@ One of the most user-friendly ways to handle incoming data is through the URL. I
 
 The easiest way to handle incoming GET data is by realizing that URL segments that follow the action name are mapped to controller action parameters. Here's a few examples:
 
-{{{
+```
 http://example.com/users/view/1  --> UsersController::view($userId);
 
 http://example.com/posts/show/using+controllers/8384/  -->  PostsController::show($title, $postId);
-}}}
+```
 
 GET information passed this way is also accessible via the incoming request object:
 
-{{{
+```
 http://example.com/users/view/1  --> $this->request->args[0]
-}}}
+```
 
 While we'll always recommend using clear URL-based variables, it's important to mention that GET parameters passed as raw query string variables are also available as an attribute of the incoming request:
 
-{{{
+```
 http://example.com/users/view?userId=1  --> $this->request->query['userId']
-}}}
+```
 
 ### POSTed Data
 
 POSTed data is also gathered from the request object. Form field data is found on the request object inside an array with keys named after the input elements generated on the referring page. For example, consider an HTML form that included these elements:
 
-{{{
+```
 <input type="text" name="title" value="How to Win Friends and Influence People" />
 <input type="text" name="category" value="Self-Help" />
-}}}
+```
 
 Accessing these values when submitted to a controller action is as easy as:
 
-{{{
+```
 $this->request->data['title'];
 $this->request->data['category'];
-}}}
+```
 
 ## Request Flow Control
 
@@ -102,7 +102,7 @@ Occasionally a controller action will want to divert, re-route, or automatically
 
 The most basic type of flow control at the controller level is redirection. It's common to redirect a user to a new URL once an action has been performed. This type of control is done through the controller's `redirect()` method. Here's an example of a controller action that redirects the request:
 
-{{{
+```
 
 public function register() {
 	// Validate and save user data POSTed to the 
@@ -111,7 +111,7 @@ public function register() {
 	$this->redirect('Users::welcome');
 }
 
-}}}
+```
 
 The URL specified can be relative to the application or point to an outside resource. The `redirect()` function also features a second `$options` parameter that also allows you to set HTTP status headers, and make decisions about whether or not to `exit()` after a redirect. Be sure to check the API for `lithium\action\Controller::redirect()` for more details.
 
@@ -125,7 +125,7 @@ Let's start by creating a way to handle page not found-like errors. If a request
 
 Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
 
-{{{
+```
 use lithium\core\ErrorHandler;
 
 $conditions = array('type' => 'lithium\action\DispatchException');
@@ -134,13 +134,13 @@ ErrorHandler::apply('lithium\action\Dispatcher', 'run', $conditions, function($e
 	var_dump(compact('exception', 'params'));
 	die();
 });
-}}}
+```
 
 This simple example shows how you can create a lambda that handles any `DispatchException`s being thrown in your entire application. The function you pass to apply() can be more involved, depending on what you want to do, however.
 
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
-{{{
+```
 use lithium\core\ErrorHandler;
 use lithium\analysis\Logger;
 use lithium\template\View;
@@ -166,7 +166,7 @@ ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function
 	$render('404', compact('exception', 'params'));
 });
 
-}}}
+```
 
 If you've got more than one type of exception you want to handle, just add more calls to `apply()` in your error bootstrap file.
 
@@ -185,33 +185,33 @@ The flow for handling a given type of a response works something like the follow
 
 The easiest way to set a type is by declaring it as part of the route. One of Lithium's default routes already does this for you:
 
-{{{
+```
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
-}}}
+```
 
 In effect, this forces a request to `/controller/action/7345.json` to be rendered by the JSON media handler currently registered. You can use this pattern to expand your routes to apply type-matching to a wider array of requests:
 
-{{{
+```
 // http://example.com/controller/action.xml
 Router::connect('/{:controller}/{:action}.{:type}');
-}}}
+```
 
 You can also statically define the type for a route by adding the 'type' key to the route definition:
 
-{{{
+```
 Router::connect('/latest/feed', array(
 	'Posts::index',
 	'type' => 'xml'
 ));
-}}}
+```
 
 If you'd rather use other information to convey the request type to Lithium (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
 
 Manual type rendering can also be done by handing the type's name to the render function:
 
-{{{
+```
 $this->render(array('csv' => Post::find('all')));
-}}}
+```
 
 #### Handler Registration
 
@@ -219,25 +219,25 @@ As mentioned earlier, type handlers are registered by the `\net\http\Media` clas
 
 Register your type by passing the relevant information to `Media::type()` inside the bootstrap. Here's what the general pattern looks like:
 
-{{{
+```
 Media::type('typeName', 'contentType', array($options));
-}}}
+```
 
 To give you an idea of how this process is completed, let's register a new handler for the BSON data type. If you're curious, BSON is a binary, serialized form of JSON used by MongoDB. Start by declaring a new media type in `/config/boostrap/media.php` and uncommenting the `media.php` line in your main bootstrap file:
 
-{{{
+```
 Media::type('bson', 'application/bson', array());
-}}}
+```
 
 This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), Lithium will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize Lithium's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
-{{{
+```
 Media::type('bson', 'application/bson', array(
 	'layout' => false,
 	'encode' => 'bson_encode',
 	'decode' => 'bson_decode'
 ));
-}}}
+```
 
 Try the request again, and you'll get your BSON-encoded data, minus the HTML layout. Note that the bson_* functions used in this particular example are part of the PECL MongoDB extension. Don't worry if you don't have it installed: the main point is to realize that you can tell `Media` exactly what function to use to render the data (including using closures).
 
@@ -247,7 +247,7 @@ For more ideas on configuring media types, see the documentation for `Media::typ
 
 While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside Lithium controllers is simple. Let's start with a bare controller as an example:
 
-{{{
+```
 <?php 
 
 namespace app\controllers;
@@ -259,11 +259,11 @@ class ClientsController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 While not required, it's helpful to name controllers after the models they primarily use, at least for organizational purposes. To start using your model inside this controller, you'll need to let PHP know you intend to use the model class inside this controller:
 
-{{{
+```
 <?php 
 
 namespace app\controllers;
@@ -278,11 +278,11 @@ class ClientsController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 Since most model access is done statically, just access the methods you need in your controller actions directly:
 
-{{{
+```
 <?php 
 
 namespace app\controllers;
@@ -307,11 +307,11 @@ class ClientsController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 Using Lithium's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
 
-{{{
+```
 <?php 
 
 namespace app\controllers;
@@ -329,7 +329,7 @@ class ClientsController extends \lithium\action\Controller {
 }
 
 ?>
-}}}
+```
 
 This is done by declaring the usage of the class by specifying it's fully namespaced path, and later instantiating it inside the action logic.
 
@@ -341,29 +341,29 @@ Once your controller action has fetched and processed the data it needs, it's ti
 
 First, the `set()` method is used to send an associative array to the view. Consider this example controller action method:
 
-{{{
+```
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
 	$this->set(array('importantData' => $data));
 }
-}}}
+```
 
 This populates the index view for this controller with a variable named `$importantData` with the same contents as `$data`. This same logic could be written a bit more elegantly:
 
-{{{
+```
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
 	$this->set(compact('data'));
 }
-}}}
+```
 
 One difference to note here is that the view's variable is now named `$data`, just as it was in the controller.
 
 The `set()` method is especially useful when you've got bits of data you want to hand to the view in pieces, or conditionally, as it can be called at any point inside of a controller action method:
 
-{{{
+```
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
@@ -378,11 +378,11 @@ public function index() {
 
 	//...
 }
-}}}
+```
 
 Conversely, sometimes all your data is ready by the end of the method's logic, and you can just return the associative array to hand it to the view:
 
-{{{
+```
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
@@ -392,7 +392,7 @@ public function index() {
 
 	return compact('data', 'moreData');
 }
-}}}
+```
 
 ## Filtering Controller Logic
 
@@ -406,7 +406,7 @@ This last invokation step is performed inside of the dispatcher's `_callable()` 
 
 The `g11n` filters that come with Lithium form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
 
-{{{
+```
 use lithium\action\Dispatcher;
 
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
@@ -419,7 +419,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	Environment::set(Environment::get(), array('locale' => $request->locale));
 	return $controller;
 });
-}}}
+```
 
 Here you can see that you've got access to the request parameters and the controller instance itself in the first two lines of the `applyfilter()` call. In this case, the g11n framework is inspecting the request and setting locale settings accordingly, but when creating your own filter, you'd have access to the same data.
 
@@ -427,10 +427,10 @@ An important case to consider that's also covered in the g11n filters is remembe
 
 In this case, you'll want to use the special use/as syntax:
 
-{{{
+```
 use lithium\action\Dispatcher as ActionDispatcher;
 use lithium\console\Dispatcher as ConsoleDispatcher;
 
 ActionDispatcher::applyFilter(...);
 ConsoleDispatcher::applyFilter(...);
-}}}
+```

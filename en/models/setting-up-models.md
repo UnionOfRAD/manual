@@ -18,13 +18,13 @@ Lithium provides you with a general-purpose class that all your models should ex
 
 Let's say you want to store and manage blog posts in your database. According to Lithium conventions, you create a new file called `Posts.php` in `app/models`. The basic structure looks like this:
 
-{{{
+```
 
 namespace app\models;
 class Posts extends \lithium\data\Model {
 }
 
-}}}
+```
 
 > **Command Line Shortcut**
 
@@ -46,7 +46,7 @@ You do not have to configure all elements.  The default values will be used for 
 >You can optionally just set the protected `$_meta` property directly in the definition of your model's class.
 
 **SHORTCUT EXAMPLE**:
-{{{
+```
 namespace app\models;
 class Posts extends \lithium\data\Model {
 	protected $_meta = array(
@@ -55,7 +55,7 @@ class Posts extends \lithium\data\Model {
 		'key' => 'post_id'
 	);
 }
-}}}
+```
 
 ## Model Data Validation
 An important part of describing the business logic of a model class is defining the validation rules. In Lithium models, rules are defined through the `$validates` class property, and are used by the `validates()` method before saving to verify the correctness of the data being sent to the backend data source.
@@ -71,10 +71,10 @@ The options parameter has the following settable elements:
 
 **Usage Example**
 
-{{{
+```
 $post = Posts::create($data);
 $success = $post->validates();
-}}}
+```
 
 > **Tip**
 
