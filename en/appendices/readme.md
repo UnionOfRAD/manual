@@ -26,7 +26,7 @@ Examples of immutable static classes would be any class extends [`Adaptable`](ht
 
 The other issue often referred to when testing statics is that they're difficult to mock, or replace dependencies. Consider the following:
 
-```
+```php
 class A {
     public static function foo() {
         // return some calculated value
@@ -44,7 +44,7 @@ class B {
 
 In this example, every call to `B::bar()` results in a call to `A::foo()`. It is impossible to test `B` in isolation, because it is impossible _not_ to also call `A`. In PHP 5.2 and below, there was no solution to this. However, PHP 5.3 allows "dynamic" static method calls, which enable the following:
 
-```
+```php
 class B {
     public static function bar($dependency) {
         $result = $dependency::foo();
@@ -58,7 +58,7 @@ This allows `A` to be swapped out for another class, and makes `B` much easier t
 
 Lithium addresses this issue of dependencies in a uniform way, using the protected `$_classes` attribute. Consider the following snippet from the `lithium\action\Dispatcher` class:
 
-```
+```php
 class Dispatcher extends \lithium\core\StaticObject {
 
 	// ...

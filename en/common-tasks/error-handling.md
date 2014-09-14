@@ -8,7 +8,7 @@ Let's start by creating a way to handle page not found-like errors. If a request
 
 Start by creating a new bootstrap file in the application directory called `/config/bootstrap/error.php`:
 
-```
+```php
 use lithium\core\ErrorHandler;
 
 $conditions = array('type' => 'lithium\action\DispatchException');
@@ -23,7 +23,7 @@ This simple example shows how you can create a lambda that handles any `Dispatch
 
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
-```
+```php
 use lithium\core\ErrorHandler;
 use lithium\analysis\Logger;
 use lithium\template\View;

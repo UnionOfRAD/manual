@@ -6,7 +6,7 @@ If you're doing much more than simple static content delivery, chances are you'l
 
 The Auth setup makes access decisions based on information in your data store. The first thing you'll need to do is set up a model that handles user credentials. That model first needs a connection: set that up first in `app/config/connections.php`. If you're using MySQL as your data source, it should look something like this:
 
-```
+```php
 use lithium\data\Connections;
 
 Connections::add('default', array(
@@ -31,7 +31,7 @@ Connections::add('default', array(
 
 Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure. You can customize the model and fields Auth will use as we'll see later. Make sure to take a moment and set up your `User` model as well in `app/models/User.php`:
 
-```
+```php
 namespace app\models;
 
 class User extends \lithium\data\Model {
@@ -74,7 +74,7 @@ require __DIR__ . '/bootstrap/auth.php';
 
 Next, create a new file at `app/config/bootstrap/auth.php` (if it doesn't already exist). In this auth-specific bootstrap file, we'll need to do a few things. First, make sure the Session setup is using the PHP adapter, then making some initial Auth configurations:
 
-```
+```php
 use lithium\storage\Session;
 use lithium\security\Auth;
 
@@ -99,7 +99,7 @@ Note that the configuration information is housed in an array keyed 'customer'. 
 
 The first action you'll need to setup is the one that authenticates your users and adjusts the session to mark the user as identified. You could place this as you please, but it's generally accepted to see it in `Users::login()`. The suggested approach is very simple:
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -134,7 +134,7 @@ The setup for protecting resources is the same as it is for initially authentica
 
 Finally, you'll want to create an action that clears an end-user's authentication session on your system. Do that by making a call to `Auth::clear()` in a controller action.
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;

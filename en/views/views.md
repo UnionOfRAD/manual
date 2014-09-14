@@ -13,7 +13,7 @@ Controller-layer data is made available to the template by means of view variabl
 
 Keys in those arrays determine the names of the view variables. The following lines of code placed in a controller action method all result in a view variable named `$foo` with the contents `"bar"`:
 
-```
+```php
 $this->set(array('foo' => 'bar'));
 
 // -- or --
@@ -34,8 +34,6 @@ return compact('foo');
 Once this has been done in the controller, you can access the data like so:
 
 ```<p>Spit out data like this: <?=$foo ?></p>```
-
-
 
 Lithium templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
 
@@ -79,9 +77,7 @@ Because different components of the view layer are often reused, Lithium include
 
 `$this->_render()` is used within the views to include elements. Any variables passed from the controller to the parent view are also available in the element.  The third argument of `$this->_render()` can be used to pass additional variables.
 
-{{{
-<?php
-
+```php
 // renders app/views/elements/nav.html.php
 echo $this->_render('element', 'nav');
 
@@ -91,15 +87,11 @@ echo $this->_render('element', 'nav', array(
   'vars' => 'available',
   'in' => 'nav.html.php'
 ));
-
-?>
-}}}
+```
 
 Layouts contain the header and footer of a rendered view, and are defined in `app/views/layouts`. Unless otherwise directed, Lithium will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`.
 
-{{{
-<?php
-
+```php
 namespace app\controllers;
 
 class MyController extends \lithium\action\Controller {
@@ -121,11 +113,8 @@ class MyController extends \lithium\action\Controller {
   public function someAction() {
     $this->_render['layout'] = 'anotherLayout';
   }
-
 }
-
-?>
-}}}
+```
 
 Layouts should call `<?=$this->content(); ?>` to render the content of the inner view template in the desired location.
 

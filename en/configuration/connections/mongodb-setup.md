@@ -12,8 +12,8 @@ Once you've got Mongo itself installed, follow the directions below, depending o
 
 For MongoDB + PHP goodness, you'll need the Mongo PECL module. For most *NIX systems, this is as easy as:
 
-```
-$ sudo pecl install mongo
+```sh
+sudo pecl install mongo
 ```
 
 Now add the following line to your php.ini:

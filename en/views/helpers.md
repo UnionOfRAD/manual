@@ -20,9 +20,7 @@ Remember, you can use helpers anywhere in the view layer: inside layouts, view t
 
 To create a custom helper, create a class in the `app/extensions/helper/` directory that extends Lithium's base `Helper` class. As a simple example, let's create a simple helper that creates a special sort of link by creating a new file in `app/extensions/helper/AwesomeHtml.php`:
 
-```
-<?php
-
+```php
 namespace app\extensions\helper;
 
 class AwesomeHtml extends \lithium\template\Helper {
@@ -31,17 +29,13 @@ class AwesomeHtml extends \lithium\template\Helper {
 		return "<a class=\"awesome\" href=\"$url\">$title</a>";
 	}
 }
-
-?>
 ```
 
 One important note to consider here is that the contents of `$title` and `$url` aren't escaped since they're being returned raw from the helper method. _Make sure you make liberal usage of the `escape()` method of the `Helper` class to keep things safe_.
 
 Because string construction can get a little messy, you may wish to make use of the `_render()` method of the `Helper` class as well. This works when you create an array of string templates as the `_strings` property of a helper. Let's secure our example helper and make it a bit more flexible:
 
-```
-<?php
-
+```php
 namespace app\extensions\helper;
 
 class AwesomeHtml extends \lithium\template\Helper {
@@ -56,18 +50,18 @@ class AwesomeHtml extends \lithium\template\Helper {
 		return $this->_render(__METHOD__, $options['type'], compact('title', 'url'));
 	}
 }
-
-?>
 ```
 
 Once this has been setup, we can use the new helper as we would any of the core helpers:
 
-```<p>
+```
+<p>
 	You should really check out
 	<?=$this->awesomeHtml->link('Lithium', 'http://li3.me', array(
 		'type' => 'super_cool'
 	)) ?>
-</p>```
+</p>
+```
 
 ## Extending (and replacing) Core Helpers
 

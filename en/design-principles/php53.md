@@ -10,7 +10,7 @@ There are a number of new features in PHP 5.3 that Lithium is taking full advant
 
 Here's an example of namespace usage in a Lithium controller:
 
-```
+```php
 namespace app;
 
 use app\models\Post;
@@ -69,7 +69,7 @@ Closures are also used to create filters in Lithium: filters are a way to modify
 
 Also new in PHP 5.3 is the idea of late static binding. This feature allows us to create static classes that are smarter about class inheritance. It's little hard to explain in prose: here's some code that shows the difference between the new static:: and old self:: patterns:
 
-```
+```php
 class Person {
 
 	public static function whoAmI() {
@@ -115,7 +115,7 @@ Validator::isEmail($email);
 
 Another addition is the new __invoke() method. This method defines what happens when an object is called as if it was a function. This is what allows closures to work. Here's a basic example to show you how this works:
 
-```
+```php
 class WakeUpCall {
 
 	function __invoke($message) {

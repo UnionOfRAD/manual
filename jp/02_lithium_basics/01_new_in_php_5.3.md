@@ -10,7 +10,7 @@ There are a number of new features in PHP 5.3 that Lithium is taking full advant
 
 Here's an example of namespace usage in a Lithium controller:
 
-```
+```php
 namespace app;
 use app\models\Post;
 class PostsController extends \lithium\action\Controller {
@@ -113,7 +113,7 @@ Validator::isEmail($email);
 
 Another addition is the new __invoke() method. This method defines what happens when an object is called as if it was a function. This is what allows closures to work. Here's a basic example to show you how this works:
 
-```
+```php
 class WakeUpCall {
     function __invoke($message) {
         echo $message;

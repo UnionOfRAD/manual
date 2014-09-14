@@ -111,7 +111,7 @@ The `Catalog` is a class that allows us to retrieve and store globalized data, p
 
 The class is able to aggregate globalized data from different sources, which allows a developer to complement sparse data. Example usage:
 
-```
+```php
 use lithium\g11n\Catalog;
 
 // Configures the runtime source.
@@ -182,7 +182,7 @@ More information on the directory structures required by the different adapters 
 
 Lithium's g11n framework ships with some localized validation rules for phone number, postal code and social security number validation rules. The `g11n.php` bootstrap file defines these additions so they're available before you use them:
 
-```
+```php
 use lithium\util\Validator;
 
 foreach (array('phone', 'postalCode', 'ssn') as $name) {
@@ -220,7 +220,7 @@ The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—ar
 
 If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
 
-```
+```php
 namespace app\controllers;
 
 use lithium\g11n\Message;

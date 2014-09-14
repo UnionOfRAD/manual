@@ -6,7 +6,7 @@ If you're doing much more than simple static content delivery, chances are you'l
 
 The default auth setup makes decisions based on information in your data store. The first thing you'll need to do is set up a model that handles user credentials. That model first needs a connection: set that up first in `config/bootstrap/connections.php`. If you're using MySQL as your data source, it should look something like this:
 
-```
+```php
 use lithium\data\Connections;
 
 Connections::add('default', array(
@@ -29,7 +29,7 @@ Connections::add('default', array(
 
 Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure. You can customize the model and fields that `Auth` will use as we'll see later. Make sure to take a moment and set up your `Users` model as well in `models/Users.php`:
 
-```
+```php
 namespace app\models;
 
 class Users extends \lithium\data\Model {}
@@ -55,7 +55,7 @@ require __DIR__ . '/bootstrap/session.php';
 
 Next, make sure your `Session` setup is using the PHP adapter, then create or uncomment the initial `Auth` configuration:
 
-```
+```php
 use lithium\storage\Session;
 use lithium\security\Auth;
 
@@ -78,7 +78,7 @@ If you're editing the bootstrap files that ship with each new application, you'l
 
 The first action you'll need to setup is the one that authenticates your users and adjusts the session to mark the user as identified. You could place this as you please, but it's generally accepted to create it in `SessionsController::add()`. The suggested approach is very simple:
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -114,7 +114,7 @@ As a reference, the web form that sends the credentials and is the content of th
 
 The setup for protecting resources is almost the same as it is for initially authenticating the user (though you'd want to redirect the user to the login action on error). Use `Auth::check()` in your controller actions to make sure that sections in your application are blocked from non-authenticated users. For example:
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -135,7 +135,7 @@ class PostsController extends \lithium\action\Controller {
 
 Next, you'll want to create an action that clears an end-user's authentication session on your system. Do that by making a call to `Auth::clear()` in a controller action.
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;

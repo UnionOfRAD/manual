@@ -33,7 +33,7 @@ Since it's likely to be more common, let's tackle applying filters first. The lo
 
 Let's imagine for a moment that we're aiming to add a filter to a Lithium application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
 
-```
+```php
 use lithium\action\Dispatcher;
 
 Dispatcher::applyFilter('run', function($self, $params, $chain) {
@@ -69,7 +69,7 @@ When designing filters, it's important to have a clear understanding of the meth
 
 For this filter, we'll intercept the method after it finds a controller object (assuming it finds one), but before it returns it to `Dispatcher::run()`:
 
-```
+```php
 use lithium\action\Dispatcher;
 use lithium\action\Response;
 use lithium\security\Auth;
@@ -101,7 +101,7 @@ It is important when filtering a method that we honor the method's _contract_. T
 
 Implementing the controller for this example might look something like this:
 
-```
+```php
 namespace app\controllers;
 
 use lithium\security\Auth;
@@ -145,7 +145,7 @@ What we need to do is get a reference to the instance of the actual connection o
 
 Looking at the API shows us that there's an `_execute()` method we can filter. It's only parameter is the SQL being executed, and that's exactly what we'll need for our filter logic. Here's one way this could look:
 
-```
+```php
 use lithium\analysis\Logger;
 use lithium\data\Connections;
 
@@ -172,7 +172,7 @@ For this reason, it is sometimes preferrable to apply filters to a class without
 
 Using the fully-qualified name of the class to which you want to apply the filter, you may invoke `Filters::apply()`, which will store the filter until the method to which it is applied first executes:
 
-```
+```php
 use lithium\util\collection\Filters;
 
 Filters::apply('blog\models\Posts', 'find', function($self, $params, $chain) {
@@ -190,7 +190,7 @@ For example, let's add a filter to the method that posts content to Twitter. It'
 
 First, start with the basics:
 
-```
+```php
 class Twitter {
 
 	public function tweet($status, $options) {
@@ -208,7 +208,7 @@ Here we've got a basic method implementation. Of note is the `$options` paramete
 
 Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `$this->_filter()`, and returning the result of that call. Here's what it looks like:
 
-```
+```php
 class Twitter extends \lithium\core\Object {
 
 	public function tweet($status, $options) {
@@ -230,7 +230,7 @@ The `filter()` method takes three arguments. The first is the name of the method
 
 There are a few situations that make things a bit different. One example is if your method is accessed statically. Let's adjust our `tweet()` example to illustrate (note that the parent class also changes):
 
-```
+```php
 class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
@@ -254,7 +254,7 @@ Another situation that makes things a bit tricky is if your main method implemen
 
 What you need to do is set up a local reference before you start the closure definition, making sure to use the `use` clause within the closure definition:
 
-```
+```php
 class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {

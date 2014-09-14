@@ -19,9 +19,7 @@ Lithium provides a number of data sources your models can utilize. The list is g
 
 Most of the time, using a data source is an automatic part of setting up a connection to your data store. This is usually done in the `config/bootstrap/connections.php` bootstrap file:
 
-```
-<?php
-
+```php
 use lithium\data\Connections;
 
 Connections::add('default', array(
@@ -38,8 +36,6 @@ Connections::add('legacy', array(
 	'password' => '53Cre7',
 	'database' => 'my_older_lithium_app'
 ));
-
-?>
 ```
 
 The `Connections` class handles adapter classes efficiently by only loading adapter classes and creating instances when they are requested (using `Connections::get()`).
@@ -48,15 +44,11 @@ Adapters are usually subclasses of `lithium\data\Source`. Once these connections
 
 If you're using multiple data sources in your application, you can specify which to use in each model class, inside of the `$_meta` property. For example, if we had user profile data stored in the MySQL connection specified above as `legacy`, we'd create our model as follows:
 
-```
-<?php
-
+```php
 namespace app\models;
 
 class UserProfiles extends \lithium\data\Model {
 
 	public $_meta = array('connection' => 'legacy');
 }
-
-?>
 ```

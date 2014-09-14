@@ -10,7 +10,7 @@ Lithium controllers reside inside the `/app/controllers` directory and extend th
 
 For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
-```
+```php
 namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
@@ -27,7 +27,7 @@ The `index()` action is a special action: if no action name is specified in the 
 
 For example, we can create a new controller action that would be accessible at `/users/view/`:
 
-```
+```php
 namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
@@ -115,7 +115,7 @@ Let's start by creating a way to handle page not found-like errors. If a request
 
 Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
 
-```
+```php
 use lithium\core\ErrorHandler;
 
 $conditions = array('type' => 'lithium\action\DispatchException');
@@ -130,7 +130,7 @@ This simple example shows how you can create a lambda that handles any `Dispatch
 
 Here's a more complete example, showing how you'd actually render a template, and include logging:
 
-```
+```php
 use lithium\core\ErrorHandler;
 use lithium\analysis\Logger;
 use lithium\template\View;
@@ -236,7 +236,7 @@ For more ideas on configuring media types, see the documentation for `Media::typ
 
 While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside Lithium controllers is simple. Let's start with a bare controller as an example:
 
-```
+```php
 namespace app\controllers;
 
 class ClientsController extends \lithium\action\Controller {
@@ -249,7 +249,7 @@ class ClientsController extends \lithium\action\Controller {
 
 While not required, it's helpful to name controllers after the models they primarily use, at least for organizational purposes. To start using your model inside this controller, you'll need to let PHP know you intend to use the model class inside this controller:
 
-```
+```php
 namespace app\controllers;
 
 use app\models\Client;
@@ -264,7 +264,7 @@ class ClientsController extends \lithium\action\Controller {
 
 Since most model access is done statically, just access the methods you need in your controller actions directly:
 
-```
+```php
 namespace app\controllers;
 
 use app\models\Client;
@@ -290,7 +290,7 @@ class ClientsController extends \lithium\action\Controller {
 
 Using Lithium's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
 
-```
+```php
 namespace app\controllers;
 
 use SimpleXmlElement;
@@ -381,7 +381,7 @@ This last invokation step is performed inside of the dispatcher's `_callable()` 
 
 The `g11n` filters that come with Lithium form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
 
-```
+```php
 use lithium\action\Dispatcher;
 
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
@@ -402,7 +402,7 @@ An important case to consider that's also covered in the g11n filters is remembe
 
 In this case, you'll want to use the special use/as syntax:
 
-```
+```php
 use lithium\action\Dispatcher as ActionDispatcher;
 use lithium\console\Dispatcher as ConsoleDispatcher;
 

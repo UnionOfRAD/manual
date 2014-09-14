@@ -60,7 +60,7 @@ Let's dive into a real-life example of creating a data source. For the remainder
 
 The end result we're looking for is being able to create models that read from and write to GitHub using our data source. Let's get started by creating the data source file and creating a connection to it. First, create a new file in `extensions/adapter/data/source/http/GitHub.php`, inside your app or plugin:
 
-```
+```php
 namespace myapp\extensions\adapter\data\source\http;
 
 use lithium\util\String;
@@ -90,7 +90,7 @@ Since the GitHub API allows for an API token to be passed instead of a password,
 
 Finally, we'll need to create a new model and controller to test the functionality as we build it:
 
-```
+```php
 namespace myapp\models;
 
 class Issues extends \lithium\data\Model {
@@ -101,7 +101,7 @@ class Issues extends \lithium\data\Model {
 
 These can be saved in `models/Issues.php`, and `controllers/IssuesController.php`, respectively.
 
-```
+```php
 namespace myapp\controllers;
 
 use myapp\models\Issues;

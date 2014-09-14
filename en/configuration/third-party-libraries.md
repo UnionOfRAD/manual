@@ -110,7 +110,7 @@ As with ZF1 above, using Zend's native autoloader is technically optional. Here,
 
 Once you've properly installed and configured your chosen version of Zend Framework, you can use its classes as you would any other:
 
-```
+```php
 namespace app\controllers;
 
 /**

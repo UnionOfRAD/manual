@@ -29,11 +29,15 @@ Finally, start up the database engine. Run `/path/to/mongodb/bin/mongod`, and wa
 
 So that PHP can talk to Mongo you'll also need to install the Mongo PECL module. For most systems ([not Windows](http://www.mongodb.org/display/DOCS/Installing+the+PHP+Driver#InstallingthePHPDriver-WindowsInstall)), this is as easy as:
 
-	sudo pecl install mongo
+```sh
+sudo pecl install mongo
+```
 
 Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file and restart the server, e.g.:
 
-	sudo /etc/init.d/apache2 restart
+```sh
+sudo /etc/init.d/apache2 restart
+```
 
 The `php.ini` file will be stored in a directory like `/etc/php5/apache2` (exactly where depends on your system and server). There may also be a `php.ini` file for CLI. We don't use the `li3` command line application in this quickstart, but you might as well add `extension=mongo.so` to this other `php.ini` file as well to enable the command line application for the future.
 
@@ -43,8 +47,10 @@ Now, if you refresh the browser page for your installation, you should see a gre
 
 Now that we have a database up and running and talking to PHP, let's tell Lithium about it. Do this by editing `my_app/app/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
 
-	// MongoDB Connection
-	Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'host' => 'localhost'));
+```php
+// MongoDB Connection
+Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'host' => 'localhost'));
+```
 
 The first parameter just names the connection something that can be read by people. Lithium also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
@@ -58,12 +64,10 @@ Lithium uses the [MVC pattern](../design-principles/mvc.md). If you're not famil
 
 First, create a new file at `my_app/app/models/Posts.php`. If you name your files and structure your code according to Lithium's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
-```
-<?php
+```php
 namespace app\models;
-class Posts extends \lithium\data\Model {
-}
-?>
+
+class Posts extends \lithium\data\Model {}
 ```
 
 There's a lot going on (for free!) in the background here. First, Lithium knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Posts`, it'll use a MongoDB collection called 'posts'. We've also inherited a lot of useful methods for querying the database, and we'll learn more about some of those in later sections of this tutorial.
@@ -76,32 +80,30 @@ But wait, what? What about the schema setup? Actually, MongoDB doesn't require y
 
 The controller setup is just as simple when getting started. Create a new file at `my_app/app/controllers/PostsController.php` and fill it with the following:
 
-```
-<?php
+```php
 namespace app\controllers;
-class PostsController extends \lithium\action\Controller {
-}
-?>
+
+class PostsController extends \lithium\action\Controller {}
 ```
 
 You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the Lithium [coding convention](../quality-code/coding-standards.md), and you should stick to it to take full advantage of the framework's automagic.
 
 Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we try and link all three of the model, controller and viewer together, let's just set up a simple action that pushes some dummy data to the view. Here's how it's done:
 
-```
-<?php
+```php
 namespace app\controllers;
+
 class PostsController extends \lithium\action\Controller {
+
 	public function index() {
 		return array('foo' => 'bar', 'title' => 'Posts');
 	}
 }
-?>
 ```
 
 Lithium actions send data to the view by returning an associative array that determines the respective view's variables. In the example above, our view will have access to the string `'bar'` in `$foo` and `'Posts'` in `$title` (`$title` will be used to set the page's title tag). This setup is also handy for fans of the [`compact()` function](http://php.net/compact). If I have a series of variables I'd like to pass along, it's as easy as:
 
-```
+```php
 return compact('lions', 'tigers', 'bears');
 ```
 
@@ -143,7 +145,7 @@ Note that because the call to `$this->form->create()` doesn't include any parame
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
-```
+```php
 public function add() {
 	$success = false;
 	if ($this->request->data) {
@@ -164,7 +166,7 @@ Because the form we've created in the view submits its data back to the same con
 
 To give you a little more of an idea what Lithium's doing "behind the scenes" here, the following pieces of code are equivalent:
 
-```
+```php
 $post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
 
 // or:
@@ -176,14 +178,14 @@ $post->body = 'Body Text!';
 
 If you run this code right now though it won't work and will generate an error message. That's because the controller knows nothing about the model and its `create()` or `save()` methods, so we must tell it! At the beginning of our `PostsController.php` file, but _after_ the namespace declaration, we add a `use app\models\Posts;` line:
 
-```
-<?php
+```php
 namespace app\controllers;
+
 use app\models\Posts;
+
 class PostsController extends \lithium\action\Controller {
 	// ...
 }
-?>
 ```
 
 Feel free now to have a play with this method and use your browser to add a few posts to your blog. Coming up next: displaying them!
@@ -194,9 +196,9 @@ Feel free now to have a play with this method and use your browser to add a few 
 
 Now that we've stocked our database, let's use our Post model to pull the data. We can do this by rewriting the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
 
-```
+```php
 public function index() {
-  $posts = Posts::all();
+	$posts = Posts::all();
 	return compact('posts');
 }
 ```
@@ -205,7 +207,7 @@ The object returned from `Post:all()` - which is equivalent to `Posts::find('all
 
 If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object.
 
-```
+```php
 var_dump($posts->to('array'));
 // example output:
 //

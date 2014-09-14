@@ -46,7 +46,7 @@ You do not have to configure all elements.  The default values will be used for 
 >You can optionally just set the protected `$_meta` property directly in the definition of your model's class.
 
 **SHORTCUT EXAMPLE**:
-```
+```php
 namespace app\models;
 class Posts extends \lithium\data\Model {
 	protected $_meta = array(

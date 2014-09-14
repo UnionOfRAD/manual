@@ -27,7 +27,7 @@ a given organization.
 First, create the new file at `/app/extensions/command/Repos.php`. This
 is what we'll start with:
 
-```
+```php
 namespace app\extensions\command;
 
 class Repos extends \lithium\console\Command {}
@@ -52,7 +52,7 @@ when a user executes `li3 <command name>` from a shell. The easiest way
 to get input from a user is via command-line arguments. Arguments passed
 to the Command are supplied as arguments to `run()`.
 
-```
+```php
 namespace app\extensions\command;
 
 class Repos extends \lithium\console\Command {
@@ -65,7 +65,7 @@ class Repos extends \lithium\console\Command {
 
 You can also use `in()` to ask the user for input:
 
-```
+```php
 namespace app\extensions\command;
 
 class Repos extends \lithium\console\Command {
@@ -82,7 +82,7 @@ And rather than using `echo` to send output to the user, we can use
 `out()` or `error()` to send to STDOUT and STDERR. Apart from adding
 newlines automatically, these methods can also send colored output by using style tags.
 
-```
+```php
 namespace app\extensions\command;
 
 class Repos extends \lithium\console\Command {
@@ -103,7 +103,7 @@ API. Because we have full access to Lithium classes, we declare them via
 `uses` above the class definition like we normally would and use those
 classes in our Command logic:
 
-```
+```php
 namespace app\extensions\command;
 
 use lithium\net\http\Service;

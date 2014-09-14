@@ -10,10 +10,11 @@ Because it's likely the most common case, we'll start with a simple model data v
 
 Validation is done by defining a special property on the model object called `$validates`. Lithium inspects this property and validates data to be saved against this set of rules. Let's create a simple `User` model, and begin with a few simple validation rules.
 
-```
-<?php
+```php
 namespace app\models;
+
 class User extends lithium\data\Model {
+
 	public $validates = array(
 		'username' => array(
 			array(
@@ -31,7 +32,6 @@ class User extends lithium\data\Model {
 		)
 	);
 }
-?>
 ```
 
 Note: for a complete list of built-in validation rules, see the `Validator` API: [http://li3.me/docs/lithium/util/Validator](http://li3.me/docs/lithium/util/Validator)
@@ -47,9 +47,9 @@ In addition to the rule name, there are a number of special keys you can use to 
 
 You may also declare multiple rules per field. Here, we add an additional rule to the username field in order to ensure usernames are alphanumeric.
 
-```
-<?php
+```php
 namespace app\models;
+
 class User extends lithium\data\Model {
 	public $validates = array(
 		'username' => array(
@@ -70,7 +70,6 @@ class User extends lithium\data\Model {
 		)
 	);
 }
-?>
 ```
 
 ## Form Validation
@@ -89,20 +88,20 @@ Here's a simple form we might use to collect user data. This would be contained 
 
 Once that data is submitted to the controller, we handle it like this:
 
-```
-<?php
+```php
 namespace app\controllers;
+
 class UsersController extends lithium\action\Controller {
+
 	public function add() {
-		if($this->request->data) {
+		if ($this->request->data) {
 			$user = Users::create($this->request->data);
-			if($user->save()) {
+			if ($user->save()) {
 				$this->redirect('/users/home');
 			}
 		}
 	}
 }
-?>
 ```
 
 If there's submitted data to this action, we create a new user with it. If a save is successful, we redirect to a landing page. The implicit logic here is that validation rules are checked, and `save()` returns a false if any rules fail.
@@ -113,12 +112,13 @@ The `Form` helper methods we used automatically display the error messages as pa
 
 If you need to know about model validation problems before the application renders the view, you can inspect errors on the `Entity` object you're working with. Get the last errors by calling `errors()`:
 
-```
-<?php
+```php
 namespace app\controllers;
+
 class UsersController extends lithium\action\Controller {
+
 	public function add() {
-		if($this->request->data) {
+		if ($this->request->data) {
 			$user = Users::create($this->request->data);
 			$user->save();
 			$errors = $user->errors();
@@ -129,7 +129,6 @@ class UsersController extends lithium\action\Controller {
 		}
 	}
 }
-?>
 ```
 
 Note: you can also manually invalidate model fields by calling `errors()` and supplying key/value pairs to denote problems. While you'll usually want to create custom rules (covered next), this is sometimes a helpful trick to use in model filters, etc.
@@ -140,28 +139,22 @@ While the validator features a number of handy rules, you'll inevitably want to 
 
 The simplest form of rule addition is by Regular Expression:
 
-```
-<?php
+```php
 Validator::add('zeroToNine', '/^[0-9]$/');
-?>
 ```
 
 If you need more than pattern recognition, you can also supply rules as anonymous functions:
 
-```
-<?php
+```php
 Validator::add('usernameTaken' function($value) {
 	$result = Users::findByUsername($value);
 	return count($result) > 0;
 });
-?>
 ```
 
 Once a rule as been defined, it can be referenced by name in a model `$validates` property or direct use of the `Validator` class magic methods:
 
-```
-<?php
+```php
 Validator::add('zeroToNine', '/^[0-9]$/');
 Validator::isZeroToNine('7');
-?>
 ```
