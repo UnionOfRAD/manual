@@ -98,8 +98,7 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/faqs.md": {"title": "FAQs"},
-					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" },
-					"appendices/contributing.md": { "title": "Contributing to Lithium" }
+					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" }
 				}
 			}
 		}
