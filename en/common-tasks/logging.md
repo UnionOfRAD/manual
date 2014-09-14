@@ -20,7 +20,8 @@ Logger::config(array(
 
 The `Logger` class has a single public function called `write()`.  This is the method used to write log messages.  Lithium also allows you to use the priority as the method name.  For instance, in the above configuration example, you could call the `Logger::critical()` method
 
-###Example
+### Example
+
 ```
 // Using the `write()` method:
 Logger::write('critical', 'This is a critical message');
@@ -40,5 +41,6 @@ Logger::write('critical', 'This is a critical message', array('name' => 'badnews
 >Attempting to use an undefined priority level will raise an exception. See the list of available adapters for more information on what adapters are available, and how to configure them.
 
 ## See Also
+
 * [List of Logger Adapters](/docs/lithium/analysis/logger/adapter)
 * [Logger API Documentation](/docs/lithium/analysis/Logger)

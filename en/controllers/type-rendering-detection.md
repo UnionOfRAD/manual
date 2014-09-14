@@ -1,4 +1,5 @@
 # Type Rendering and Detection
+
 Although a typical request to a Lithium application receives an HTML response, the framework is built to be extremely flexible in handling and serving different types of content. This functionality is especially important in applications that have many different components or endpoints. If your app also feeds data to a Flash object (AMF/XML) and a mobile phone (XML/JSON), responding to requests in different ways with the same underlying logic can be a huge time saver.
 
 The flow for handling a given type of a response works something like the following:

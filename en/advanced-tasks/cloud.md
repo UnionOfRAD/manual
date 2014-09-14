@@ -1,6 +1,7 @@
 # Deploying to Orchestra
 
 ## About Orchestra
+
 Orchestra.io is a cloud-based deploying plattform for PHP applications. You can find out more at their website . 
 Orchestra provides a "one-click" deployment out of a repository (can be either public or private) and a basic account is free 
 (see [`Pricing`](http://www.engineyard.com/products/orchestra/pricing)). The Orchestra team always had Lithium in mind when desigin their 
@@ -10,6 +11,7 @@ Before you can deploy your Lithium application, you first have to create an Orch
 page and get yourself an account as it's free.
 
 ## Deploying a vanilla app
+
 To get a feeling about how Orchestra works, you can deploy a vanilla Lithium app to your free account at no cost. As Orchestra supports git submodules and loads 
 them automatically, we can deploy from the official `framework` repository and see how far we can get.
 
@@ -23,5 +25,6 @@ Now click on the `Launch App` button and wait while Orchestra deploys your appli
 earlier (http://unique-name.orchestra.io). You should now see the friendly Lithium welcome screen which indicates that everything has worked as expected.
 
 ## Next steps
+
 Orchestra supports a variety of databases and modules out of the box. If you have further questions, visit their [`Knowledge Base`](http://docs.orchestra.io/kb) or 
 catch them on IRC.
