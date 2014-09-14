@@ -60,7 +60,7 @@ class Posts extends \lithium\data\Model {
 ## Model Data Validation
 An important part of describing the business logic of a model class is defining the validation rules. In Lithium models, rules are defined through the `$validates` class property, and are used by the `validates()` method before saving to verify the correctness of the data being sent to the backend data source.
 
-Note that these are application-level validation rules, and do not interact with any rules or constraints defined in your data source. If such constraints fail,  an exception will be thrown by the database layer. The `validates()` method only checks against the rules defined in application code.  This method uses the `Validator` class to perform [data validation](validation.wiki). An array representation of the entity object to be tested is passed to the `check()` method, along with the model's validation rules. Any rules defined in the `Validator` class can be used to validate fields.
+Note that these are application-level validation rules, and do not interact with any rules or constraints defined in your data source. If such constraints fail,  an exception will be thrown by the database layer. The `validates()` method only checks against the rules defined in application code.  This method uses the `Validator` class to perform [data validation](validation.md). An array representation of the entity object to be tested is passed to the `check()` method, along with the model's validation rules. Any rules defined in the `Validator` class can be used to validate fields.
 
 The `$entity` parameter specifies the model entity to validate, which is typically either a `Record` or `Document` object. In the  example below, the `$entity` parameter is equal to the `$post` object instance.
 
@@ -78,4 +78,4 @@ $success = $post->validates();
 
 > **Tip**
 
-> See the section on [validation](validation.wiki) in this user manual for more information about adding custom rules, or override built-in rules.
+> See the section on [validation](validation.md) in this user manual for more information about adding custom rules, or override built-in rules.

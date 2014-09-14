@@ -120,7 +120,7 @@ $posts = Posts::find('all', array(
 $posts = Posts::findAllByUsername('michael');
 }}}
 
-Lithium also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.wiki) page.
+Lithium also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
 
 ## Updating Entities
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
