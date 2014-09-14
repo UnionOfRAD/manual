@@ -4,6 +4,7 @@ please, run make tests!
 ## PHP FPM
 --enable-fpm
 ### when you configure php with fpm there are a few more steps to get everything setup. The commands below assume you installed PHP to `/usr/local/`
+
 ```
 mkdir /var/log/php-fpm
 chown -R www-data:www-data /var/log/php-fpm

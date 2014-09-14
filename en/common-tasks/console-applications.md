@@ -28,10 +28,9 @@ First, create the new file at `/app/extensions/command/Repos.php`. This
 is what we'll start with:
 
 ```
-<?php
 namespace app\extensions\command;
-class Repos extends \lithium\console\Command {
-}
+
+class Repos extends \lithium\console\Command {}
 ```
 
 If you run `$ li3` now, you'll see that Lithium can already see your
@@ -54,9 +53,10 @@ to get input from a user is via command-line arguments. Arguments passed
 to the Command are supplied as arguments to `run()`.
 
 ```
-<?php
 namespace app\extensions\command;
+
 class Repos extends \lithium\console\Command {
+  
   public function run($org = '') {
     echo "Org: $org\n";
   }
@@ -66,8 +66,8 @@ class Repos extends \lithium\console\Command {
 You can also use `in()` to ask the user for input:
 
 ```
-<?php
 namespace app\extensions\command;
+
 class Repos extends \lithium\console\Command {
   public function run($org = '') {
     if($org == '') {
@@ -83,8 +83,8 @@ And rather than using `echo` to send output to the user, we can use
 newlines automatically, these methods can also send colored output by using style tags.
 
 ```
-<?php
 namespace app\extensions\command;
+
 class Repos extends \lithium\console\Command {
   public function run($org = '') {
     if($org == '') {
@@ -104,9 +104,10 @@ API. Because we have full access to Lithium classes, we declare them via
 classes in our Command logic:
 
 ```
-<?php
 namespace app\extensions\command;
+
 use lithium\net\http\Service;
+
 class Repos extends \lithium\console\Command {
   public function run($org = '') {
     if($org == '') {

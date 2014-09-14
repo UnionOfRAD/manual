@@ -11,8 +11,6 @@ Lithium controllers reside inside the `/app/controllers` directory and extend th
 For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
 ```
-<?php
-
 namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
@@ -21,8 +19,6 @@ class UsersController extends \lithium\action\Controller {
 
 	}
 }
-
-?>
 ```
 
 Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /users/index). 
@@ -32,8 +28,6 @@ The `index()` action is a special action: if no action name is specified in the 
 For example, we can create a new controller action that would be accessible at `/users/view/`:
 
 ```
-<?php
-
 namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
@@ -46,8 +40,6 @@ class UsersController extends \lithium\action\Controller {
 
 	}
 }
-
-?>
 ```
 
 ## Accessing Request Parameters
@@ -103,14 +95,12 @@ Occasionally a controller action will want to divert, re-route, or automatically
 The most basic type of flow control at the controller level is redirection. It's common to redirect a user to a new URL once an action has been performed. This type of control is done through the controller's `redirect()` method. Here's an example of a controller action that redirects the request:
 
 ```
-
 public function register() {
 	// Validate and save user data POSTed to the 
 	// controller action found in $this->request->data...
 
 	$this->redirect('Users::welcome');
 }
-
 ```
 
 The URL specified can be relative to the application or point to an outside resource. The `redirect()` function also features a second `$options` parameter that also allows you to set HTTP status headers, and make decisions about whether or not to `exit()` after a redirect. Be sure to check the API for `lithium\action\Controller::redirect()` for more details.
@@ -165,7 +155,6 @@ ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function
 	Logger::write('error', "Page Not Found...");
 	$render('404', compact('exception', 'params'));
 });
-
 ```
 
 If you've got more than one type of exception you want to handle, just add more calls to `apply()` in your error bootstrap file.
@@ -248,24 +237,19 @@ For more ideas on configuring media types, see the documentation for `Media::typ
 While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside Lithium controllers is simple. Let's start with a bare controller as an example:
 
 ```
-<?php 
-
 namespace app\controllers;
 
 class ClientsController extends \lithium\action\Controller {
+
 	public function index() {
 		
 	}
 }
-
-?>
 ```
 
 While not required, it's helpful to name controllers after the models they primarily use, at least for organizational purposes. To start using your model inside this controller, you'll need to let PHP know you intend to use the model class inside this controller:
 
 ```
-<?php 
-
 namespace app\controllers;
 
 use app\models\Client;
@@ -276,20 +260,17 @@ class ClientsController extends \lithium\action\Controller {
 
 	}
 }
-
-?>
 ```
 
 Since most model access is done statically, just access the methods you need in your controller actions directly:
 
 ```
-<?php 
-
 namespace app\controllers;
 
 use app\models\Client;
 
 class ClientsController extends \lithium\action\Controller {
+	
 	public function index() {
 		$clients = Client::find('all');
 		return compact('clients');
@@ -305,15 +286,11 @@ class ClientsController extends \lithium\action\Controller {
 		return compact('client');
 	}
 }
-
-?>
 ```
 
 Using Lithium's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
 
 ```
-<?php 
-
 namespace app\controllers;
 
 use SimpleXmlElement;
@@ -327,8 +304,6 @@ class ClientsController extends \lithium\action\Controller {
 		return compact('response');
 	}
 }
-
-?>
 ```
 
 This is done by declaring the usage of the class by specifying it's fully namespaced path, and later instantiating it inside the action logic.

@@ -25,7 +25,6 @@ Constructor logic should be kept to a minimum. One of the last steps in the unif
 If you need to manipulate an object in its un-initialized state, pass `false` as the value to the `init` key to the constructor. This prevents `init()` from running, and is especially handy when building test cases.
 
 ```
-<?php
 namespace app/extensions;
 
 use lithium\net\http\Service;
@@ -49,11 +48,9 @@ class Foo extends \lithium\core\Object {
 		echo $this->_config['foo'];
 	}
 } 
-?>
 ```
 
 ```
-<?php
 use app\extensions\Foo;
 
 $foo = new Foo();
@@ -68,9 +65,7 @@ $foo3 = new Foo(array(
 	'init' => 'false'
 ));
 get_class($foo3->service);  // PHP Warning...
-
 get_class($foo->service);  // 'lithium\net\http\Service'
-?>
 ```
 
 ## Filtering
@@ -86,9 +81,10 @@ Subclasses of `Object` use the filter methods to allow other developers to wrap 
 One challenge with testing is creating and initializing your objects. The `__set_state()` function allows test writers to quickly create objects with their pre-existing properties and values intact. This method can be called statically on any class that extends `Object` to return an instance of itself.
 
 ```
-<?php
 class MockObject extends \lithium\core\Object {
+
 	protected $_protected = null;
+
 	public function getProtected() {
 		echo $this->$_protected;
 	}
@@ -99,7 +95,6 @@ $object = MockObject::__set_state(array(
 ));
 
 $object->getProtected();        // 'testing'
-?>	
 ```
 
 # Managing Dependencies

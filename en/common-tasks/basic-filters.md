@@ -56,13 +56,11 @@ Next, `$params` gives you access to any parameters that original method implemen
 The last parameter is important. You can see above that right now the closure returns the results of the logic next in line in the filter chain. Unless you want to short-circuit filter execution (which includes the base logic of the method you're filtering), you'll want to include this somewhere in your filter logic. The position this call has in your filter also might be important. For example, if you're creating a filter you want to have happen __after__ a certain method, your custom filter logic should follow the `next()` call rather than proceed it:
 
 ```
-
 SomeClass::applyFilter('methodName', function($self, $params, $chain) {
 	$result = $chain->next($self, $params, $chain);
 
 	// Custom logic goes here.
 });
-
 ```
 
 Alright: let's use these parameters to our advantage in creating an authentication setup. If we look at the parameters for `Dispatcher::_callable()` we can see that accepts three: the current `Request` object (an instance of `lithium\action\Request`), the parameters returned from routing the request, and an options array.

@@ -70,21 +70,23 @@ Closures are also used to create filters in Lithium: filters are a way to modify
 Also new in PHP 5.3 is the idea of late static binding. This feature allows us to create static classes that are smarter about class inheritance. It's little hard to explain in prose: here's some code that shows the difference between the new static:: and old self:: patterns:
 
 ```
-<?php
-
 class Person {
+
 	public static function whoAmI() {
 		return "Person";
 	}
+
 	public static function testSelf() {
 		return self::whoAmI();
 	}
+
 	public static function testStatic() {
 		return static::whoAmI();
 	}
 }
 
 class Developer extends Person {
+
 	public static function whoAmI() {
 		return "Developer";
 	}
@@ -92,8 +94,6 @@ class Developer extends Person {
 
 echo Developer::testSelf();    // "Person"
 echo Developer::testStatic();  // "Developer"
-
-?>
 ```
 
 Many classes (such as models) are statically accessed in Lithium. This allows for easy access, a stateless design, and better overall application design in general.
@@ -117,7 +117,8 @@ Another addition is the new __invoke() method. This method defines what happens 
 
 ```
 class WakeUpCall {
-    function __invoke($message) {
+
+	function __invoke($message) {
         echo $message;
     }
 }
@@ -166,7 +167,6 @@ The Internationalization extension contains a number of classes that enable deve
 This extension was created to make informed guesses about files based on their extension, and certain magic byte sequences at specific points in the file. This ability, while not a perfect indicator, still can give a developer a great idea about the data hidden inside of a file or stream.
 
 ```
-<?php
 $info = new \finfo(FILEINFO_MIME);
 $result = $info->file(__FILE__);
 var_dump($result);
@@ -177,7 +177,6 @@ $result = finfo_file(finfo_open(FILEINFO_MIME), __FILE__);
 var_dump($result);
 
 // 'text/x-php; charset=us-ascii'
-?>
 ``` 
 
 ### Sqlite3

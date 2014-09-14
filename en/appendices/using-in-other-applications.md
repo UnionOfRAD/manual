@@ -6,7 +6,6 @@ To use Lithium classes, simply load the class that manages libraries (`lithium\c
 
 ```
 include "/path/to/classes/libraries/lithium/core/Libraries.php";
-
 lithium\core\Libraries::add('lithium');
 ```
 

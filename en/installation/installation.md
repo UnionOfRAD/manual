@@ -13,11 +13,13 @@ need them.
 The repositories are hosted in GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching 
 Lithium by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
 
-	git clone git://github.com/UnionOfRAD/framework.git my_app
-	cd my_app
-	git submodule init
-	git submodule update
-	
+```
+git clone git://github.com/UnionOfRAD/framework.git my_app
+cd my_app
+git submodule init
+git submodule update
+```
+
 If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct 
 directory.
 
@@ -25,8 +27,10 @@ directory.
 
 The method described in the previous section will download the most recent tagged version of Lithium. In some cases, it may be desirable to update Lithium to the very latest available revision, which may not have been tagged yet.
 
-	cd libraries/lithium
-	git pull origin master
+```
+cd libraries/lithium
+git pull origin master
+```
 
 ## Advanced Setup
 
@@ -51,8 +55,8 @@ Another quick thing to check is to make sure that magic quotes have been complet
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
 ```
-	error_reporting  =  E_ALL
-	display_errors   =  On
+error_reporting  =  E_ALL
+display_errors   =  On
 ```
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
@@ -65,10 +69,13 @@ Lastly, you'll want to set up the `li3` command so it's easy to use as you move 
 
 To do so, add the Lithium's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
 
-	PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
+```
+PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
+```
 
 Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
+```
 	USAGE
 		li3 COMMAND [ARGS]
 
@@ -85,3 +92,4 @@ Once this has been done, you can execute the li3 command inside the app folder o
 			Runs a given set unit tests and outputs the results.
 
 	See `li3 help COMMAND` for more information on a specific command.
+```

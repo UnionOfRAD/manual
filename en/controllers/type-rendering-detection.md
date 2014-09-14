@@ -30,7 +30,8 @@ Router::connect('/{:controller}/{:action}.{:type}');
 ### Example
 Let's assume that you are using a MySQL database as a datasource and you are retrieving data from the `blog_posts` table.  First, we need to enable the routes in the `routes.php` file as shown below:
 
-```/**
+```
+/**
  * ### Database object routes
  *
  * The routes below are used primarily for accessing database objects, where `{:id}` corresponds to
@@ -49,7 +50,8 @@ Next, let's assume that there is already a view created to display the blog post
 
 In our controller, we can use the automatically generated `view()` method, provided you used the CLI to create the controller, which will get the id of the post from the URL.  If you didn't use the CLI to create the controller, then your view method should look something like this:
 
-```public function view() {
+```
+public function view() {
     $purchaseorder = PoHeader::find($this->request->id);
    	return compact('purchaseorder');
 }

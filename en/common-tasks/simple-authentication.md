@@ -32,8 +32,7 @@ Developers using MySQL will need a `users` table with at least the columns `id`,
 ```
 namespace app\models;
 
-class Users extends \lithium\data\Model {
-}
+class Users extends \lithium\data\Model {}
 ```
 
 Once you've got that setup, your application more or less interacts with the data in the same way, regardless of the particular data source you're using.
@@ -51,9 +50,7 @@ Once the data handling is in place, Lithium needs to know you intend to use auth
 Lithium's default application template ships with a file called `config/bootstrap/session.php`, which contains default session storage settings, as well as a commented-out default authentication configuration. To enable this configuration, first edit `config/bootstrap.php` to include (or uncomment) the line requiring the session bootstrap file:
 
 ```
-
 require __DIR__ . '/bootstrap/session.php';
-
 ```
 
 Next, make sure your `Session` setup is using the PHP adapter, then create or uncomment the initial `Auth` configuration:

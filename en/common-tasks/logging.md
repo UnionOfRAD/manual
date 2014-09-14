@@ -30,6 +30,7 @@ Logger::critical('This is a critical message');
 ```
 
 By default, the logger will write a message to any adapter that has the specified priority in the log message in its configuration.  To write to an adapter other than the default adapter(s), you can use the options parameter which expects an array.
+
 ```
 Logger::write('critical', 'This is a critical message', array('name' => 'badnews'));
 ```

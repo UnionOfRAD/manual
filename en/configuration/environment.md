@@ -50,7 +50,6 @@ Environment::set('production' , array('service_endpoint', 'www.service.example.c
 
 // If run on my local system:
 Environment::get('service_endpoint'); // 'dev.service.example.com'
-
 ```
 
 ## Adaptable Environment Settings

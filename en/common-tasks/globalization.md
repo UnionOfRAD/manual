@@ -82,11 +82,7 @@ A localized route is configured by connecting a continuation route. This example
 Once the route has been connected, all the other application routes become localized and may now carry a locale:
 
 ```
-<?php
-
 Router::connect('/{:locale:[a-zA-Z_]+}/{:args}', array(), array('continue' => true));
-
-?>
 ```
 
 Once this is in place, our application's routes will illustrate the effective locale, i.e.:
@@ -116,8 +112,6 @@ The `Catalog` is a class that allows us to retrieve and store globalized data, p
 The class is able to aggregate globalized data from different sources, which allows a developer to complement sparse data. Example usage:
 
 ```
-<?php
-
 use lithium\g11n\Catalog;
 
 // Configures the runtime source.
@@ -137,8 +131,6 @@ Catalog::read('runtime', 'message', 'de_DE');
 
 // Reads from just the runtime source.
 Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
-
-?>
 ```
 
 By default, the g11n bootstrap configures a `runtime` (using the `Memory` adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
@@ -169,6 +161,7 @@ The **memory adapter** allows for writing and reading globalized data needed at 
 The **code adapter** extracts message IDs for creating message catalog templates from source code. PHP is supported through a parser (using the built-in tokenizer) but future support for other formats (i.e. JavaScript) is possible too.
 
 The **php adapter** allows for reading from files containing data in PHP format.
+
 ```
 return array('the artists' => 'die Künstler');
 ```
@@ -228,8 +221,6 @@ The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—ar
 If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
 
 ```
-<?php
-
 namespace app\controllers;
 
 use lithium\g11n\Message;
@@ -243,8 +234,6 @@ class PostsController extends \lithium\action\Controller {
 		// ...
 	}
 }
-
-?>
 ```
 
 ### Best Practices
@@ -254,13 +243,11 @@ Since the marked messages will later be translated by many others, it's importan
 When embedding translated messages into your application, it's best to use entire sentences as identifiers rather than just single words. Since a translator is often viewing a long list of strings needing to be translated, context is everything.
 
 ```
-
 // Not so great:
 <?= $t('welcome'); ?>
 
 // Better:
 <?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
-
 ```
 
 It's also best to split paragraphs into single sentences as well. This makes things more atomic and granular where large chunks of content may be difficult to work with:
@@ -268,13 +255,11 @@ It's also best to split paragraphs into single sentences as well. This makes thi
 Next, treating text like you would with `String::insert()` can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
 
 ```
-
 // Not so great:
 <?= "Gary's Fine Clarinets " . $t('is really great'); ?>
 
 // Better:
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
-
 ```
 
 Also, avoid the use of escaped characters, or markup of any kind inside of translated messages. This makes it much less error prone, as your language team may not be as keen on well-structured HTML as you are.

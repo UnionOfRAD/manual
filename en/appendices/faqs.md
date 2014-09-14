@@ -57,6 +57,7 @@ class B {
 This allows `A` to be swapped out for another class, and makes `B` much easier to test, since `$dependency` can be the name of a mock class that can act as a control during testing. This also has the pleasant side-effect of making `B`'s design more flexible.
 
 Lithium addresses this issue of dependencies in a uniform way, using the protected `$_classes` attribute. Consider the following snippet from the `lithium\action\Dispatcher` class:
+
 ```
 class Dispatcher extends \lithium\core\StaticObject {
 
@@ -69,6 +70,7 @@ class Dispatcher extends \lithium\core\StaticObject {
 ```
 
 The `Dispatcher`'s dependencies may then be dynamically configured to use a different routing class with the `config()` method. Internally, calling the `Router` looks like this:
+
 ```
 $router = static::$_classes['router'];
 $result = $router::process($request);

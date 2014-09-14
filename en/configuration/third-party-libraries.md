@@ -82,6 +82,7 @@ Next, since ZF1 uses its own autoloader, we can tell `Libraries` to delegate to 
 Most importantly, we're overriding how class names are transformed into path names, by passing in a custom function which transforms PEAR-style class names. Finally, to use classes in Zend's incubator, we can add a separate configuration for this.
 
 Note, the following should appear **above** the primary ZF configuration, because they both have the same class prefix. However, this configuration will verify that a file exists before attempting to autoload it, allowing classes to "fall through" to other loaders.
+
 ```
 Libraries::add("ZendIncubator", array(
 	"prefix" => "Zend_",
