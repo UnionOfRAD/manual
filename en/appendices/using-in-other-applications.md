@@ -9,7 +9,9 @@ include "/path/to/classes/libraries/lithium/core/Libraries.php";
 lithium\core\Libraries::add('lithium');
 ```
 
-Note that `"path/to/classes"` may be relative to your include path.
+<div class="note note-info">
+	Note that `"path/to/classes"` may be relative to your include path.
+</div>
 
 ## Integrating with CakePHP
 

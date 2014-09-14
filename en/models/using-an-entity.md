@@ -13,9 +13,10 @@ The settable elements are:
 * **page**: For pagination of data (limit * offset)
 * **with**: array of relationship names to include in the query
 
-> **Shortcut**
-
-> You can optionally set the protected `$_query` property directly in the definition of your model's class.
+<div class="note note-info">
+	You can optionally set the protected <code>$_query</code> 
+	property directly in the definition of your model's class.
+</div>
 
 ## Creating Entities ##
 The `create()` method instantiates a new record or document object, initialized with any data passed in.
@@ -28,9 +29,10 @@ echo $post->title; // echoes 'New post'
 $success = $post->save();
 ```
 
-> **Caution**
-
-> While this method creates a new object, there is no effect on the database until the `save()` method is called.
+<div class="note note-caution">
+	While this method creates a new object, there is no effect 
+	on the database until the <code>save()</code> method is called.
+</div>
 
 This method can also be used to simulate loading a pre-existing object from the database, without actually querying the database:
 
@@ -88,11 +90,11 @@ $posts = Posts::find('all', array(
 ));
 ```
 
-> **Tip**
-
-> You can quickly get your data into a multidimensional array in the form of $array[keyValue][fieldName] by chaining the ->to('array') method to the end of the find() method call.
-
-> Example: `$posts = Posts::find('all')->to('array');`
+<div class="note note-hint">
+	You can quickly get your data into a multidimensional array in the form of $array[keyValue][fieldName] by chaining the ->to('array') method to the end of the find() method call.
+	<br><br>
+	Example: <code>$posts = Posts::find('all')->to('array');</code>
+</div>
 
 ### Basic Finder Methods
 Lithium also provides some additional basic methods around the `find()` method which make your code less verbose and easier to read:
