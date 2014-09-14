@@ -8,13 +8,13 @@ There are some [wiki:tools tools] which help you keeping in line with the standa
 
 File names should be created with _CamelCase_ (according to the class they contain).
 
-PHP files (files with the php suffix), should not have any whitespaces before or after the opening and closing php tag. The closing tag is preceded by an empty line.<sup>?</sup>
+PHP files (files with the php suffix), should not have any whitespaces before or after the opening and closing php tag. The closing tag is preceded by an empty line.
 
-The closing php tag must always be on the last one of the file.<sup>?</sup> The closing php tag is **not terminated** with a newline character.<sup>?</sup> File **encoding is UTF-8**. The default permissions for folders are octal 0755, for files octal 0644.<sup>? partially</sup> Only if the file must be executable (i.e. from console) use octal 0744 for files.
+The closing php tag must always be on the last one of the file. The closing php tag is **not terminated** with a newline character. File **encoding is UTF-8**. The default permissions for folders are octal 0755, for files octal 0644. Only if the file must be executable (i.e. from console) use octal 0744 for files.
 
 ### Lines
 
-Lines must not exceed a limit of **100 characters**.<sup>?</sup> The soft limit is 80 characters. Lines should not have any trailing whitespace characters.<sup>?</sup>
+Lines must not exceed a limit of **100 characters**. The soft limit is 80 characters. Lines should not have any trailing whitespace characters.
 
 ### PHP tags
 
@@ -93,7 +93,7 @@ Indentation is **always symmetrical**. Any opening syntax construct that begins 
 
 ## Operators
 
-All [operators ](http://php.net/manual/en/language.operators.php) must be surrounded by spaces<sup>?</sup>.
+All [operators ](http://php.net/manual/en/language.operators.php) must be surrounded by spaces.
 
 	$x = $y;
 	'x' . 'y';
@@ -105,7 +105,7 @@ All [operators ](http://php.net/manual/en/language.operators.php) must be surrou
 	$x - 23;
 	function($x, $y = null) {};
 
-However there are a few exceptions to the spacing rule<sup>?</sup>:
+However there are a few exceptions to the spacing rule:
 
 1. Increment and decrement operators must be directly followed by or following the variable.
 
@@ -144,7 +144,7 @@ In order to increase readability of the code it is allowed to use spaces (not ta
 
 
 ## Control Structures
-Control structures are for example `if`, `for`, `foreach`, `while`, `switch` etc. Below, an example with `if`:
+Control structures are key words like `if`, `for`, `foreach`, `while`, `switch`, etc. Below is an example with `if`:
 
 	if (($a == $b) || ($a == c)) {
 		// Action 1.
@@ -156,9 +156,9 @@ Control structures are for example `if`, `for`, `foreach`, `while`, `switch` etc
 
 In the control structures there should be **1 (one) space before** the first parenthesis and **1 (one) space between** the last parenthesis and the opening bracket.
 
-**Always use curly brackets** in control structures, even if they are not needed. They increase the readability of the code, and they give you fewer logical errors.<sup>?</sup>
+**Always use curly brackets** in control structures, even if they are not needed. They increase the readability of the code, and they give you fewer logical errors.
 
-Opening curly brackets should be placed on the same line as the control structure.<sup>?</sup>  Closing curly brackets should be placed on new lines, and they should have same indentation level as the control structure.<sup>?</sup> The statement included in curly brackets should begin on a new line, and code contained within it should gain a new level of indentation.
+Opening curly brackets should be placed on the same line as the control structure. Closing curly brackets should be placed on new lines, and they should have same indentation level as the control structure. The statement included in curly brackets should begin on a new line, and code contained within it should gain a new level of indentation.
 
 	// Bad - no brackets, badly placed statement.
 	if ($foo == $bar) $foo++;
@@ -219,14 +219,14 @@ Array keys used in `$options`/results arrays should be formatted according to th
 
 ## Constants
 
-Constants should be defined in capital letters<sup>?</sup>. If a constant name consists of multiple words, they should be separated by an underscore character.
+Constants should be defined in capital letters. If a constant name consists of multiple words, they should be separated by an underscore character.
 
 	define('FOO', 1);
 	define('FOO_BAR_BAZ', 2);
 
 ## Casts
 
-Casts must not have any whitespace inside the cast, must only use long type names and be **separated by one space** from the following variable or value.<sup>?</sup>
+Casts must not have any whitespace inside the cast, must only use long type names and be **separated by one space** from the following variable or value.
 
 	// Bad.
 	(bool) $result;
@@ -280,7 +280,7 @@ Functions without body content should be written like so.
 
 ## Namespaces
 
-The namespace  declaration must appear directly after the opening php tag, separated by an empty line.<sup>?</sup> Any static dependencies **appear as one block** after the namespace declaration, separated by an empty line.
+The namespace  declaration must appear directly after the opening php tag, separated by an empty line. Any static dependencies **appear as one block** after the namespace declaration, separated by an empty line.
 
 	<?php
 
@@ -319,7 +319,7 @@ Class names should always be singular nouns, i.e. ```Dispatcher```, ```PagesCont
 
 ### Member Visibility
 
-All methods and properties must have  a visibility operator. The `var` operator is forbidden.<sup>?</sup>
+All methods and properties must have  a visibility operator. The `var` operator is forbidden.
 
 A **protected** method or variable name start with a single underscore ("`_`").
 
@@ -394,7 +394,7 @@ If a function has a reciprocal sub-routine (or vice-versa), they should be combi
 
 ### Including
 
-When including files with classes or libraries, use only and always the [require_once](http://php.net/require_once) function. Don't use brackets with the include statements as they are language constructs.<sup>?</sup>
+When including files with classes or libraries, use only and always the [require_once](http://php.net/require_once) function. Don't use brackets with the include statements as they are language constructs.
 
 ### Importing
 
@@ -424,7 +424,7 @@ Except for the `extends` part of the class declaration, all namespaced class ref
 		// ...
 	}
 
-Names appearing after the `use` keyword are always fully qualified but must not have a leading backslash.<sup>?</sup>
+Names appearing after the `use` keyword are always fully qualified but must not have a leading backslash.
 
  * Good: `use lithium\util\Inflector;`
  * Bad: `use \lithium\util\Inflector;`

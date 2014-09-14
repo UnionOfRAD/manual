@@ -6,108 +6,101 @@
 		"path": "/en",
 		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
 		"contents": {
-			"quickstart": {
-				"title": "Quickstart"
-			},
-			"getting-started": {
-				"title": "Getting Started",
+			"installation": {
+				"title": "Installation",
 				"contents": {
-					"getting-started/requirements.md": { "title": "Requirements" },
-					"getting-started/installation.md": { "title": "Installation" },
-					"getting-started/troubleshooting.md": { "title": "Troubleshooting" }
+					"installation/requirements.md": {"title": "Requirements"},
+					"installation/installation.md": {"title": "Installing"},
+					"installation/troubleshooting.md": {"title": "Troubleshooting"}
 				}
 			},
-			"lithium-basics": {
-				"title": "Lithium Basics",
+			"quickstart": {
+				"title": "Quickstart",
 				"contents": {
-					"lithium-basics/architecture.md": { "title": "Architecture" },
-					"lithium-basics/new-in-php53.md": { "title": "New in PHP 5.3" },
-					"lithium-basics/filters.md": { "title": "Aspect Oriented Programming with Filters" }
+					"quickstart/readme.md": {"title": "The Blog Tutorial"}
+				}
+			},
+			"design-principles": {
+				"title": "Design Principles",
+				"contents": {
+					"design-principles/mvc.md": {"title": "Model View Controller"},
+					"design-principles/aop.md": {"title": "Aspect Oriented Programming"}
 				}
 			},
 			"configuration": {
 				"title": "Configuration",
 				"contents": {
-					"configuration/php.md" : {"title" : "PHP"},
-					"configuration/servers": {
-						"title": "Servers",
-						"contents": {
-							"configuration/servers/apache.md": { "title": "Apache" },
-							"configuration/servers/cherokee.md": { "title": "Cherokee" },
-							"configuration/servers/iis.md": { "title": "Internet Information Services (IIS)" },
-							"configuration/servers/lighttpd.md": { "title": "LigHTTPD" },
-							"configuration/servers/litespeed.md": { "title": "Litespeed" },
-							"configuration/servers/nginx.md" : { "title": "Nginx" }
-						}
-					},
-					"configuration/connections": {
-						"title": "Connections",
-						"contents": {
-							"configuration/connections/mongodb-setup.md": { "title": "MongoDB Setup" }
-						}
-					}
+					"configuration/bootstrapping.md": {"title": "Bootstrapping"},
+					"configuration/environment.md": {"title": "Environment"}
+				}
+			},
+			"models": {
+				"title": "Models",
+				"contents": {
+					"models/connections.md": {"title": "Connections"},
+					"models/setting-up-models.md": {"title": "Setting Up Models"},
+					"models/using-an-entity.md": {"title": "Using an Entity"},
+					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
+					"models/relationships.md": {"title": "Relationships"},
+					"models/using-data-sources.md": {"title": "Using and Creating Data Sources"},
+					"models/validation.md": {"title": "Validation"}
+				}
+			},
+			"controllers": {
+				"title": "Controllers",
+				"contents": {
+					"controllers/actions.md": {"title": "Actions"},
+					"controllers/parameters.md": {"title": "Parameters"},
+					"controllers/routing.md": {"title": "Routes"},
+					"controllers/flow-control.md": {"title": "Flow Control"},
+					"controllers/type-rendering-detection.md": {"title": "Type Rendering and Detection"}
+				}
+			},
+			"views": {
+				"title": "Views",
+				"contents": {
+					"views/views.md": {"title": "View Variables"},
+					"views/auto-escaping.md": {"title": "Auto Escaping"},
+					"views/layouts.md": {"title": "Layouts"},
+					"views/elements.md": {"title": "Elements"},
+					"views/helpers.md": {"title": "Helpers"},
+					"views/static-content.md": {"title": "Static Content"}
 				}
 			},
 			"quality-code": {
-				"title": "Writing Quality Code",
+				"title": "Quality Code",
 				"contents": {
-					"quality-code/coding-standards.md": { "title": "Coding Standards" },
-					"quality-code/lithium_qa.md": { "title": "QA: static code analysis" },
-					"quality-code/testing.md": { "title": "Unit Testing" }
+					"quality-code/coding-standards.md": {"title": "Coding Standards"},
+					"quality-code/static-analysis.md": {"title": "Static Code Analysis"},
+					"quality-code/li3_qa.md": {"title": "li3_qa"},
+					"quality-code/testing.md": {"title": "Unit Testing"}
 				}
 			},
-			"handling-http-requests": {
-				"title": "Handling HTTP Requests",
+			"common-tasks": {
+				"title": "Common Tasks",
 				"contents": {
-					"handling-http-requests/overview.md": { "title": "Overview: A Typical Request and Response" },
-					"handling-http-requests/routing.md": { "title": "Request Routing" },
-					"handling-http-requests/controllers.md": { "title": "Controllers" },
-					"handling-http-requests/views.md": { "title": "Views" },
-					"handling-http-requests/helpers.md": { "title": "Helpers" },
-					"handling-http-requests/understanding-context.md": { "title": "Understanding Context" }
+					"common-tasks/error-handling.md": {"title": "Error Handling"},
+					"common-tasks/logging.md": {"title": "Logging"},
+					"common-tasks/caching.md": {"title": "Caching"},
+					"common-tasks/console-applications.md": {"title": "Console Applications"},
+					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
+					"common-tasks/simple-authentication.md": {"title": "Authentication"},
+					"common-tasks/globalization.md": {"title": "Globalization"},
+					"common-tasks/plugins.md": {"title": "Plugins"}
 				}
 			},
-			"working-with-data": {
-				"title": "Working with Data",
+			"advanced-tasks": {
+				"title": "Advanced Tasks",
 				"contents": {
-					"working-with-data/using-data-sources.md": { "title": "Using Data Sources"},
-					"working-with-data/using-models.md": { "title": "Using Models"},
-					"working-with-data/validation.md": { "title": "Validation"},
-					"working-with-data/relationships.md": { "title": "Relationships "},
-					"working-with-data/adding-functions-to-models.md": { "title": "Adding Functionality to Models"},
-					"working-with-data/creating-data-sources.md": { "title": "Creating Data Sources"}
-				}
-			},
-			"auth": {
-				"title": "Authentication",
-				"contents": {
-					"auth/simple-auth-user.md": { "title": "Creating a user in M, V, C" },
-					"auth/simple-authentication.md": { "title": "Simple Authentication" }
-				}
-			},
-			"globalization": {
-				"title": "Globalization",
-				"contents": {
-					"globalization/readme.md": { "title": "Globalization Tutorial" }
-				}
-			},
-			"extending-lithium": {
-				"title": "Extending Lithium",
-				"contents": {
-					"extending-lithium/plugins.md": { "title": "Plugins" },
-					"extending-lithium/third-party-libraries.md": { "title": "3rd Party Libraries" }
-				}
-			},
-			"cloud": {
-				"title": "Lithium in the Cloud",
-				"contents": {
-					"cloud/readme.md": { "title": "Deploying to Orchestra.io" }
+					"advanced-tasks/cloud.md": {"title": "Lithium in the Cloud"},
+					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
+					"advanced-tasks/architecture.md": {"title": "Lithium Object Architecture"}
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
-					"appendices/readme.md": { "title": "FAQ" },
+					"appendices/faqs.md": {"title": "FAQs"},
 					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" },
 					"appendices/contributing.md": { "title": "Contributing to Lithium" }
 				}

@@ -50,7 +50,7 @@ In Lithium, models ask the data source questions through [`Query` objects](http:
 
 It passes this `Query` to the data source, which connects and authenticates to the data store. It inspects the query to see what the model needs, interacts with the underlying data store, and wraps the response data in some sort of `Entity`. If the response requires more than one `Entity`, it's usually wrapped up in a `Collection` like a `RecordSet` or `DocumentSet`.
 
-Once the model has the `Entity` (or collection of entites), it can provide that information back to the caller (i.e. a controller).
+Once the model has the `Entity` (or collection of entities), it can provide that information back to the caller (i.e. a controller).
 
 ## Example Data Source: GitHub Issues API
 
@@ -428,9 +428,9 @@ public function read($query, array $options = array()) {
 }
 }}}
 
-The new implementation uses just a few lines to extract the necessary parameters from the `Query` object, then uses the new helper method to generate the correct URL, calls it and decodes the result, then implements the error-handling we saw above. Finally, if all goes well, it returns the results of the method call, wrapped in an iterable set of `Document` objects.
+The new implementation uses just a few lines to extract the necessary parameters from the `Query` object, then uses the new helper method to generate the correct URL, calls it and decodes the result, then implements the error-handling we saw above. Finally, if all goes well, it returns the results of the method call, wrapped in a set of `Document` objects that can be iterated over.
 
-Now that we've extracted the above information into a class property, we can do other useful things with it, such as implement the `sources()` method described at the beginning of this section. This method is intended to return a simple array indicating the list of resources available to bind to:
+Now that we've extracted the above information into a class property, we can do other useful things with it such as implement the `sources()` method described at the beginning of this section. This method is intended to return a simple array indicating the list of resources available to bind to:
 
 {{{
 public function sources($class = null) {

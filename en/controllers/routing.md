@@ -10,8 +10,13 @@ Though this section's main focus is to show you how to create routes according y
 
 ## Defining Routes
 
-Defining routes is done in `/app/config/routes.php`, by using the `Router::connect()` method to create `Route` objects that define URL-to-code mappings. The router will match routes in the order they are defined. In other words, _the first route that matches will be returned and used for dispatching_.
+Defining routes is done in the application directory at `/config/routes.php`, by using the `Router::connect()` method to create `Route` objects that define URL-to-code mappings.
 
+> NOTE:
+
+> The router will match routes in the order they are defined. In other words, the first route that matches will be returned and used for dispatching.
+
+### Routing Definition Example
 Let's start with a simple example: connecting a URL with a controller method:
 
 {{{
@@ -95,7 +100,7 @@ Router::connect('/pages/{:args}', 'Pages::view', array('continue' => true));
 ?>
 }}}
 
-## Route Matching
+### Route Matching
 
 Lithium's router is also used in reverse: instead of turning URLs into parameters (controllers and actions, at least) it can also create application URLs based on supplied parameters based on the defined routes.
 
