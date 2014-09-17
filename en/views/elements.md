@@ -50,4 +50,4 @@ Displaying an element is accomplished via the `View::render()` method.  In the f
 	   </nav>
    </div>```
 
-A complete description of the `render()` method can be found in the Lithium API documentation under [View::render()](http://lithify.me/docs/lithium/template/View::render)
+A complete description of the `render()` method can be found in the Lithium API documentation under [View::render()](http://li3.me/docs/lithium/template/View::render)

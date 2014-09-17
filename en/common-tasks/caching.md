@@ -47,5 +47,5 @@ Cache::config(array(
 
 ## More information
 
-* [Cache Class API Documentation](http://lithify.me/docs/lithium/storage/Cache)
-* [Cache Adapters API Documentation](http://lithify.me/docs/lithium/storage/cache/adapter)
+* [Cache Class API Documentation](http://li3.me/docs/lithium/storage/Cache)
+* [Cache Adapters API Documentation](http://li3.me/docs/lithium/storage/cache/adapter)

@@ -51,7 +51,7 @@ Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'h
 
 The first parameter just names the connection something that can be read by people. Lithium also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the [API documentation](http://lithify.me/docs/app/config/bootstrap/connections) for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the [API documentation](http://li3.me/docs/app/config/bootstrap/connections) for more information.
 
 Editing bootstrap files like this is a common way of configuring Lithium. For example, you might want to set up some quick and dirty error handling by adding `ini_set("display_errors", 1);` to `my_app/app/config/bootstrap.php` - see [this section](../configuration/bootstrapping.md) of the manual for more detail on how to configure Lithium. Lithium is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 

@@ -21,7 +21,7 @@ A layout file looks like what you might typically expect of an HTML file.  Below
    		<div id="header">
    			<h1>Application</h1>
    			<h2>
-   				Powered by <?=$this->html->link('Lithium', 'http://lithify.me/');?>.
+   				Powered by <?=$this->html->link('Lithium', 'http://li3.me/');?>.
    			</h2>
    		</div>
    		<div id="content">

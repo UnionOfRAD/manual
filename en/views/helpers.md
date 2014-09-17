@@ -8,7 +8,7 @@ Helper usage in Lithium is simple because helpers are lazy-loaded by the rendere
 
 ```
 <p>
-	Here is a <?=$this->html->link('link', 'http://lithify.me') ?> you'll all enjoy.
+	Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
 </p>
 ```
 
