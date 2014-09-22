@@ -51,6 +51,6 @@ Displaying an element is accomplished via the `View::render()` method.  In the f
 	   ); ?>
    </nav>
 </div>
-  ```
+```
 
 A complete description of the `render()` method can be found in the li3 API documentation under [View::render()](http://li3.me/docs/lithium/template/View::render)
