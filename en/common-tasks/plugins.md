@@ -12,7 +12,7 @@ While there are very few (really no) _hard_ requirements for li3 plugins, there 
 
 Because li3 treats everything as libraries, and because all libraries are essentially on the same playing field, a plugin can include anything. Any type of class or resource that could be included in the li3 core or in an application can be included in a plugin. This includes models, controllers, helpers, adapters, generic classes, even custom routes and web assets.
 
-Common examples of things to include in plugins are adapters for cache engines, databases or web services, or a collection of models to share between multiple applications that use the same data. Other plugins introduce new classes with new functionality which can have their own types of adapters, such as the [`li3_access` plugin](https://github.com/tmaiaroto/li3_access), which adds access control support. Some plugins, like [`li3_twig`](http://dev.li3.me/li3_twig), [`li3_doctrine`](http://dev.li3.me/li3_doctrine) and [`li3_pdf`](http://dev.li3.me/li3_pdf), wrap other libraries to provide tight integration with li3.
+Common examples of things to include in plugins are adapters for cache engines, databases or web services, or a collection of models to share between multiple applications that use the same data. Other plugins introduce new classes with new functionality which can have their own types of adapters, such as the [`li3_access` plugin](https://github.com/tmaiaroto/li3_access), which adds access control support. Some plugins, like [`li3_twig`](https://github.com/UnionOfRAD/li3_twig), [`li3_doctrine`](https://github.com/mariano/li3_doctrine2) and [`li3_pdf`](https://github.com/UnionOfRAD/li3_queue), wrap other libraries to provide tight integration with li3.
 
 ## Creating Your First Plugin
 
