@@ -1,4 +1,4 @@
-# Installing li3
+# Installation
 
 ## Getting the Code
 
@@ -13,7 +13,7 @@ need them.
 The repositories are hosted in GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching 
 li3 by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
 
-```
+```bash
 git clone git://github.com/UnionOfRAD/framework.git my_app
 cd my_app
 git submodule init
@@ -27,7 +27,7 @@ directory.
 
 The method described in the previous section will download the most recent tagged version of li3. In some cases, it may be desirable to update li3 to the very latest available revision, which may not have been tagged yet.
 
-```
+```bash
 cd libraries/lithium
 git pull origin master
 ```
@@ -42,7 +42,7 @@ The two applications mentioned aren't complete copies of the li3 codebase: they'
 
 First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the li3 libraries are. Adjust both application's `/config/bootstrap/libraries.php` file like so:
 
-```
+```php
 define('LITHIUM_LIBRARY_PATH', dirname('/usr/local/lib/lithium'));
 ```
 
@@ -54,7 +54,7 @@ Another quick thing to check is to make sure that magic quotes have been complet
 
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
-```
+```ini
 error_reporting  =  E_ALL
 display_errors   =  On
 ```
@@ -75,21 +75,21 @@ PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 
 Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
-```
-	USAGE
-		li3 COMMAND [ARGS]
+```fix
+USAGE
+	li3 COMMAND [ARGS]
 
-	COMMANDS
-		create
-			The `create` command allows you to rapidly develop your models, views, controllers, and tests
-			by generating the minimum code necessary to test and run your application.
+COMMANDS
+	create
+		The `create` command allows you to rapidly develop your models, views, controllers, and tests
+		by generating the minimum code necessary to test and run your application.
 
-		g11n
-			The `G11n` set of commands deals with the extraction and merging of
-			message templates.
+	g11n
+		The `G11n` set of commands deals with the extraction and merging of
+		message templates.
 
-		test
-			Runs a given set unit tests and outputs the results.
+	test
+		Runs a given set unit tests and outputs the results.
 
-	See `li3 help COMMAND` for more information on a specific command.
+See `li3 help COMMAND` for more information on a specific command.
 ```

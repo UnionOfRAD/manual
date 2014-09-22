@@ -6,7 +6,7 @@ By the time you have finished this section you will have built a simple blogging
 
 ## Setting Up li3
 
-First things first: let's make sure li3 is installed and working. If you haven't already installed li3 then check out the [installation guide](../installation/installation.md) in this manual. Make sure to follow each of the steps in the guide carefully.
+First things first: let's make sure li3 is installed and working. If you haven't already installed li3 then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
 
 After completing installation, you should be able to navigate your browser to the path that you installed li3 to (e.g. `my_app`, the rest of this blog tutorial assumes you have installed li3 here) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 

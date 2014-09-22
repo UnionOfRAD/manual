@@ -10,15 +10,11 @@
 				"title": "Installation",
 				"contents": {
 					"installation/requirements.md": {"title": "Requirements"},
-					"installation/installation.md": {"title": "Installing"},
 					"installation/troubleshooting.md": {"title": "Troubleshooting"}
 				}
 			},
 			"quickstart": {
-				"title": "Quickstart",
-				"contents": {
-					"quickstart/readme.md": {"title": "The Blog Tutorial"}
-				}
+				"title": "Quickstart"
 			},
 			"design-principles": {
 				"title": "Design Principles",
@@ -68,10 +64,7 @@
 				}
 			},
 			"quality-code": {
-				"title": "Quality Code",
-				"contents": {
-					"quality-code/readme.md": {"title": "Quality Code"}
-				}
+				"title": "Quality Code"
 			},
 			"common-tasks": {
 				"title": "Common Tasks",
