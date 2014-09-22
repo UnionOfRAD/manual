@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Lithium's routing allows developers to completely decouple the application's URLs from it's underlying structure. It works by creating a set of `Route` objects that tell Lithium to respond to incoming requests, and which bits of code they relate to in your application. While this makes for great SEO and usability, it also keeps things nimble in respect to change.
+li3's routing allows developers to completely decouple the application's URLs from it's underlying structure. It works by creating a set of `Route` objects that tell li3 to respond to incoming requests, and which bits of code they relate to in your application. While this makes for great SEO and usability, it also keeps things nimble in respect to change.
 
 As such, the router has two main responsibilities. First, to determine the correct set of dispatch parameters based on an incoming request. Secondly, to generate URLs from a given set of parameters.
 
@@ -43,7 +43,7 @@ Apart from allowing users to supply those values, you can also supply them stati
 Router::connect('/socks', array('Products::view', 'id' => 72739));
 ```
 
-In order to avoid overlapping cases and provide routing clarity, you can also specify a route parameter with an accompanying regular expression. Similarly defined routes use the `{:paramname:regex}` syntax. There are a few examples in the default `routes.php` file that ships with Lithium:
+In order to avoid overlapping cases and provide routing clarity, you can also specify a route parameter with an accompanying regular expression. Similarly defined routes use the `{:paramname:regex}` syntax. There are a few examples in the default `routes.php` file that ships with li3:
 
 ```
 Router::connect('/{:controller}/{:action}/{:id:\d+}');
@@ -51,9 +51,9 @@ Router::connect('/{:controller}/{:action}/{:id:\d+}');
 
 Here, we're routing incoming requests along to their respective controllers and actions, but also tacking on a new parameter "id" if the URL ends with a numerical component. The regex here is important. If not defined, this route would also match `/products/viewCategory/electronics` if defined before another route that matches it better.
 
-### Lithium Default Params
+### li3 Default Params
 
-There are a number of default parameters that Lithium is aware of. As you build your routes, keep these routes in mind, as they're reserved for routing/dispatching purposes:
+There are a number of default parameters that li3 is aware of. As you build your routes, keep these routes in mind, as they're reserved for routing/dispatching purposes:
 
 	- `controller` : The name of the controller to dispatch.
 	- `action` : The name of the action to call in the dispatched controller.
@@ -74,7 +74,7 @@ This is done by using the special `{:args}` parameter and setting the `continue`
 Router::connect('/{:locale:en|de|it|jp}/{:args}', array(), array('continue' => true));
 ```
 
-As you can see, this route tells Lithium that routes that are prefixed with 'en', 'de', 'it', or 'jp' should set an additional `locale` request parameter then be passed back to the router for further matching. A few other examples:
+As you can see, this route tells li3 that routes that are prefixed with 'en', 'de', 'it', or 'jp' should set an additional `locale` request parameter then be passed back to the router for further matching. A few other examples:
 
 ```
 // API endpoint versioning (i.e. /v1/products/list.json)
@@ -89,7 +89,7 @@ Router::connect('/pages/{:args}', 'Pages::view', array('continue' => true));
 
 ### Route Matching
 
-Lithium's router is also used in reverse: instead of turning URLs into parameters (controllers and actions, at least) it can also create application URLs based on supplied parameters based on the defined routes.
+li3's router is also used in reverse: instead of turning URLs into parameters (controllers and actions, at least) it can also create application URLs based on supplied parameters based on the defined routes.
 
 Usually you'll be using this functionality without realizing it. For example, it's used the the `Html` helper in views to create links. Normally it's faster and easier to use the supplied helper functions. If however you're doing something in a layer that doesn't have easy access to this functionality, you can use the router directly.
 

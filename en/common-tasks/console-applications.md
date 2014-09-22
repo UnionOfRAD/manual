@@ -1,7 +1,7 @@
 # Console Applications
 
-Console applications in Lithium allow you to access your application
-infrastructure from the command line. The `Console` libraries Lithium
+Console applications in li3 allow you to access your application
+infrastructure from the command line. The `Console` libraries li3
 features also allow you to perform oft-used features in a shell
 environment.
 
@@ -10,7 +10,7 @@ environment.
 Before we get started, you'll want to make sure that your shell knows
 where the `li3` command is.
 
-If my Lithium installation was at `/usr/local/lithium`, I'd add the
+If my li3 installation was at `/usr/local/lithium`, I'd add the
 following to my Bash configuration to make sure the `li3` command was
 universally available to me:
 
@@ -33,7 +33,7 @@ namespace app\extensions\command;
 class Repos extends \lithium\console\Command {}
 ```
 
-If you run `$ li3` now, you'll see that Lithium can already see your
+If you run `$ li3` now, you'll see that li3 can already see your
 command. Look towards the end of the output, just after "COMMANDS via
 app."
 
@@ -99,7 +99,7 @@ class Repos extends \lithium\console\Command {
 # Adding Functionality
 
 Finally, let's add a bit of functionality to interact with the GitHub
-API. Because we have full access to Lithium classes, we declare them via
+API. Because we have full access to li3 classes, we declare them via
 `uses` above the class definition like we normally would and use those
 classes in our Command logic:
 

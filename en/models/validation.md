@@ -2,13 +2,13 @@
 
 Part of a model's responsibility in an MVC application is to be the gatekeeper for the data it handles. While a great deal of a model's functionality deals with fetching and relating data, validation is an important part of keeping your data clean and secure.
 
-This section focuses on validation in the model layer, as well as covering Lithium's core utility class `Validator`.
+This section focuses on validation in the model layer, as well as covering li3's core utility class `Validator`.
 
 ## Configuring Validation in Your Models
 
 Because it's likely the most common case, we'll start with a simple model data validation example based around an HTML form. Let's consider an application that handles user registration. We'll define a `User` model and create some simple validation logic in order to make sure submitted user information is complete and in the correct form.
 
-Validation is done by defining a special property on the model object called `$validates`. Lithium inspects this property and validates data to be saved against this set of rules. Let's create a simple `User` model, and begin with a few simple validation rules.
+Validation is done by defining a special property on the model object called `$validates`. li3 inspects this property and validates data to be saved against this set of rules. Let's create a simple `User` model, and begin with a few simple validation rules.
 
 ```php
 namespace app\models;

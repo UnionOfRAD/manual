@@ -1,12 +1,12 @@
-# A Typical Lithium Request
+# A Typical li3 Request
 
-When building an application with Lithium, it's important to understand how a typical request is handled. This gives you a better idea of the possibilities inherent in the system, and allows you to better troubleshoot any problems that might arise during development. This also gives you a good macro view of what's going on before we dive into how controllers, views, and context works inside Lithium.
+When building an application with li3, it's important to understand how a typical request is handled. This gives you a better idea of the possibilities inherent in the system, and allows you to better troubleshoot any problems that might arise during development. This also gives you a good macro view of what's going on before we dive into how controllers, views, and context works inside li3.
 
 ## Initial Request and Bootstrapping
 
-While a Lithium application can be configured a number of different ways, the safest is by pointing your web server to the `/app/webroot` folder inside the application. It can be pointed at the root directory of the application, but either way, the request is forwarded on until `/app/webroot/index.php` handles it.
+While a li3 application can be configured a number of different ways, the safest is by pointing your web server to the `/app/webroot` folder inside the application. It can be pointed at the root directory of the application, but either way, the request is forwarded on until `/app/webroot/index.php` handles it.
 
-This directory index file does two things: first, it loads up Lithium's main bootstrap file (and any related bootstrap files therein). Second, it instantiates the dispatcher, and hands its `run()` method a new `Request` object. The `Request` object aggregates all the GET / POST / environment data, and is the canonical source of any of that information throughout the life of the request.
+This directory index file does two things: first, it loads up li3's main bootstrap file (and any related bootstrap files therein). Second, it instantiates the dispatcher, and hands its `run()` method a new `Request` object. The `Request` object aggregates all the GET / POST / environment data, and is the canonical source of any of that information throughout the life of the request.
 
 ## Request Dispatching & Routing
 

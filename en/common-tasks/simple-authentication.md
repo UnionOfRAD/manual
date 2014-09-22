@@ -1,6 +1,6 @@
-# Simple Authentication in Lithium
+# Simple Authentication in li3
 
-If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. Lithium's authentication setup is simple and allows you to quickly create a framework for managing and protecting those resources.
+If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. li3's authentication setup is simple and allows you to quickly create a framework for managing and protecting those resources.
 
 ## Data Setup
 
@@ -45,9 +45,9 @@ For convenience, we also recommend setting up a filter to automatically hash use
 
 ## Bootstrapping Auth
 
-Once the data handling is in place, Lithium needs to know you intend to use authentication, and with which settings. As with most things, this is done in a specific bootstrap file.
+Once the data handling is in place, li3 needs to know you intend to use authentication, and with which settings. As with most things, this is done in a specific bootstrap file.
 
-Lithium's default application template ships with a file called `config/bootstrap/session.php`, which contains default session storage settings, as well as a commented-out default authentication configuration. To enable this configuration, first edit `config/bootstrap.php` to include (or uncomment) the line requiring the session bootstrap file:
+li3's default application template ships with a file called `config/bootstrap/session.php`, which contains default session storage settings, as well as a commented-out default authentication configuration. To enable this configuration, first edit `config/bootstrap.php` to include (or uncomment) the line requiring the session bootstrap file:
 
 ```
 require __DIR__ . '/bootstrap/session.php';
@@ -68,7 +68,7 @@ Auth::config(array(
 ));
 ```
 
-The `Session` setup is pretty straightforward, and the `Auth` configuration tells Lithium which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
+The `Session` setup is pretty straightforward, and the `Auth` configuration tells li3 which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
 
 Note that the configuration information is housed in an array keyed `'default'`. `Auth` supports many different simultaneous configurations. Here we're only creating one, but you can add more (each using different adapters/configurations) as needed.
 
@@ -162,7 +162,7 @@ Router::connect('/logout', 'Sessions::delete');
 
 ## More Information
 
-If you'd like to get under the hood and see how Lithium handles password hashing, auth queries & session writes, etc., check out the API documentation for the following:
+If you'd like to get under the hood and see how li3 handles password hashing, auth queries & session writes, etc., check out the API documentation for the following:
 
  - [The `Auth` class](http://li3.me/docs/lithium/security/Auth)
  - [The `Form` auth adapter](http://li3.me/docs/lithium/security/auth/adapter/Form)

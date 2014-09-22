@@ -1,11 +1,11 @@
 # Model Relationships
 The data that applications manipulate is usually structured in some way. Objects have links to other objects, and the model layer that represents that data should reflect the structure inherent in the data it represents and interacts with.
 
-Lithium's data layer offers a way to facilitate data relationships and structure. This guide is meant to show you how to specify and define these data relationships and use them to your advantage as you build your application.
+li3's data layer offers a way to facilitate data relationships and structure. This guide is meant to show you how to specify and define these data relationships and use them to your advantage as you build your application.
 
 ## Defining Model Relationships
 
-Before you define a model relationship in your code, it's important to understand the terminology that describes a relationship between two objects in your system. In Lithium (and elsewhere), a specific set of terms are used to describe model relationships:
+Before you define a model relationship in your code, it's important to understand the terminology that describes a relationship between two objects in your system. In li3 (and elsewhere), a specific set of terms are used to describe model relationships:
 
  * hasOne: the current object is linked to a single object of another type
  * hasMany: the current object is linked to many objects of another type
@@ -13,7 +13,7 @@ Before you define a model relationship in your code, it's important to understan
 
 If you're having a hard time remembering hasOne/hasMany versus belongsTo, just remember this: if the current model contains some sort of marker (like a foreign key), it _belongsTo_ another model.
 
-Defining this object relationship in Lithium is simple: you populate special properties on the model object. For example, let's say we're building an online store. Each `Category` is filled with many `Product` objects. In this case, we'd want to specify `Category` hasMany `Product`. Let's see how this is done:
+Defining this object relationship in li3 is simple: you populate special properties on the model object. For example, let's say we're building an online store. Each `Category` is filled with many `Product` objects. In this case, we'd want to specify `Category` hasMany `Product`. Let's see how this is done:
 
 ```php
 class Categories extends \lithium\data\Model {
@@ -38,7 +38,7 @@ class Categories extends \lithium\data\Model {
 
 Unless specified otherwise, the relationship assumes you're using the exact class name specified, with a key that is an under_scored version of the model's class name, suffixed with `_id`. All other sorting and limit options are assumed to be empty.
 
-All of Lithium's model relationships use these same keys (although there's no reason to order or limit hasOne or belongsTo) and can be configured likewise.
+All of li3's model relationships use these same keys (although there's no reason to order or limit hasOne or belongsTo) and can be configured likewise.
 
 ## Reading Related Data
 
@@ -84,13 +84,13 @@ $categories = Categories::find('all', array(
 */
 ```
 
-Notice the new `with` key supplied to the model? This tells Lithium that you want related data joined to the normal response.
+Notice the new `with` key supplied to the model? This tells li3 that you want related data joined to the normal response.
 
 As you can see from the output, the related data has been added on to the model response. While we're printing out array contents here, you can as easily loop through or access the same information at `$categories->products` in this case as well.
 
 ## Saving Related Data
 
-Because Lithium's relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly.
+Because li3's relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly.
 
 Here's a simplified example of how we'd save a newly created product, matched up to a category. First, the `ProductsController`:
 

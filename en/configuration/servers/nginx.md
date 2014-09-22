@@ -1,6 +1,6 @@
 # Configuring Nginx
 
-Nginx requires a simple rewrite configuration that enables Lithium to serve dynamic URLs. With nginx, each domain has its own configuration file that encapsulates all such rewriting rules.
+Nginx requires a simple rewrite configuration that enables li3 to serve dynamic URLs. With nginx, each domain has its own configuration file that encapsulates all such rewriting rules.
 
 ## Domain Specific Config
 

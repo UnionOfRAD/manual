@@ -1,10 +1,10 @@
 # Exceptions and Error Handling
 
-Error handling in Lithium is done using the core ErrorHandler class. `ErrorHandler` allows PHP errors and exceptions to be handled in a uniform way. Using `ErrorHandler`s configuration makes it possible to have broad but tightly controlled error handling across your application.
+Error handling in li3 is done using the core ErrorHandler class. `ErrorHandler` allows PHP errors and exceptions to be handled in a uniform way. Using `ErrorHandler`s configuration makes it possible to have broad but tightly controlled error handling across your application.
 
 `ErrorHandler` configuration is done by creating a new error-specific bootstrap file that contains your `ErrorHandler` configuration and initialization. To illustrate how this is done, let's consider an imaginary (but common) scenario. Rather than tossing up error messages and stack traces to your users, it's better to create some sort of way to handle exceptions and render user-friendly error pages.
 
-Let's start by creating a way to handle page not found-like errors. If a request can't be routed properly, the Lithium dispatcher will throw an exception to let you know that a controller or view can't be found. Though the example here will be specific to this case, it should provide a mental framework that will allow you to understand how to catch errors and exceptions, and handle them accordingly.
+Let's start by creating a way to handle page not found-like errors. If a request can't be routed properly, the li3 dispatcher will throw an exception to let you know that a controller or view can't be found. Though the example here will be specific to this case, it should provide a mental framework that will allow you to understand how to catch errors and exceptions, and handle them accordingly.
 
 Start by creating a new bootstrap file in the application directory called `/config/bootstrap/error.php`:
 

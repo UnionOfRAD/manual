@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Globalization, or [ g11n](https://secure.wikimedia.org/wikipedia/en/wiki/G11n), is a term that combines the features found in internationalization and localization. Globalization makes it possible to adapt a single piece of software to different languages, scripts and regional language differences. This tutorial describes the approach Lithium takes towards globalizing software.
+Globalization, or [ g11n](https://secure.wikimedia.org/wikipedia/en/wiki/G11n), is a term that combines the features found in internationalization and localization. Globalization makes it possible to adapt a single piece of software to different languages, scripts and regional language differences. This tutorial describes the approach li3 takes towards globalizing software.
 
-Globalization in Lithium is a core framework feature, and Lithium has been developed with g11n in mind from the start.
+Globalization in li3 is a core framework feature, and li3 has been developed with g11n in mind from the start.
 
 ## Bootstrapping g11n
 
-Enabling g11n in your application starts by loading it in the Lithium bootstrap process. Start by uncommenting the g11n line in `bootstrap.php`. The `g11n.php` file contains your application's globalization rules, including inflections, transliterations, localized validation, and how localized text should be loaded.
+Enabling g11n in your application starts by loading it in the li3 bootstrap process. Start by uncommenting the g11n line in `bootstrap.php`. The `g11n.php` file contains your application's globalization rules, including inflections, transliterations, localized validation, and how localized text should be loaded.
 
 ```
 require __DIR__ . '/bootstrap/g11n.php';
@@ -75,7 +75,7 @@ While this setup should meet most g11n needs, feel free to implement your own ac
 
 ## Localized routing
 
-There is [ a great deal of thought](http://h3h.net/2007/01/designing-urls-for-multilingual-web-sites/) on the different approaches to embedding locale information in URLs. While each have their respective advantages, the Lithium g11n framework uses prefixed routes.
+There is [ a great deal of thought](http://h3h.net/2007/01/designing-urls-for-multilingual-web-sites/) on the different approaches to embedding locale information in URLs. While each have their respective advantages, the li3 g11n framework uses prefixed routes.
 
 A localized route is configured by creating a new application extension containing new routes information. This example creates a new file at `app/extensions/route/Localized.php`, a new class that extends `lithium\net\http\Route`:
 
@@ -222,7 +222,7 @@ More information on the directory structures required by the different adapters 
 
 ## Localized Validation Settings
 
-Lithium's g11n framework ships with some localized validation rules for phone number, postal code and social security number validation rules. The `g11n.php` bootstrap file defines these additions so they're available before you use them:
+li3's g11n framework ships with some localized validation rules for phone number, postal code and social security number validation rules. The `g11n.php` bootstrap file defines these additions so they're available before you use them:
 
 ```
 foreach (array('phone', 'postalCode', 'ssn') as $name) {

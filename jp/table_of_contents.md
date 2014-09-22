@@ -5,13 +5,13 @@ This quickstart covers a basic application with 1 or 2 views, 1 controller, and 
 ### Getting Started
 * Requirements
 * License
-* Getting Lithium
+* Getting li3
 * Upgrading
 * Troubleshooting
 
-### Lithium Basics
+### li3 Basics
 * Architecture
-* Lithium & PHP 5.3
+* li3 & PHP 5.3
 * Filters
 
 ###  Request/Response
@@ -59,7 +59,7 @@ This quickstart covers a basic application with 1 or 2 views, 1 controller, and 
 * Accessing document services
 * Accessing queue services
 
-### Extending Lithium
+### Extending li3
 * Integrating third-party libraries
 * Auto-loading
 * Plugins

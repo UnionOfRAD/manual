@@ -1,6 +1,6 @@
 # Logging
 
-Logging in Lithium is handled through the `Logger` class.  This class is designed to provide a consistent interface for writing log messages across the application.  The `Logger` class can also be set up with a series of named configurations that contain a log adapter to write to.
+Logging in li3 is handled through the `Logger` class.  This class is designed to provide a consistent interface for writing log messages across the application.  The `Logger` class can also be set up with a series of named configurations that contain a log adapter to write to.
 
 ## Configuration
 
@@ -18,7 +18,7 @@ Logger::config(array(
 
 ## Usage
 
-The `Logger` class has a single public function called `write()`.  This is the method used to write log messages.  Lithium also allows you to use the priority as the method name.  For instance, in the above configuration example, you could call the `Logger::critical()` method
+The `Logger` class has a single public function called `write()`.  This is the method used to write log messages.  li3 also allows you to use the priority as the method name.  For instance, in the above configuration example, you could call the `Logger::critical()` method
 
 ### Example
 

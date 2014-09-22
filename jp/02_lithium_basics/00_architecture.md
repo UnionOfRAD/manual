@@ -1,6 +1,6 @@
-# Lithium Structure
+# li3 Structure
 
-Before you get started with Lithium, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
+Before you get started with li3, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
 * config
 * controllers
@@ -19,8 +19,8 @@ Let's tackle each of these folders one-by-one, covering what each is used for, a
 The `config` folder contains three main pieces: bootstrap files, your connections information, and your routes definitions.
 
 
-### Bootstrapping Lithium
-The main bootstrap file in the config folder is `bootstrap.php`. This file is second file PHP will execute in any request cycle, and it loads up the Lithium framework along with any other extras that you define there. As such, it's a great place to place initial application configuration.
+### Bootstrapping li3
+The main bootstrap file in the config folder is `bootstrap.php`. This file is second file PHP will execute in any request cycle, and it loads up the li3 framework along with any other extras that you define there. As such, it's a great place to place initial application configuration.
 
 The best practice for bootstrapping parts of your application is by writing specific bootstrap files and placing them in `config/bootstrap/filename.php`. Once written, include the configuration into the main bootstrap file:
 
@@ -56,7 +56,7 @@ The particulars on the adapter will shape how the connection definition is put t
 
 ### Routes
 
-Routes definitions is how you inform the framework how URLs and bits of code match up. At the most basic level, it's how you tell Lithium which controller should respond to a request to a given URL.
+Routes definitions is how you inform the framework how URLs and bits of code match up. At the most basic level, it's how you tell li3 which controller should respond to a request to a given URL.
 
 For example, I could specify that any request  to `/login` is handled by `UsersController::login()` like this:
 
@@ -76,7 +76,7 @@ The extensions folder is meant to store extension classes that you've created fo
 
 ### Adapter
 
-A number of Lithium classes extend the `lithium\core\Adaptable` static class. This class allows you to take a number of different approaches and easily switch out implementations for an application task. Authentication, session handling, and caching are a few examples of Lithium functionality that have been made adaptable.
+A number of li3 classes extend the `lithium\core\Adaptable` static class. This class allows you to take a number of different approaches and easily switch out implementations for an application task. Authentication, session handling, and caching are a few examples of li3 functionality that have been made adaptable.
 
 Custom application adapters should be placed in this folder, organized by subfolder. For example, if I created a custom Auth adapter based on my LDAP setup, I'd create the implementation in `/extensions/adapter/auth/Ldap.php`.
 
@@ -100,11 +100,11 @@ Custom view helpers are common need. These classes should extend `lithium\templa
 
 ## Libraries
 
-The `libraries` folder is meant to house entire Lithium applications—or plugins—that your main application makes use of. 
+The `libraries` folder is meant to house entire li3 applications—or plugins—that your main application makes use of. 
 
 Any plugins you download from the [ Laboratory](http://lab.li3.me/), or pull down via the Library li3 command should end up here.
 
-Third-party, non-Lithium libraries should be placed here as well. If you're integrating with Facebook, or using part of the Zend Framework in your application, place those files here as well.
+Third-party, non-li3 libraries should be placed here as well. If you're integrating with Facebook, or using part of the Zend Framework in your application, place those files here as well.
 
 ## Models
 
@@ -112,7 +112,7 @@ Application models are stored here, in CamelCase naming format.
 
 ## Resources
 
-The resources folder is used by a Lithium application as a non-web viewable storage place for application data. By default globalization files (such as .po string files) and temporary application files are stored there.
+The resources folder is used by a li3 application as a non-web viewable storage place for application data. By default globalization files (such as .po string files) and temporary application files are stored there.
 
 As you build your application, the `resources` folder is a great place for other application data like custom cache files, SQLite databases, or a temporary spot for uploaded files.
 
@@ -120,7 +120,7 @@ The `resources` is a place where the web server has write access, so make sure t
 
 ## Tests
 
-The `tests` folder is where the unit testing framework files for your application reside. The testing setup for Lithium is covered elsewhere, but let's cover what ends up in each of the testing subfolders here.
+The `tests` folder is where the unit testing framework files for your application reside. The testing setup for li3 is covered elsewhere, but let's cover what ends up in each of the testing subfolders here.
 
 ### Cases
 
@@ -134,7 +134,7 @@ Unit tests in the `integration` folder test the interaction between two or more 
 
 Classes in `mocks` are used to facilitate certain unit tests. For example, if I'm testing a custom model I've created, I can create a new class in `mocks/data/MockSource.php` and use it in my model unit testing logic. 
 
-It is recommend that you use subfolder organization that mimics your application's and Lithium's namespacing and folder structure.
+It is recommend that you use subfolder organization that mimics your application's and li3's namespacing and folder structure.
 
 ## Views
 
@@ -160,6 +160,6 @@ One default example is the `pages` folder here that holds all the views for the 
 
 ## Webroot
 
-The `webroot` folder of your application is (ideally) the only place in your application that is web-visible. The `index.php` file takes care of bootstrapping Lithium, and the rest of the folders and files here are used for static content delivery. 
+The `webroot` folder of your application is (ideally) the only place in your application that is web-visible. The `index.php` file takes care of bootstrapping li3, and the rest of the folders and files here are used for static content delivery. 
 
 Things like JavaScript files, images, Flash objects, and movies should end up here for easy access for your web server to deliver to the client.

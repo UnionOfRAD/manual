@@ -1,14 +1,14 @@
-# Lithium & PHP 5.3
+# li3 & PHP 5.3
 
-Lithium is the first PHP framework to take advantage of the new features available in PHP 5.3. Besides the performance benefits, there are a number of new concepts in 5.3+ that allow for some elegant development techniques.
+li3 is the first PHP framework to take advantage of the new features available in PHP 5.3. Besides the performance benefits, there are a number of new concepts in 5.3+ that allow for some elegant development techniques.
 
-There are a number of new features in PHP 5.3 that Lithium is taking full advantage of. This guide aims to introduce each  of these features and show examples of their implementation inside of Lithium architecture.
+There are a number of new features in PHP 5.3 that li3 is taking full advantage of. This guide aims to introduce each  of these features and show examples of their implementation inside of li3 architecture.
 
 ## Namespaces
 
-[Namespaces](http://php.net/manual/en/language.namespaces.php) are used in Lithium to both isolate classnames and prevent name collisions, but they are also used for quick-and-easy class autoloading.
+[Namespaces](http://php.net/manual/en/language.namespaces.php) are used in li3 to both isolate classnames and prevent name collisions, but they are also used for quick-and-easy class autoloading.
 
-Here's an example of namespace usage in a Lithium controller:
+Here's an example of namespace usage in a li3 controller:
 
 ```php
 namespace app;
@@ -21,9 +21,9 @@ class PostsController extends \lithium\action\Controller {
 }
 ```
 
-Pretty straightforward. Using namespaces keeps your application's classes separate from the Lithium core and third-party plugins, allowing for commonly used class names (File, Folder, etc.) to be used in both places.
+Pretty straightforward. Using namespaces keeps your application's classes separate from the li3 core and third-party plugins, allowing for commonly used class names (File, Folder, etc.) to be used in both places.
 
-Lithium classes also follow the [PHP Standards Working Group namespace standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) in order allow for easy autoloading of class file, and cross-library interoperability. This keeps your class files clean from messy include statements.
+li3 classes also follow the [PHP Standards Working Group namespace standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) in order allow for easy autoloading of class file, and cross-library interoperability. This keeps your class files clean from messy include statements.
 
 ## Anonymous Functions, Lambdas & Closures
 
@@ -53,7 +53,7 @@ $result = array_filter(array(1, 2, 'bad apple'), function ($value) use ($data) {
 // $result --> array(1, 2)
 ```
 
-Closures are used in a number of places in Lithium. One places is to create data validation rules on the fly:
+Closures are used in a number of places in li3. One places is to create data validation rules on the fly:
 
 ```
 Validator::add('validRole', function($value, $format, $options) {
@@ -61,7 +61,7 @@ Validator::add('validRole', function($value, $format, $options) {
 });
 ```
 
-Closures are also used to create filters in Lithium: filters are a way to modify core functionality by inserting anonymous functions into an existing logic chain. More on that later.
+Closures are also used to create filters in li3: filters are a way to modify core functionality by inserting anonymous functions into an existing logic chain. More on that later.
 
 ## Late Static Binding
 
@@ -94,7 +94,7 @@ echo Developer::testStatic();  // "Developer"
 ?>
 ```
 
-Many classes (such as models) are statically accessed in Lithium. This allows for easy access, a stateless design, and better overall application design in general.
+Many classes (such as models) are statically accessed in li3. This allows for easy access, a stateless design, and better overall application design in general.
 
 ## Standard PHP Library (SPL)
 
@@ -104,7 +104,7 @@ PHP now comes with a standard library of objects that are meant to accomplish si
 
 There are a few OOP "magic" enhancements we're also taking advantage of. The first is a new magic function named __callStatic(). Much like __call(), it is executed when an inaccessible method has been requested on an object, except it works for static objects.
 
-The Lithium Validator class is a perfect example. If you recall, the Validator class statically provides data validation logic in your application. You can access this logic via rule(), or you can access the logic via the rule's name, which relies on __callStatic(). See these two equivalent examples:
+The li3 Validator class is a perfect example. If you recall, the Validator class statically provides data validation logic in your application. You can access this logic via rule(), or you can access the logic via the rule's name, which relies on __callStatic(). See these two equivalent examples:
 
 ```
 Validator::rule('email', $email);
@@ -124,11 +124,11 @@ $wakeUp = new WakeUpCall;
 $wakeUp('Good Morning!');
 ```
 
-A great __invoke() example in Lithium is how Controller has been architected. When a request is received, the Dispatcher passes it to a Controller object it has instantiated. The controller is then invoked and the proper action is called based on the routing information stored in the request object.
+A great __invoke() example in li3 is how Controller has been architected. When a request is received, the Dispatcher passes it to a Controller object it has instantiated. The controller is then invoked and the proper action is called based on the routing information stored in the request object.
 
 ## PHAR 
 
-Lithium also takes advantage of a new PHP feature that allows groups of files to be bundled together inside a single, includable archive. PHARs, or PHP archives allow developers to package libraries as a single file. 
+li3 also takes advantage of a new PHP feature that allows groups of files to be bundled together inside a single, includable archive. PHARs, or PHP archives allow developers to package libraries as a single file. 
 
 PHARs are more that just compressed PHP files: they're accessible through a stream wrapper allowing you to include files inside the archive:
 
@@ -138,13 +138,13 @@ include 'phar:///path/to/archive.phar/file.php';
 
 In fact, the phar:/// works very similar to the file:/// syntax you might already be used to. This allows you to use fopen() and opendir() on a phar much like you would on a conventional filesystem setup.
 
-Lithium plugins are packaged and distributed as phars. This makes downloading a plugin from the central repository faster and more efficient, while at the same allowing Lithium to access every part of the plugin in it's compact, distributable state.
+li3 plugins are packaged and distributed as phars. This makes downloading a plugin from the central repository faster and more efficient, while at the same allowing li3 to access every part of the plugin in it's compact, distributable state.
 
 For more information, run `li3 help Library` at the console.
 
 ## New Extensions: Intl, Fileinfo, Sqlite3, Mysqlnd
 
-There are a number of new extensions to PHP that are worth mentioning here as well. These new extensions can be used in Lithium applications, and are used by the core framework itself.
+There are a number of new extensions to PHP that are worth mentioning here as well. These new extensions can be used in li3 applications, and are used by the core framework itself.
 
 ### Intl
 
@@ -180,7 +180,7 @@ var_dump($result);
 
 ### Sqlite3
 
-SQLite is a self-contained, server-less, transactional database engine. You might already have experience with it if you've written desktop or mobile software. Since SQLite support ships with PHP 5.3, you can expect Lithium data source adapters for it as well.
+SQLite is a self-contained, server-less, transactional database engine. You might already have experience with it if you've written desktop or mobile software. Since SQLite support ships with PHP 5.3, you can expect li3 data source adapters for it as well.
 
 ### Mysqlnd
 

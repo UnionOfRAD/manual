@@ -1,8 +1,8 @@
-# Lithium on Apache
+# li3 on Apache
 
 ## Basic Setup
 
-In order to provide Lithium applications with clean URLs, Lithium ships with a set of `.htaccess` files for use with Apache, which will handle URL rewriting.
+In order to provide li3 applications with clean URLs, li3 ships with a set of `.htaccess` files for use with Apache, which will handle URL rewriting.
 
 By default, these files can be utilized by finding all references to `AllowOverride` in your `httpd.conf` configuration file and setting the values to `All`. On an OS X system, your setup may look something like this:
 
@@ -15,7 +15,7 @@ By default, these files can be utilized by finding all references to `AllowOverr
 </Directory>
 ```
 
-Once you've made sure `AllowOverride` has been set correctly, you can toss a copy of Lithium in your DocumentRoot. Using the past example, placing Lithium in `/Library/WebServer/Documents/lithium` would allow you to access your application at http://localhost/lithium.
+Once you've made sure `AllowOverride` has been set correctly, you can toss a copy of li3 in your DocumentRoot. Using the past example, placing li3 in `/Library/WebServer/Documents/lithium` would allow you to access your application at http://localhost/lithium.
 
 ## Production Setup
 

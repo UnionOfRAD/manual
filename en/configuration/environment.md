@@ -1,14 +1,14 @@
 # Environment Configuration
 
-Most applications use a set of different environments to validate new features and test the fixes for bugs before letting the end users see it. Lithium's `Environment` class offers a way to organize settings and make logic in your application conditional based on where the application thinks it resides.
+Most applications use a set of different environments to validate new features and test the fixes for bugs before letting the end users see it. li3's `Environment` class offers a way to organize settings and make logic in your application conditional based on where the application thinks it resides.
 
 Rather than wrapping conditionals around all of your database settings and API keys and endpoints, you can use the `Environment` class to direct the application automatically, based on context.
 
-Lithium offers a default set of environments (development, test, and production) as well as a starting point for determining which one the application resides in. This guide covers the process of showing Lithium how to detect and define your different environments and use them in configuration details.
+li3 offers a default set of environments (development, test, and production) as well as a starting point for determining which one the application resides in. This guide covers the process of showing li3 how to detect and define your different environments and use them in configuration details.
 
 ## Getting Started: Detection
 
-The first step in using different environmental settings is telling Lithium how to detect where it is operating from. There are a number of clues often used in determining the environment: IP address or ranges, hostname pattern matching, or possibly even looking at the filesystem or database.
+The first step in using different environmental settings is telling li3 how to detect where it is operating from. There are a number of clues often used in determining the environment: IP address or ranges, hostname pattern matching, or possibly even looking at the filesystem or database.
 
 Environment detection is determined by default as follows:
 

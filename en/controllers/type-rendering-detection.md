@@ -1,17 +1,17 @@
 # Type Rendering and Detection
 
-Although a typical request to a Lithium application receives an HTML response, the framework is built to be extremely flexible in handling and serving different types of content. This functionality is especially important in applications that have many different components or endpoints. If your app also feeds data to a Flash object (AMF/XML) and a mobile phone (XML/JSON), responding to requests in different ways with the same underlying logic can be a huge time saver.
+Although a typical request to a li3 application receives an HTML response, the framework is built to be extremely flexible in handling and serving different types of content. This functionality is especially important in applications that have many different components or endpoints. If your app also feeds data to a Flash object (AMF/XML) and a mobile phone (XML/JSON), responding to requests in different ways with the same underlying logic can be a huge time saver.
 
 The flow for handling a given type of a response works something like the following:
 
- 1. A request is sent to the application, containing some sort of indicator of the request type. Lithium's default routing allows for simple extension detection, for example.
- 2. As Lithium bootstraps, a media type and handler is registered with the `\net\http\Media` class.
+ 1. A request is sent to the application, containing some sort of indicator of the request type. li3's default routing allows for simple extension detection, for example.
+ 2. As li3 bootstraps, a media type and handler is registered with the `\net\http\Media` class.
  3. The application detects the request type and sets the response type.
  4. Once a controller is ready to render the data, the registered handler receives the data and renders the output.
 
 ## Detecting and Setting Types
 
-The easiest way to set a type is by declaring it as part of the route. One of Lithium's default routes already does this for you:
+The easiest way to set a type is by declaring it as part of the route. One of li3's default routes already does this for you:
 
 ```
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
@@ -71,7 +71,7 @@ Router::connect('/latest/feed', array(
 ));
 ```
 
-If you'd rather use other information to convey the request type to Lithium (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
+If you'd rather use other information to convey the request type to li3 (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
 
 Manual type rendering can also be done by handing the type's name to the render function:
 
@@ -95,7 +95,7 @@ To give you an idea of how this process is completed, let's register a new handl
 Media::type('bson', 'application/bson', array());
 ```
 
-This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), Lithium will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize Lithium's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
+This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), li3 will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize li3's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
 ```
 Media::type('bson', 'application/bson', array(

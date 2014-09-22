@@ -1,7 +1,7 @@
-# Lithium on Cherokee
+# li3 on Cherokee
 
 ## About Cherokee
-Cherokee is a web server build for speed and ease of configuration. It supports a variety of technologies, including PHP. If you're interested in using Lithium with Cherokee, this guide is meant to cover the installation and configuration process to get you up and running quickly.
+Cherokee is a web server build for speed and ease of configuration. It supports a variety of technologies, including PHP. If you're interested in using li3 with Cherokee, this guide is meant to cover the installation and configuration process to get you up and running quickly.
 
 ## Getting and running Cherokee
 
@@ -9,7 +9,7 @@ Cherokee is a web server build for speed and ease of configuration. It supports 
 
 ## Virtual Server Creation
 
-Refer to the Cherokee documentation on how to start an admin instance.  Access that instance (usually at http://localhost:9090/) and go to the 'Virtual Servers' section.  Click 'Wizards', 'Platform', 'Zend' and 'Run Wizard'.  Put the desired hostname (we'll use `lithium.local`) and set the path to `app/webroot` of your Lithium installation.
+Refer to the Cherokee documentation on how to start an admin instance.  Access that instance (usually at http://localhost:9090/) and go to the 'Virtual Servers' section.  Click 'Wizards', 'Platform', 'Zend' and 'Run Wizard'.  Put the desired hostname (we'll use `lithium.local`) and set the path to `app/webroot` of your li3 installation.
 
 ![Screenshot](http://grab.by/2yty)
 
@@ -17,7 +17,7 @@ Click 'Submit'.
 
 ## Virtual Server Configuration
 
-We'll need to reconfigure some of the settings that the Zend wizard uses to make things more Lithium-friendly. Open up your new virtual server and remove the 'index.html' default page.
+We'll need to reconfigure some of the settings that the Zend wizard uses to make things more li3-friendly. Open up your new virtual server and remove the 'index.html' default page.
 
 ![Screenshot](http://grab.by/2ytI)
 

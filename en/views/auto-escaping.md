@@ -1,6 +1,6 @@
 # Auto-escaping
 
-You might have noticed on other pages in the manual that Lithium uses the short tag syntax to output the contents of a view variable. This syntax is a bit misleading, as Lithium does not actually depend on or use short tags: this output behavior works a bit differently from how it seems.  The modified functionality is designed to save time and improve your application's security by escaping output.  Escaping output is a core strategy of defense in depth.
+You might have noticed on other pages in the manual that li3 uses the short tag syntax to output the contents of a view variable. This syntax is a bit misleading, as li3 does not actually depend on or use short tags: this output behavior works a bit differently from how it seems.  The modified functionality is designed to save time and improve your application's security by escaping output.  Escaping output is a core strategy of defense in depth.
 
 When the view layer is rendered, each template is processed by a tokenizer before it is compiled into its final form. During this step something like this with "short tags":
 

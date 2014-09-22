@@ -1,6 +1,6 @@
-# Lithium On Lighty
+# li3 On Lighty
 
-This quick guide is meant to help Lighty users get a development setup running in order to create Lithium apps served up by Lighttpd. Lighttpd is a web server designed and optimized for high-performance production environments. It has a small memory footprint, yet contains a rich feature set. If you're planning on using Lithium and Lighttpd together, this guide is for you.
+This quick guide is meant to help Lighty users get a development setup running in order to create li3 apps served up by Lighttpd. Lighttpd is a web server designed and optimized for high-performance production environments. It has a small memory footprint, yet contains a rich feature set. If you're planning on using li3 and Lighttpd together, this guide is for you.
 
 ## Running Lighty
 

@@ -1,6 +1,6 @@
-# Troubleshooting Lithium Installations
+# Troubleshooting li3 Installations
 
-This quick list is meant to cover common problems in installing Lithium.
+This quick list is meant to cover common problems in installing li3.
 
 ## Internal Server Error
 
@@ -22,7 +22,7 @@ Make sure to place the RewriteBase directive just after `RewriteEngine on`.
 
 ## Images/CSS Broken
 
-Usually this is a result of `.htaccess` files not being parsed. Make sure that the the directives that cover your Lithium installation include the following line:
+Usually this is a result of `.htaccess` files not being parsed. Make sure that the the directives that cover your li3 installation include the following line:
 
 ```
 	AllowOverride all

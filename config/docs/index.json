@@ -4,7 +4,7 @@
 	"en": {
 		"title": "The Definitive Guide",
 		"path": "/en",
-		"description": "This is your handbook to building Lithium applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
+		"description": "This is your handbook to building li3 applications. It takes you through getting started, and provides an overview of all aspects of application-building that are covered by the framework.",
 		"contents": {
 			"installation": {
 				"title": "Installation",
@@ -89,16 +89,16 @@
 			"advanced-tasks": {
 				"title": "Advanced Tasks",
 				"contents": {
-					"advanced-tasks/cloud.md": {"title": "Lithium in the Cloud"},
+					"advanced-tasks/cloud.md": {"title": "li3 in the Cloud"},
 					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
-					"advanced-tasks/architecture.md": {"title": "Lithium Object Architecture"}
+					"advanced-tasks/architecture.md": {"title": "li3 Object Architecture"}
 				}
 			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
 					"appendices/faqs.md": {"title": "FAQs"},
-					"appendices/using-in-other-applications.md": { "title": "Using Lithium in Other Applications" }
+					"appendices/using-in-other-applications.md": { "title": "Using li3 in Other Applications" }
 				}
 			}
 		}

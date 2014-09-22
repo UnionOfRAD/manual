@@ -1,12 +1,12 @@
-# Lithium's Unit Testing Framework
+# li3's Unit Testing Framework
 
-Applications with any amount of complexity or reuse necessitate test coverage. Lithium's unit testing framework is home grown, and is used for the framework's own testing. It's simple, lightweight, and ready for immediate use.
+Applications with any amount of complexity or reuse necessitate test coverage. li3's unit testing framework is home grown, and is used for the framework's own testing. It's simple, lightweight, and ready for immediate use.
 
 ## Getting Started
 
-Since the unit testing framework is built into Lithium, you might already have it up and running. Once you've downloaded and installed Lithium, point your web browser to `/test` under your application's base URL.
+Since the unit testing framework is built into li3, you might already have it up and running. Once you've downloaded and installed li3, point your web browser to `/test` under your application's base URL.
 
-The Lithium Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing Lithium's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
+The li3 Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing li3's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
 
 All of your application's unit tests will reside in `/app/tests/`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
 

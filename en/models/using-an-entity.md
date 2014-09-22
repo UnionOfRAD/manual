@@ -1,9 +1,9 @@
 # Using An Entity
 ##Entity Defined
-Lithium is as capable of working with document oriented data sources as it is with relational databases.  Additionally, Lithium works with other types of user-defined data sources.  Because of this, we use the term "Entity" to refer to what might be considered a document in one data source type or a record/row in another type.
+li3 is as capable of working with document oriented data sources as it is with relational databases.  Additionally, li3 works with other types of user-defined data sources.  Because of this, we use the term "Entity" to refer to what might be considered a document in one data source type or a record/row in another type.
 
 ## Setting Default Query Options
-Lithium allows you to get/set default options and conditions for queries that are executed for a model if no query-specific options are set using the `query()` method.  This is done by passing an associative array to the $options parameter.  If you do not set an `$options` parameter, the method will return the currently set query options in an array.
+li3 allows you to get/set default options and conditions for queries that are executed for a model if no query-specific options are set using the `query()` method.  This is done by passing an associative array to the $options parameter.  If you do not set an `$options` parameter, the method will return the currently set query options in an array.
 The settable elements are:
 
 * **conditions**: associative array of where conditions. Example: `'conditions' => array('status' => 'draft')`
@@ -45,7 +45,7 @@ $success = $post->save();
 This will create an update query against the object with an ID matching `$id`. Also note that only the `title` field will be updated.
 
 ## Basic Entity Retrieval ##
- Reading data from your database (or any data source available) is one of the most basic tasks that you will perform. To make common tasks easy, Lithium provides a central method for reading data. The main (static) method used to read data is called `find()` and takes at least one parameter.
+ Reading data from your database (or any data source available) is one of the most basic tasks that you will perform. To make common tasks easy, li3 provides a central method for reading data. The main (static) method used to read data is called `find()` and takes at least one parameter.
 
  The `find` method allows you to retrieve data from the connected data source. Within the method there are some built-in options that you can use in the `$type` parameter to specify which records you want. Custom values for this parameter can be created by using the $_finder property.
 
@@ -97,7 +97,7 @@ $posts = Posts::find('all', array(
 </div>
 
 ### Basic Finder Methods
-Lithium also provides some additional basic methods around the `find()` method which make your code less verbose and easier to read:
+li3 also provides some additional basic methods around the `find()` method which make your code less verbose and easier to read:
 
 ```
 // Read all posts
@@ -111,7 +111,7 @@ $posts = Posts::all(array('order' => array('created' => 'DESC')));
 ```
 
 ### Dynamic Finder Methods
-The basic finder methods are nice, but Lithium also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell Lithium to filter by a specific field name and value.
+The basic finder methods are nice, but li3 also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell li3 to filter by a specific field name and value.
 
 ```
 // Bare approach
@@ -122,7 +122,7 @@ $posts = Posts::find('all', array(
 $posts = Posts::findAllByUsername('michael');
 ```
 
-Lithium also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
+li3 also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
 
 ## Updating Entities
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
@@ -237,4 +237,4 @@ There is also an `$options` parameter that has the following settable elements.
 The `isField()` method checks to see if a particular field exists in a model's schema. This method can check a single field, or return the first field found in an array of multiple options.  The parameter is `$field`, a single field (string) or list of fields (array) to check the existence of.
 
 ## Resetting Model Instances
-Lithium provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.
+li3 provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.

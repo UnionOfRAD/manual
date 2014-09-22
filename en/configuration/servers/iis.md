@@ -1,4 +1,4 @@
-# Lithium on Internet Information Services (IIS)
+# li3 on Internet Information Services (IIS)
 
 ## About IIS
 
@@ -17,7 +17,7 @@ Once this is done you can now locate IIS within your Start menu or find it throu
 
 ## Preparations
 
-To make IIS work well with Lithium's pretty URL system, install the URL Rewrite extension located on the [http://www.iis.net/download/URLRewrite](iis.net website) and follow the proper installation instructions located there.
+To make IIS work well with li3's pretty URL system, install the URL Rewrite extension located on the [http://www.iis.net/download/URLRewrite](iis.net website) and follow the proper installation instructions located there.
 
 Next, follow the setup instructions for PHP on IIS - [http://php.iis.net/](http://php.iis.net/)
 
@@ -41,7 +41,7 @@ Setup a site by right clicking "Sites" and click "Add Web Site"
 5. Click "Import".
 6. On the right hand side, click "Apply".
 
-Your Lithium application should now be accessible via IIS.
+Your li3 application should now be accessible via IIS.
 
 ## Notes
 

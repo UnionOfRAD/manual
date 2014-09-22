@@ -1,6 +1,6 @@
 # Contributing
 
-This project is an ongoing work, and we need your help. Lithium users _new_ and _old_ are welcome and encouraged to join in the fun. If you've struggled with something, help us record and share the solution so others can find the way more easily. There are many ways you can help:
+This project is an ongoing work, and we need your help. li3 users _new_ and _old_ are welcome and encouraged to join in the fun. If you've struggled with something, help us record and share the solution so others can find the way more easily. There are many ways you can help:
 
  * Code examples to enrich current documentation
  * Do lists or tables to help explain concepts

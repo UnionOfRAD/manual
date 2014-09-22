@@ -1,8 +1,8 @@
-# Installing Lithium
+# Installing li3
 
 ## Getting the Code
 
-This easiest way to get a fresh copy of Lithium is by downloading an archive from our website. You can view and download versions here:
+This easiest way to get a fresh copy of li3 is by downloading an archive from our website. You can view and download versions here:
 
 	http://dev.li3.me/lithium/versions
 
@@ -37,13 +37,13 @@ You'll be asked a password during this operation. Make sure to supply the same o
 
 ## Advanced Setup
 
-If you've got a system that's hosting many Lithium apps, sometimes it's beneficial to point a number of applications at the same set of core Lithium libraries. In this case, you'd want to place Lithium somewhere outside of your web server's document root.
+If you've got a system that's hosting many li3 apps, sometimes it's beneficial to point a number of applications at the same set of core li3 libraries. In this case, you'd want to place li3 somewhere outside of your web server's document root.
 
-For example, let's say we've got lithium installed in `/usr/local/lib/lithium/` and some Lithium applications at `/home/apps/first-app/` and `/home/apps/second-app`.
+For example, let's say we've got lithium installed in `/usr/local/lib/lithium/` and some li3 applications at `/home/apps/first-app/` and `/home/apps/second-app`.
 
-The two applications mentioned aren't complete copies of the Lithium codebase: they're just copies of the `app` folder (e.g. there should be a `/home/apps/first-app/config` folder).
+The two applications mentioned aren't complete copies of the li3 codebase: they're just copies of the `app` folder (e.g. there should be a `/home/apps/first-app/config` folder).
 
-First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the Lithium libraries are. Adjust both application's `/config/bootstrap.php` file like so:
+First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the li3 libraries are. Adjust both application's `/config/bootstrap.php` file like so:
 
 ```
 define('LITHIUM_LIBRARY_PATH', '/usr/local/lib/lithium/libraries');
@@ -62,7 +62,7 @@ While you're making PHP configuration changes, you might also consider having PH
 	display_errors   =  true
 ```
 
-Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned Lithium into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
+Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 
 At this point, you should be presented with the Li3 default home page. You're up and running!
 
@@ -70,7 +70,7 @@ At this point, you should be presented with the Li3 default home page. You're up
 
 Lastly, you'll want to set up the li3 command so it's easy to use as you move around your filesystem. The li3 command assists in tasks like code generation, documentation, and testing.
 
-To do so, add the Lithium's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
+To do so, add the li3's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
 
 	PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 

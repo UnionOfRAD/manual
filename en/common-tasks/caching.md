@@ -1,9 +1,9 @@
 # Caching
 
-The `Cache` static class provides a consistent interface to configure and utilize the different cache adapters included with Lithium, as well as your own adapters.
+The `Cache` static class provides a consistent interface to configure and utilize the different cache adapters included with li3, as well as your own adapters.
 
 ## Included Adapters
-Lithium ships with several adapters for caching.  The adapters can be found in `lithium/storage/cache/adapter`.
+li3 ships with several adapters for caching.  The adapters can be found in `lithium/storage/cache/adapter`.
 
 * `Apc`: Alternative PHP Cache
 * `File`: A minimal file-based cache (file)
@@ -27,7 +27,7 @@ require __DIR__ . '/bootstrap/cache.php';
 
 > NOTE:
 
-> By default, caching is enabled in Lithium
+> By default, caching is enabled in li3
 
 ## Setting Configuration Options
 

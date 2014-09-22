@@ -1,6 +1,6 @@
 # Connections
 
-Connection configuration is the first place you need to start when working with models. Lithium supports a number of different relational and non-relational databases, and each is defined through the connection configuration.
+Connection configuration is the first place you need to start when working with models. li3 supports a number of different relational and non-relational databases, and each is defined through the connection configuration.
 
 Connections are configured in the core bootstrap file `app/config/bootstrap/connections.php`. The `Connections::add()` method is used in this file to make different connections available to your models. 
 

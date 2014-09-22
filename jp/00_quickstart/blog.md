@@ -1,12 +1,12 @@
 # The Quintessential Blog Tutorial
 
-Thanks for trying out Lithium! This guide is meant for PHP users who are looking to get a good idea of what Lithium can do, and what developing an application using the framework is like. Diving into the code and creating a simple example application is a great way to test the waters and get a good feel for rapid application development, Lithium style.
+Thanks for trying out li3! This guide is meant for PHP users who are looking to get a good idea of what li3 can do, and what developing an application using the framework is like. Diving into the code and creating a simple example application is a great way to test the waters and get a good feel for rapid application development, li3 style.
 
 ## Setting Up the Lab
 
-First on the checklist is getting a fresh copy of Lithium. If you've not done this already, check out our [Getting Started](http://dev.li3.me/lithium/wiki/guides/installation) guide. Make sure to follow each of the steps in the guide carefully.
+First on the checklist is getting a fresh copy of li3. If you've not done this already, check out our [Getting Started](http://dev.li3.me/lithium/wiki/guides/installation) guide. Make sure to follow each of the steps in the guide carefully.
 
-Once you've got Lithium up and running, we'll need to get some sort of persistent storage layer in place. Traditionally this would be done using some sort of SQL database like MySQL. For this example however, we're going to use something a little different: MongoDB. Using a different setup will show you how flexible the framework is in using different engines.
+Once you've got li3 up and running, we'll need to get some sort of persistent storage layer in place. Traditionally this would be done using some sort of SQL database like MySQL. For this example however, we're going to use something a little different: MongoDB. Using a different setup will show you how flexible the framework is in using different engines.
 
 MongoDB is a hybrid solution, made from the good parts of both key/value data stores and traditional RDBMS systems. Setup is fast and easy.
 
@@ -32,7 +32,7 @@ ini_set("display_errors", 1);
 
 ## Connection Setup
 
-Now that we have a database up and running, let's inform Lithium about the new setup. Do this by creating a new connection, in `/app/config/connections.php`.
+Now that we have a database up and running, let's inform li3 about the new setup. Do this by creating a new connection, in `/app/config/connections.php`.
 
 Remove any connections that exist in the file, then add a new connection for our MongoDB setup:
 
@@ -41,13 +41,13 @@ Remove any connections that exist in the file, then add a new connection for our
 Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'host' => 'localhost'));
 ```
 	
-The first parameter just names the connection something that can be read by people. Naming the connection `'default'` means that our Lithium models will use this connection unless otherwise specified.
+The first parameter just names the connection something that can be read by people. Naming the connection `'default'` means that our li3 models will use this connection unless otherwise specified.
 
-The last parameter is used for connection configuration.  First specify the`'type'` as either the name of a class (as in the above example) or the namespace containing the `'adapter'`. In this case, we tell Lithium we want to use a MongoDB database called `'blog'`.
+The last parameter is used for connection configuration.  First specify the`'type'` as either the name of a class (as in the above example) or the namespace containing the `'adapter'`. In this case, we tell li3 we want to use a MongoDB database called `'blog'`.
 
 ## MVC Starts with M
 
-Let's create your first Lithium model. This model will handle domain logic for blog posts. Let's create a new file at `/app/models/Post.php`. Because we're relying on convention to do the heavy (and monotonous) lifting, the model file itself is short and simple.
+Let's create your first li3 model. This model will handle domain logic for blog posts. Let's create a new file at `/app/models/Post.php`. Because we're relying on convention to do the heavy (and monotonous) lifting, the model file itself is short and simple.
 
 ```php
 namespace app\models;
@@ -55,7 +55,7 @@ namespace app\models;
 class Post extends \lithium\data\Model {}
 ```
 	
-There's a lot going on (for free!) in the background here. First, Lithium knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Post`, it'll use a MongoDB collection called 'posts'.
+There's a lot going on (for free!) in the background here. First, li3 knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Post`, it'll use a MongoDB collection called 'posts'.
 
 Wait, what? What about the schema setup? Actually MongoDB doesn't require you set it up first - it just waits until you want to insert or query a collection, and handles the request appropriately.
 
@@ -84,7 +84,7 @@ class PostsController extends \lithium\action\Controller {
 }
 ```
 
-Lithium actions send data to the view by returning an associative array that determines the respective view's variables. In the example above, our view will have access to the string `'bar'` in `$foo` and `'Posts'` in `$title` ($title will be used to set the page's title tag). This setup is also handy for fans of the [`compact()` function](http://php.net/compact). If I have a series of variables I'd like to pass along, it's as easy as:
+li3 actions send data to the view by returning an associative array that determines the respective view's variables. In the example above, our view will have access to the string `'bar'` in `$foo` and `'Posts'` in `$title` ($title will be used to set the page's title tag). This setup is also handy for fans of the [`compact()` function](http://php.net/compact). If I have a series of variables I'd like to pass along, it's as easy as:
 
 ```php
 return compact('lions', 'tigers', 'bears');
@@ -97,10 +97,10 @@ Let's see what that looks like in a view.
 Start by creating a new file at `/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
 ```
-Lithium is less dense than <?=$foo;?>ium.
+li3 is less dense than <?=$foo;?>ium.
 ```
 
-What you're seeing here in this view is the default and preferred way to output data to an HTML page. Using the `<?= ?>` syntax automatically escapes output and keeps you safe from the legions of attacks based from unescaped output. If you really need it, there's always `<?php echo ?>`. The view code you're seeing doesn't end up as short tags when it gets to PHP's parser: Lithium's view transparently rewrites these tags to automatically escape your view output &mdash; so don't worry about your PHP installation or short tag handling.
+What you're seeing here in this view is the default and preferred way to output data to an HTML page. Using the `<?= ?>` syntax automatically escapes output and keeps you safe from the legions of attacks based from unescaped output. If you really need it, there's always `<?php echo ?>`. The view code you're seeing doesn't end up as short tags when it gets to PHP's parser: li3's view transparently rewrites these tags to automatically escape your view output &mdash; so don't worry about your PHP installation or short tag handling.
 
 You can now view your Posts index page by viewing `/posts/` in your browser.
 
@@ -124,7 +124,7 @@ Next, create a new file at `/app/views/posts/add.html.php`:
 ```
 This view code sets up a simple HTML form, using a view layer assistance class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
-One note: because the call to `$this->form->create()` doesn't include any parameter, Lithium assumes you mean the `add()` method of the current controller. In this case, it's pointed to `/posts/add`, just as we need.
+One note: because the call to `$this->form->create()` doesn't include any parameter, li3 assumes you mean the `add()` method of the current controller. In this case, it's pointed to `/posts/add`, just as we need.
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
@@ -175,7 +175,7 @@ public function index() {
 }
 ```
 	
-The object returned from `Post:all()` - which is equivalent to `Post::find('all')` - is a Lithium `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not quite a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
+The object returned from `Post:all()` - which is equivalent to `Post::find('all')` - is a li3 `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not quite a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
 
 If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object. 
 
@@ -212,6 +212,6 @@ As you can see, `Post` model objects expose their data through properties. Once 
 
 ## Post Mortem
 
-There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what Lithium can (and will be able to) do, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
+There you have it: a fully functioning MVC system that performs writes and reads to a database. We hope this guide is illustrative enough to show you what li3 can (and will be able to) do, and we hope it gives you enough of a start to allow you to start creating simple apps for yourself.
 
 More fresh code is on the way, so stay tuned as more features come online.

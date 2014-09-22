@@ -1,12 +1,12 @@
 # Model-View-Controller
 
-Understanding the Model View Controller (or MVC) approach to building web applications is fundamental to programming with Lithium. At a basic level, MVC programming allows the programmer to separate the way information is presented from how it is gathered and processed. Maintaining this separation makes adding new features simpler and more intuitive. It also makes fixing bugs and creating entirely new ways to view your application much easier.
+Understanding the Model View Controller (or MVC) approach to building web applications is fundamental to programming with li3. At a basic level, MVC programming allows the programmer to separate the way information is presented from how it is gathered and processed. Maintaining this separation makes adding new features simpler and more intuitive. It also makes fixing bugs and creating entirely new ways to view your application much easier.
 
-While not a comprehensive guide on MVC, this section aims to introduce you to the concept as well as impart a few best practices from the Lithium perspective.
+While not a comprehensive guide on MVC, this section aims to introduce you to the concept as well as impart a few best practices from the li3 perspective.
 
 ## Models
 
-The primary goal of a model is to manage domain knowledge for a particular object. Model classes in Lithium are typically named after the object they manage. The model is in charge of CRUD operations for the object, data validation, as well as commonly used data manipulation operations upon that object's data.
+The primary goal of a model is to manage domain knowledge for a particular object. Model classes in li3 are typically named after the object they manage. The model is in charge of CRUD operations for the object, data validation, as well as commonly used data manipulation operations upon that object's data.
 
 Most applications contain a model that manages the user domain. Features of this Users model might include:
 
@@ -19,7 +19,7 @@ Most applications contain a model that manages the user domain. Features of this
 
 Views present model data and the interface for your application. They contain some logic, but it's usually pretty light things like conditionally showing information, reusable bits of presentational code, or looping through objects in order to present them.
 
-While most views in Lithium contain HTML, MVC programming allows you to switch between presentational technologies easily. A well-built MVC application should be able to show and switch between HTML, PDF, SVG or JSON with minimal effort.
+While most views in li3 contain HTML, MVC programming allows you to switch between presentational technologies easily. A well-built MVC application should be able to show and switch between HTML, PDF, SVG or JSON with minimal effort.
 
 ## Controllers
 

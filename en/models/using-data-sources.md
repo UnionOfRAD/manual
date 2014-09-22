@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Before we dive into the next section about models, it's important to understand how a model manipulates it's underlying data. In Lithium, this is done through a collection of classes called data sources.
+Before we dive into the next section about models, it's important to understand how a model manipulates it's underlying data. In li3, this is done through a collection of classes called data sources.
 
 While models expose a common API for your application to manipulate data, the purpose of a data source is to manage the direct connection details for a specific data storage medium. Apart from providing a common way to read and write, models use data sources to connect to, disconnect from, and describe their underlying services.
 
 ## Core Data Sources
 
-Lithium provides a number of data sources your models can utilize. The list is growing, but currently includes:
+li3 provides a number of data sources your models can utilize. The list is growing, but currently includes:
 
  * MySQL
  * SQLite3

@@ -2,11 +2,11 @@
 
 In an MVC application, the controller's job is to handle user input, and handle that request with a specified action. Though the controller action is where action logic is determined, models are often the real workhorses in the request cycle. Keep in mind as you read this guide to keep your controller action trim, with most of the actual functionality spread across models and other classes.
 
-This guide is meant to introduce you to Lithium controllers: their features, behaviors, and the best practices revolving around their usage.
+This guide is meant to introduce you to li3 controllers: their features, behaviors, and the best practices revolving around their usage.
 
 ## Controller Actions
 
-Lithium controllers reside inside the `/app/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
+li3 controllers reside inside the `/app/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
 
 For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
 
@@ -21,9 +21,9 @@ class UsersController extends \lithium\action\Controller {
 }
 ```
 
-Each _public_ function in a controller is considered by the Lithium core to be a routable action. In fact, Lithium's default routing rules make these actions accessible via a browser immediately (in this case /users/index). 
+Each _public_ function in a controller is considered by the li3 core to be a routable action. In fact, li3's default routing rules make these actions accessible via a browser immediately (in this case /users/index). 
 
-The `index()` action is a special action: if no action name is specified in the URL, Lithium will try to pull up the index action instead. For example, a visitor accessing http://example.com/users/ on your application will see the results of the `index()` action. All other controller actions (unless routed otherwise) are at least accessed by the default route.
+The `index()` action is a special action: if no action name is specified in the URL, li3 will try to pull up the index action instead. For example, a visitor accessing http://example.com/users/ on your application will see the results of the `index()` action. All other controller actions (unless routed otherwise) are at least accessed by the default route.
 
 For example, we can create a new controller action that would be accessible at `/users/view/`:
 
@@ -107,11 +107,11 @@ The URL specified can be relative to the application or point to an outside reso
 
 ### Exceptions and Error Handling
 
-Error handling in Lithium is done using the core ErrorHandler class. `ErrorHandler` allows PHP errors and exceptions to be handled in a uniform way. Using `ErrorHandler`s configuration makes it possible to have broad but tightly controlled error handling across your application.
+Error handling in li3 is done using the core ErrorHandler class. `ErrorHandler` allows PHP errors and exceptions to be handled in a uniform way. Using `ErrorHandler`s configuration makes it possible to have broad but tightly controlled error handling across your application.
 
 `ErrorHandler` configuration is done by creating a new error-specific bootstrap file that contains your `ErrorHandler` configuration and initialization. To illustrate how this is done, let's consider an imaginary (but common) scenario. Rather than tossing up error messages and stack traces to your users, it's better to create some sort of way to handle exceptions and render user-friendly error pages.
 
-Let's start by creating a way to handle page not found-like errors. If a request can't be routed properly, the Lithium dispatcher will throw an exception to let you know that a controller or view can't be found. Though the example here will be specific to this case, it should provide a mental framework that will allow you to understand how to catch errors and exceptions, and handle them accordingly.
+Let's start by creating a way to handle page not found-like errors. If a request can't be routed properly, the li3 dispatcher will throw an exception to let you know that a controller or view can't be found. Though the example here will be specific to this case, it should provide a mental framework that will allow you to understand how to catch errors and exceptions, and handle them accordingly.
 
 Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
 
@@ -161,18 +161,18 @@ If you've got more than one type of exception you want to handle, just add more 
 
 ### Render Types and Detection
 
-Although a typical request to a Lithium application receives an HTML response, the framework is built to be extremely flexible in handling and serving different types of content. This functionality is especially important in applications that have many different components or endpoints. If your app also feeds data to a Flash object (AMF/XML) and a mobile phone (XML/JSON), responding to requests in different ways with the same underlying logic can be a huge time saver.
+Although a typical request to a li3 application receives an HTML response, the framework is built to be extremely flexible in handling and serving different types of content. This functionality is especially important in applications that have many different components or endpoints. If your app also feeds data to a Flash object (AMF/XML) and a mobile phone (XML/JSON), responding to requests in different ways with the same underlying logic can be a huge time saver.
 
 The flow for handling a given type of a response works something like the following:
 
- 1. A request is sent to the application, containing some sort of indicator of the request type. Lithium's default routing allows for simple extension detection, for example. 
- 2. As Lithium bootstraps, a media type and handler is registered with the `\net\http\Media` class.
+ 1. A request is sent to the application, containing some sort of indicator of the request type. li3's default routing allows for simple extension detection, for example. 
+ 2. As li3 bootstraps, a media type and handler is registered with the `\net\http\Media` class.
  3. The application detects the request type and sets the response type.
  4. Once a controller is ready to render the data, the registered handler receives the data and renders the output.
 
 #### Detecting and Setting Types
 
-The easiest way to set a type is by declaring it as part of the route. One of Lithium's default routes already does this for you:
+The easiest way to set a type is by declaring it as part of the route. One of li3's default routes already does this for you:
 
 ```
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
@@ -194,7 +194,7 @@ Router::connect('/latest/feed', array(
 ));
 ```
 
-If you'd rather use other information to convey the request type to Lithium (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
+If you'd rather use other information to convey the request type to li3 (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
 
 Manual type rendering can also be done by handing the type's name to the render function:
 
@@ -218,7 +218,7 @@ To give you an idea of how this process is completed, let's register a new handl
 Media::type('bson', 'application/bson', array());
 ```
 
-This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), Lithium will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize Lithium's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
+This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), li3 will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize li3's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
 ```
 Media::type('bson', 'application/bson', array(
@@ -234,7 +234,7 @@ For more ideas on configuring media types, see the documentation for `Media::typ
 
 ## Using Models and Core Libraries
 
-While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside Lithium controllers is simple. Let's start with a bare controller as an example:
+While an entire guide is devoted to covering model usage, it's important to see how they're used inside the controller layer. Using models inside li3 controllers is simple. Let's start with a bare controller as an example:
 
 ```php
 namespace app\controllers;
@@ -288,7 +288,7 @@ class ClientsController extends \lithium\action\Controller {
 }
 ```
 
-Using Lithium's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
+Using li3's core libraries inside the controller layer is similar, although instantiating a class is sometimes necessary. Consider the following example that uses the `Service` class:
 
 ```php
 namespace app\controllers;
@@ -371,15 +371,15 @@ public function index() {
 
 ## Filtering Controller Logic
 
-Filtering controller logic can be a bit tricky to the new Lithium user, due to the flexible and elegant way the dispatch cycle executes.
+Filtering controller logic can be a bit tricky to the new li3 user, due to the flexible and elegant way the dispatch cycle executes.
 
-When a request is sent to a Lithium application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked.
+When a request is sent to a li3 application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked.
 
 This last invokation step is performed inside of the dispatcher's `_callable()` method. Because of this, filters that wish to inject logic before or after controller actions is often done against `_callable()`. Doing so allows you access to parameters that are normally available to the controller, as well as the right controller instance, allowing you to call its methods.
 
  _Note:_ You might have seen some filters run against the dispatcher's `run()` method instead. In many cases, this should work just fine. The difference in using `_callable()` is that with the latter, you'll end up with access to the active controller instance itself, along with its parameters.
 
-The `g11n` filters that come with Lithium form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
+The `g11n` filters that come with li3 form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
 
 ```php
 use lithium\action\Dispatcher;
@@ -398,7 +398,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 
 Here you can see that you've got access to the request parameters and the controller instance itself in the first two lines of the `applyfilter()` call. In this case, the g11n framework is inspecting the request and setting locale settings accordingly, but when creating your own filter, you'd have access to the same data.
 
-An important case to consider that's also covered in the g11n filters is remembering to also filter Lithium's other dispatcher: the console action dispatcher. In other words, if you truly want to effect every action in an application, you might consider also filtering the `lithium\console\Dispatcher` as well as the `lithium\action\Dispatcher`.
+An important case to consider that's also covered in the g11n filters is remembering to also filter li3's other dispatcher: the console action dispatcher. In other words, if you truly want to effect every action in an application, you might consider also filtering the `lithium\console\Dispatcher` as well as the `lithium\action\Dispatcher`.
 
 In this case, you'll want to use the special use/as syntax:
 

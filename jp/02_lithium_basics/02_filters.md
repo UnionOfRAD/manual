@@ -1,6 +1,6 @@
-# The Lithium Filters Guide
+# The li3 Filters Guide
 
-This guide is meant as an introductory course in creating filters in Lithium applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
+This guide is meant as an introductory course in creating filters in li3 applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
 
 What would you need a filter for? Here are some quick examples:
 
@@ -11,11 +11,11 @@ What would you need a filter for? Here are some quick examples:
 * Logging various events in your application
 * Creating a read-through cache filter that encapsulates the process of checking whether a result has been cached, serving a cached result, and writing results to a cache backend
 
-By the end of this guide, you should feel comfortable in your understanding of the theory and best practices behind filters, as well as identifying filterable logic in Lithium and creating your own filterable methods.
+By the end of this guide, you should feel comfortable in your understanding of the theory and best practices behind filters, as well as identifying filterable logic in li3 and creating your own filterable methods.
 
 ## Aspect-Oriented Programming
 
-Lithium's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems. 
+li3's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems. 
 
 There are a few examples of aspects that you're probably already familiar with. Logging and authentication are two great ones. Both are used in many different parts of an application, and maintaining something so widespread can get tricky unless you're organized. Not only that, those bits of logic aren't really part of the code that makes up your business logic. In other words, they're separate _concerns_.
 
@@ -31,7 +31,7 @@ The following sections will illustrate a few examples that should help you under
 
 Since it's likely to be more common, let's tackle applying filters first. The location of the filter application might depend some on what it is you're filtering, but bootstrap files are often a good choice.
 
-Let's imagine for a moment that we're aiming to add a filter to a Lithium application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
+Let's imagine for a moment that we're aiming to add a filter to a li3 application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
 
 ```php
 use lithium\action\Dispatcher;
@@ -102,7 +102,7 @@ While this particular setup relies on a few simple Auth configuration steps, hop
 
 One more example is common enough to cover: logging. When building a large application, it's handy to log SQL queries made against your data store. It helps in debugging and performance optimization. Let's cover building a quick filter around your data connection logic in order to log SQL statements to a file.
 
-The approach here requires a bit of understanding how Lithium's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
+The approach here requires a bit of understanding how li3's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
 ```
 Connections::add('default', array(
@@ -140,9 +140,9 @@ Connections::get('default')->applyFilter('_execute', function($self, $params, $c
 
 ## Creating Filter-able Logic
 
-If you're planning on creating and distributing your own code (hopefully via the [Lithium Laboratory](http://lab.li3.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful Lithium filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
+If you're planning on creating and distributing your own code (hopefully via the [li3 Laboratory](http://lab.li3.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful li3 filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
 
-Let's imagine for a bit that you're creating a social media integration extension for Lithium. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
+Let's imagine for a bit that you're creating a social media integration extension for li3. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
 
 For example, let's add a filter to the method that posts content to Twitter. It's conceivable that developers might want to filter that logic to shorten URLs using different services, or automatically include hashtags at the end of the tweet.
 
@@ -162,7 +162,7 @@ class Twitter {
 }
 ```
 
-Here we've got a basic method implementation. Of note is the `$options` parameter: the Lithium API is a big fan of keeping parameter counts small using options arrays. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
+Here we've got a basic method implementation. Of note is the `$options` parameter: the li3 API is a big fan of keeping parameter counts small using options arrays. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
 
 Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `$this->_filter()`, and returning the result of that call. Here's what it looks like:
 

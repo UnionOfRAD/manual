@@ -1,5 +1,5 @@
 # Static Content
-There may be cases where your application has static content that needs to be served. Lithium provides out-of-the-box functionality to do this via the Pages controller.  Static content displayed using the pages controller should be stored in the `views/pages` folder of the application.
+There may be cases where your application has static content that needs to be served. li3 provides out-of-the-box functionality to do this via the Pages controller.  Static content displayed using the pages controller should be stored in the `views/pages` folder of the application.
 
 The application's default routing will automatically render static pages with no additional configuration necessary.  The default (`/`) route will render the `home` template.
 

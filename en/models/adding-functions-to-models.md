@@ -1,4 +1,4 @@
-# Adding Functionality to Lithium Models
+# Adding Functionality to li3 Models
 
 This section outlines a few of the ways you can extend model functionality as you build your application. As you think about different pieces of functionality to add, please keep in mind that there are two main ways to add functionality to your models:
 
@@ -34,7 +34,7 @@ if (!in_array('admin', Users::roles())) {
 
 ## Adding Model "Finder" Methods
 
-Lithium models ship with a number of default "finder" methods:
+li3 models ship with a number of default "finder" methods:
 
 ```php
 $users      = Users::find('all');
@@ -64,7 +64,7 @@ $recentComments = Comments::find('recent');
 $recentComments = Comments::recent();
 ```
 
-At a basic level, this is done by utilizing the `finder()` method of the model. You call `finder()` and supply the name of the finder, along with a definition so Lithium knows how to form the query. The definition in this simple case looks just like the query array we supplied to `find()` earlier:
+At a basic level, this is done by utilizing the `finder()` method of the model. You call `finder()` and supply the name of the finder, along with a definition so li3 knows how to form the query. The definition in this simple case looks just like the query array we supplied to `find()` earlier:
 
 ```php
 Comments::finder('recent', array(
@@ -76,7 +76,7 @@ Comments::finder('recent', array(
 ));
 ```
 
-Some finder implementations might require a little processing in addition to a default set of conditions—somewhat like the . In that case, you can define a finder using a closure that will be called as part of Lithium's find chaining. In this use case, you supply the name of the finder along with a closure that looks much like a filter definition:
+Some finder implementations might require a little processing in addition to a default set of conditions—somewhat like the . In that case, you can define a finder using a closure that will be called as part of li3's find chaining. In this use case, you supply the name of the finder along with a closure that looks much like a filter definition:
 
 ```php
 Comments::finder('recentCategories', function($self, $params, $chain){

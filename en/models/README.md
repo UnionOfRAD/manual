@@ -1,10 +1,10 @@
 # Models Overview
-Lithium provides you with methods that your model can use when it inherits from `lithium\data\Model`. Some of these are static, some are not. As a rule of thumb, all static methods work with a collection of objects on the database, while non-static methods are tied to one single document/record. Consider the following example:
+li3 provides you with methods that your model can use when it inherits from `lithium\data\Model`. Some of these are static, some are not. As a rule of thumb, all static methods work with a collection of objects on the database, while non-static methods are tied to one single document/record. Consider the following example:
 
 ```
 $post = Posts::first(array('conditions' => array('author' => 'foobar')));
 
-$post->title = "Hello Lithium!";
+$post->title = "Hello li3!";
 $post->save();
 ```
 

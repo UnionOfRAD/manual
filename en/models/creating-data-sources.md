@@ -2,13 +2,13 @@
 
 ## Introduction
 
-If you're reading this guide, chances are you've looked around for a data source in the Lithium community but haven't yet found it. Whether it's LDAP or the Flickr API you want to connect to, you're in luck. This guide will walk you through the thinking and the process necessary to create your own data source. First, we'll discuss some of the overall architectural knowledge needed, then we'll dive into the details with a real example.
+If you're reading this guide, chances are you've looked around for a data source in the li3 community but haven't yet found it. Whether it's LDAP or the Flickr API you want to connect to, you're in luck. This guide will walk you through the thinking and the process necessary to create your own data source. First, we'll discuss some of the overall architectural knowledge needed, then we'll dive into the details with a real example.
 
 ## Metadata Methods
 
 When creating a data source, it's important to realize the role of a data source. Data sources provide a layer that assists models, but focuses on the details surrounding connecting to, authenticating, and facilitating generic reads and writes to a certain data store. When creating a data source, work on the generic tasks needed to get the work done rather than the domain-specific work models will perform later on.
 
-As such, it's important for Lithium's models to understand the structure of the underlying data. A well-written data source should provide that information in a format models understand.
+As such, it's important for li3's models to understand the structure of the underlying data. A well-written data source should provide that information in a format models understand.
 
 There are two main metadata methods your data source will want to implement &mdash; `sources()` and `describe()`:
 
@@ -46,7 +46,7 @@ Focus on understanding the meaning behind these methods for now—we'll be imple
 
 Once models understand the basic shape for your data, the next step is facilitating communication between the data source and its associated models.
 
-In Lithium, models ask the data source questions through [`Query` objects](http://li3.me/docs/lithium/data/model/Query), and the data source (typically) answers with one or more `Entity` objects, which are either a `Record` or a `Document`. For example, when a model is to find data, it packages up a `Query` object that contains structured data about what sort of information the model is asking for, in what order it expects it returned in, paging information, etc.
+In li3, models ask the data source questions through [`Query` objects](http://li3.me/docs/lithium/data/model/Query), and the data source (typically) answers with one or more `Entity` objects, which are either a `Record` or a `Document`. For example, when a model is to find data, it packages up a `Query` object that contains structured data about what sort of information the model is asking for, in what order it expects it returned in, paging information, etc.
 
 It passes this `Query` to the data source, which connects and authenticates to the data store. It inspects the query to see what the model needs, interacts with the underlying data store, and wraps the response data in some sort of `Entity`. If the response requires more than one `Entity`, it's usually wrapped up in a `Collection` like a `RecordSet` or `DocumentSet`.
 
@@ -186,11 +186,11 @@ Next, we're asking the `Query` object to export the parameters that we care abou
 
 After that, we'll check to make sure the resource we're attempting to read from is one we know about in our map, and bail out if not. In this case, our `Issues` model is bound to the `'issues'` resource, which happens automatically by naming convention. We then craft the URL to the GitHub API using the conditions from the `Query`.
 
-At this point, you've got a model that now returns array data that matches the JSON data returned from the GitHub API, but let's take this a bit further. We'll want to take advantage of Lithium's data objects: in this case, the `DocumentSet` and `Document` objects. Doing so allows your application or plugin to present an API that's consistent with Lithium's data APIs, and can be handled uniformly in controllers and templates.
+At this point, you've got a model that now returns array data that matches the JSON data returned from the GitHub API, but let's take this a bit further. We'll want to take advantage of li3's data objects: in this case, the `DocumentSet` and `Document` objects. Doing so allows your application or plugin to present an API that's consistent with li3's data APIs, and can be handled uniformly in controllers and templates.
 
 We'll format the data for use in the model using two important data source methods: `item()` and `cast()`. The `item()` method is used to create data objects, and `cast()` is used by the data source to walk recursively through data structures and format them as you specify.
 
-Both methods use Lithium's dependency injection mechanism to know what classes to use. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, Lithium uses class properties to manage class dependencies. If you look at the `$_classes` property of a Lithium object, you'll see the types and fully namespaced class paths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
+Both methods use li3's dependency injection mechanism to know what classes to use. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, li3 uses class properties to manage class dependencies. If you look at the `$_classes` property of a li3 object, you'll see the types and fully namespaced class paths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
 
 ```
 protected $_classes = array(
@@ -327,7 +327,7 @@ Finally, for implementing updates, we can follow essentially the same template w
 
 ## Handling Errors
 
-So far, there are two exceptional conditions which we've encountered in our data source. The first is that this data source does not support delete operations. Accordingly, we should override the `delete()` method, so that it raises an exception if called. Lithium's `data` package provides a generic `QueryException` for failed query operations. We can use it to prevent delete operations from proceeding, and notify other developers that these API calls aren't permitted.
+So far, there are two exceptional conditions which we've encountered in our data source. The first is that this data source does not support delete operations. Accordingly, we should override the `delete()` method, so that it raises an exception if called. li3's `data` package provides a generic `QueryException` for failed query operations. We can use it to prevent delete operations from proceeding, and notify other developers that these API calls aren't permitted.
 
 First, import `QueryException` at the top of the data source class:
 

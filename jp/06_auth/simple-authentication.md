@@ -1,6 +1,6 @@
-# Simple Authentication in Lithium
+# Simple Authentication in li3
 
-If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. Lithium's Auth setup is simple and allows you to quickly create a framework for managing and protecting those features.
+If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. li3's Auth setup is simple and allows you to quickly create a framework for managing and protecting those features.
 
 ## Data Setup
 
@@ -62,9 +62,9 @@ User::applyFilter('save', function($self, $params, $chain){
 
 ## Bootstrapping Auth
 
-Once the data end of things is in place, Lithium needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file.
+Once the data end of things is in place, li3 needs to know you intend to use Auth, and with which settings. As with most things, this is done in a specific bootstrap file.
 
-First, point Lithium's main bootstrap file to our Auth bootstrap file. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
+First, point li3's main bootstrap file to our Auth bootstrap file. Start by editing `app/config/bootstrap.php` to include (or uncomment) a line requiring the auth bootstrap file:
 
 ```
 
@@ -91,7 +91,7 @@ Auth::config(array(
 ));
 ```
 
-The Session setup is pretty straightforward, and the Auth configuration tells Lithium which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
+The Session setup is pretty straightforward, and the Auth configuration tells li3 which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
 
 Note that the configuration information is housed in an array keyed 'customer'. Auth supports many different simultaneous configurations. Here we're only creating one, but you could add more here as needed.
 

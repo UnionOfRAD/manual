@@ -20,4 +20,4 @@ The URL specified can be relative to the application or point to an outside reso
 
 ## Other Types of Flow Control
 
-Lithium provides other options for request flow control, such as [exception and error handling](exceptions-errors.md) and [type rendering & detection](type-rendering-detection.md), both of which are explained in more detail in their respective manual pages.
+li3 provides other options for request flow control, such as [exception and error handling](exceptions-errors.md) and [type rendering & detection](type-rendering-detection.md), both of which are explained in more detail in their respective manual pages.

@@ -35,11 +35,11 @@ Once this has been done in the controller, you can access the data like so:
 
 ```<p>Spit out data like this: <?=$foo ?></p>```
 
-Lithium templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
+li3 templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
 
 ## Auto-Escaping
 
-You might have noticed that the above example uses the short tag syntax to output the contents of a view variable. This syntax is a bit misleading, as Lithium does not depend on or use short tags: this output behavior works a bit differently from how it seems.
+You might have noticed that the above example uses the short tag syntax to output the contents of a view variable. This syntax is a bit misleading, as li3 does not depend on or use short tags: this output behavior works a bit differently from how it seems.
 
 When the view layer is rendered, each template is processed by a tokenizer before it is compiled into its final form. During this step something like this:
 
@@ -73,7 +73,7 @@ This is an important consideration when accessing properties and methods from th
 
 ## Layouts & Elements
 
-Because different components of the view layer are often reused, Lithium includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views. Unless otherwise configured, elements are defined in `app/views/elements`.
+Because different components of the view layer are often reused, li3 includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views. Unless otherwise configured, elements are defined in `app/views/elements`.
 
 `$this->_render()` is used within the views to include elements. Any variables passed from the controller to the parent view are also available in the element.  The third argument of `$this->_render()` can be used to pass additional variables.
 
@@ -89,7 +89,7 @@ echo $this->_render('element', 'nav', array(
 ));
 ```
 
-Layouts contain the header and footer of a rendered view, and are defined in `app/views/layouts`. Unless otherwise directed, Lithium will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`.
+Layouts contain the header and footer of a rendered view, and are defined in `app/views/layouts`. Unless otherwise directed, li3 will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`.
 
 ```php
 namespace app\controllers;
@@ -122,7 +122,7 @@ Layouts should call `<?=$this->content(); ?>` to render the content of the inner
 
 In the view rendering context, you'll have a number of different tools at your disposal. Besides PHP itself, the view layer features a number of handlers you can use to print out information in templates.
 
-If you're in the view layer, `$this` refers to the current `Renderer` adapter. Renderers are used to process different types of templates. The default renderer that ships with Lithium is the `File` renderer, which handles plain PHP files (you can also write your own renderers if you wish to use a custom templating engine). When a renderer is initialized it sets up a number of handlers to help you output content in your views. Lithium's default view renderer features these handlers:
+If you're in the view layer, `$this` refers to the current `Renderer` adapter. Renderers are used to process different types of templates. The default renderer that ships with li3 is the `File` renderer, which handles plain PHP files (you can also write your own renderers if you wish to use a custom templating engine). When a renderer is initialized it sets up a number of handlers to help you output content in your views. li3's default view renderer features these handlers:
 
  * `$this->url()`: Used for reverse routing lookups in views. For example: 
 
