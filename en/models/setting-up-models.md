@@ -19,18 +19,17 @@ li3 provides you with a general-purpose class that all your models should extend
 Let's say you want to store and manage blog posts in your database. According to li3 conventions, you create a new file called `Posts.php` in `app/models`. The basic structure looks like this:
 
 ```
-
 namespace app\models;
-class Posts extends \lithium\data\Model {
-}
 
+class Posts extends \lithium\data\Model {}
 ```
 
-> **Command Line Shortcut**
-
->li3 also allows model creation via the console:  You can enter `li3 model create Posts` into the command line (assuming you have configured the command line for use) and the code above will automatically be created in a file called `\app\models\Posts.php`
+<div class="note note-hint">
+	li3 also allows model creation via the console:  You can enter <code>li3 model create Posts</code> into the command line (assuming you have configured the command line for use) and the code above will automatically be created in a file called <code>\app\models\Posts.php</code>.
+</div>
 
 ## Setting Model Options
+
 The `meta()` method is used to set common options.  It allows the user to specify non-default settings for connecting to a data source (table).  If you do not set any parameters, the method will return the currently set model options stored in the `$_meta` property in an array. Options are:
 
 * **name**: Name of the model, defaults to the class name.
@@ -41,23 +40,24 @@ The `meta()` method is used to set common options.  It allows the user to specif
 
 You do not have to configure all elements.  The default values will be used for any element that you do not specify.  One way to set options is to call the meta method that will override and/or merge with the default settings.
 
-> **Shortcut**
-
->You can optionally just set the protected `$_meta` property directly in the definition of your model's class.
-
-**SHORTCUT EXAMPLE**:
-```php
+<div class="note note-hint">
+	You can optionally just set the protected <code>$_meta</code> property directly in the definition of your model's class.
+<pre><code class="php">
 namespace app\models;
+
 class Posts extends \lithium\data\Model {
+
 	protected $_meta = array(
 		'connection' => 'legacy',
 		'source' => 'tblPost',
 		'key' => 'post_id'
 	);
 }
-```
+</code></pre>
+</div>
 
 ## Model Data Validation
+
 An important part of describing the business logic of a model class is defining the validation rules. In li3 models, rules are defined through the `$validates` class property, and are used by the `validates()` method before saving to verify the correctness of the data being sent to the backend data source.
 
 Note that these are application-level validation rules, and do not interact with any rules or constraints defined in your data source. If such constraints fail,  an exception will be thrown by the database layer. The `validates()` method only checks against the rules defined in application code.  This method uses the `Validator` class to perform [data validation](validation.md). An array representation of the entity object to be tested is passed to the `check()` method, along with the model's validation rules. Any rules defined in the `Validator` class can be used to validate fields.
@@ -76,6 +76,6 @@ $post = Posts::create($data);
 $success = $post->validates();
 ```
 
-> **Tip**
-
-> See the section on [validation](validation.md) in this user manual for more information about adding custom rules, or override built-in rules.
+<div class="note note-hint">
+	 See the section on <a href="validation.md">validation</a> in this user manual for more information about adding custom rules, or override built-in rules.
+</div>

@@ -93,7 +93,7 @@ Comments::finder('recentCategories', function($self, $params, $chain){
 	
 	// Do a bit of reformatting
 	$results = array();
-	foreach($chain->next($self, $params, $chain) as $entity) {
+	foreach ($chain->next($self, $params, $chain) as $entity) {
 		$results[] = $entity->categoryName;
 	}
 	
@@ -127,7 +127,8 @@ class Users extends \lithium\data\Model {
 	
 	public function fullName($entity, $suffix = false) {
 		$name = $entity->firstName . ' ' . $entity->middleInitial . '. ' . $entity->lastName;
-		if($suffix) {
+		
+		if ($suffix) {
 			$name .= ' ' . $entity->suffix;
 		}
 		return $name;

@@ -29,7 +29,6 @@ The second part of a connection is an array of configuration options specific to
 A quick look at the examples in the default `connections.php` file illustrate the possibilities:
 
 ```
-
 Connections::add('default', array(
 	'type' => 'MongoDb',
 	'host' => 'localhost',
@@ -52,7 +51,6 @@ Connections::add('default', array(
 	'database' => 'my_app',
 	'encoding' => 'UTF-8'
 ));
-
 ```
 
 ## Configuring Models
@@ -60,13 +58,12 @@ Connections::add('default', array(
 As mentioned, models will look for the "default" connection first. If you've got more than one connection you're using, or wish a model to use an alternate, specify the connection name in the model's `$_meta` property:
 
 ```
-
 class Users extends \lithium\data\Model {
+
 	protected $_meta = array(
 		'connection' => 'myotherconnection'
 	);
 }
-
 ```
 
 ## Connections and Environments

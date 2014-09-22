@@ -21,7 +21,7 @@ $first = $posts->first();
 $last  = $posts->last();
 
 // Iterate over all posts and print out the title
-foreach($posts as $post) {
+foreach ($posts as $post) {
 	echo $post->title;
 }
 
@@ -35,13 +35,14 @@ Although extending models is beyond the scope of this page, here's another examp
 // In app/models/People.php
 namespace app\models;
 class People extends \lithium\data\Model {
+	
 	public function fullName($entity) {
 		return $entity->firstname." ".$entity->lastname;
 	}
 }
 
 // In app/views/people/index.html.php
-foreach($people as $person) {
+foreach ($people as $person) {
 	echo $person->fullName();
 }
 ```

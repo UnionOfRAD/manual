@@ -1,8 +1,10 @@
 # Using An Entity
-##Entity Defined
+
+## Entity Defined
 li3 is as capable of working with document oriented data sources as it is with relational databases.  Additionally, li3 works with other types of user-defined data sources.  Because of this, we use the term "Entity" to refer to what might be considered a document in one data source type or a record/row in another type.
 
 ## Setting Default Query Options
+
 li3 allows you to get/set default options and conditions for queries that are executed for a model if no query-specific options are set using the `query()` method.  This is done by passing an associative array to the $options parameter.  If you do not set an `$options` parameter, the method will return the currently set query options in an array.
 The settable elements are:
 
@@ -18,7 +20,8 @@ The settable elements are:
 	property directly in the definition of your model's class.
 </div>
 
-## Creating Entities ##
+## Creating Entities
+
 The `create()` method instantiates a new record or document object, initialized with any data passed in.
 
 **Example:**
@@ -64,7 +67,7 @@ The second parameter allows you to specify options for the query.  The options a
 * **limit**: Number of records to return  Example:  `'limit' => 10`
 * **page**: For pagination of data (limit * offset)
 
-**EXAMPLES:**
+**Examples**
 
 ```
 // Read all posts
@@ -111,6 +114,7 @@ $posts = Posts::all(array('order' => array('created' => 'DESC')));
 ```
 
 ### Dynamic Finder Methods
+
 The basic finder methods are nice, but li3 also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell li3 to filter by a specific field name and value.
 
 ```
