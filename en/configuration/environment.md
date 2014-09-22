@@ -21,20 +21,21 @@ To customize this behavior, use the `Environment::is()` method inside a bootstra
 ```
 Environment::is(function($request){
   $host = $request->env('HTTP_HOST');
+  
   if ($host == 'myapp.local' || $host == 'localhost') {
     return 'development';
   }
-  if (preg_match('/^qe/', $host)) {
-    return 'qe';
+  if (preg_match('/^qa/', $host)) {
+    return 'qa';
   }
-  if(preg_match('/beta/', $host)) {
+  if (preg_match('/beta/', $host)) {
     return 'staging';
   }
   return 'production';
 });
 ```
 
-This code defines four custom environments: _development_ if the hostname matches a predetermined set of hostnames, _qe_ if the hostname begins with "qe" (qe1.example.com, qe2.example.com), and _staging_ if the hostname contains "beta" (beta.example.com, www.example-beta.com).
+This code defines four custom environments: _development_ if the hostname matches a predetermined set of hostnames, _qa_ if the hostname begins with "qa" (qa1.example.com, qa2.example.com), and _staging_ if the hostname contains "beta" (beta.example.com, www.example-beta.com).
 
 If none of those conditions are met, the default is production.
 
@@ -42,10 +43,10 @@ If none of those conditions are met, the default is production.
 
 Once detection is configured, you're able to set environment-specific variables inside of your bootstrap files.
 
-```
+```php
 Environment::set('development', array('service_endpoint', 'dev.service.example.com'));
 Environment::set('staging'    , array('service_endpoint', 'beta.service.example.com'));
-Environment::set('qe'         , array('service_endpoint', 'qe1.service.example.com'));
+Environment::set('qa'         , array('service_endpoint', 'qa1.service.example.com'));
 Environment::set('production' , array('service_endpoint', 'www.service.example.com'));
 
 // If run on my local system:
@@ -58,7 +59,7 @@ Subclasses of the core `Adaptable` class (`Logger`, `Connections`, `Cache`, `Ses
 
 The most common example is configuring different database connections based on environment. Here's a quick example:
 
-```
+```php
 Connections::add('default', array(
     'production' => array(
         'type'     => 'database',
@@ -81,7 +82,7 @@ Connections::add('default', array(
 
 While is is handy for using the same types of technologies in each environment, this mechanism allows you to switch between engines as well. For example, using different kinds of Cache engines in each environment:
 
-```
+```php
 Cache::config(array(
     'userData' => array(
         'development' => array('adapter' => 'File'),
