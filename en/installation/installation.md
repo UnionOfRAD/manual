@@ -2,9 +2,9 @@
 
 ## Getting the Code
 
-This easiest way to get a fresh copy of li3 is by downloading an archive from our website. You can view and download versions here:
+This easiest way to get a fresh copy of li3 is by downloading an archive from GitHub. You can view and download versions here:
 
-	http://dev.li3.me/lithium/versions
+	https://github.com/UnionOfRAD/lithium/releases
 	
 Under the hood, li3 is actually separated in two different repositories. One is called `framework` and the other one `lithium`. The `framework` repository holds everything you need to 
 instantly bootstrap your application, while the `lithium` repository holds the li3 core. This way you can reuse the li3 core for other projects or just include some libraries if you 
