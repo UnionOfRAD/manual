@@ -12,8 +12,11 @@ If you'd like to help, simply [fork the project on GitHub](https://github.com/Un
 
 ## Markup
 
-We're using GitHub markdown to render the final documents. You add
-notes using the following markup:
+We're using GitHub markdown to render the final documents. 
+
+### Notes
+
+You add notes using the following markup:
 
 ```html
 <div class="note note-info">
@@ -22,4 +25,13 @@ notes using the following markup:
 ```
 
 There are 3 classes of notes _caution_ (class is `note-caution`), _informational_ (`note-info`) 
-and _hints/tips_ (`note-hint`).
+and _hints/tips_ (`note-hint`). Any code inside the divs will need to be marked up manually using
+`<code></code>` tags.
+
+### Code
+
+Use tabs to indent the code inside fenced code blocks. This allows us to adjust the spacing when rendering and highlighting the code.
+
+Language hints may be used for snippets - where its hard to detect the language automatically.
+
+
