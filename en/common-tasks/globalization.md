@@ -22,8 +22,8 @@ Here, you can decide which locale is your default effective locale, and also whi
 
 ```
 Environment::set('development', array(
-    'locale' => 'en', // the default effective locale
-    'locales' => array('en' => 'English') // locales available for your application
+	'locale' => 'en', // the default effective locale
+	'locales' => array('en' => 'English') // locales available for your application
 ));
 ```
 
@@ -44,7 +44,7 @@ In order to keep the process as transparent as possible, we recommend inspecting
 
 The detection of the effective locale works differently for controller action and console application requests.
 
-For controller action requests, the `Locale` class parses the locales contained within the ```Accept-Language``` header (which is sent by the user agent on behalf of the user). For console requests, the preferred locale is retrieved by looking at certain environment settings.
+For controller action requests, the `Locale` class parses the locales contained within the `Accept-Language` header (which is sent by the user agent on behalf of the user). For console requests, the preferred locale is retrieved by looking at certain environment settings.
 
 While determining the effective locale in an semi-automatic way works well for console requests, it is a less successful approach with controller action requests. As such, we recommend using pieces of the request URL to set the effective locale. The side benefit is that the locale is also in plain view to the user, making the decision completely transparent. We'll cover more on localized routing in a bit, but for now, understand that URL-based g11n is going to be your best bet as far as user experience goes.
 
@@ -52,7 +52,7 @@ While determining the effective locale in an semi-automatic way works well for c
 
 One of the last things that `g11n.php` does in the bootstrap process is apply a filters to both the console command and controller action dispatchers. Here is the perfect place to decide how we set and switch between locales based on the information we have from the request and user agent.
 
-```
+```php
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	if (!$params['request']->locale()) {
 		$params['request']->locale(Locale::preferred($params['request']));
