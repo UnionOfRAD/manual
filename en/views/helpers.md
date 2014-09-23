@@ -8,7 +8,7 @@ Helper usage in li3 is simple because helpers are lazy-loaded by the renderer. T
 
 ```
 <p>
-	Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
+Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
 </p>
 ```
 
