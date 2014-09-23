@@ -8,9 +8,7 @@ namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
 
-	public function index() {
-
-	}
+	public function index() {}
 }
 ```
 
@@ -25,12 +23,8 @@ namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
 
-	public function index() {
+	public function index() {}
 
-	}
-
-	public function view() {
-
-	}
+	public function view() {}
 }
 ```

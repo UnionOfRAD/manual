@@ -10,7 +10,7 @@ When the view layer is rendered, each template is processed by a tokenizer befor
 
 Is translated into something like this, which is properly escaped:
 
-```
+```php
 <?php echo $h($variable); ?>
 ```
 
@@ -18,13 +18,12 @@ The `$h()` function is there to escape HTML output. This mechanism provides an e
 
 We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (XSS) and related attack techniques.
 
->#####Note:#####
+<div class="note note-info">
+One exception to this rule is when a line of template code references the `$this` object. In those cases, output is written directly to the template, rather than being filtered through `$h()`. This is so that content from helpers is not double-escaped. As such, the following two statements are equivalent:
+</div>
 
->One exception to this rule is when a line of template code references the `$this` object. In those cases, output is written directly to the template, rather than being filtered through `$h()`. This is so that content from helpers is not double-escaped. As such, the following two statements are equivalent:
-
-```
+```php
 <?=$this->form->create(); ?>
-
 <?php echo $this->form->create(); ?>
 ```
 

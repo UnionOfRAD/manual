@@ -33,7 +33,9 @@ return compact('foo');
 
 Once this has been done in the controller, you can access the data like so:
 
-```<p>Spit out data like this: <?=$foo ?></p>```
+```
+<p>Spit out data like this: <?=$foo ?></p>
+```
 
 li3 templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
 
@@ -126,90 +128,91 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
 
  * `$this->url()`: Used for reverse routing lookups in views. For example: 
 
- ```
-   $this->url(array('Posts::view', 'id' => 13));
-   // Returns the URL for the matching route, e.g. '/posts/view/13'
- ```
+```
+$this->url(array('Posts::view', 'id' => 13));
+// Returns the URL for the matching route, e.g. '/posts/view/13'
+```
 
  The `url()` output handler is a friendly wrapper for [`Router::match()`](http://li3.me/docs/lithium/net/http/Router::match), and automatically passes some contextual parameters behind-the-scenes.
 
  * `$this->path()`: This handler generates asset paths to physical files. This is especially helpful for applications that will live at different parts of the domain during its lifecycle.
 
- ```
-   $this->path('videos/funny_cats.flv');
+```
+$this->path('videos/funny_cats.flv');
 
-   // If we're running at http://example.com/lithium/, this will return:
-   // /lithium/videos/funny_cats.flv
+// If we're running at http://example.com/lithium/, this will return:
+// /lithium/videos/funny_cats.flv
 
-   // If we're running at http://example.com/, this will return:
-   // /videos/funny_cats.flv
- Like `url()`, this handler is a wrapper for another class method, [`Media::asset()`](http://li3.me/docs/lithium/net/http/Media::asset). Therefore, options that this method accepts can be passed to `path()` as well. For example, if you want to verify that the asset exists before returning the path, you can do the following:
- ```
+// If we're running at http://example.com/, this will return:
+// /videos/funny_cats.flv
+```
 
- ```
-  // Returns the path if the file exists, otherwise false.
-  $path = $this->path('files/download_835.pdf', array('check' => true));
- ```
+Like `url()`, this handler is a wrapper for another class method, [`Media::asset()`](http://li3.me/docs/lithium/net/http/Media::asset). Therefore, options that this method accepts can be passed to `path()` as well. For example, if you want to verify that the asset exists before returning the path, you can do the following:
 
- You can also add a timestamp to the end of the URL, which is useful for working with browser caches:
+```
+// Returns the path if the file exists, otherwise false.
+$path = $this->path('files/download_835.pdf', array('check' => true));
+```
 
- ```
-  // Returns i.e. '<app path>/css/application.css?1290108597'
-  $style = $this->path('css/application.css', array('timestamp' => true));
- ```
+You can also add a timestamp to the end of the URL, which is useful for working with browser caches:
 
- See the `$options` parameter of `Media::asset()` for more information.
+```
+// Returns i.e. '<app path>/css/application.css?1290108597'
+$style = $this->path('css/application.css', array('timestamp' => true));
+```
+
+See the `$options` parameter of `Media::asset()` for more information.
 
  * `$this->content()`: Prints out the content of the template to be rendered. This is really a requirement for most layouts. 
 
  * `$this->title()`: Prints out the title of the current template. If an argument is supplied, it sets the title for the current template.
 
- ```
-   // In your view:
-   <?php $this->title('Home'); ?>
+```
+// In your view:
+<?php $this->title('Home'); ?>
 
-   // In your layout:
-   <title>My Awesome Application: <?= $this->title(); ?></title>
- ```
+// In your layout:
+<title>My Awesome Application: <?= $this->title(); ?></title>
+```
 
  * `$this->scripts()`: Prints out the scripts specified for the current template. Usually, this is used by the [`script()` method of the `Html` helper](http://li3.me/docs/lithium/template/helper/Html::script) when the `'inline'` option is set to `false`. However, you can append tags manually as well:
 
- ```
-   // In your view:
-   <?php 
-    $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>'); 
-    $this->scripts('<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>');
-   ?>
+```
+// In your view:
+<?php 
+$this->scripts('<script src="https://example.org/js/jquery.min.js"></script>'); 
+$this->scripts('<script src="https://example.org/js/jquery-ui.min.js"></script>');
+?>
 
-   // In your layout:
-   <head>
-     <?=$this->scripts(); ?>
-   </head>
- ```
+// In your layout:
+<head>
+ <?=$this->scripts(); ?>
+</head>
+```
 
  In particular, this is useful when page-specific scripts are created inline in the page, and you'd like to place them in the `<head />` along with your other scripts:
 
- ```
-  <?php ob_start(); ?>
-  <script type="text/javascript">
-  	$(document).ready(function() {
-  		// Do work here...
-  	});
-  </script>
-  <?php $this->scripts(ob_get_clean()); ?>
- ```
+```
+<?php ob_start(); ?>
+<script type="text/javascript">
+$(document).ready(function() {
+	// Do work here...
+});
+</script>
+<?php $this->scripts(ob_get_clean()); ?>
+```
 
  * `$this->styles()`: Much the same as `scripts()` above, the `styles()` handler acts as a repository for any page-specific style sheets to be included in the layout. While primarily used by the [`style()` method of the `Html` helper](http://li3.me/docs/lithium/template/helper/Html::style) (again, see the `'inline'` option), it may be used manually as well:
 
- ```
-    // In your view:
-    <?php
-     $this->styles('<link rel="stylesheet" type="text/css" href="/reset.css" />');
-     $this->styles('<link rel="stylesheet" type="text/css" href="/users.css" />');
-    ?>
+```
+// In your view:
+<?php
+ $this->styles('<link rel="stylesheet" type="text/css" href="/reset.css" />');
+ $this->styles('<link rel="stylesheet" type="text/css" href="/users.css" />');
+?>
 
-    // In your layout:
-    <head>
-      <?= $this->styles(); ?>
-    </head>
-  ```
+// In your layout:
+<head>
+  <?= $this->styles(); ?>
+</head>
+```

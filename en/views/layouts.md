@@ -1,4 +1,5 @@
 # Layouts
+
 A layout is the basic skeleton of an HTML page.  Within a layout file, you might typically have a header, footer, and any other HTML code that should appear on every page that uses the layout.
 
 For layouts, all files should be located in the application's `views/layouts`  directory.  When naming an HTML layout file, the naming convention is `{layout_name}.html.php`.

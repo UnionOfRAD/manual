@@ -2,7 +2,7 @@
 
 Since different components of the view layer are often reused, li3 includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views.  You can also think of an element like a widget or other portion of the displayed content that would be reused across multiple pages.
 
-###Examples of Elements###
+### Examples of Elements
 - Site Navigation
 - List of Recent Posts
 - Upcoming Events
@@ -38,9 +38,10 @@ if (!isset($object) || !$object) {
 			<?php endforeach; ?>
 		</ul>
 	</aside>
-</div>```
+</div>
+```
 
-###Displaying an Element###
+### Displaying an Element
 Displaying an element is accomplished via the `View::render()` method.  In the following example, the default layout for li3 uses the navigation element, with the element being displayed by using the following code:
 
 ```

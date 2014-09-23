@@ -17,13 +17,16 @@ The easiest way to set a type is by declaring it as part of the route. One of li
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
 ```
 
-> NOTE:
+<div class="note note-info">
+	<p>
+	 You will need to uncomment the appropriate default route in the application folder's <code>/config/routes.php</code> file in order to use the features described below.  There are preformatted routes for both document type data sources and relational database sources available in the <code>routes.php</code> file.
+	</p>
+	<p>
+	In effect, this forces a request to <code>/controller/action/7345.json</code> to be rendered by the JSON media handler currently registered. You can use this pattern to expand your routes to apply type-matching to a wider array of requests:
+	</p>
+</div>
 
-> You will need to uncomment the appropriate default route in the application folder's `/config/routes.php` file in order to use the features described below.  There are preformatted routes for both document type data sources and relational database sources available in the `routes.php` file.
-
-In effect, this forces a request to `/controller/action/7345.json` to be rendered by the JSON media handler currently registered. You can use this pattern to expand your routes to apply type-matching to a wider array of requests:
-
-```
+```php
 // http://example.com/controller/action.xml
 Router::connect('/{:controller}/{:action}.{:type}');
 ```
@@ -31,7 +34,7 @@ Router::connect('/{:controller}/{:action}.{:type}');
 ### Example
 Let's assume that you are using a MySQL database as a datasource and you are retrieving data from the `blog_posts` table.  First, we need to enable the routes in the `routes.php` file as shown below:
 
-```
+```php
 /**
  * ### Database object routes
  *
@@ -51,7 +54,7 @@ Next, let's assume that there is already a view created to display the blog post
 
 In our controller, we can use the automatically generated `view()` method, provided you used the CLI to create the controller, which will get the id of the post from the URL.  If you didn't use the CLI to create the controller, then your view method should look something like this:
 
-```
+```php
 public function view() {
     $purchaseorder = PoHeader::find($this->request->id);
    	return compact('purchaseorder');
@@ -64,7 +67,7 @@ With these pieces in place, pointing the browser to `blogposts/view/1` will retr
 
 You can also statically define the type for a route by adding the 'type' key to the route definition:
 
-```
+```php
 Router::connect('/latest/feed', array(
 	'Posts::index',
 	'type' => 'xml'
@@ -75,7 +78,7 @@ If you'd rather use other information to convey the request type to li3 (headers
 
 Manual type rendering can also be done by handing the type's name to the render function:
 
-```
+```php
 $this->render(array('csv' => Post::find('all')));
 ```
 
@@ -85,19 +88,19 @@ As mentioned earlier, type handlers are registered by the `\net\http\Media` clas
 
 Register your type by passing the relevant information to `Media::type()` inside the bootstrap. Here's what the general pattern looks like:
 
-```
+```php
 Media::type('typeName', 'contentType', array($options));
 ```
 
 To give you an idea of how this process is completed, let's register a new handler for the BSON data type. If you're curious, BSON is a binary, serialized form of JSON used by MongoDB. Start by declaring a new media type in `/config/boostrap/media.php` and uncommenting the `media.php` line in your main bootstrap file:
 
-```
+```php
 Media::type('bson', 'application/bson', array());
 ```
 
 This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), li3 will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize li3's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
-```
+```php
 Media::type('bson', 'application/bson', array(
 	'layout' => false,
 	'encode' => 'bson_encode',

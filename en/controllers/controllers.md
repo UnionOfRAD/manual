@@ -15,9 +15,7 @@ namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
 
-	public function index() {
-
-	}
+	public function index() {}
 }
 ```
 
@@ -32,13 +30,9 @@ namespace app\controllers;
 
 class UsersController extends \lithium\action\Controller {
 
-	public function index() {
+	public function index() {}
 
-	}
-
-	public function view() {
-
-	}
+	public function view() {}
 }
 ```
 
@@ -241,9 +235,7 @@ namespace app\controllers;
 
 class ClientsController extends \lithium\action\Controller {
 
-	public function index() {
-		
-	}
+	public function index() {}
 }
 ```
 
@@ -256,9 +248,7 @@ use app\models\Client;
 
 class ClientsController extends \lithium\action\Controller {
 
-	public function index() {
-
-	}
+	public function index() {}
 }
 ```
 
