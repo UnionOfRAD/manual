@@ -160,10 +160,10 @@ $success = Posts::remove();
 Posts::remove(array('title' => ''));
 ```
 
-> **WARNING!**
-
-> Using the `remove()` method with no `$conditions` parameter specified will delete all entities in your data source.
-
+<div class="note note-caution">
+	Using the <code>remove()</code> method with no <code>$conditions</code> 
+	parameter specified will delete all entities in your data source.
+</div>
 
 To delete the data associated with the a specified entity, use the `delete()` method.
 
