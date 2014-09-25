@@ -34,6 +34,7 @@ Although extending models is beyond the scope of this page, here's another examp
 ```
 // In app/models/People.php
 namespace app\models;
+
 class People extends \lithium\data\Model {
 	
 	public function fullName($entity) {
