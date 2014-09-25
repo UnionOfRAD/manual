@@ -12,7 +12,7 @@ In production, it is recommended that you set `Allow Override` to `None` and ins
 
 In the `Rewrite` section, set `Enable Rewrite` to `Yes` and paste the following into the `Rewrite Rules` section:
 
-```
+```apache
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !favicon.ico$
@@ -25,8 +25,8 @@ Note: the `?url=$1` appended to the rewritten url in the `.htaccess` and Apache 
 
 In order to determine the correct base url path for the app and for assets like scripts, css, and images, li3 first looks to the `$_SERVER['PHP_SELF']` server/environment variable.  The lsapi used by Litespeed to interact with PHP seems to set `$_SERVER['PHP_SELF']` to the `REQUEST_URI` rather than the actual PHP file that is handling the request.  This causes li3 to set the base path incorrectly.  To work around the issue, add the following to the top of your app's `config/bootstrap.php` file:
 
-```
-/** fix rewrite issue with Litespeed **/
+```php
+/* fix rewrite issue with Litespeed **/
 $_SERVER['PHP_SELF'] = str_replace('\\', '/', str_replace(
 	$_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']
 ));

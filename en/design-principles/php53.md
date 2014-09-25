@@ -16,7 +16,8 @@ namespace app;
 use app\models\Post;
 
 class PostsController extends \lithium\action\Controller {
-    public function index() {
+
+	public function index() {
         $posts = Post:all();
         return compact('posts');
     }

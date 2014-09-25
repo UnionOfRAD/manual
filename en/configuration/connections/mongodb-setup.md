@@ -12,7 +12,7 @@ Once you've got Mongo itself installed, follow the directions below, depending o
 
 For MongoDB + PHP goodness, you'll need the Mongo PECL module. For most *NIX systems, this is as easy as:
 
-```sh
+```bash
 sudo pecl install mongo
 ```
 

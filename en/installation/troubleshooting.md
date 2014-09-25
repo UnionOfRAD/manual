@@ -32,7 +32,7 @@ AllowOverride all
 
 If you get an error that looks like this:
 
-```
+```text
 Warning: Unexpected character in input: '\' (ASCII=92) state=1 in /path/to/lithium/app/webroot/index.php on line 22
 ```
 

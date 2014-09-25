@@ -37,7 +37,7 @@ If you run `$ li3` now, you'll see that li3 can already see your
 command. Look towards the end of the output, just after "COMMANDS via
 app."
 
-```
+```text
 COMMANDS via app
     repos
 ```
@@ -132,8 +132,11 @@ class Repos extends \lithium\console\Command {
 
 Here's a sample of the output:
 
-```
+```bash
 $ li3 repos UnionOfRad
+```
+
+```text
 Org: UnionOfRad
 /-----------------
 UnionOfRad Repos:

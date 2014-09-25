@@ -8,20 +8,20 @@ One of the most user-friendly ways to handle incoming data is through the URL. I
 
 The easiest way to handle incoming GET data is by realizing that URL segments that follow the action name are mapped to controller action parameters. Here's a few examples:
 
-```
+```text
 http://example.com/users/view/1  --> UsersController::view($userId);
 http://example.com/posts/show/using+controllers/8384/  -->  PostsController::show($title, $postId);
 ```
 
 GET information passed this way is also accessible via the incoming request object:
 
-```
+```text
 http://example.com/users/view/1  --> $this->request->args[0]
 ```
 
 While we'll always recommend using clear URL-based variables, it's important to mention that GET parameters passed as raw query string variables are also available as an attribute of the incoming request:
 
-```
+```text
 http://example.com/users/view?userId=1  --> $this->request->query['userId']
 ```
 

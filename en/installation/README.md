@@ -69,13 +69,13 @@ Lastly, you'll want to set up the `li3` command so it's easy to use as you move 
 
 To do so, add the li3's console library directory to your shell's path. For our example above, and assuming you're using the bash shell, you'd add something like the following to your `~/.bash_profile` file:
 
-```
+```bash
 PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 ```
 
 Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
-```
+```text
 USAGE
 	li3 COMMAND [ARGS]
 

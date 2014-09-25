@@ -70,23 +70,23 @@ Then create the templates.
 
 `views/users/add.html.php`:
 
-```
-	<h2>Add user</h2>
-	<?=$this->form->create($user); ?>
-		<?=$this->form->field('username'); ?>
-		<?=$this->form->field('password', array('type' => 'password')); ?>
-		<?=$this->form->submit('Create me'); ?>
-	<?=$this->form->end(); ?>
+```html
+<h2>Add user</h2>
+<?=$this->form->create($user); ?>
+	<?=$this->form->field('username'); ?>
+	<?=$this->form->field('password', array('type' => 'password')); ?>
+	<?=$this->form->submit('Create me'); ?>
+<?=$this->form->end(); ?>
 ```
 
 `views/users/index.html.php`:
 
-```
-	<h2>Users</h2>
+```html
+<h2>Users</h2>
 
-	<ul>
-		<?php foreach ($users as $user) { ?>
-			<li><?=$user->username; ?></li>
-		<?php } ?>
-	</ul>
+<ul>
+	<?php foreach ($users as $user) { ?>
+		<li><?=$user->username; ?></li>
+	<?php } ?>
+</ul>
 ```

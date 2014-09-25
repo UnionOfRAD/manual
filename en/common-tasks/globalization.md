@@ -92,7 +92,7 @@ Once this is in place, our application's routes will illustrate the effective lo
 
 As a final example, here's a bit of view code you could use to switch between locales:
 
-```
+```html
 <?php use lithium\core\Environment; ?>
  <div id="locale-navigation">
 	<ul>
@@ -242,11 +242,11 @@ Since the marked messages will later be translated by many others, it's importan
 
 When embedding translated messages into your application, it's best to use entire sentences as identifiers rather than just single words. Since a translator is often viewing a long list of strings needing to be translated, context is everything.
 
-```
-// Not so great:
+```html
+<!-- Not so great: -->
 <?= $t('welcome'); ?>
 
-// Better:
+<!-- Better: -->
 <?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
 ```
 
@@ -254,11 +254,11 @@ It's also best to split paragraphs into single sentences as well. This makes thi
 
 Next, treating text like you would with `String::insert()` can make things easier in the long run, especially in contrast to using bare string concatenation with the `.` operator.
 
-```
-// Not so great:
+```html
+<!-- Not so great: -->
 <?= "Gary's Fine Clarinets " . $t('is really great'); ?>
 
-// Better:
+<!-- Better: -->
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
 ```
 
@@ -268,18 +268,18 @@ Also, avoid the use of escaped characters, or markup of any kind inside of trans
 
 Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
 
-```php
+```html
 <?= $t('foo', array('noop' => true)); ?>
 <?= $tn('foo', 'bar', array('noop' => true)); /* we don't need to pass `'count'` in this case */ ?>
 ```
 
 File: `a.php`:
-```php
+```html
 <?= $t('foo', array('noop' => true)); /* the extractor picks up `foo` */ ?>
 ```
 
 File: `b.php`:
-```php
+```html
 <?php $section = 'foo'; ?>
 <?= $t($section); ?>
 ```
@@ -298,6 +298,6 @@ Message::applyFilter('_translated', function($self, $params, $chain) {
 
 Marked messages are extracted using the `g11n` command. This allows for extracting messages and comments from source files, creating and updating files containing message templates, creating and updating files containing translated messages and compilation of those.
 
-```
+```text
 li3 g11n extract [--source=DIRECTORY] [--destination=DIRECTORY]
 ```
