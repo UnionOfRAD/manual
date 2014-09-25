@@ -10,7 +10,7 @@ Globalization in li3 is a core framework feature, and li3 has been developed wit
 
 Enabling g11n in your application starts by loading it in the li3 bootstrap process. Start by uncommenting the g11n line in `bootstrap.php`. The `g11n.php` file contains your application's globalization rules, including inflections, transliterations, localized validation, and how localized text should be loaded.
 
-```
+```php
 require __DIR__ . '/bootstrap/g11n.php';
 ```
 
@@ -20,7 +20,7 @@ The settings for the current locale (and available locales) are kept as environm
 
 Here, you can decide which locale is your default effective locale, and also which locales your application will support. Do so by defining environment variables like so:
 
-```
+```php
 Environment::set('development', array(
 	'locale' => 'en', // the default effective locale
 	'locales' => array('en' => 'English') // locales available for your application
@@ -81,7 +81,7 @@ A localized route is configured by connecting a continuation route. This example
 
 Once the route has been connected, all the other application routes become localized and may now carry a locale:
 
-```
+```php
 Router::connect('/{:locale:[a-zA-Z_]+}/{:args}', array(), array('continue' => true));
 ```
 
@@ -139,7 +139,7 @@ For an ad-hoc solution (i.e. translating API messages) it's workable to utilize 
 
 In order to allow the application to read write gettext resource files (PO and MO) we configure `Catalog` as follows:
 
-```
+```php
 Catalog::config(array(
 	'runtime' => array('adapter' => 'Memory'),
 	'app' => array('adapter' => 'Gettext', 'path' => LITHIUM_APP_PATH . '/resources/g11n'),
@@ -162,7 +162,7 @@ The **code adapter** extracts message IDs for creating message catalog templates
 
 The **php adapter** allows for reading from files containing data in PHP format.
 
-```
+```php
 return array('the artists' => 'die Künstler');
 ```
 
@@ -192,7 +192,7 @@ foreach (array('phone', 'postalCode', 'ssn') as $name) {
 
 Once those changes have been bootstrapped, you can use this g11n-aware validation logic in your application logic like so:
 
-```
+```php
 Validator::isPhone('PHONE NUMBER US', 'en_US');
 ```
 
@@ -212,7 +212,7 @@ While it may seem like a simple process from the outside, message globalization 
 
 The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—are injected into the view as output filters by default. This allows for the following syntax throughout templates:
 
-```
+```php
 <?= $t('green'); ?>
 <?= $tn('House', 'Houses', array('count' => 3)); ?>
 <?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
@@ -268,18 +268,18 @@ Also, avoid the use of escaped characters, or markup of any kind inside of trans
 
 Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
 
-```
+```php
 <?= $t('foo', array('noop' => true)); ?>
 <?= $tn('foo', 'bar', array('noop' => true)); /* we don't need to pass `'count'` in this case */ ?>
 ```
 
 File: `a.php`:
-```
+```php
 <?= $t('foo', array('noop' => true)); /* the extractor picks up `foo` */ ?>
 ```
 
 File: `b.php`:
-```
+```php
 <?php $section = 'foo'; ?>
 <?= $t($section); ?>
 ```
@@ -288,7 +288,7 @@ File: `b.php`:
 
 If you're using templates which use the aliased translation functions but don't want to do any globalization, you can disable the lookup of translations by using a filter.
 
-```
+```php
 Message::applyFilter('_translated', function($self, $params, $chain) {
 	return null;
 });

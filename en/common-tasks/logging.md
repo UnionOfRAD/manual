@@ -6,7 +6,7 @@ Logging in li3 is handled through the `Logger` class.  This class is designed to
 
 When configuring adapters, you may specify one or more priorities for each, using the `'priority'` key. This key can be a single priority level (string), or an array of multiple levels. When a log message is written, all adapters that are configured to accept the priority level with which the message was written will receive the message.
 
-```
+```php
 Logger::config(array(
 	'default' => array('adapter' => 'Syslog'),
  	'badnews' => array(
@@ -14,7 +14,7 @@ Logger::config(array(
  		'priority' => array('emergency', 'alert', 'critical', 'error')
  	)
  ));
- ```
+```
 
 ## Usage
 
@@ -22,7 +22,7 @@ The `Logger` class has a single public function called `write()`.  This is the m
 
 ### Example
 
-```
+```php
 // Using the `write()` method:
 Logger::write('critical', 'This is a critical message');
 
@@ -32,13 +32,13 @@ Logger::critical('This is a critical message');
 
 By default, the logger will write a message to any adapter that has the specified priority in the log message in its configuration.  To write to an adapter other than the default adapter(s), you can use the options parameter which expects an array.
 
-```
+```php
 Logger::write('critical', 'This is a critical message', array('name' => 'badnews'));
 ```
 
-> NOTE:
-
->Attempting to use an undefined priority level will raise an exception. See the list of available adapters for more information on what adapters are available, and how to configure them.
+<div class="note note-info">
+	Attempting to use an undefined priority level will raise an exception. See the list of available adapters for more information on what adapters are available, and how to configure them.
+</div>
 
 ## See Also
 

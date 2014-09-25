@@ -14,7 +14,7 @@ If my li3 installation was at `/usr/local/lithium`, I'd add the
 following to my Bash configuration to make sure the `li3` command was
 universally available to me:
 
-```
+```bash
 PATH=$PATH:/usr/local/lithium/console
 ```
 

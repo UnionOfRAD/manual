@@ -131,7 +131,7 @@ The main bootstrap file in the config folder is `bootstrap.php`. This file is se
 
 The best practice for bootstrapping parts of your application is by writing specific bootstrap files and placing them in `config/bootstrap/filename.php`. Once written, include the configuration into the main bootstrap file:
 
-```
+```php
 // Adding my custom configuration or initialization...
 require __DIR__ . '/bootstrap/myconfig.php';
 ```
@@ -142,7 +142,7 @@ The `connections.php` file in config lists the connections you have to external 
 
 Connections should be listed in this file, as calls to `Connections::add()`, like so:
 
-```
+```php
 Connections::add('default', array(
     'type' => 'database',
     'adapter' => 'MySql',
@@ -167,7 +167,7 @@ Routes definitions is how you inform the framework how URLs and bits of code mat
 
 For example, I could specify that any request  to `/login` is handled by `UsersController::login()` like this:
 
-```
+```php
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 ```
 

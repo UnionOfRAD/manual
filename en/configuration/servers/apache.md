@@ -6,7 +6,7 @@ In order to provide li3 applications with clean URLs, li3 ships with a set of `.
 
 By default, these files can be utilized by finding all references to `AllowOverride` in your `httpd.conf` configuration file and setting the values to `All`. On an OS X system, your setup may look something like this:
 
-```
+```apache
 <Directory "/Library/WebServer/Documents">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
@@ -21,7 +21,7 @@ Once you've made sure `AllowOverride` has been set correctly, you can toss a cop
 
 In production, it is recommended that you set `AllowOverride` to `None` and instead, create a `<VirtualHost />` configuration pointed at your application's `webroot` directory, which contains the rewrite rules. For example, if your application is located in `/var/www/html/your_app`, your configuration would resemble the following:
 
-```
+```apache
 <VirtualHost *:80>
 	ServerName example.com
 	DocumentRoot "/var/www/html/your_app/webroot"

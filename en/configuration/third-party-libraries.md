@@ -30,7 +30,7 @@ The following examples should give you an overview of the various approaches to 
 
 For example, the image manipulation library [ Imagine](https://github.com/avalanche123/Imagine), once installed according to the above (with `lib/Imagine` symlinked to `libraries/Imagine`), can be configured simply with the following:
 
-```
+```php
 Libraries::add('Imagine');
 ```
 
@@ -40,7 +40,7 @@ Again, because it conforms to the 5.3 namespacing standard, and because (using t
 
 Since PEAR is typically installed into a system directory (i.e. `/usr/local/lib/php`), you should first symlink it to `libraries/PEAR`, then add the following:
 
-```
+```php
 Libraries::add("PEAR", array(
 	"prefix" => false,
 	"includePath" => true,
@@ -65,7 +65,7 @@ If you downloaded ZF1, or did an SVN checkout, you'll follow the alternative ins
 
 Once installed, ZF1 can be configured per the following. Again, because li3 assumes 5.3 standard namespacing in all libraries, some special considerations are necessary for dealing with class libraries written for 5.2 and lower.
 
-```
+```php
 Libraries::add("Zend", array(
 	"prefix" => "Zend_",
 	"includePath" => LITHIUM_LIBRARY_PATH, // or LITHIUM_APP_PATH . '/libraries'
@@ -83,7 +83,7 @@ Most importantly, we're overriding how class names are transformed into path nam
 
 Note, the following should appear **above** the primary ZF configuration, because they both have the same class prefix. However, this configuration will verify that a file exists before attempting to autoload it, allowing classes to "fall through" to other loaders.
 
-```
+```php
 Libraries::add("ZendIncubator", array(
 	"prefix" => "Zend_",
 	"includePath" => '/path/to/libraries/ZF_Install_Dir/incubator/library',
@@ -100,7 +100,7 @@ Fortunately, installing and configuring ZF2 is quite a bit easier. It can be clo
 
 Because ZF2 uses the same class naming scheme as li3, configuring it is quite a bit easier:
 
-```
+```php
 Libraries::add("Zend");
 ```
 
@@ -155,7 +155,7 @@ Some legacy vendor libraries have no consistent class-to-file mapping scheme wha
 
  _Note_: For larger libraries, generating the map by hand can be tedious. Check out [the `Inspector` class](http://li3.me/docs/lithium/analysis/Inspector), which can be used to introspect classes and files to generate a map automatically.
 
-```
+```php
 Libraries::add('tcpdf', array(
 	'prefix' => false,
 	'transform' => function($class, $config) {

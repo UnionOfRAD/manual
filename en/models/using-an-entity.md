@@ -26,7 +26,7 @@ The `create()` method instantiates a new record or document object, initialized 
 
 **Example:**
 
-```
+```php
 $post = Posts::create(array('title' => 'New post'));
 echo $post->title; // echoes 'New post'
 $success = $post->save();
@@ -171,7 +171,7 @@ The parameter `$entity` is the entity to be deleted and as with `remove()`,  the
 
 **Usage Example**
 
-```
+```php
 // Read the first post
 $post = Posts::first();
 

@@ -17,7 +17,7 @@ Each adapter provides a consistent interface for the basic cache operations of `
 ## Enabling/Disabling Caching
 To control whether or not caching is enabled, you can either comment or uncomment the following line in your application's `config/bootstrap.php` file:
 
-```
+```php
 /**
  * This file contains configurations for connecting to external caching resources, as well as
  * default caching rules for various systems within your application
@@ -25,16 +25,16 @@ To control whether or not caching is enabled, you can either comment or uncommen
 require __DIR__ . '/bootstrap/cache.php';
 ```
 
-> NOTE:
-
-> By default, caching is enabled in li3
+<div class="note note-info">
+	By default, caching is enabled in li3.
+</div>
 
 ## Setting Configuration Options
 
 In most cases, you will configure various named cache configurations in your bootstrap process,
 which will then be available to you in all other parts of your application. A simple example configuration:
 
-```
+```php
 Cache::config(array(
     'local' => array('adapter' => 'Apc'),
     'distributed' => array(

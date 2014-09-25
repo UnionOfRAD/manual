@@ -31,7 +31,7 @@ li3 classes also follow the [PHP Standards Working Group namespace standard](htt
 
 Anonymous functions are a great tool for packaging up small bits of logic and passing them from place to place inside a system. PHP 5.3 now allows anonymous functions to be created and assigned to variables. For example:
 
-```
+```php
 $cube = function($value) {
     return ($value * $value * $value);
 };
@@ -46,7 +46,7 @@ $result = $cube(4);
 
 You can also use these anonymous functions in method parameters to create closures. Notice the use of use() in order to bring outside variables in scope for the closure logic:
 
-```
+```php
 $data = 'bad apple';
 $result = array_filter(array(1, 2, 'bad apple'), function ($value) use ($data) {
     return ($value !== $data);
@@ -57,7 +57,7 @@ $result = array_filter(array(1, 2, 'bad apple'), function ($value) use ($data) {
 
 Closures are used in a number of places in li3. One places is to create data validation rules on the fly:
 
-```
+```php
 Validator::add('validRole', function($value, $format, $options) {
     return(in_array($value, array('user', 'admin', 'editor')));
 });
@@ -108,7 +108,7 @@ There are a few OOP "magic" enhancements we're also taking advantage of. The fir
 
 The li3 Validator class is a perfect example. If you recall, the Validator class statically provides data validation logic in your application. You can access this logic via rule(), or you can access the logic via the rule's name, which relies on __callStatic(). See these two equivalent examples:
 
-```
+```php
 Validator::rule('email', $email);
 Validator::isEmail($email);
 ```
@@ -135,7 +135,7 @@ li3 also takes advantage of a new PHP feature that allows groups of files to be 
 
 PHARs are more that just compressed PHP files: they're accessible through a stream wrapper allowing you to include files inside the archive:
 
-```
+```php
 include 'phar:///path/to/archive.phar/file.php';
 ```
 
@@ -166,7 +166,7 @@ The Internationalization extension contains a number of classes that enable deve
 
 This extension was created to make informed guesses about files based on their extension, and certain magic byte sequences at specific points in the file. This ability, while not a perfect indicator, still can give a developer a great idea about the data hidden inside of a file or stream.
 
-```
+```php
 $info = new \finfo(FILEINFO_MIME);
 $result = $info->file(__FILE__);
 var_dump($result);

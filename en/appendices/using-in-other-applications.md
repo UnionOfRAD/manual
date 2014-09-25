@@ -4,7 +4,7 @@ Because li3 is so flexible, you can bootstrap the core framework into any applic
 
 To use li3 classes, simply load the class that manages libraries (`lithium\core\Libraries`), and register the li3 library itself, as follows:
 
-```
+```php
 include "/path/to/classes/libraries/lithium/core/Libraries.php";
 lithium\core\Libraries::add('lithium');
 ```
@@ -17,7 +17,7 @@ lithium\core\Libraries::add('lithium');
 
 CakePHP provides a convenient place to add this configuration: `app/config/bootstrap.php`.  Additionally, if you'd like to intermingle li3 classes (models and controllers) with their CakePHP counterparts, you can add the following (again, to `bootstrap.php`):
 
-```
+```php
 define("LITHIUM_APP_PATH", dirname(__DIR__));
 lithium\core\Libraries::add('app', array('bootstrap' => false));
 ```

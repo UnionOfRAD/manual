@@ -6,7 +6,7 @@ Nginx requires a simple rewrite configuration that enables li3 to serve dynamic 
 
 The following example file is typically stored at `/etc/nginx/sites-available/<domain.com>.conf`. All instances of `DOMAIN.COM` can be replaced with the domain name of your site or application.
 
-```
+```nginx
 server {
         listen   IP_ADDRESS_HERE:80;
         server_name DOMAIN.COM;

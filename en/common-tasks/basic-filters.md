@@ -55,7 +55,7 @@ Next, `$params` gives you access to any parameters that original method implemen
 
 The last parameter is important. You can see above that right now the closure returns the results of the logic next in line in the filter chain. Unless you want to short-circuit filter execution (which includes the base logic of the method you're filtering), you'll want to include this somewhere in your filter logic. The position this call has in your filter also might be important. For example, if you're creating a filter you want to have happen __after__ a certain method, your custom filter logic should follow the `next()` call rather than proceed it:
 
-```
+```php
 SomeClass::applyFilter('methodName', function($self, $params, $chain) {
 	$result = $chain->next($self, $params, $chain);
 
@@ -130,7 +130,7 @@ One more example is common enough to cover: logging. When building a large appli
 
 The approach here requires a bit of understanding how li3's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
-```
+```php
 Connections::add('default', array(
 	'type' => 'database',
 	'adapter' => 'MySql',

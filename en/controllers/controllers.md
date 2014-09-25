@@ -48,7 +48,6 @@ The easiest way to handle incoming GET data is by realizing that URL segments th
 
 ```
 http://example.com/users/view/1  --> UsersController::view($userId);
-
 http://example.com/posts/show/using+controllers/8384/  -->  PostsController::show($title, $postId);
 ```
 
@@ -75,7 +74,7 @@ POSTed data is also gathered from the request object. Form field data is found o
 
 Accessing these values when submitted to a controller action is as easy as:
 
-```
+```php
 $this->request->data['title'];
 $this->request->data['category'];
 ```
@@ -88,7 +87,7 @@ Occasionally a controller action will want to divert, re-route, or automatically
 
 The most basic type of flow control at the controller level is redirection. It's common to redirect a user to a new URL once an action has been performed. This type of control is done through the controller's `redirect()` method. Here's an example of a controller action that redirects the request:
 
-```
+```php
 public function register() {
 	// Validate and save user data POSTed to the 
 	// controller action found in $this->request->data...
@@ -168,20 +167,20 @@ The flow for handling a given type of a response works something like the follow
 
 The easiest way to set a type is by declaring it as part of the route. One of li3's default routes already does this for you:
 
-```
+```php
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
 ```
 
 In effect, this forces a request to `/controller/action/7345.json` to be rendered by the JSON media handler currently registered. You can use this pattern to expand your routes to apply type-matching to a wider array of requests:
 
-```
+```php
 // http://example.com/controller/action.xml
 Router::connect('/{:controller}/{:action}.{:type}');
 ```
 
 You can also statically define the type for a route by adding the 'type' key to the route definition:
 
-```
+```php
 Router::connect('/latest/feed', array(
 	'Posts::index',
 	'type' => 'xml'
@@ -192,7 +191,7 @@ If you'd rather use other information to convey the request type to li3 (headers
 
 Manual type rendering can also be done by handing the type's name to the render function:
 
-```
+```php
 $this->render(array('csv' => Post::find('all')));
 ```
 
@@ -202,19 +201,19 @@ As mentioned earlier, type handlers are registered by the `\net\http\Media` clas
 
 Register your type by passing the relevant information to `Media::type()` inside the bootstrap. Here's what the general pattern looks like:
 
-```
+```php
 Media::type('typeName', 'contentType', array($options));
 ```
 
 To give you an idea of how this process is completed, let's register a new handler for the BSON data type. If you're curious, BSON is a binary, serialized form of JSON used by MongoDB. Start by declaring a new media type in `/config/boostrap/media.php` and uncommenting the `media.php` line in your main bootstrap file:
 
-```
+```php
 Media::type('bson', 'application/bson', array());
 ```
 
 This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), li3 will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize li3's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
-```
+```php
 Media::type('bson', 'application/bson', array(
 	'layout' => false,
 	'encode' => 'bson_encode',
@@ -306,7 +305,7 @@ Once your controller action has fetched and processed the data it needs, it's ti
 
 First, the `set()` method is used to send an associative array to the view. Consider this example controller action method:
 
-```
+```php
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
@@ -316,7 +315,7 @@ public function index() {
 
 This populates the index view for this controller with a variable named `$importantData` with the same contents as `$data`. This same logic could be written a bit more elegantly:
 
-```
+```php
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
@@ -328,7 +327,7 @@ One difference to note here is that the view's variable is now named `$data`, ju
 
 The `set()` method is especially useful when you've got bits of data you want to hand to the view in pieces, or conditionally, as it can be called at any point inside of a controller action method:
 
-```
+```php
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);
@@ -347,7 +346,7 @@ public function index() {
 
 Conversely, sometimes all your data is ready by the end of the method's logic, and you can just return the associative array to hand it to the view:
 
-```
+```php
 public function index() {
 	$data = SomeModel::find('all');
 	$this->processData($data);

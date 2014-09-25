@@ -13,7 +13,7 @@ The flow for handling a given type of a response works something like the follow
 
 The easiest way to set a type is by declaring it as part of the route. One of li3's default routes already does this for you:
 
-```
+```php
 Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
 ```
 

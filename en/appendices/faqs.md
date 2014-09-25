@@ -71,7 +71,7 @@ class Dispatcher extends \lithium\core\StaticObject {
 
 The `Dispatcher`'s dependencies may then be dynamically configured to use a different routing class with the `config()` method. Internally, calling the `Router` looks like this:
 
-```
+```php
 $router = static::$_classes['router'];
 $result = $router::process($request);
 ```

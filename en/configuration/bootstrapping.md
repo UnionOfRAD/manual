@@ -40,7 +40,7 @@ At the bottom of the file, however, you'll see the main components of the applia
 
 This manual is also a library: enabled by downloading the codebase to `/libraries` (or `app/libraries`) and adding this to `libraries.php`:
 
-```
+```php
 Libraries::add('manual');
 ```
 

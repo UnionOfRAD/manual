@@ -20,7 +20,7 @@ Connections::add('default', array(
 
 If you're running with Mongo, it'll look a bit different:
 
-```
+```php
 Connections::add('default', array(
 	'type'     => 'MongoDb',
 	'database' => 'mydatabase',
@@ -49,7 +49,7 @@ Once the data handling is in place, li3 needs to know you intend to use authenti
 
 li3's default application template ships with a file called `config/bootstrap/session.php`, which contains default session storage settings, as well as a commented-out default authentication configuration. To enable this configuration, first edit `config/bootstrap.php` to include (or uncomment) the line requiring the session bootstrap file:
 
-```
+```php
 require __DIR__ . '/bootstrap/session.php';
 ```
 
@@ -102,7 +102,7 @@ If the user has been successfully verified, the session is updated to mark the u
 
 As a reference, the web form that sends the credentials and is the content of the `add` view at `views/sessions/add.html.php` should contain something that looks like this:
 
-```
+```php
 <?=$this->form->create(null); ?>
 	<?=$this->form->field('username'); ?>
 	<?=$this->form->field('password', array('type' => 'password')); ?>
@@ -155,7 +155,7 @@ class SessionsController extends \lithium\action\Controller {
 
 Finally, in order to give users slightly friendlier URLs than `/sessions/add` and `/sessions/delete`, you can wire up some very simple custom routes in `config/routes.php`. Since these are very specific routes, you'll want to add them at or near the top of your routes file:
 
-```
+```php
 Router::connect('/login', 'Sessions::add');
 Router::connect('/logout', 'Sessions::delete');
 ```

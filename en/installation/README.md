@@ -75,7 +75,7 @@ PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 
 Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
-```fix
+```
 USAGE
 	li3 COMMAND [ARGS]
 

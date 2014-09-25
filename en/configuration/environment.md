@@ -18,7 +18,7 @@ Environment detection is determined by default as follows:
 
 To customize this behavior, use the `Environment::is()` method inside a bootstrap file. Supply a closure that inspects an incoming `Request` and returns the name of the environment deteted. Here's a simple example:
 
-```
+```php
 Environment::is(function($request){
   $host = $request->env('HTTP_HOST');
   
