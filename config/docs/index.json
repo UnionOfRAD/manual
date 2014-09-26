@@ -27,7 +27,8 @@
 				"title": "Configuration",
 				"contents": {
 					"configuration/bootstrapping.md": {"title": "Bootstrapping"},
-					"configuration/environment.md": {"title": "Environment"}
+					"configuration/environment.md": {"title": "Environment"},
+					"configuration/third-party-libraries.md": {"title": "3rd Party Libraries"}
 				}
 			},
 			"models": {
