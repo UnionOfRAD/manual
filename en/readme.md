@@ -1,4 +1,4 @@
-# li3: The Definitive Guide
+# li₃: The Definitive Guide
 
 So you're interested in writing tight apps with the latest RAD techniques? Welcome to li3, the most RAD framework for PHP.
 
