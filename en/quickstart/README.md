@@ -4,7 +4,7 @@ Thanks for trying out li3! This section of the manual is for PHP users who want 
 
 By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual explain the concepts you'll use here in more detail.
 
-## Setting Up li3
+## Setting Up
 
 First things first: let's make sure li3 is installed and working. If you haven't already installed li3 then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
 
@@ -51,7 +51,7 @@ Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'h
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the [API documentation](http://li3.me/docs/app/config/bootstrap/connections) for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `app/bootstrap/connections.php` file for more information.
 
 Editing bootstrap files like this is a common way of configuring li3. For example, you might want to set up some quick and dirty error handling by adding `ini_set("display_errors", 1);` to `my_app/app/config/bootstrap.php` - see [this section](../configuration/bootstrapping.md) of the manual for more detail on how to configure li3. li3 is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 
@@ -82,7 +82,7 @@ namespace app\controllers;
 class PostsController extends \lithium\action\Controller {}
 ```
 
-You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the li3 [coding convention](../quality-code/coding-standards.md), and you should stick to it to take full advantage of the framework's automagic.
+You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the li3 [coding convention](/docs/specs/accepted/LSR-0-coding.md), and you should stick to it to take full advantage of the framework's automagic.
 
 Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we try and link all three of the model, controller and viewer together, let's just set up a simple action that pushes some dummy data to the view. Here's how it's done:
 

@@ -41,7 +41,7 @@ error_reporting = E_ALL
 display_errors  = On
 ```
 
-Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
+Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/project`](http://localhost/project).
 
 At this point, you should be presented with the li3 default home page. You're up and running!
 

@@ -1,4 +1,4 @@
-# Adding Functionality to li3 Models
+# Adding Functionality to Models
 
 This section outlines a few of the ways you can extend model functionality as you build your application. As you think about different pieces of functionality to add, please keep in mind that there are two main ways to add functionality to your models:
 

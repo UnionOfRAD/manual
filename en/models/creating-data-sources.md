@@ -61,7 +61,7 @@ Let's dive into a real-life example of creating a data source. For the remainder
 The end result we're looking for is being able to create models that read from and write to GitHub using our data source. Let's get started by creating the data source file and creating a connection to it. First, create a new file in `extensions/adapter/data/source/http/GitHub.php`, inside your app or plugin:
 
 ```php
-namespace myapp\extensions\adapter\data\source\http;
+namespace app\extensions\adapter\data\source\http;
 
 use lithium\util\String;
 use lithium\util\Inflector;
@@ -75,7 +75,7 @@ This puts the class in the proper namespace, and imports some utility classes we
 
 Now, let's create a connection that uses this new data source. Add a few lines to `config/bootstrap/connections.php`:
 
-```
+```php
 Connections::add('github', array(
 	'type'     => 'http',
 	'adapter'  => 'GitHub',
@@ -90,7 +90,7 @@ Since the GitHub API allows for an API token to be passed instead of a password,
 Finally, we'll need to create a new model and controller to test the functionality as we build it:
 
 ```php
-namespace myapp\models;
+namespace app\models;
 
 class Issues extends \lithium\data\Model {
 
@@ -101,9 +101,9 @@ class Issues extends \lithium\data\Model {
 These can be saved in `models/Issues.php`, and `controllers/IssuesController.php`, respectively.
 
 ```php
-namespace myapp\controllers;
+namespace app\controllers;
 
-use myapp\models\Issues;
+use app\models\Issues;
 
 class IssuesController extends \lithium\action\Controller {
 
@@ -115,7 +115,7 @@ class IssuesController extends \lithium\action\Controller {
 
 Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, we can see that the configuration details for the `lithium\net\http\Service` object are passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
 
-```
+```php
 public function __construct(array $config = array()) {
 	$defaults = array(
 		'scheme'   => 'https',
@@ -144,7 +144,7 @@ What we're doing here is checking to see if there's a token related to the conne
 
 Next, let's use our model to read from the data source. This is done by the model's `find()` method. Let's place a call to `find()` inside our controller, and supply a few parameters the GitHub API is going to need to fetch some issues from a project:
 
-```
+```php
 public function index() {
 	$results = Issues::find('all', array(
 		'conditions' => array(
@@ -158,7 +158,7 @@ If you try this, `$results` will get filled with the 404 response from GitHub's 
 
 Let's override `read()`, and inspect the `Query` object so we can direct the query to the GitHub API properly.
 
-```
+```php
 public function read($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
@@ -190,7 +190,7 @@ We'll format the data for use in the model using two important data source metho
 
 Both methods use li3's dependency injection mechanism to know what classes to use. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, li3 uses class properties to manage class dependencies. If you look at the `$_classes` property of a li3 object, you'll see the types and fully namespaced class paths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
 
-```
+```php
 protected $_classes = array(
 	'service' => 'lithium\net\http\Service',
 	'entity'  => 'lithium\data\entity\Document',
@@ -202,7 +202,7 @@ The `'service'` dependency is included in the array because it's needed for the 
 
 Once that's in place, we can adjust our `read()` function to return the results of an `item()` call:
 
-```
+```php
 public function read($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
@@ -230,7 +230,7 @@ Running `find()` on our `Issues` model now gives us a `DocumentSet`, but if we i
 
 The `cast()` method is used by the data source to recursively inspect and transform data as it's placed into a collection. In this case, we'll use `cast()` to transform arrays into `Document` objects:
 
-```
+```php
 public function cast($entity, array $data, array $options = array()) {
 	$model = $entity->model();
 
@@ -252,7 +252,7 @@ At this point, your `Issues` model should be successfully connecting to the API 
 
 Now that we're rocking with some reads, let's hook up the writes. This is done by POSTing some data to the GitHub API. First, let's change our controller so that the model is saving a new issue:
 
-```
+```php
 public function index() {
 	$issue = Issues::create();
 	$issue->user = 'myuser';
@@ -266,7 +266,7 @@ public function index() {
 
 The API specifies that we POST to a URL composed of the user and repository names, and includes data about title and body. We'll need to make a new `create()` method in our data source that assembles the right URL and POST data based off what it receives from the model. In this case, `create()` is handed a `Query` that has an `Entity` we can inspect and use.
 
-```
+```php
 public function create($query, array $options = array()) {
 	$paths = array(
 		'issues' => '/issues/open/{:user}/{:repo}'
@@ -301,7 +301,7 @@ Since the GitHub API returns a JSON object on success, we inspect the response t
 
 However, subsequent code won't be able to verify that `$issue` actually exists in the database, and none of our code will be able to reference it within the GitHub API, because it hasn't received a key (or any other information) that the API has given us. To fix this, we can simply change the last few lines of the `create()` method, as follows:
 
-```
+```php
 $result = json_decode($this->connection->post($path, $data), true);
 $key = Inflector::singularize($source);
 
@@ -329,11 +329,13 @@ So far, there are two exceptional conditions which we've encountered in our data
 
 First, import `QueryException` at the top of the data source class:
 
-``` use lithium\data\model\QueryException; ```
+```php
+use lithium\data\model\QueryException; 
+```
 
 Then, override the `delete()` method of the parent class, and throw the exception:
 
-```
+```php
 public function delete($query, array $options = array()) {
 	throw new QueryException("Delete operations are not supported by this API.");
 }
@@ -343,7 +345,7 @@ The other condition which we have so far not dealt with is that of errors genera
 
 To implement error handling for this case, simply add the following check right below where the return value of `json_decode()` is assigned to `$result` in any of our implemented CRUD methods:
 
-```
+```php
 if (isset($result['error'])) {
 	throw new QueryException($result['error']);
 }
@@ -359,7 +361,7 @@ We can clean some of this up by extracting code out into properties and helper m
 
 The first step is to extract out the paths for the available operations on each resource:
 
-```
+```php
 protected $_sources = array(
 	'issues' => array(
 		'paths' => array(
@@ -383,7 +385,7 @@ Here, we have one key for each resource our data source will expose (we can add 
 
 Next, we'll implement a method that will generate our new service URLs, which will be used by the various CRUD methods:
 
-```
+```php
 protected function _path($source, $type, array $params) {
 	if (!isset($this->_sources[$source]['paths'][$type])) {
 		return null;
@@ -408,7 +410,7 @@ This method will first check to see if a path is defined for the resource/operat
 
 When a match is found, it uses `$params` to generate an API URL, which is returned to the calling method. Now, let's refactor the `read()` method, by removing the string-handling code that was previously used to generate URLs, and replace it with a simple set-and-check block which calls our new `_path()` method:
 
-```
+```php
 public function read($query, array $options = array()) {
 	$params = $query->export($this, array('source', 'conditions'));
 	$source = $params['source'];
@@ -430,7 +432,7 @@ The new implementation uses just a few lines to extract the necessary parameters
 
 Now that we've extracted the above information into a class property, we can do other useful things with it such as implement the `sources()` method described at the beginning of this section. This method is intended to return a simple array indicating the list of resources available to bind to:
 
-```
+```php
 public function sources($class = null) {
 	return array_keys($this->_sources);
 }
