@@ -57,7 +57,7 @@ display_errors  = On
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 
-At this point, you should be presented with the Li3 default home page. You're up and running!
+At this point, you should be presented with the li3 default home page. You're up and running!
 
 ## One More Thing
 
@@ -69,7 +69,7 @@ To do so, add the li3's console library directory to your shell's path. For our 
 PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 ```
 
-Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
+Once this has been done, you can execute the li3 command inside the app folder of any li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
 ```text
 USAGE

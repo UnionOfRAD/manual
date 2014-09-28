@@ -6,7 +6,7 @@ This easiest way to get a fresh copy of li3 is by downloading an archive from ou
 
 	http://dev.li3.me/lithium/versions
 
-Li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.li3.me/users/add](http://dev.li3.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.li3.me/users/account](http://dev.li3.me/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
+li3's source is also housed in a Git repo. If you'd like to clone a copy, start by creating a new account at [http://dev.li3.me/users/add](http://dev.li3.me/users/add). Once you've successfully created your new account, add your SSH key at [http://dev.li3.me/users/account](http://dev.li3.me/users/account). If you've never completed that process before, sometimes its as simple as typing in 'ssh-keygen' in a console.
 
 	$ ssh-keygen
 
@@ -19,7 +19,7 @@ Li3's source is also housed in a Git repo. If you'd like to clone a copy, start 
 
 Once the public key has been created, copy and paste it's contents into the `Ssh Keys` section of your account settings at dev.li3.me.
 
-Now that your key has been set up, clone yourself a copy of Li3 inside of your web server's document root:
+Now that your key has been set up, clone yourself a copy of li3 inside of your web server's document root:
 
 	$ cd /path/to/docroot
 	$ git clone code@dev.li3.me:lithium.git
@@ -64,7 +64,7 @@ While you're making PHP configuration changes, you might also consider having PH
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
 
-At this point, you should be presented with the Li3 default home page. You're up and running!
+At this point, you should be presented with the li3 default home page. You're up and running!
 
 ## One More Thing
 
@@ -74,7 +74,7 @@ To do so, add the li3's console library directory to your shell's path. For our 
 
 	PATH=$PATH:/path/to/docroot/lithium/libraries/lithium/console
 
-Once this has been done, you can execute the li3 command inside the app folder of any Li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
+Once this has been done, you can execute the li3 command inside the app folder of any li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
 
 	USAGE
 		li3 COMMAND [ARGS]
