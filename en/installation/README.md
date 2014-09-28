@@ -28,20 +28,6 @@ cd libraries/lithium
 git pull origin master
 ```
 
-## Advanced Setup
-
-If you've got a system that's hosting many li3 apps, sometimes it's beneficial to point a number of applications at the same set of core li3 libraries. In this case, you'd want to place li3 somewhere outside of your web server's document root.
-
-For example, let's say we've got lithium installed in `/usr/local/lib/lithium/` and some li3 applications at `/home/apps/first-app/` and `/home/apps/second-app`.
-
-The two applications mentioned aren't complete copies of the li3 codebase: they're just copies of the `app` folder (e.g. there should be a `/home/apps/first-app/config` folder).
-
-First, you'll want to create two virtual hosts for the applications on the system. Once those are in place, each application's bootstrap will need to be informed of where the li3 libraries are. Adjust both application's `/config/bootstrap/libraries.php` file like so:
-
-```php
-define('LITHIUM_LIBRARY_PATH', dirname('/usr/local/lib/lithium'));
-```
-
 ## Pedal to the Metal
 
 For the purposes of this guide, we'll assume you're running Apache. Before starting things up, make sure mod_rewrite is enabled, and the AllowOverride directive is set to 'All' on the necessary directories involved. Be sure to restart the server before checking things.
