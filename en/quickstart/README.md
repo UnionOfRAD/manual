@@ -1,7 +1,7 @@
 # The Quintessential Blog Tutorial
 
-Thanks for trying out li3! This section of the manual is for PHP
-users who want to see what li3 can do. Diving into the code like this is a great way to get a feel for Rapid Application Development!
+Thanks for trying out li3! This section of the manual is for PHP users who want to see what li3 can do. Diving into the code like this is a great way to get a feel for Rapid Application Development!
+
 By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual explain the concepts you'll use here in more detail.
 
 ## Setting Up li3
@@ -72,7 +72,6 @@ There's a lot going on (for free!) in the background here. First, li3 knows we'r
 But wait, what? What about the schema setup? Actually, MongoDB doesn't require you to set it up first - it just waits until you want to insert or query the database and handles the request appropriately. That's RAD!
 
 
-
 ## In Control
 
 The controller setup is just as simple when getting started. Create a new file at `my_app/app/controllers/PostsController.php` and fill it with the following:
@@ -118,42 +117,68 @@ Save this file, and now you can view the Posts index page by pointing your brows
 
 What you're seeing used here in this view's code is also the default and preferred way to output data to an HTML page in li3. The short tags (`<?= ... ?>`) are automatically rewritten by li3 to escape the output and keep you safe from the legions of attacks based on unescaped output. This means that the view code you're seeing doesn't end up as short tags when it gets to PHP's parser, so don't worry about your PHP installation or short tag handling. If you really need it, there's also always `<?php echo ... ?>`.
 
-
-
 ## First Post!
 
 Now that you've built a li3 application that displays some dummy data, it's time to extend it so that users can write posts.
 
-First, create a new action in `PostsController` called `add()`:
+First, create a new action in `PostsController` called `add()`. 
 
-Next, create a new file at `my_app/app/views/posts/add.html.php`:
+```php
+namespace app\controllers;
+
+use app\models\Posts;
+
+class PostsController extends \lithium\action\Controller {
+
+	public function add() {
+		$post = Posts::create();
+		return compact('post');	
+	}
+}
+```
+
+Before you can use a model and its methods we must tell that we're planning to use the moodel class via the `use` statement. The statement needs to be added at the beginning of our `PostsController.php` file, but _after_ the namespace declaration.
+
+Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `my_app/app/views/posts/add.html.php`:
 
 ```
-<?=$this->form->create(); ?>
+<?=$this->form->create($post); ?>
 	<?=$this->form->field('title');?>
 	<?=$this->form->field('body', array('type' => 'textarea'));?>
-	<?=$this->form->submit('Add Post'); ?>
+	<?=$this->form->submit('save'); ?>
 <?=$this->form->end(); ?>
 ```
 
-This view code sets up a simple HTML form, using a view helper class called FormHelper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
+This view code sets up a simple HTML form, using the `Form` helper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
-Note that because the call to `$this->form->create()` doesn't include any parameter, li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `my_app/posts/add`, just as we need.
+When we call `$this->form->create()` we pass the currently empty post object as the first argument. This binds the post to the form we're about to create and allows the `Form` helper to _know_ about the post schema. Note that we don't include an `url` parameter when creating the form. li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `my_app/posts/add`, just as we need.
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
 ```php
-public function add() {
-	$success = false;
-	if ($this->request->data) {
-		$post = Posts::create($this->request->data);
-		$success = $post->save();
+namespace app\controllers;
+
+use app\models\Posts;
+
+class PostsController extends \lithium\action\Controller {
+
+	public function add() {
+		$post = Posts::create();
+		$success = false;
+
+		if ($this->request->data && $post->save($this->request->data)) {
+			$success = true;
+		}
+		return compact('post', 'success');
 	}
-	return compact('success');
 }
 ```
 
-Because the form we've created in the view submits its data back to the same controller action, all controller code for adding a new Post happens in this method. First, the method checks to see if there's any POST data in the response. In this case, it would be filled with our form data so we `create()` a new Post model with the request data and save it to the database with `save()`. The result of any save operation (`$success`) is then passed back to the view so we could display a message to the user, and we could use that data in the view to show some sort of status message like so:
+Because the form we've created in the view submits its data back to the same controller action, all controller code for adding a new post happens in this method. 
+
+First, the method checks to see if there's any POST data in the response. In this case, the data is passed into `save()` which updates the empty post object and saves it at the same time.
+
+The result of the save operation (`$success`) is then passed back to the view so we can display a message to the user, and we can use that data in the view to show some sort of status message:
 
 ```
 <?php if ($success): ?>
@@ -165,29 +190,22 @@ To give you a little more of an idea what li3's doing "behind the scenes" here, 
 
 ```php
 $post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
+$post->save();
 
 // or:
 
 $post = Posts::create();
 $post->title = 'First Post';
-$post->body = 'Body Text!';
-```
+$post->body  = 'Body Text!';
+$post->save();
 
-If you run this code right now though it won't work and will generate an error message. That's because the controller knows nothing about the model and its `create()` or `save()` methods, so we must tell it! At the beginning of our `PostsController.php` file, but _after_ the namespace declaration, we add a `use app\models\Posts;` line:
+// or: 
 
-```php
-namespace app\controllers;
-
-use app\models\Posts;
-
-class PostsController extends \lithium\action\Controller {
-	// ...
-}
+$post = Posts::create();
+$post->save(array('title' => 'First Post', 'body' => 'Body text!'));
 ```
 
 Feel free now to have a play with this method and use your browser to add a few posts to your blog. Coming up next: displaying them!
-
-
 
 ## Viewing your posts
 
@@ -224,7 +242,7 @@ If you're curious, you might also try `$posts->to('json')` to see some additiona
 At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Replace the existing code in `/app/views/posts/index.html.php` with the following:
 
 ```
-<?php foreach($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
 <article>
 	<h1><?= $post->title ?></h1>
 	<p><?= $post->body ?></p>
