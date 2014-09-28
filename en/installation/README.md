@@ -4,14 +4,11 @@
 
 This easiest way to get a fresh copy of li3 is by downloading an archive from GitHub. You can view and download versions here:
 
-	https://github.com/UnionOfRAD/lithium/releases
-	
-Under the hood, li3 is actually separated in two different repositories. One is called `framework` and the other one `lithium`. The `framework` repository holds everything you need to 
-instantly bootstrap your application, while the `lithium` repository holds the li3 core. This way you can reuse the li3 core for other projects or just include some libraries if you 
-need them. 
+https://github.com/UnionOfRAD/lithium/releases
 
-The repositories are hosted in GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching 
-li3 by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
+Under the hood, li3 is actually separated in two different repositories. One is called `framework` and the other one `lithium`. The `framework` repository holds everything you need to instantly bootstrap your application, while the `lithium` repository holds the li3 core. This way you can reuse the li3 core for other projects or just include some libraries if you need them. 
+
+The repositories are hosted on GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching li3 by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
 
 ```bash
 git clone git://github.com/UnionOfRAD/framework.git my_app
@@ -20,8 +17,7 @@ git submodule init
 git submodule update
 ```
 
-If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct 
-directory.
+If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct directory.
 
 ## Getting the most recent revision (optional)
 
@@ -55,8 +51,8 @@ Another quick thing to check is to make sure that magic quotes have been complet
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
 ```ini
-error_reporting  =  E_ALL
-display_errors   =  On
+error_reporting = E_ALL
+display_errors  = On
 ```
 
 Finally, pull up li3 in your browser. For this example, we're running Apache locally. Assuming you have a default configuration, and you cloned li3 into your document root directory, you can visit [`http://localhost/lithium`](http://localhost/lithium).
