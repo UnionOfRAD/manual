@@ -28,18 +28,18 @@ The second part of a connection is an array of configuration options specific to
 
 A quick look at the examples in the default `connections.php` file illustrate the possibilities:
 
-```
+```php
 Connections::add('default', array(
 	'type' => 'MongoDb',
 	'host' => 'localhost',
-	'database' => 'my_app'
+	'database' => 'project'
 ));
 
 Connections::add('default', array(
 	'type' => 'http',
 	'adapter' => 'CouchDb',
 	'host' => 'localhost',
-	'database' => 'my_app'
+	'database' => 'project'
 ));
 
 Connections::add('default', array(
@@ -48,7 +48,7 @@ Connections::add('default', array(
 	'host' => 'localhost',
 	'login' => 'root',
 	'password' => '',
-	'database' => 'my_app',
+	'database' => 'project',
 	'encoding' => 'UTF-8'
 ));
 ```

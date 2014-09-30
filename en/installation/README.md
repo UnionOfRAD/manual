@@ -11,13 +11,13 @@ Under the hood, li3 is actually separated in two different repositories. One is 
 The repositories are hosted on GitHub, where you can also download tarballs if you just want to play around and not fetch updates through a managed repository. The normal process of fetching li3 by source is to clone the `framework` repository and then install `lithium` as a submodule (which is already configured for you).
 
 ```bash
-git clone git://github.com/UnionOfRAD/framework.git my_app
-cd my_app
+git clone git://github.com/UnionOfRAD/framework.git project
+cd project
 git submodule init
 git submodule update
 ```
 
-If everything worked as expected, you should now have the lithium core inside `my_app/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct directory.
+If everything worked as expected, you should now have the lithium core inside `project/libraries/lithium`. If you've downloaded the tarballs, make sure to unpack the core in the correct directory.
 
 ## Getting the most recent revision (optional)
 
