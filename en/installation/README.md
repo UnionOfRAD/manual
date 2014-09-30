@@ -62,16 +62,5 @@ USAGE
 	li3 COMMAND [ARGS]
 
 COMMANDS
-	create
-		The `create` command allows you to rapidly develop your models, views, controllers, and tests
-		by generating the minimum code necessary to test and run your application.
-
-	g11n
-		The `G11n` set of commands deals with the extraction and merging of
-		message templates.
-
-	test
-		Runs a given set unit tests and outputs the results.
-
-See `li3 help COMMAND` for more information on a specific command.
+...
 ```
