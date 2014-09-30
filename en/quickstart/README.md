@@ -14,39 +14,32 @@ After completing installation, you should be able to navigate your browser to th
 
 ## MongoDB
 
-As well as li3 itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use MongoDB (http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with li3's RAD approach to development!
+As well as li3 itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use [MongoDB](http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with li3's RAD approach to development!
 
-The easiest way to get started is by downloading a binary from the MongoDB website. Check their [downloads page](http://www.mongodb.org/display/DOCS/Downloads), and fetch the binary that corresponds to your platform.
+To install the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/).
 
-Next, perform a bit of setup by creating a data directory for Mongo. Do this by creating a `/data/db` directory on your system (`C:\data\db` for our Windows friends).
+Finally, start up the database engine.
 
-Finally, start up the database engine. Run `/path/to/mongodb/bin/mongod`, and wait for the initialization information to finish showing.
+So that PHP can talk to Mongo you'll also need to install the PHP MongoDB driver. This is outlined
+in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Driver](http://docs.mongodb.org/ecosystem/drivers/php/).
 
-## PHP and Mongo
-
-So that PHP can talk to Mongo you'll also need to install the Mongo PECL module. For most systems ([not Windows](http://www.mongodb.org/display/DOCS/Installing+the+PHP+Driver#InstallingthePHPDriver-WindowsInstall)), this is as easy as:
-
-```sh
-sudo pecl install mongo
-```
-
-Once that's finished successfully, make sure to add `extension=mongo.so` to your `php.ini` file and restart the server, e.g.:
+We'll have to restart our webserver in order to make changes take effect.
 
 ```sh
 sudo /etc/init.d/apache2 restart
 ```
 
-The `php.ini` file will be stored in a directory like `/etc/php5/apache2` (exactly where depends on your system and server). There may also be a `php.ini` file for CLI. We don't use the `li3` command line application in this quickstart, but you might as well add `extension=mongo.so` to this other `php.ini` file as well to enable the command line application for the future.
-
-Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://www.mongodb.org/display/DOCS/Getting+Started) is a great place to get some help.
-
-## Connection Setup
+Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://docs.mongodb.org/manual/tutorial/getting-started/) is a great place to get some help.
 
 Now that we have a database up and running and talking to PHP, let's tell li3 about it. Do this by editing `project/app/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
 
 ```php
 // MongoDB Connection
-Connections::add('default', array('type' =>  'MongoDb', 'database' => 'blog', 'host' => 'localhost'));
+Connections::add('default', array(
+	'type' =>  'MongoDb', 
+	'database' => 'blog', 
+	'host' => 'localhost'
+));
 ```
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
@@ -70,7 +63,6 @@ class Posts extends \lithium\data\Model {}
 There's a lot going on (for free!) in the background here. First, li3 knows we're using our default connection because we haven't specified otherwise. Secondly, since our model is named `Posts`, it'll use a MongoDB collection called 'posts'. We've also inherited a lot of useful methods for querying the database, and we'll learn more about some of those in later sections of this tutorial.
 
 But wait, what? What about the schema setup? Actually, MongoDB doesn't require you to set it up first - it just waits until you want to insert or query the database and handles the request appropriately. That's RAD!
-
 
 ## In Control
 
