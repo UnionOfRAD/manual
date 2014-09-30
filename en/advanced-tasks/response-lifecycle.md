@@ -1,4 +1,4 @@
-# A Typical li3 Request and Response
+# A Typical Request and Response
 
 When building an application with li3, it's important to understand how a typical request is handled. This gives you a better idea of the possibilities inherent in the system, and allows you to better troubleshoot any problems that might arise during development. This also gives you a good macro view of what's going on before we dive into how controllers, views, and context works inside li3.
 

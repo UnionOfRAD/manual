@@ -1,4 +1,4 @@
-# Creating a li3 Plugin
+# Creating a Plugin
 
 If you've written a piece of functionality that you want to share among multiple applications, or [distribute within the li3 community](http://lab.li3.me/), you'll want to create a _plugin_. The good news is, if you've already created a li3 application, you're more than half way there.
 

@@ -8,7 +8,7 @@ Occasionally, a technique or feature in an application doesn't seem to fit well 
 
 Aspect-Oriented Programming, or AOP, is a technique that focuses on the organization and modularity of these cross-cutting concerns.
 
-## AOP in li3
+## AOP
 
 Aspect Oriented Programming finds a home in the li3 in at least two main pieces of functionality: filters and strategies.
 

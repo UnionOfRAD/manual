@@ -52,7 +52,7 @@ Router::connect('/{:controller}/{:action}/{:id:\d+}');
 
 Here, we're routing incoming requests along to their respective controllers and actions, but also tacking on a new parameter "id" if the URL ends with a numerical component. The regex here is important. If not defined, this route would also match `/products/viewCategory/electronics` if defined before another route that matches it better.
 
-### li3 Default Params
+### Default Parameters
 
 There are a number of default parameters that li3 is aware of. As you build your routes, keep these routes in mind, as they're reserved for routing/dispatching purposes:
 

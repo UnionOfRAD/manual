@@ -1,4 +1,4 @@
-# li3 Architecture
+# Architecture
 
 Though most of this manual covers how to create your own classes in li3 (controllers, models, and the like), you may want to familiarize yourself with some of the basic architectural ideas and philosophies behind the framework. As you come to know the code—and start to build plugins and extensions—keeping additions in style with li3's architecture becomes important.
 
@@ -101,11 +101,7 @@ $object->getProtected();        // 'testing'
 
 Objects that subclass li3's core `Object` class can also manage dependencies at runtime using a simple dependency injection mechanism. 
 
-# Package Organization
-
-# Exception Handling
-
-# li3 File Structure
+# File Structure
 
 Before you get started with li3, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
@@ -126,7 +122,8 @@ Let's tackle each of these folders one-by-one, covering what each is used for, a
 The `config` folder contains three main pieces: bootstrap files, your connections information, and your routes definitions.
 
 
-### Bootstrapping li3
+### Bootstrapping 
+
 The main bootstrap file in the config folder is `bootstrap.php`. This file is second file PHP will execute in any request cycle, and it loads up the li3 framework along with any other extras that you define there. As such, it's a great place to place initial application configuration.
 
 The best practice for bootstrapping parts of your application is by writing specific bootstrap files and placing them in `config/bootstrap/filename.php`. Once written, include the configuration into the main bootstrap file:

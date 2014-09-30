@@ -1,4 +1,4 @@
-# Using li3 in external applications
+# Using li3 in External Applications
 
 Because li3 is so flexible, you can bootstrap the core framework into any application environment, and use just the features you need.  First, make sure you have installed li3 properly.
 

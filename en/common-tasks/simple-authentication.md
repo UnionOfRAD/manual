@@ -1,4 +1,4 @@
-# Simple Authentication in li3
+# Simple Authentication
 
 If you're doing much more than simple static content delivery, chances are you'll end up needing to protect access to certain resources and functionality your application provides. li3's authentication setup is simple and allows you to quickly create a framework for managing and protecting those resources.
 
