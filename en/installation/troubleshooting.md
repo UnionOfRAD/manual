@@ -1,4 +1,4 @@
-# Troubleshooting li3 Installations
+# Troubleshooting Installations
 
 This quick list is meant to cover common problems in installing li3.
 

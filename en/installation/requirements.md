@@ -1,4 +1,4 @@
-# li3 Requirements
+# Requirements
 
 You need a web server to run li3, preferably running on your local machine (you do all of your development locally, right, right??). As PHP, li3 runs fine on most all popular web servers. Setup guides are available for Apache, Cherokee, Lighttpd, and Nginx. Because li3 takes advantage of advanced language features, the minimum version requirement is PHP 5.3.
 
