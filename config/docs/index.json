@@ -1,5 +1,5 @@
 {
-	"languages": [ "en", "jp" ],
+	"languages": [ "en" ],
 	"category": "manuals",
 	"en": {
 		"title": "The Definitive Guide",
@@ -96,9 +96,5 @@
 				}
 			}
 		}
-	},
-	"jp": {
-		"title": "",
-		"description": ""
 	}
 }
