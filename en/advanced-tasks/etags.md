@@ -6,7 +6,7 @@ The beneficial effects of web caching are most often underestimated but adding e
 
 **Embrace the web!**
 
-Web caching is both simple and complex. Beauty lies in complexities that come from a well thought through concepts. Their coherence allows you to master them and get that thing right. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented is presented at the end to give additional pointers for further reading. 
+Web caching is both simple and complex. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented is presented at the end to give additional pointers for further reading. 
 	
 ## Entity Tags
 
@@ -107,8 +107,6 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 
 ## Interacting with a Service
 
-Caching the other way around! 
-
 In this case we are retrieving the latest commits from the li3 GitHub repository. As GitHub has a pretty tight rate limit in place this seems to be a good idea.  
 
 ```php
@@ -131,7 +129,7 @@ if ($cached = Cache::read('default', $cacheKey)) {
 }
 $response = $github->get($path, array('type' => 'json'), $options);
 
-if ($response->status['code'] == 304) {
+if ($response->status('code') == 304) {
 	return $cached['body'];
 }
 $condition = trim($response->headers['ETag'], '"');
