@@ -12,7 +12,7 @@ Web caching is both simple and complex. As we don't want to put the cart before 
 
 _Validation_ is one aspect of web caching. With it comes the aspect of _conditional requests_. A typical request/response flow involving web caching and entity tags might look as simple as in the following chart.
 
-![chart](https://dl.dropbox.com/u/1578287/lithium_advent_caching_flow.jpg)
+![chart](/assets/img/lithium_advent_caching_flow.jpg)
 
 The _entity tag_ (also _ETag_ as the HTTP header) is a so called cache validator. In contrast to other validators like _Last-Modified_, entity tags prove to be **very flexible**. They are perfect for nearly any aspect of an application, generating both dynamic and static content: _a typical web application_. 
 
