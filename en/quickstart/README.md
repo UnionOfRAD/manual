@@ -10,7 +10,7 @@ First things first: let's make sure li3 is installed and working. If you haven't
 
 After completing installation, you should be able to navigate your browser to the path that you installed li3 to (e.g. `project`, the rest of this blog tutorial assumes you have installed li3 here) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 
-![Example initial li3 homepage](http://i.imgur.com/MsGsjel.png "Example initial li3 homepage")
+![Example initial li3 homepage](/assets/img/default_app_welcome.png "Example initial li3 homepage")
 
 ## MongoDB
 
