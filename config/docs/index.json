@@ -67,7 +67,8 @@
 			"quality-code": {
 				"title": "Quality Code",
 				"contents": {
-					"quality-code/testing.md": {"title": "Unit Testing"}
+					"quality-code/testing.md": {"title": "Unit Testing"},
+					"quality-code/analysis.md": {"title": "Static Code Analysis"}
 				}
 			},
 			"common-tasks": {
