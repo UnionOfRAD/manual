@@ -1,12 +1,12 @@
-# Lithium's Unit Testing Framework
+# The Unit Testing Framework
 
-Applications with any amount of complexity or reuse necessitate test coverage. Lithium's unit testing framework is home grown, and is used for the framework's own testing. It's simple, lightweight, and ready for immediate use.
+Applications with any amount of complexity or reuse necessitate test coverage. li3's unit testing framework is home grown, and is used for the framework's own testing. It's simple, lightweight, and ready for immediate use.
 
 ## Getting Started
 
-Since the unit testing framework is built into Lithium, you might already have it up and running. Once you've downloaded and installed Lithium, point your web browser to `/test` under your application's base URL.
+Since the unit testing framework is built into li3, you might already have it up and running. Once you've downloaded and installed li3, point your web browser to `/test` under your application's base URL.
 
-The Lithium Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing Lithium's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
+The li3 Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing li3's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
 
 All of your application's unit tests will reside in `/app/tests/`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
 
@@ -16,24 +16,22 @@ The `cases` folder is used to house all the core logic for your unit tests. If y
 
 Let's start out by creating a simple test case as a working example. Our first working example will be a model unit test. Let's start by creating one using the `li3 create` console command.
 
-{{{
-$ cd /path/to/lithium/app
-$ li3 create model Posts
+```bash
+cd /path/to/lithium/app
 
-Posts created in app\models.
-}}}
+li3 create model Posts
+# Outputs: Posts created in app\models.
+```
 
 We can also use the `li3 create` command to create our test case class.
 
-{{{
-$ li3 create test model Posts
-
-PostsTest created for Posts in app\tests\cases\models.
-}}}
+``` bash
+li3 create test model Posts
+# Outputs: PostsTest created for Posts in app\tests\cases\models.
+```
 
 Doing so creates a test file template class that extends `lithium\test\Unit` and looks like the following:
-
-{{{
+```php
 <?php
 
 namespace app\tests\cases\models;
@@ -45,11 +43,10 @@ class PostsTest extends \lithium\test\Unit {
 	public function setUp() {}
 
 	public function tearDown() {}
-
 }
 
 ?>
-}}}
+```
 
 The two initial methods supplied act as they're named. The `setUp()` method is used to perform any preparation work you'll need to perform your unit testing logic. This might be anything from setting up database connections to initializing mock data. Similarly, `tearDown()` is used to clean up anything that might be left over once a unit test has been completed. These methods are called before and after each method in your unit test case.
 
@@ -71,7 +68,7 @@ Since our test case is a subclass of `lithium\test\Unit`, we have easy access to
 
 Every post should have a great title, and any editor knows that post titles containing the phrase "top ten" are pure rubbish. We'll eventually need a method in our Posts model that searches for this phrase and warns us. Before writing that method, let's establish a test case to cover it. We'll call it `testIsGoodTitle()`. See an example implementation below:
 
-{{{
+```php
 <?php
 
 namespace app\tests\cases\models;
@@ -91,13 +88,13 @@ class PostsTest extends \lithium\test\Unit {
 }
 
 ?>
-}}}
+```
 
 Turn back to your browser showing the Unit Test Dashboard, and refresh it. You should see a new entry at the top of the list on the left hand side that shows our `PostsTest` unit test case. Clicking on the `PostsTest` test case should show you the test results. At this point you won't get far—the model will likely complain about a missing connection or function: as it should!
 
 Let's start working on the model so we can get that test to pass. First, let's specify our model as not having any connection. We'll adjust this later, but let's do this now for simplicity's sake.
 
-{{{
+```php
 <?php
 
 namespace app\models;
@@ -108,11 +105,11 @@ class Posts extends \lithium\data\Model {
 }
 
 ?>
-}}}
+```
 
 Once that's in place, running the test again should have it barking about how `isGoodTitle()` hasn't been defined. Let's provide a rudimentary implementation in the model to satisfy it:
 
-{{{
+```php
 <?php
 
 namespace app\models;
@@ -127,7 +124,7 @@ class Posts extends \lithium\data\Model {
 }
 
 ?>
-}}}
+```
 
 At this point, your test cases should run successfully in the Unit Test Dashboard.
 
@@ -139,8 +136,7 @@ Let's create a MockPosts that returns test data we can use to run through our `i
 
 Start by creating a new file in `app/tests/mocks/data/MockPosts.php`:
 
-{{{
-
+```php
 <?php
 
 namespace app\tests\mocks\data;
@@ -148,6 +144,7 @@ namespace app\tests\mocks\data;
 use lithium\data\collection\RecordSet;
 
 class MockPosts extends \app\models\Posts {
+
 	public static function find($type = 'all', array $options = array()) {
 		switch ($type) {
 			case 'first':
@@ -167,20 +164,19 @@ class MockPosts extends \app\models\Posts {
 	}
 }
 
-}}}
+?>
+```
 
 What we've got here is essentially a model that spits out hard-coded data when we call `find()`. In some cases, this might really be all we need. Let's use this in our main test case by adding the following function:
 
-{{{
-
+```php
 public function testMockTitles() {
 	$results = MockPosts::find('all');
 
 	$first = $results->current();
 	$this->assertFalse(MockPosts::isGoodTitle($first['title']));
 }
-
-}}}
+```
 
 Head back to the Unit Test Dashboard to make sure this runs successfully, and you're done!
 
