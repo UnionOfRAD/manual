@@ -25,7 +25,7 @@ li3 create model Posts
 
 We can also use the `li3 create` command to create our test case class.
 
-``` bash
+```bash
 li3 create test model Posts
 # Outputs: PostsTest created for Posts in app\tests\cases\models.
 ```
