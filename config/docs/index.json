@@ -65,7 +65,10 @@
 				}
 			},
 			"quality-code": {
-				"title": "Quality Code"
+				"title": "Quality Code",
+				"contents": {
+					"quality-code/testing.md": {"title": "Unit Testing"}
+				}
 			},
 			"common-tasks": {
 				"title": "Common Tasks",
