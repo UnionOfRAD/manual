@@ -1,24 +1,6 @@
 # Using An Entity
 
-## Entity Defined
 li3 is as capable of working with document oriented data sources as it is with relational databases.  Additionally, li3 works with other types of user-defined data sources.  Because of this, we use the term "Entity" to refer to what might be considered a document in one data source type or a record/row in another type.
-
-## Setting Default Query Options
-
-li3 allows you to get/set default options and conditions for queries that are executed for a model if no query-specific options are set using the `query()` method.  This is done by passing an associative array to the $options parameter.  If you do not set an `$options` parameter, the method will return the currently set query options in an array.
-The settable elements are:
-
-* **conditions**: associative array of where conditions. Example: `'conditions' => array('status' => 'draft')`
-* **fields**: Fields to be retrieved. Example: `'fields' => array('title','slug','id')`
-* **order**: specify how the records are to be ordered. Example: `'order' => array('date_created' => 'DESC')`
-* **limit**: Number of records to return. Example:  `'limit' => 10`
-* **page**: For pagination of data (limit * offset)
-* **with**: array of relationship names to include in the query
-
-<div class="note note-info">
-	You can optionally set the protected <code>$_query</code> 
-	property directly in the definition of your model's class.
-</div>
 
 ## Creating Entities
 
@@ -54,18 +36,18 @@ This will create an update query against the object with an ID matching `$id`. A
 
 The first parameter is $type and allows you to set the finder which will be used to set the scope of data to be returned.  Built-in finders are listed below, and you can also [create custom finders](#finders).
 
-* **all**: Retrieves all records
-* **count**: Retrieve a count of all records
-* **first**: Retrieve the first record
-* **list**: Produces an array where the `id` field is the key and the `title` field is the value.  (See the $_meta property above for more info on `id` and `title`)
+* **all**: retrieves all records
+* **count**: retrieve a count of all records
+* **first**: retrieve the first record
+* **list**: produces an array where the `id` field is the key and the `title` field is the value.  (See the $_meta property above for more info on `id` and `title`)
 
-The second parameter allows you to specify options for the query.  The options available are similar to the ones that are available in the `ModelName::_query` property:
+The second parameter allows you to specify options for the query:
 
 * **conditions**: associative array of where conditions.  Example: `'conditions' => array('status' => 'draft')`
-* **fields**: Fields to be retrieved   Example: `'fields' => array('title','slug','id')`
+* **fields**: fields to be retrieved   Example: `'fields' => array('title','slug','id')`
 * **order**: specify how the records are to be ordered  Example: `'order' => array('date_created' => 'DESC')`
-* **limit**: Number of records to return  Example:  `'limit' => 10`
-* **page**: For pagination of data (limit * offset)
+* **limit**: number of records to return  Example:  `'limit' => 10`
+* **page**: for pagination of data (limit * offset)
 
 **Examples**
 
@@ -128,6 +110,34 @@ $posts = Posts::findAllByUsername('michael');
 ```
 
 li3 also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
+
+### Default Query Options
+
+In cases where you always want finders results constrained to i.e. certain conditions, default query options can be used. Default options may be defined by using the `query()` method or alternatively by defining the `$_query` property on the model class.
+
+Specific query options overwrite default ones. As both are merged by simply using the `+` operator for arrays. Note that this can also be common pitfall.
+
+```php
+Posts::query(array(
+	'conditions' => array('is_published' => true),
+	'limit' => 4
+));
+
+// Will retrieve maximum of 4 results which are published.
+Posts::find('all');
+
+// Potential pitfall: will retrieve results published or not 
+// for author michael. Limited to 4 results maximum.
+Posts::find('all', array(
+	'conditions' => array('author' => 'michael')			
+));
+
+// Will retrieve only published results for author michael.
+// Limited to 4 results.
+Posts::find('all', array(
+	'conditions' => array('author' => 'michael', 'is_published' => true)
+));
+```
 
 ## Updating Entities
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
