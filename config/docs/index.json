@@ -20,7 +20,8 @@
 				"title": "Design Principles",
 				"contents": {
 					"design-principles/mvc.md": {"title": "Model View Controller"},
-					"design-principles/aop.md": {"title": "Aspect Oriented Programming"}
+					"design-principles/aop.md": {"title": "Aspect Oriented Programming"},
+					"design-principles/architecture.md": {"title": "Object Architecture"}
 				}
 			},
 			"configuration": {
@@ -88,7 +89,6 @@
 				"title": "Advanced Tasks",
 				"contents": {
 					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
-					"advanced-tasks/architecture.md": {"title": "Object Architecture"},
 					"advanced-tasks/etags.md": {"title": "ETag Everything"}
 				}
 			},
