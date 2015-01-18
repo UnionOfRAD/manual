@@ -93,6 +93,9 @@
 					"advanced-tasks/etags.md": {"title": "ETag Everything"}
 				}
 			},
+			"security": {
+				"title": "Security"
+			},
 			"appendices": {
 				"title": "Appendices",
 				"contents": {
