@@ -16,13 +16,13 @@
 			"quickstart": {
 				"title": "Quickstart"
 			},
-			"design-principles": {
-				"title": "Design Principles",
+			"architecture": {
+				"title": "Architecture",
 				"contents": {
-					"design-principles/mvc.md": {"title": "Model View Controller"},
-					"design-principles/aop.md": {"title": "Aspect Oriented Programming"},
-					"design-principles/objects.md": {"title": "Objects"},
-					"design-principles/file-structure.md": {"title": "File Structure"}
+					"architecture/mvc.md": {"title": "Model View Controller"},
+					"architecture/aop.md": {"title": "Aspect Oriented Programming"},
+					"architecture/objects.md": {"title": "Objects"},
+					"architecture/file-structure.md": {"title": "File Structure"}
 				}
 			},
 			"configuration": {
