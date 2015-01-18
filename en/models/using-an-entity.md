@@ -6,8 +6,6 @@ li3 is as capable of working with document oriented data sources as it is with r
 
 The `create()` method instantiates a new record or document object, initialized with any data passed in.
 
-**Example:**
-
 ```php
 $post = Posts::create(array('title' => 'New post'));
 echo $post->title; // echoes 'New post'
@@ -36,40 +34,38 @@ This will create an update query against the object with an ID matching `$id`. A
 
 The first parameter is $type and allows you to set the finder which will be used to set the scope of data to be returned.  Built-in finders are listed below, and you can also [create custom finders](#finders).
 
-* **all**: retrieves all records
-* **count**: retrieve a count of all records
-* **first**: retrieve the first record
-* **list**: produces an array where the `id` field is the key and the `title` field is the value.  (See the $_meta property above for more info on `id` and `title`)
+* **all**: Retrieves all records.
+* **count**: Retrieve a count of all records.
+* **first**: Retrieve the first record.
+* **list**: Produces an array where the `id` field is the key and the `title` field is the value.
 
 The second parameter allows you to specify options for the query:
 
-* **conditions**: associative array of where conditions.  Example: `'conditions' => array('status' => 'draft')`
-* **fields**: fields to be retrieved   Example: `'fields' => array('title','slug','id')`
-* **order**: specify how the records are to be ordered  Example: `'order' => array('date_created' => 'DESC')`
-* **limit**: number of records to return  Example:  `'limit' => 10`
-* **page**: for pagination of data (limit * offset)
-
-**Examples**
+* **conditions**: Associative array of conditions.  
+* **fields**: Fields to be retrieved.
+* **order**: Specify how the records are to be ordered.
+* **limit**: Number of records to return.
+* **page**: For pagination of data (equals limit * offset).
 
 ```
-// Read all posts
+// Read all posts.
 $posts = Posts::find('all');
 
-// Read the first post
+// Read the first post.
 $post = Posts::find('first');
 
-// Read all posts with the newest ones first
+// Read all posts with the newest ones first.
 $posts = Posts::find('all', array(
 	'order' => array('created' => 'DESC')
 ));
 
-// Read the only the title of the newest post
+// Read the only the title of the newest post.
 $post = Posts::find('first', array(
 	'fields' => array('title'),
 	'order' => array('created' => 'DESC')
 ));
 
-// Read only posts where the author name is "michael"
+// Read only posts where the author name is "michael".
 $posts = Posts::find('all', array(
 	'conditions' => array('author' => 'michael')
 ));
