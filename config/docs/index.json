@@ -36,11 +36,11 @@
 				"contents": {
 					"models/connections.md": {"title": "Connections"},
 					"models/setting-up-models.md": {"title": "Setting Up Models"},
+					"models/working-with-entities.md": {"title": "Working with Entities"},
+					"models/validation.md": {"title": "Validation"},
 					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
 					"models/relationships.md": {"title": "Relationships"},
-					"models/working-with-entities.md": {"title": "Working with Entities"},
-					"models/using-data-sources.md": {"title": "Using and Creating Data Sources"},
-					"models/validation.md": {"title": "Validation"}
+					"models/using-data-sources.md": {"title": "Using Data Sources"}
 				}
 			},
 			"controllers": {
