@@ -27,10 +27,11 @@ $success = $post->save();
 
 This will create an update query against the object with an ID matching `$id`. Also note that only the `title` field will be updated.
 
-## Basic Entity Retrieval ##
- Reading data from your database (or any data source available) is one of the most basic tasks that you will perform. To make common tasks easy, li3 provides a central method for reading data. The main (static) method used to read data is called `find()` and takes at least one parameter.
+## Basic Entity Retrieval
 
- The `find` method allows you to retrieve data from the connected data source. Within the method there are some built-in options that you can use in the `$type` parameter to specify which records you want. Custom values for this parameter can be created by using the $_finder property.
+Reading data from your database (or any data source available) is one of the most basic tasks that you will perform. To make common tasks easy, li3 provides a central method for reading data. The main (static) method used to read data is called `find()` and takes at least one parameter.
+
+The `find` method allows you to retrieve data from the connected data source. Within the method there are some built-in options that you can use in the `$type` parameter to specify which records you want. Custom values for this parameter can be created by using the $_finder property.
 
 The first parameter is $type and allows you to set the finder which will be used to set the scope of data to be returned.  Built-in finders are listed below, and you can also [create custom finders](#finders).
 
