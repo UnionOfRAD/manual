@@ -23,7 +23,8 @@
 					"architecture/aop.md": {"title": "Aspect Oriented Programming"},
 					"architecture/objects.md": {"title": "Objects"},
 					"architecture/file-structure.md": {"title": "File Structure"},
-					"architecture/dependencies.md": {"title": "Dependencies"}
+					"architecture/dependencies.md": {"title": "Dependencies"},
+					"architecture/response-lifecycle.md": {"title": "The Response Lifecycle"}
 				}
 			},
 			"configuration": {
@@ -84,14 +85,8 @@
 					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
 					"common-tasks/simple-authentication.md": {"title": "Authentication"},
 					"common-tasks/globalization.md": {"title": "Globalization"},
-					"common-tasks/plugins.md": {"title": "Plugins"}
-				}
-			},
-			"advanced-tasks": {
-				"title": "Advanced Tasks",
-				"contents": {
-					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
-					"advanced-tasks/etags.md": {"title": "ETag Everything"}
+					"common-tasks/plugins.md": {"title": "Plugins"},
+					"common-tasks/etags.md": {"title": "Caching with ETags"}
 				}
 			},
 			"security": {
