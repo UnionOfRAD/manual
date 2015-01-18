@@ -4,7 +4,7 @@ li3 provides you with methods that your model can use when it inherits from `lit
 ```
 $post = Posts::first(array('conditions' => array('author' => 'foobar')));
 
-$post->title = "Hello li3!";
+$post->title = 'Hello World';
 $post->save();
 ```
 
@@ -38,7 +38,7 @@ namespace app\models;
 class People extends \lithium\data\Model {
 	
 	public function fullName($entity) {
-		return $entity->firstname." ".$entity->lastname;
+		return "{$entity->firstname} {$entity->lastname}";
 	}
 }
 
@@ -48,7 +48,8 @@ foreach ($people as $person) {
 }
 ```
 
-You can add functionality on the fly and provide an extra layer of abstraction around raw database records/documents with very little effort.
+You can add functionality on the fly and provide an extra layer of abstraction around raw database records/documents with very little effort. 
+This technique is in depth described in [Adding Functionality](./adding-functions-to-models.md).
 
 
 
