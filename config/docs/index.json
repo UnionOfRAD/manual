@@ -23,8 +23,8 @@
 					"architecture/aop.md": {"title": "Aspect Oriented Programming"},
 					"architecture/objects.md": {"title": "Objects"},
 					"architecture/file-structure.md": {"title": "File Structure"},
-					"architecture/dependencies.md": {"title": "Dependencies"},
-					"architecture/response-lifecycle.md": {"title": "The Response Lifecycle"}
+					"architecture/response-lifecycle.md": {"title": "The Response Lifecycle"},
+					"architecture/dependencies.md": {"title": "Dependencies"}
 				}
 			},
 			"configuration": {
@@ -80,11 +80,11 @@
 				"contents": {
 					"common-tasks/error-handling.md": {"title": "Error Handling"},
 					"common-tasks/logging.md": {"title": "Logging"},
-					"common-tasks/caching.md": {"title": "Caching"},
-					"common-tasks/console-applications.md": {"title": "Console Applications"},
-					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
 					"common-tasks/simple-authentication.md": {"title": "Authentication"},
+					"common-tasks/caching.md": {"title": "Caching"},
+					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
 					"common-tasks/globalization.md": {"title": "Globalization"},
+					"common-tasks/console-applications.md": {"title": "Console Applications"},
 					"common-tasks/plugins.md": {"title": "Plugins"},
 					"common-tasks/etags.md": {"title": "Caching with ETags"}
 				}
