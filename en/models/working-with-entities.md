@@ -214,7 +214,7 @@ There is also an `$options` parameter that has the following settable elements.
 * `'whitelist'` _array_: An array of fields that are allowed to be saved to this record.
 
 
-## Operating on Entities
+## Converting Entities
 
 Retrieved entities can easily converted into other formats. In this example we show
 how to query and convert entities in one go.
