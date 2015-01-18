@@ -22,7 +22,8 @@
 					"architecture/mvc.md": {"title": "Model View Controller"},
 					"architecture/aop.md": {"title": "Aspect Oriented Programming"},
 					"architecture/objects.md": {"title": "Objects"},
-					"architecture/file-structure.md": {"title": "File Structure"}
+					"architecture/file-structure.md": {"title": "File Structure"},
+					"architecture/dependencies.md": {"title": "Dependencies"}
 				}
 			},
 			"configuration": {
