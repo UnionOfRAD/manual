@@ -19,7 +19,7 @@ $success = $post->save();
 
 This method can also be used to simulate loading a pre-existing object from the database, without actually querying the database:
 
-```
+```php
 $post = Posts::create(array('id' => $id, 'moreData' => 'foo'), array('exists' => true));
 $post->title = 'New title';
 $success = $post->save();
@@ -48,7 +48,7 @@ The second parameter allows you to specify options for the query:
 * **limit**: Number of records to return.
 * **page**: For pagination of data (equals limit * offset).
 
-```
+```php
 // Read all posts.
 $posts = Posts::find('all');
 
@@ -137,11 +137,10 @@ Posts::find('all', array(
 ```
 
 ## Updating Entities
+
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
 
 The `$data` parameter is typically an array of key/value pairs that specify the new data with which the records will be updated. For SQL databases, this can optionally be an SQL fragment representing the `SET` clause of an `UPDATE` query.  The `$conditions` parameter is an array of key/value pairs representing the scope of the records to be updated.  The `$options` parameter specifies ny database-specific options to use when performing the operation. The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
-
-**Examples**
 
 ```
 // Change the author for all documents.
@@ -157,8 +156,6 @@ Deleting entities from your datasource is accomplished using either the `remove(
 Use `remove()` to remove data (documents, records, etc.) based on specified conditions & options.
 
 The `$conditions` parameter is first and is an array of key/value pairs representing the scope of the records or documents to be deleted. Example: `'conditions' => array('status' => 'draft')`.  The `$options` parameter is an array that specifies any database-specific options to use when performing the operation.  The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
-
-**Usage Examples**
 
 ```
 // Delete all posts.
@@ -177,8 +174,6 @@ To delete the data associated with the a specified entity, use the `delete()` me
 
 The parameter `$entity` is the entity to be deleted and as with `remove()`,  the `$options` parameter is an array specifies any database-specific options to use when performing the operation.  The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
 
-**Usage Example**
-
 ```php
 // Read the first post
 $post = Posts::first();
@@ -190,8 +185,7 @@ $result = Posts::delete($post);
 ## Saving Entities
 Persisting data means that new data is being stored or updated. Before you can save your data, you have to initialize a `Model`. This can either be done with the `find()` methods shown earlier or—if you want to create a new entity with the static `create()` method.  `save()` is a method (called on record and document objects) to create or update the record or document in the database that corresponds to `$entity`.
 
-**EXAMPLE: Saving a Record or Document**
-```
+```php
 // Create a new post, add title and author, then save.
 $post         = Posts::create();
 $post->title  = "My first blog post.";
@@ -213,9 +207,10 @@ $post->save();
 
 Note that `save()` also validates your data if you have any validation rules defined in your model. It returns either `true` or `false`, depending on the success of the validation and saving process. You'll normally use this in your controller like so:
 
-```
+```php
 public function add() {
 	$post = Posts::create();
+
 	if($this->request->data && $post->save($this->request->data)) {
 		$this->redirect('Posts::index');
 	}
@@ -226,7 +221,7 @@ This redirects the user only to the `index` action if the saving process was suc
 
 To override the validation checks and save anyway, you can pass the `'validate'` option:
 
-```
+```php
 $post->title = "We Don't Need No Stinkin' Validation";
 $post->body = "I know what I'm doing.";
 $post->save(null, array('validate' => false));
