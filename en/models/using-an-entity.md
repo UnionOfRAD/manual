@@ -12,7 +12,7 @@ echo $post->title; // echoes 'New post'
 $success = $post->save();
 ```
 
-<div class="note note-caution">
+<div class="note note-info">
 	While this method creates a new object, there is no effect 
 	on the database until the <code>save()</code> method is called.
 </div>
