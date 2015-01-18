@@ -100,7 +100,9 @@ Let's start working on the model so we can get that test to pass. First, let's s
 namespace app\models;
 
 class Posts extends \lithium\data\Model {
+
 	protected $_meta = array('connection' => false);
+
 	public $validates = array();
 }
 
@@ -115,7 +117,9 @@ Once that's in place, running the test again should have it barking about how `i
 namespace app\models;
 
 class Posts extends \lithium\data\Model {
+
 	protected $_meta = array('connection' => false);
+
 	public $validates = array();
 
 	public static function isGoodTitle($title) {
