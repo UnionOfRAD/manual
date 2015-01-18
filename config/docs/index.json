@@ -87,7 +87,6 @@
 			"advanced-tasks": {
 				"title": "Advanced Tasks",
 				"contents": {
-					"advanced-tasks/cloud.md": {"title": "In the Cloud"},
 					"advanced-tasks/response-lifecycle.md": {"title": "The Response Lifecycle"},
 					"advanced-tasks/architecture.md": {"title": "Object Architecture"},
 					"advanced-tasks/etags.md": {"title": "ETag Everything"}
