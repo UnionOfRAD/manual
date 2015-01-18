@@ -42,13 +42,3 @@ The `Connections` class handles adapter classes efficiently by only loading adap
 
 Adapters are usually subclasses of `lithium\data\Source`. Once these connections have been made, the data source is available to your models. Since one of the connections defined above is named `default`, newly created models will automatically use that connection and its related data source adapter.
 
-If you're using multiple data sources in your application, you can specify which to use in each model class, inside of the `$_meta` property. For example, if we had user profile data stored in the MySQL connection specified above as `legacy`, we'd create our model as follows:
-
-```php
-namespace app\models;
-
-class UserProfiles extends \lithium\data\Model {
-
-	public $_meta = array('connection' => 'legacy');
-}
-```
