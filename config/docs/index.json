@@ -21,7 +21,8 @@
 				"contents": {
 					"design-principles/mvc.md": {"title": "Model View Controller"},
 					"design-principles/aop.md": {"title": "Aspect Oriented Programming"},
-					"design-principles/architecture.md": {"title": "Object Architecture"}
+					"design-principles/objects.md": {"title": "Objects"},
+					"design-principles/file-structure.md": {"title": "File Structure"}
 				}
 			},
 			"configuration": {
