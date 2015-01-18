@@ -53,19 +53,6 @@ Connections::add('default', array(
 ));
 ```
 
-## Configuring Models
-
-As mentioned, models will look for the "default" connection first. If you've got more than one connection you're using, or wish a model to use an alternate, specify the connection name in the model's `$_meta` property:
-
-```php
-class Users extends \lithium\data\Model {
-
-	protected $_meta = array(
-		'connection' => 'myotherconnection'
-	);
-}
-```
-
 ## Connections and Environments
 
 Many applications use different databases depending on which environment the application is currently being hosted from. For example, might want to switch your MongoDB connection from a locally hosted database in development, but use a cloud-based hosting service once you're in production. Connection configurations were built with this in mind.

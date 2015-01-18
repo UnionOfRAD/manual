@@ -1,4 +1,4 @@
-# Using An Entity
+# Working With Entities
 
 li3 is as capable of working with document oriented data sources as it is with relational databases.  Additionally, li3 works with other types of user-defined data sources.  Because of this, we use the term "Entity" to refer to what might be considered a document in one data source type or a record/row in another type.
 
@@ -108,34 +108,6 @@ $posts = Posts::findAllByUsername('michael');
 
 li3 also allows you to build custom finder methods to extend functionality.  This is explained in more detail in the [Adding Functions to Models](adding-functions-to-models.md) page.
 
-### Default Query Options
-
-In cases where you always want finders results constrained to i.e. certain conditions, default query options can be used. Default options may be defined by using the `query()` method or alternatively by defining the `$_query` property on the model class.
-
-Specific query options overwrite default ones. As both are merged by simply using the `+` operator for arrays. Note that this can also be common pitfall.
-
-```php
-Posts::query(array(
-	'conditions' => array('is_published' => true),
-	'limit' => 4
-));
-
-// Will retrieve maximum of 4 results which are published.
-Posts::find('all');
-
-// Potential pitfall: will retrieve results published or not 
-// for author michael. Limited to 4 results maximum.
-Posts::find('all', array(
-	'conditions' => array('author' => 'michael')			
-));
-
-// Will retrieve only published results for author michael.
-// Limited to 4 results.
-Posts::find('all', array(
-	'conditions' => array('author' => 'michael', 'is_published' => true)
-));
-```
-
 ## Updating Entities
 
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
@@ -231,7 +203,6 @@ $post->save(null, array('validate' => false));
 	There is more information about validation and how to use the
 	<code>validates()</code> in the <a href="./validation.md">Validation</a> chapter. 
 </div>
-
 
 The `$entity` parameter is the record or document object to be saved in the database. This parameter is implicit and should not be passed under normal circumstances. In the above example, the call to `save()` on the `$post` object is transparently proxied through to the `Posts` model class, and `$post` is passed in as the `$entity` parameter.  The `$data` parameter is for any data that should be assigned to the record before it is saved.
 
