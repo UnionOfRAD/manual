@@ -6,14 +6,14 @@ This section focuses on validation in the model layer, as well as covering li3's
 
 ## Configuring Validation in Your Models
 
-Because it's likely the most common case, we'll start with a simple model data validation example based around an HTML form. Let's consider an application that handles user registration. We'll define a `User` model and create some simple validation logic in order to make sure submitted user information is complete and in the correct form.
+Because it's likely the most common case, we'll start with a simple model data validation example based around an HTML form. Let's consider an application that handles user registration. We'll define a `Users` model and create some simple validation logic in order to make sure submitted user information is complete and in the correct form.
 
-Validation is done by defining a special property on the model object called `$validates`. li3 inspects this property and validates data to be saved against this set of rules. Let's create a simple `User` model, and begin with a few simple validation rules.
+Validation is done by defining a special property on the model object called `$validates`. li3 inspects this property and validates data to be saved against this set of rules. Let's create a simple `Users` model, and begin with a few simple validation rules.
 
 ```php
 namespace app\models;
 
-class User extends lithium\data\Model {
+class Users extends lithium\data\Model {
 
 	public $validates = array(
 		'username' => array(
@@ -50,7 +50,8 @@ You may also declare multiple rules per field. Here, we add an additional rule t
 ```php
 namespace app\models;
 
-class User extends lithium\data\Model {
+class Users extends lithium\data\Model {
+
 	public $validates = array(
 		'username' => array(
 			array(
@@ -90,6 +91,8 @@ Once that data is submitted to the controller, we handle it like this:
 
 ```php
 namespace app\controllers;
+
+use app\models\Users;
 
 class UsersController extends lithium\action\Controller {
 
