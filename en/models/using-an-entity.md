@@ -72,11 +72,11 @@ $posts = Posts::find('all', array(
 ));
 ```
 
-<div class="note note-hint">
-	You can quickly get your data into a multidimensional array in the form of 
-	<code>$data[$key][$field]</code> by chaining the <code>->to('array')</code> method to the end of the find() method call:
-	<br><br>
-	<code>$posts = Posts::find('all')->to('array');</code>
+<div class="note note-caution">
+	The framework protects against injection attacks by quoting
+	condition values. Other options i.e. <code>'fields'</code> are
+	however <strong>not</strong> automatically quoted. Read more about the topic 
+	and potential countermeasure in the <a href="../security">Security</a> chapter.
 </div>
 
 ### Basic Finder Methods
