@@ -11,3 +11,4 @@
 - Add new updated Cloud Services Tutorial for Engine Yard 
 - Cloud Services Tutorials - Simpler Cloud API, AWS, etc. Break down further
 - Entites Collections
+- Model Schema
