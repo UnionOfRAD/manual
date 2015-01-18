@@ -34,7 +34,9 @@ class Users extends lithium\data\Model {
 }
 ```
 
-Note: for a complete list of built-in validation rules, see the `Validator` API: [http://li3.me/docs/lithium/util/Validator](http://li3.me/docs/lithium/util/Validator)
+<div class="note note-hint">
+	For a complete list of built-in validation rules, see the <a href="http://li3.me/docs/lithium/util/Validator"><code>Validator</code> API</a>.
+</div>
 
 This initial example shows how rules are defined. First, each set of rules is keyed by the model field name. Each field is then assigned an array of rules, where the first value is the name of the rule, and the subsequent keys define additional information about each rule.
 
