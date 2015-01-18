@@ -94,9 +94,10 @@ $posts = Posts::find('all', array(
 ```
 
 <div class="note note-hint">
-	You can quickly get your data into a multidimensional array in the form of $array[keyValue][fieldName] by chaining the ->to('array') method to the end of the find() method call.
+	You can quickly get your data into a multidimensional array in the form of 
+	<code>$data[$key][$field]</code> by chaining the <code>->to('array')</code> method to the end of the find() method call:
 	<br><br>
-	Example: <code>$posts = Posts::find('all')->to('array');</code>
+	<code>$posts = Posts::find('all')->to('array');</code>
 </div>
 
 ### Basic Finder Methods
@@ -117,7 +118,7 @@ $posts = Posts::all(array('order' => array('created' => 'DESC')));
 
 The basic finder methods are nice, but li3 also provides you with a set of highly dynamic methods that match against your dataset. The example below shows two different approaches to finding all the posts related to the username "Michael". The first bare approach shows how to use `find()` directly. The second example uses camelCase convention to tell li3 to filter by a specific field name and value.
 
-```
+```php
 // Bare approach
 $posts = Posts::find('all', array(
 	'conditions' => array('username' => 'michael')
@@ -224,9 +225,11 @@ $post->body = "I know what I'm doing.";
 $post->save(null, array('validate' => false));
 ```
 
-> **Note**
+<div class="note note-hint">
+	There is more information about validation and how to use the
+	<code>validates()</code> in the <a href="./validation.md">Validation</a> chapter. 
+</div>
 
-> see the `validates()` method in the Data Validation section for more information on validation.
 
 The `$entity` parameter is the record or document object to be saved in the database. This parameter is implicit and should not be passed under normal circumstances. In the above example, the call to `save()` on the `$post` object is transparently proxied through to the `Posts` model class, and `$post` is passed in as the `$entity` parameter.  The `$data` parameter is for any data that should be assigned to the record before it is saved.
 
@@ -238,7 +241,11 @@ There is also an `$options` parameter that has the following settable elements.
 * `'whitelist'` _array_: An array of fields that are allowed to be saved to this record.
 
 ## Verifying Model Fields
+
 The `isField()` method checks to see if a particular field exists in a model's schema. This method can check a single field, or return the first field found in an array of multiple options.  The parameter is `$field`, a single field (string) or list of fields (array) to check the existence of.
 
 ## Resetting Model Instances
+
 li3 provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.
+
+
