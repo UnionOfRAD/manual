@@ -242,13 +242,6 @@ There is also an `$options` parameter that has the following settable elements.
 * `'events'` _mixed_: A string or array defining one or more validation _events_. Events are different contexts in which data events can occur, and correspond to the optional `'on'` key in validation rules. They will be passed to the validates() method if `'validate'` is not `false`.
 * `'whitelist'` _array_: An array of fields that are allowed to be saved to this record.
 
-## Verifying Model Fields
-
-The `isField()` method checks to see if a particular field exists in a model's schema. This method can check a single field, or return the first field found in an array of multiple options.  The parameter is `$field`, a single field (string) or list of fields (array) to check the existence of.
-
-## Resetting Model Instances
-
-li3 provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.
 
 ## Operating on Entities
 

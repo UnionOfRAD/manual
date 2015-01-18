@@ -79,3 +79,12 @@ $success = $post->validates();
 <div class="note note-hint">
 	 See the section on <a href="validation.md">validation</a> in this user manual for more information about adding custom rules, or override built-in rules.
 </div>
+
+
+## Verifying Model Fields
+
+The `hasField()` method checks to see if a particular field exists in a model's schema. This method can check a single field, or return the first field found in an array of multiple options.  The parameter is `$field`, a single field (string) or list of fields (array) to check the existence of.
+
+## Resetting Model Instances
+
+li3 provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.
