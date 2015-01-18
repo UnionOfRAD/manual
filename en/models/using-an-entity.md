@@ -255,4 +255,15 @@ The `isField()` method checks to see if a particular field exists in a model's s
 
 li3 provides the `reset()` method to reset/destroy instances of your model if that is required in your app.  This will unset the instances of the model.
 
+## Operating on Entities
+
+Retrieved entities can easily converted into other formats. In this example we show
+how to query and convert entities in one go.
+
+```php
+// Convert to an array in the form $data[<KEY>][<FIELD>].
+Posts::find('all')->data();
+Posts::find('all')->to('array');
+```
+
 
