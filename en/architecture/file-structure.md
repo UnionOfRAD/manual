@@ -1,4 +1,4 @@
-# File Structure
+# Application File Structure
 
 Before you get started with li3, it's important to know how your application's main folder is structured, and where everything should go. Clone yourself a copy of the main repo, and you'll find an app folder structure that contains:
 
