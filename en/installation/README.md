@@ -2,8 +2,8 @@
 
 ## Starting a New Project
 
-The best way to start a project is to base it on a already available project distribution. There are distributions for general web projects or for projects that require an micro-framework style approach. 
-Distributions come with a predefined app [file structure](../architecture/file-structure.md), some boilerplate code and the bundled lithium core library.
+The best way to start a *project* is to base it on a already available project *distribution*. There are distributions for general web projects or for projects that require an micro-framework style approach. 
+Distributions come with a predefined app [file structure](../architecture/file-structure.md), some boilerplate code and the bundled core library.
 
 We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework). 
 
