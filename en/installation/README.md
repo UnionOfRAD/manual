@@ -3,17 +3,16 @@
 ## Starting a New Project
 
 The best way to start a project is to base it on a already available project distribution. There are distributions for general web projects or for projects that require an micro-framework style approach. 
-Distributions come with a predefined app directory structure, some boilerplate code and the bundled lithium core library.
+Distributions come with a predefined app [file structure](../architecture/file-structure.md), some boilerplate code and the bundled lithium core library.
 
 We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework). 
 
 For the start we'll use GIT to clone the distribution's repository into 
-the current directory as `project`. 
+the current directory as `project`. The upstream's repository will be setup
+with the name `distro`.
 
 ```bash
-cd project
-git submodule init
-git submodule update
+git clone --origin distro https://github.com/UnionOfRAD/framework.git project
 ```
 
 We'll than switch into that directory and initialize the submodules of that repository. Submodules are used in order to have no dependencies other than on the core library itself.
@@ -32,15 +31,15 @@ webservers are described at the end of this guide.
 
 ### Configuring PHP
 
-The vanilla PHP configuration should be fine. However its always good to double check that certain configuration options are set correctly. Certain features are not supported as we consider those
-broken, very experimental or a hack.
+The vanilla PHP configuration should be in general fine. However its always good to double check that certain configuration options are set correctly. Certain features 
+are not supported as we consider those broken, very experimental or a hack.
 
 Verify in your php.ini that:
 
 - Magic Quotes are disabled.
 - Register Globals are disabled.
 - Function overloading is disabled when using the `mbstring` extension.
-- PHP should isn't compiled with curlwrappers.
+- PHP isn't compiled with curlwrappers.
 - Short Open Tags are disabled. Although this is not a strict requirement.
 
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
@@ -104,6 +103,7 @@ git checkout dev
 
 cd libraries/lithium
 git checkout dev
+git pull
 ```
 
 
