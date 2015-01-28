@@ -66,7 +66,7 @@ Finally, pull up the project in your browser and visit [`http://127.0.0.1:8080`]
 At this point, you should be presented with the default home page. **You're up and running!**
 
 <div class="note note-hint">
-	Read more about setting up production webservers on the <a href="./servers.md">Servers</a> page.
+	Read more about setting up production web servers on the <a href="./web-servers.md">Web Servers</a> page.
 </div>
 
 ## One or Two More Things

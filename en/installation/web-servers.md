@@ -1,4 +1,4 @@
-# Webservers
+# Web Servers
 
 ## Using Apache httpd
 
