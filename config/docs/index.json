@@ -10,7 +10,8 @@
 				"title": "Installation",
 				"contents": {
 					"installation/requirements.md": {"title": "Requirements"},
-					"installation/troubleshooting.md": {"title": "Troubleshooting"}
+					"installation/troubleshooting.md": {"title": "Troubleshooting"},
+					"installation/servers.md": {"title": "Servers"}
 				}
 			},
 			"quickstart": {

@@ -66,6 +66,9 @@ php -S 127.0.0.1:8080 -t app/webroot index.php
 Finally, pull up the project in your browser and visit [`http://127.0.0.1:8080`](http://127.0.0.1:8080).
 At this point, you should be presented with the default home page. **You're up and running!**
 
+<div class="note note-hint">
+	Read more about setting up production webservers on the <a href="./servers.md">Servers</a> page.
+</div>
 
 ## One or Two More Things
 
@@ -87,35 +90,6 @@ USAGE
 
 COMMANDS
 ...
-```
-
-### Using Apache httpd
-
-Before starting things up, make sure `mod_rewrite` is enabled, and the `AllowOverride` directive
-is set to `All` on the necessary directories involved. Be sure to restart the server before
-checking things.
-
-The _framework_ distribution already comes with some default `.htaccess` files which will make
-things work with Apache httpd automatically.
-
-### Using NGINX
-
-```nginx
-server {
-	listen 80;
-	server_name project.dev;
-	root /path/to/project/app/webroot;
-	
-	index index.php;
-	try_files $uri $uri/ /index.php?$args;	
-
-	location ~ \.php$ {
-		# These are example paths. Check your FPM configuration as your
-		# setup may vary.
-		include /usr/local/etc/nginx/fastcgi.conf;
-		fastcgi_pass unix:/usr/local/var/run/php-fpm.socket;
-	}
-}
 ```
 
 ### Getting the Most Recent Version
