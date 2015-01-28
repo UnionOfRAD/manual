@@ -20,3 +20,5 @@
 - Add new updated Cloud Services guide for Engine Yard 
 - Adaptable, Environment specific settings
 - Advanced Filtering
+- Launch Checklist
+- Example Applications
