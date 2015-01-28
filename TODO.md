@@ -22,3 +22,4 @@
 - Advanced Filtering
 - Launch Checklist
 - Example Applications
+- Expand Using in External Apps with Wordpress Integration

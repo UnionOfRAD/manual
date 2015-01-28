@@ -97,7 +97,7 @@
 				"title": "Appendices",
 				"contents": {
 					"appendices/faqs.md": {"title": "FAQs"},
-					"appendices/using-in-other-applications.md": { "title": "Using li3 in Other Applications" }
+					"appendices/using-in-other-applications.md": { "title": "In External Applications" }
 				}
 			}
 		}
