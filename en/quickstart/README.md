@@ -1,33 +1,31 @@
-# The Quintessential Blog Tutorial
+# Quickstart
+## The Quintessential Blog Tutorial
 
-Thanks for trying out li3! This section of the manual is for PHP users who want to see what li3 can do. Diving into the code like this is a great way to get a feel for Rapid Application Development!
+Thanks for trying out li3! This section of the manual is for PHP users who want to see what the framework can do. Diving into the code like this is a great way to get a feel for Rapid Application Development!
 
 By the time you have finished this section you will have built a simple blogging platform that reads and writes from a database. Later sections of the manual explain the concepts you'll use here in more detail.
 
 ## Setting Up
 
-First things first: let's make sure li3 is installed and working. If you haven't already installed li3 then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
+First things first: let's make sure the framework is installed and working. If you haven't already installed it then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
 
-After completing installation, you should be able to navigate your browser to the path that you installed li3 to (e.g. `project`, the rest of this blog tutorial assumes you have installed li3 here) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
+After completing installation, you should be able to navigate your browser to the path that you installed your intitial project (e.g. `http://project.dev` or `http://127.0.0.1:8080`, the rest of this blog tutorial assumes you have installed it there) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 
 ![Example initial li3 homepage](/assets/img/default_app_welcome.png "Example initial li3 homepage")
 
 ## MongoDB
 
-As well as li3 itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use [MongoDB](http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with li3's RAD approach to development!
+As well as the framework itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use [MongoDB](http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with li3's RAD approach to development!
 
-To install the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/).
 
-Finally, start up the database engine.
+<div class="note note-info">
+	The framework has support for both relational (MySQL, MariaDB, PostgreSQL, SQLite) and NoSQL databases (MongoDB, CouchDB) and is one of the first frameworks to support both types of databases through one single ORM.
+</div>
+
+To install the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/) and finally, start up the database engine.
 
 So that PHP can talk to Mongo you'll also need to install the PHP MongoDB driver. This is outlined
-in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Driver](http://docs.mongodb.org/ecosystem/drivers/php/).
-
-We'll have to restart our webserver in order to make changes take effect.
-
-```sh
-sudo /etc/init.d/apache2 restart
-```
+in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Driver](http://docs.mongodb.org/ecosystem/drivers/php/). Once the driver is installed, we'll have to restart our webserver to make changes take effect.
 
 Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://docs.mongodb.org/manual/tutorial/getting-started/) is a great place to get some help.
 
@@ -44,13 +42,17 @@ Connections::add('default', array(
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `app/bootstrap/connections.php` file for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/app/bootstrap/connections.php` file for more information.
 
-Editing bootstrap files like this is a common way of configuring li3. For example, you might want to set up some quick and dirty error handling by adding `ini_set("display_errors", 1);` to `project/app/config/bootstrap.php` - see [this section](../configuration/bootstrapping.md) of the manual for more detail on how to configure li3. li3 is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
+<div class="note note-hint">
+	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping.md">Bootstrapping Guide</a> for more detail on how to configure the framework.
+</div>
+
+Our application is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 
 ## MVC Starts with M
 
-li3 uses the [MVC pattern](../design-principles/mvc.md). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first li3 model, a `Posts` model that will handle the domain logic for blog posts.
+li3 uses the [MVC pattern](../architecture/mvc.md). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
 
 First, create a new file at `project/app/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
@@ -105,7 +107,7 @@ Start by creating a new file at `project/app/views/posts/index.html.php` (you'll
 li3 is less dense than <?=$foo;?>ium.
 ```
 
-Save this file, and now you can view the Posts index page by pointing your browser to `project/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.md) of the manual.
+Save this file, and now you can view the Posts index page by pointing your browser to `http://project.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.md) of the manual.
 
 What you're seeing used here in this view's code is also the default and preferred way to output data to an HTML page in li3. The short tags (`<?= ... ?>`) are automatically rewritten by li3 to escape the output and keep you safe from the legions of attacks based on unescaped output. This means that the view code you're seeing doesn't end up as short tags when it gets to PHP's parser, so don't worry about your PHP installation or short tag handling. If you really need it, there's also always `<?php echo ... ?>`.
 
@@ -143,7 +145,7 @@ Currently - inside the action - we just create an empty post object and pass it 
 
 This view code sets up a simple HTML form, using the `Form` helper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
-When we call `$this->form->create()` we pass the currently empty post object as the first argument. This binds the post to the form we're about to create and allows the `Form` helper to _know_ about the post schema. Note that we don't include an `url` parameter when creating the form. li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `project/posts/add`, just as we need.
+When we call `$this->form->create()` we pass the currently empty post object as the first argument. This binds the post to the form we're about to create and allows the `Form` helper to _know_ about the post schema. Note that we don't include an `url` parameter when creating the form. li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `http://project.dev/posts/add`, just as we need.
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
@@ -201,7 +203,7 @@ Feel free now to have a play with this method and use your browser to add a few 
 
 ## Viewing your posts
 
-Now that we've stocked our database, let's use our Post model to pull the data. We can do this by rewriting the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
+Now that we've stocked our database, let's use our Posts model to pull the data. We can do this by rewriting the `index()` action in the `PostsController` to pull a list of posts and hand it to the view:
 
 ```php
 public function index() {
@@ -210,7 +212,7 @@ public function index() {
 }
 ```
 
-The object returned from `Post:all()` - which is equivalent to `Posts::find('all')` - is a li3 `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
+The object returned from `Posts:all()` - which is equivalent to `Posts::find('all')` - is a li3 `Document` object. The `Document` object is a response object that handles MongoDB responses more appropriately, since it's not a traditional RDBMS. Don't worry too much about this now: just understand that what you're getting back isn't plain array-based data.
 
 If for some reason you need to inspect the data (for debugging purposes, for example), you can use the `to()` method on the document object.
 
@@ -242,5 +244,5 @@ At this point, our index view should be aware of the `$posts` `Document` object.
 <?php endforeach; ?>
 ```
 
-As you can see, `Post` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `project/posts` to see the output.
+As you can see, `Posts` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `http://project.dev/posts` to see the output.
 
