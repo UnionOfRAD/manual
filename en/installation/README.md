@@ -3,7 +3,7 @@
 ## Starting a New Project
 
 The best way to start a *project* is to base it on a already available project *distribution*. There are distributions for general web projects or for projects that require an micro-framework style approach. 
-Distributions come with a predefined app [file structure](../architecture/file-structure.md), some boilerplate code and the bundled core library.
+Distributions come with a predefined app [file structure](./architecture/file-structure.md), some boilerplate code and the bundled core library.
 
 We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework). 
 
@@ -66,7 +66,7 @@ Finally, pull up the project in your browser and visit [`http://127.0.0.1:8080`]
 At this point, you should be presented with the default home page. **You're up and running!**
 
 <div class="note note-hint">
-	Read more about setting up production web servers on the <a href="./web-servers.md">Web Servers</a> page.
+	Read more about setting up production web servers on the <a href="./installation/web-servers.md">Web Servers</a> page.
 </div>
 
 ## One or Two More Things
