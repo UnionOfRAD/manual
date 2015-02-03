@@ -7,7 +7,7 @@ Distributions come with a predefined app [file structure](./architecture/file-st
 
 We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework). 
 
-For the start we'll use GIT to clone the distribution's repository into 
+For the start we'll use Git to clone the distribution's repository into 
 the current directory as `project`. The upstream's repository will be setup
 with the name `distro`.
 
