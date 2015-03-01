@@ -40,12 +40,15 @@
 				"title": "Models",
 				"contents": {
 					"models/connections.md": {"title": "Connections"},
-					"models/setting-up-models.md": {"title": "Setting Up Models"},
-					"models/working-with-entities.md": {"title": "Working with Entities"},
+					"models/data-mutation.md": {"title": "Data Mutation"},
+					"models/saving.md": {"title": "Saving"},
 					"models/validation.md": {"title": "Validation"},
+					"models/querying.md": {"title": "Querying"},
 					"models/adding-functions-to-models.md": {"title": "Adding Functionality"},
 					"models/relationships.md": {"title": "Relationships"},
-					"models/using-data-sources.md": {"title": "Using Data Sources"}
+					"models/meta.md": {"title": "Meta Information"},
+					"models/using-data-sources.md": {"title": "Using Data Sources"},
+					"models/creating-data-sources.md": {"title": "Creating Data Sources"}
 				}
 			},
 			"controllers": {

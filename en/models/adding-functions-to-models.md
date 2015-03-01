@@ -1,9 +1,21 @@
-# Adding Functionality to Models
+# Adding Functionality
 
 This section outlines a few of the ways you can extend model functionality as you build your application. As you think about different pieces of functionality to add, please keep in mind that there are two main ways to add functionality to your models:
 
  1. Static methods that apply to the Model
  2. Instance methods that apply to each Entity (Document or Record)
+
+## Static vs Instance Methods
+
+As a rule of thumb, all static methods work with a collection of objects on the database, while non-static methods are tied to one single document/record. Consider the following example:
+
+```
+$post = Posts::first(array('conditions' => array('author' => 'foo')));
+$post->title = 'Hello World';
+$post->save();
+```
+
+The `first()` method is static because it iterates over a bunch of entities in your database and returns the first entry where the `author` equals `foobar`. The result you get is an instance of a `Post` so all subsequent methods on it are _non-static_. The second line in the example sets the `title` and the third line saves it back to the database. This concept feels natural and also has the benefit of instantly knowing on what kind of dataset you're operating.
 
 If you remember this simple rule, you'll understand how the framework reacts to new functions placed in models—and you'll be able to use them more effectively.
 
@@ -30,76 +42,6 @@ Because this method is accessed statically, it behaves as you'd expect:
 if (!in_array('admin', Users::roles())) {
 	return false;
 }
-```
-
-## Adding Model "Finder" Methods
-
-li3 models ship with a number of default "finder" methods:
-
-```php
-$users      = Users::find('all');
-$oneUser    = Users::find('first');
-$keyedArray = Users::find('list');
-```
-
-As you use your models, you might start to wish for a shortcut. For example, instead of having to do this repeatedly:
-
-```php
-$recentComments = Comments::find('all', array(
-	'conditions' => array(
-		'created_on' => array(
-			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	)
-));
-```
-
-You could create a custom finder method that packages the specified conditions into a one-liner:
-
-```php
-$recentComments = Comments::find('recent');
-
-// or, as a "magic" method:
-
-$recentComments = Comments::recent();
-```
-
-At a basic level, this is done by utilizing the `finder()` method of the model. You call `finder()` and supply the name of the finder, along with a definition so li3 knows how to form the query. The definition in this simple case looks just like the query array we supplied to `find()` earlier:
-
-```php
-Comments::finder('recent', array(
-	'conditions' => array(
-		'created_on' => array(
-			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	)
-));
-```
-
-Some finder implementations might require a little processing in addition to a default set of conditions—somewhat like the . In that case, you can define a finder using a closure that will be called as part of li3's find chaining. In this use case, you supply the name of the finder along with a closure that looks much like a filter definition:
-
-```php
-Comments::finder('recentCategories', function($self, $params, $chain){
-	
-	// Set up default conditions
-	$defaults = array(
-		'created_on' => array(
-			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	);
-	
-	// Merge with supplied params
-	$params['options']['conditions'] = $defaults + (array) $params['options']['conditions'];
-	
-	// Do a bit of reformatting
-	$results = array();
-	foreach ($chain->next($self, $params, $chain) as $entity) {
-		$results[] = $entity->categoryName;
-	}
-	
-	// Returns an array of recent categories given the supplied query params.
-	return $results;
-});
 ```
 
 ## Model Instance Methods
@@ -144,3 +86,4 @@ $firstUser = Users::first();
 $firstUser->fullName();  // "Bill S. Preston"
 $firstUser->fullName(true);  // "Bill S. Preston Esq."
 ```
+

@@ -1,4 +1,5 @@
 # Model Relationships
+
 The data that applications manipulate is usually structured in some way. Objects have links to other objects, and the model layer that represents that data should reflect the structure inherent in the data it represents and interacts with.
 
 li3's data layer offers a way to facilitate data relationships and structure. This guide is meant to show you how to specify and define these data relationships and use them to your advantage as you build your application.

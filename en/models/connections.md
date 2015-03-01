@@ -53,6 +53,41 @@ Connections::add('default', array(
 ));
 ```
 
+## Models and Connections
+
+Models will look for the `'default'` connection first. If you've got more than one connection you're using, or wish a model to use an alternate, specify the connection name in the model's `$_meta` property.
+
+```php
+class Posts extends \lithium\data\Model {
+
+	protected $_meta = array(
+		'connection' => 'legacy'
+	);
+}
+```
+
+For connection-less models you may disable the connection altogether by setting the connection to use to `false`.
+
+```php
+class Movies extends \lithium\data\Model {
+
+	protected $_meta = array(
+		'connection' => false
+	);
+}
+```
+
+If you ever need to access the connection for model directly, you may do so by using the `connection()` method. The following example shows how to make use of this feature to control PDO transactions.
+
+```php
+$source = Posts::connection(); // Gives you the connected data source i.e. a `Database` object.
+$pdo = $source->connection; // Gives you the underlying connection of that object.
+
+$pdo->beginTransaction();
+$pdo->commit();
+$pdo->rollback();
+```
+
 ## Connections and Environments
 
 Many applications use different databases depending on which environment the application is currently being hosted from. For example, might want to switch your MongoDB connection from a locally hosted database in development, but use a cloud-based hosting service once you're in production. Connection configurations were built with this in mind.
