@@ -70,26 +70,5 @@ Long story short, a filterable method is created by encapsulating the main logic
 
 Subclasses of `Object` use the filter methods to allow other developers to wrap logic around their own without cluttering the object's API.
 
-## Testing and State
-
-One challenge with testing is creating and initializing your objects. The `__set_state()` function allows test writers to quickly create objects with their pre-existing properties and values intact. This method can be called statically on any class that extends `Object` to return an instance of itself.
-
-```php
-class MockObject extends \lithium\core\Object {
-
-	protected $_protected = null;
-
-	public function getProtected() {
-		echo $this->$_protected;
-	}
-}
-
-$object = MockObject::__set_state(array(
-	'_protected' => 'testing'
-));
-
-$object->getProtected();        // 'testing'
-```
-
 
 
