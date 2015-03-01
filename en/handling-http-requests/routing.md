@@ -99,7 +99,7 @@ Router::connect('/pages/{:args}', 'Pages::view', array('continue' => true));
 
 Lithium's router is also used in reverse: instead of turning URLs into parameters (controllers and actions, at least) it can also create application URLs based on supplied parameters based on the defined routes.
 
-Usually you'll be using this functionality without realizing it. For example, it's used the the `Html` helper in views to create links. Normally it's faster and easier to use the supplied helper functions. If however you're doing something in a layer that doesn't have easy access to this functionality, you can use the router directly.
+Usually you'll be using this functionality without realizing it. For example, it's used by the `Html` helper in views to create links. Normally it's faster and easier to use the supplied helper functions. If however you're doing something in a layer that doesn't have easy access to this functionality, you can use the router directly.
 
 Full details are supplied in the API docs, but the basic idea is that you can use `Router::match()` to do this. Just supply a set of parameters, and the router will return a URL (if any) that matches that set of parameters:
 
