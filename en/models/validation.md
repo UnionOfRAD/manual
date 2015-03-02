@@ -20,11 +20,11 @@ namespace app\models;
 class Users extends lithium\data\Model {
 
 	public $validates = array(
-		'username' => array(
+		'name' => array(
 			array(
 				'notEmpty',
 				'required' => true,
-				'message' => 'Please supply a username.'
+				'message' => 'Please supply a name.'
 			)
 		),
 		'password' => array(
@@ -51,7 +51,7 @@ In addition to the rule name, there are a number of special keys you can use to 
  - `skipEmpty` (boolean): Causes the rule to be skipped if the value is null or empty. Defaults to `false`.
  - `format`: The name of the rule format required to validate the data, or `any` or `all`.
 
-You may also declare multiple rules per field. Here, we add an additional rule to the username field in order to ensure usernames are alphanumeric.
+You may also declare multiple rules per field. Here, we add an additional rule to the name field in order to ensure names are alphanumeric.
 
 ```php
 namespace app\models;
@@ -59,14 +59,14 @@ namespace app\models;
 class Users extends lithium\data\Model {
 
 	public $validates = array(
-		'username' => array(
+		'name' => array(
 			array(
 				'notEmpty',
-				'message' => 'Please supply a username.'
+				'message' => 'Please supply a name.'
 			),
 			array(
 				'alphaNumeric',
-				'message' => 'A username may only contain letters and numbers.'
+				'message' => 'A name may only contain letters and numbers.'
 			)
 		),
 		'password' => array(
@@ -89,7 +89,7 @@ Here's a simple form we might use to collect user data. This would be contained 
 
 ```
 <?= $this->form->create($user); ?>
-	<?= $this->form->field('username'); ?>
+	<?= $this->form->field('name'); ?>
 	<?= $this->form->field('password'); ?>
 	<?= $this->form->submit('save user'); ?>
 <?= $this->form->end(); ?>
@@ -178,7 +178,7 @@ If you need to know about model validation problems before the application rende
 You can also manually invalidate model fields by calling `errors()` and supplying key/value pairs to denote problems. While you'll usually want to create custom rules (covered next), this is sometimes a helpful trick to use in model filters, etc.
 
 ```php
-$user->errors('username', 'This username is too funny.');
+$user->errors('name', 'This name is too funny.');
 ```
 
 ### Creating Custom Rules
@@ -194,8 +194,8 @@ Validator::add('zeroToNine', '/^[0-9]$/');
 If you need more than pattern recognition, you can also supply rules as anonymous functions:
 
 ```php
-Validator::add('usernameTaken' function($value) {
-	$result = Users::findByUsername($value);
+Validator::add('nameTaken' function($value) {
+	$result = Users::findByName($value);
 	return count($result) > 0;
 });
 ```
