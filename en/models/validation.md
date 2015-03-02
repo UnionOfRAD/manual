@@ -207,9 +207,73 @@ Validator::add('zeroToNine', '/^[0-9]$/');
 Validator::isZeroToNine('7');
 ```
 
+### Named Validation Rules
 
+Validation rules inside the model can be optionally defined as _named_ rules. This changes the format
+of the data `Model::errors()` returns and allows you to determine which exact rule failed.
 
+```php
+namespace app\models;
 
+class Users extends lithium\data\Model {
 
+	public $validates = array(
+		'name' => array(
+			'foo' => array(
+				'notEmpty'
+				'message' => 'Must not be empty.'
+				// ...
+			),
+			'bar' => array(
+				// ...
+			)
+		)
+	);
+}
+```
 
+```php
+$user->validate();
+$user->errors(); // Returns:
+// array(
+//     'name' => array(
+//         'foo' => 'Must not be empty'
+//     )
+// )
+```
 
+### Providing Custom Validation Messages in the Template
+
+In order to make enable this feature you must use _named validation rules_. 
+
+This allows easier translation of messages and customization in case there is no
+control over the model (i.e. developing a "theme" for a customer without touching
+the data layer).
+
+Also some might prefer to provide messages in the template, as one could argue
+they are part of the presenation layer.
+
+```php
+$this->form->field('name', array(
+	'error' => array(
+		'foo' => 'Please please do not leave empty :)'	
+	)			
+));
+```
+
+Once a `'default'` key is set for the custom messages, it'll be used for any unmatched
+validation errors.
+
+```php
+$this->form->field('name', array(
+	'error' => array(
+		'default' => 'Something is wrong in this field.'
+		'foo' => 'Please please do not leave empty :)'	
+	)			
+));
+```
+
+<div class="note note-info">
+	When there's no default message given, messages defined in the model
+	may be rendered.
+</div>
