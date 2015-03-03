@@ -9,7 +9,7 @@ The first parameter is $type and allows you to set the finder which will be used
 * **all**: Retrieves all records.
 * **count**: Retrieve a count of all records.
 * **first**: Retrieve the first record.
-* **list**: Produces an array where the `id` field is the key and the `title` field is the value.
+* **list**: Produces an array where the `id` field is the key and the `title` field is the value. Note `list` is a keyword in PHP and so cannot be called magically like other finders.
 
 The second parameter allows you to specify options for the query:
 
