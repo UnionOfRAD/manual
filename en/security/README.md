@@ -64,6 +64,6 @@ $user->save($data, array(
 	Always prefer whitelisting over blacklisting.
 </div>
 
+## Secure Your Database
 
-
-
+There has recently been a study into how many people aren't properly securing their mongo databases. The study found that over 40,000 sites using MongoDB didn't correctly configure their databases to use a password so that a malicious user could connect without any verification. When putting your database system online, make sure that you properly configure your database so that it is secure. The study - http://cispa.saarland/wp-content/uploads/2015/02/MongoDB_documentation.pdf
