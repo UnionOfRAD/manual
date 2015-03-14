@@ -35,6 +35,53 @@ Posts::find('first', array(
 ));
 ```
 
+## Securing Form Fields and Values
+
+The `FormSignature` class cryptographically signs web forms, to prevent adding or removing
+fields, or modifying hidden (locked) fields.
+
+Using the `Security` helper, `FormSignature` calculates a hash of all fields in a form, so that
+when the form is submitted, the fields may be validated to ensure that none were added or
+removed, and that fields designated as _locked_ have not had their values altered.
+
+To enable form signing in a view, simply call `$this->security->sign()` before generating your
+form. In the controller, you may then validate the request by passing `$this->request` to the
+`check()` method.
+
+Inside the view:
+```
+<?php $this->security->sign() ?>
+
+<?= $this->form->create($post) ?>
+	<?= $this->form->field('title') ?>
+	<?= $this->form->field('body', array('type' => 'textarea')) ?>
+	<?= $this->form->field('') ?>
+	<?= $this->form->submit('save') ?>
+<?= $this->form->end() ?>
+```
+
+Inside a controller action:
+```php
+if ($this->request->is('post') && !FormSignature::check($this->request)) {
+	// The key didn't match, meaning the request has been tampered with.
+}
+```
+	
+<div class="note note-hint">
+	To make form signing work, you must use the form helper to create the form and its fields.
+</div>
+
+When fields are inserted dynamically into the form (i.e. through JavaScript) then those can
+be manually excluded while checking the signature.
+
+```php
+FormSignature::check($this->request, array(
+	'exclude' => array(
+		'_wysihtml5'	
+	)			
+));
+```
+
 ## Mass Assignment
 
 To prevent you application from opening up to the so called [mass assingment vulnerabilty](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability), 
