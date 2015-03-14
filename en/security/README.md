@@ -1,8 +1,6 @@
 # Securing Applications
 
-## Injection
-
-### SQL Injection
+## Preventing SQL Injections
 
 [SQL Injections](https://en.wikipedia.org/wiki/SQL_injection) are a common type of attack
 and can take very different forms.
@@ -82,7 +80,7 @@ FormSignature::check($this->request, array(
 ));
 ```
 
-## Mass Assignment
+## Preventing Mass Assignment
 
 To prevent you application from opening up to the so called [mass assingment vulnerabilty](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability), 
 the framework provides you with the _whitelist_ feature. This whitelist can be used to limit the set of fields which get updated during create or update operations.
@@ -113,4 +111,4 @@ $user->save($data, array(
 
 ## Secure Your Database
 
-There has recently been a study into how many people aren't properly securing their mongo databases. The study found that over 40,000 sites using MongoDB didn't correctly configure their databases to use a password so that a malicious user could connect without any verification. When putting your database system online, make sure that you properly configure your database so that it is secure. [The study](http://cispa.saarland/wp-content/uploads/2015/02/MongoDB_documentation.pdf)
+[There has recently been a study](http://cispa.saarland/wp-content/uploads/2015/02/MongoDB_documentation.pdf) into how many people aren't properly securing their mongo databases. The study found that over 40,000 sites using MongoDB didn't correctly configure their databases to use a password so that a malicious user could connect without any verification. When putting your database system online, make sure that you properly configure your database so that it is secure. 
