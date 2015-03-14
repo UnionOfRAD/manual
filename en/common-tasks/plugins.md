@@ -16,13 +16,11 @@ Common examples of things to include in plugins are adapters for cache engines, 
 
 ## Creating Your First Plugin
 
-You can create a plugin simply by running the following from any directory, substituting `my_plugin` for whatever you want to call it:
+You can create a plugin simply by running the following from any directory, substituting `my` for whatever you want to call it. This creates a new plugin from li3's default plugin template.
 
-	li3 library extract plugin my_plugin
-
-This creates a new plugin from li3's default plugin template. When completed, it should report back the following:
-
-	my_plugin created in /current/directory from /.../lithium/console/command/create/template/plugin.phar.gz
+```
+git clone https://github.com/UnionOfRAD/li3_plugin li3_my 
+```
 
 ## Installing and Configuring
 
