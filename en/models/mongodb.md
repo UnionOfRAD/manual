@@ -208,7 +208,7 @@ $post = Posts::find('first', array(
 	'conditions' => array(
 		'author' => array(
 			'$elemMatch' => array(
-				'name' => 'tom,
+				'name' => 'tom',
 				'email' => 'tom@site.com'
 			)
 		)
@@ -221,7 +221,7 @@ Of course for this particular query the following also works the same:
 ```php
 $post = Posts::find('first', array(
 	'conditions' => array(
-		'author.name' =>  'tom,
+		'author.name' =>  'tom',
 		'author.email' => 'tom@site.com'
 	)
 ));
@@ -234,7 +234,7 @@ also add a "location" to this sub-object. If you do not use **$elemMatch** and m
 ```php
 $post = Posts::find('first', array(
 	'conditions' => array(
-		'authors.name' =>  'tom,
+		'authors.name' =>  'tom',
 		'authors.location' => 'Palo Alto'
 	)
 ));
@@ -266,7 +266,7 @@ specify an array key position in our query. If the query instead was like so:
 ```php
 $post = Posts::find('first', array(
 	'conditions' => array(
-		'authors.0.name' =>  'tom,
+		'authors.0.name' =>  'tom',
 		'authors.0.location' => 'Palo Alto'
 	)
 ));
@@ -283,7 +283,7 @@ $post = Posts::find('first', array(
 	'conditions' => array(
 		'authors' => array(
 			'$elemMatch' => array(
-				'name' => 'tom,
+				'name' => 'tom',
 				'location' => 'Palo Alto'
 			)
 		)
