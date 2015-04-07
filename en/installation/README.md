@@ -82,35 +82,14 @@ At this point, you should be presented with the default home page. **You're up a
 	Read more about setting up production web servers on the <a href="./installation/web-servers.md">Web Servers</a> page.
 </div>
 
-## One or Two More Things
-
-### Setup up the `li3` Command
-
-Lastly, you'll want to set up the `li3` command so it's easy to use as you move around your filesystem. The `li3` command assists in tasks like code generation, documentation, and testing.
-
-To do so, add the li3's console library directory to your shell's path. For our example above, and assuming you're using BASH, you'd add something like the following to your `~/.bash_profile` file:
-
-```bash
-PATH+=:/path/to/project/libraries/lithium/console
-```
-
-Once this has been done, you can execute the li3 command inside the app folder of any li3 app you have on your filesystem. If it's running successfully, you should get the following default usage output:
-
-```text
-USAGE
-	li3 COMMAND [ARGS]
-
-COMMANDS
-...
-```
-
-### Livin' on the Edge
+## Livin' on the Edge
 
 The methods described in the previous sections will download the most recent tagged version of
 the framework and core library. In some cases, it may be desirable to update both to the very
 latest available revision, which may not have been tagged yet.
 
-Using composer:
+### Using Composer
+
 ```bash
 composer create-project -s dev unionofrad/framework project 
 
@@ -121,7 +100,8 @@ cd libraries/lithium
 git checkout dev
 ```
 
-Using Git:
+### Using Git
+
 ```bash
 git clone --origin distro https://github.com/UnionOfRAD/framework.git project
 
