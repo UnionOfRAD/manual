@@ -97,6 +97,53 @@ Here's a simple form we might use to collect user data. This would be contained 
 
 By using the `Form` helper and binding our user entity to it, we gain the additional benefit that later validation errors are handled and - should some exist - displayed automatically for us. 
 
+###Default Validation Techniques
+
+- `alphaNumeric`: String of letters and numbers.
+- `blank`: Empty string.
+- `creditCard`: Valid credit card number in one of the following formats:
+	- `amex`
+	- `bankcard`
+	- `diners`
+	- `disc`
+	- `electron`
+	- `enroute`
+	- `jcb`
+	- `maestro`
+	- `mc`
+	- `solo`
+	- `switch`
+	- `visa`
+	- `voyager`
+	- `fast`
+- `date`: Valid date in one of the following formats:
+	- `dmy`
+	- `mdy`
+	- `ymd`
+	- `dMy`
+	- `Mdy`
+	- `My`
+	- `my`
+- `ip`: Valid ip address.
+- `money`: Valid money value in one of the following formats:
+	- `right`
+	- `left`
+- `notEmpty`: Make sure that the given string is notEmpty.
+- `phone`: Make sure that the given string is a valid phone number.
+- `postalCode`: Make sure that the given string is a valid postcode.
+- `regex`
+- `time`: Make sure that it is a valid time.
+- `boolean`: Make sure the value is a boolean.
+- `decimal`: Make sure the value is a decimal number.
+- `inList`: Make sure that the given value is in a list of possible values.
+- `lengthBetween`: Make sure that the length of the given string is between two given values.
+- `luhn`: [Luhn Explanation](http://en.wikipedia.org/wiki/Luhn_algorithm)
+- `numeric`: Make sure the given value is numeric.
+- `inRange`: Make sure that the given value is between a range of two values.
+- `uuid`: Make sure value is a valid uuid.
+- `email`: Make sure the string is a valid email address.
+- `url`: Make sure value is a valid URL.
+
 ### Handling Validation in the Controller
 
 Once that data is submitted through the form to the controller, we handle it in our controller action. 
