@@ -244,7 +244,7 @@ $user->errors(); // Returns:
 
 ### Providing Custom Validation Messages in the Template
 
-In order to make enable this feature you must use _named validation rules_. 
+In order to make use of this feature, you must use _named validation rules_. 
 
 This allows easier translation of messages and customization in case there is no
 control over the model (i.e. developing a "theme" for a customer without touching
