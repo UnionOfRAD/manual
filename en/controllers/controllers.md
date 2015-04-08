@@ -113,7 +113,7 @@ use lithium\core\ErrorHandler;
 
 $conditions = array('type' => 'lithium\action\DispatchException');
 
-ErrorHandler::apply('lithium\action\Dispatcher', 'run', $conditions, function($exception, $params) {
+ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exception, $params) {
 	var_dump(compact('exception', 'params'));
 	die();
 });
@@ -144,7 +144,7 @@ $render = function($template, $content) {
 	));
 };
 
-ErrorHandler::apply('lithium\action\DispatchException', 'run', array(), function($exception, $params) use ($render) {
+ErrorHandler::apply('lithium\action\Dispatcher::run', array(), function($exception, $params) use ($render) {
 	Logger::write('error', "Page Not Found...");
 	$render('404', compact('exception', 'params'));
 });
