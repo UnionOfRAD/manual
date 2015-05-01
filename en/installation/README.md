@@ -18,7 +18,7 @@ composer create-project --prefer-dist unionofrad/framework project
 
 ### Using Git
 
-Don't want to use composer? No problem, you can also use plain Git, too. The following command
+Don't want to use composer? No problem, you can also just use plain Git, too. The following command
 will clone the distribution into the current directory as `project`. The upstream's repository 
 will be setup with the name `distro`.
 
