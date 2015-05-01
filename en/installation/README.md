@@ -9,6 +9,8 @@ We'll base our new project off the officially supported [framework distribution]
 
 ### Using Composer
 
+<div class="note note-version">This feature is available since 1.1.0</div>
+
 For the start we'll use [composer](https://getcomposer.org/) to create our project in 
 the current directory as `project`. 
 
@@ -89,6 +91,8 @@ the framework and core library. In some cases, it may be desirable to update bot
 latest available revision, which may not have been tagged yet.
 
 ### Using Composer
+
+<div class="note note-version">This feature is available since 1.1.0</div>
 
 ```bash
 composer create-project -s dev unionofrad/framework project 
