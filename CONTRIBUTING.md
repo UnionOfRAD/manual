@@ -28,6 +28,15 @@ There are 3 classes of notes _caution_ (class is `note-caution`), _informational
 and _hints/tips_ (`note-hint`). Any code inside the divs will need to be marked up manually using
 `<code></code>` tags.
 
+### Versions
+
+There will be no separate manuals for minor versions. Instead features available only 
+in since certain versions are documented as follows:
+
+```html
+<div class="note note-version">This feature is available since 1.1.0.</div>
+```
+
 ### Code
 
 Use tabs to indent the code inside fenced code blocks. This allows us to adjust the spacing when rendering and highlighting the code.
