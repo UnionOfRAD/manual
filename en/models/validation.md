@@ -51,7 +51,7 @@ In addition to the rule name, there are a number of special keys you can use to 
  - `skipEmpty` (boolean): Causes the rule to be skipped if the value is null or empty. Defaults to `false`.
  - `format`: The name of the rule format required to validate the data, or `any` or `all`.
 
-You may also declare multiple rules per field. Here, we add an additional rule to the name field in order to ensure names are alphanumeric.
+You may also declare multiple rules per field. Here, we add two additional rules to the name field in order to ensure names are alphanumeric and have a minimum and maximum length.
 
 ```php
 namespace app\models;
@@ -67,6 +67,10 @@ class Users extends lithium\data\Model {
 			array(
 				'alphaNumeric',
 				'message' => 'A name may only contain letters and numbers.'
+			),
+			array(
+				'lengthBetween', 'min' => 7, 'max' => 23,
+				'message' => 'Must be between 7 and 23 characters long.'
 			)
 		),
 		'password' => array(
