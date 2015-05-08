@@ -38,31 +38,10 @@ git submodule update --init
 
 If everything worked as expected, you should now have the lithium core inside `project/libraries/lithium`. 
 
-
 ## Pedal to the Metal
 
 For the purposes of this guide, we'll be using PHP's builtin development webserver. This is good for development purposes but should of course not be used in production. Instructions on how to use other
 webservers are described at the end of this guide.
-
-### Configuring PHP
-
-The vanilla PHP configuration should be in general fine. However its always good to double check that certain configuration options are set correctly. Certain features 
-are not supported as we consider those broken, very experimental or a hack.
-
-Verify in your php.ini that:
-
-- Magic Quotes are disabled.
-- Register Globals are disabled.
-- Function overloading is disabled when using the `mbstring` extension.
-- PHP isn't compiled with curlwrappers.
-- Short Open Tags are disabled. Although this is not a strict requirement.
-
-While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
-
-```ini
-error_reporting = E_ALL
-display_errors  = On
-```
 
 ### Permissions
 

@@ -7,7 +7,7 @@ By the time you have finished this section you will have built a simple blogging
 
 ## Setting Up
 
-First things first: let's make sure the framework is installed and working. If you haven't already installed it then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
+First things first: let's make sure our first project is installed and working. If you haven't already installed one then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
 
 After completing installation, you should be able to navigate your browser to the path that you installed your intitial project (e.g. `http://project.dev` or `http://127.0.0.1:8080`, the rest of this blog tutorial assumes you have installed it there) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 
@@ -15,14 +15,14 @@ After completing installation, you should be able to navigate your browser to th
 
 ## MongoDB
 
-As well as the framework itself, we also need some sort of persistent storage layer for our blog posts. In this example, we're going to use [MongoDB](http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with li3's RAD approach to development!
+We also need some sort of persistent storage layer for our blog posts. In this example, we're going to use [MongoDB](http://www.mongodb.org), a NoSQL database. One of the advantages of a NoSQL database is that you don't have to specify the schema upfront, so it works perfectly with our RAD approach to development!
 
 
 <div class="note note-info">
 	The framework has support for both relational (MySQL, MariaDB, PostgreSQL, SQLite) and NoSQL databases (MongoDB, CouchDB) and is one of the first frameworks to support both types of databases through one single ORM.
 </div>
 
-To install the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/) and finally, start up the database engine.
+To initialize the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/) and finally, start up the database engine.
 
 So that PHP can talk to Mongo you'll also need to install the PHP MongoDB driver. This is outlined
 in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Driver](http://docs.mongodb.org/ecosystem/drivers/php/). Once the driver is installed, we'll have to restart our webserver to make changes take effect.

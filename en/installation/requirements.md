@@ -18,13 +18,28 @@ version.
 | **1.0.x**    | >= 5.3.6        | >= 5.4.0        | >= 5.3.6 \| < 5.7.0  |
 | **1.1.x**    | >= 5.5.0        | >= 5.6.0        | >= 5.5.0             |
 
-We don't support certain features as we consider them broken, experimental or a hack:
+The vanilla PHP configuration should be in general fine. However its always good to double
+check that certain configuration options are set correctly. Certain features are not supported
+as we consider those broken, very experimental or a hack.
 
-* Magic Quotes must be disabled.
-* Register Globals must be disabled.
-* Function overloading must be disabled when using the `mbstring` extension.
-* PHP should not be compiled with curlwrappers.
-* Short Open Tags should be disabled. Not a strict requirement.
+Please verify that:
+
+- Magic Quotes are disabled.
+- Register Globals are disabled.
+- Function overloading is disabled when using the `mbstring` extension.
+- PHP isn't compiled with curlwrappers.
+- Short Open Tags are disabled. Although this is not a strict requirement.
+
+While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
+
+```ini
+; Show me teh errors.
+display_errors = On
+
+; Either choose to see all errors or all, but no deprecation warnings.
+error_reporting = E_ALL
+; error_reporting = E_ALL & ~E_DEPRECATED
+```
 
 ## Data Store
 
