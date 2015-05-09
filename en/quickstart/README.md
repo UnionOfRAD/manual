@@ -42,7 +42,7 @@ Connections::add('default', array(
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb' for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/app/bootstrap/connections.php` file for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/app/bootstrap/connections.php` file for more information.
 
 <div class="note note-hint">
 	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping.md">Bootstrapping Guide</a> for more detail on how to configure the framework.
