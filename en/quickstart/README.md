@@ -52,7 +52,7 @@ Our application is now set up and talking to the MongoDB database server, so we 
 
 ## MVC Starts with M
 
-li3 uses the [MVC pattern](../architecture/mvc.md). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
+li3 uses the [MVC pattern](./architecture/mvc.md). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
 
 First, create a new file at `project/app/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
