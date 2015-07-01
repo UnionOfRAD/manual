@@ -6,7 +6,7 @@ Part of a model's responsibility in an MVC application is to be the gatekeeper f
 
 ## Basic Validation
 
-Validation is done by defining a special property on the model object called `$validates`. When calling `validates()` on an entity the framework inspects this property and validates data to be saved against this set of rules. 
+Validation is done by defining a special property on the model object called `$validates`. When calling `validates()` on an entity the framework inspects this property and validates data to be saved against this set of rules.
 
 Because it's likely the most common case, we'll start with a simple model data validation example based around an HTML form. Let's consider an application that handles user registration. We'll define a `Users` model and create some simple validation logic in order to make sure submitted user information is complete and in the correct form.
 
@@ -39,7 +39,7 @@ class Users extends lithium\data\Model {
 ```
 
 <div class="note note-info">
-Note that these are application-level validation rules, and do not interact with any rules or constraints defined in your data source. If such constraints fail, an exception will be thrown by the database layer. Validation checks run only against the rules defined in application code. 
+Note that these are application-level validation rules, and do not interact with any rules or constraints defined in your data source. If such constraints fail, an exception will be thrown by the database layer. Validation checks run only against the rules defined in application code.
 </div>
 
 This initial example shows how rules are defined. First, each set of rules is keyed by the model field name. Each field is then assigned an array of rules, where the first value is the name of the rule, and the subsequent keys define additional information about each rule.
@@ -89,7 +89,7 @@ class Users extends lithium\data\Model {
 
 ### Form Validation
 
-Here's a simple form we might use to collect user data. This would be contained in `app/views/users/add.html.php`. 
+Here's a simple form we might use to collect user data. This would be contained in `app/views/users/add.html.php`.
 
 ```
 <?= $this->form->create($user); ?>
@@ -99,11 +99,11 @@ Here's a simple form we might use to collect user data. This would be contained 
 <?= $this->form->end(); ?>
 ```
 
-By using the `Form` helper and binding our user entity to it, we gain the additional benefit that later validation errors are handled and - should some exist - displayed automatically for us. 
+By using the `Form` helper and binding our user entity to it, we gain the additional benefit that later validation errors are handled and - should some exist - displayed automatically for us.
 
 ### Handling Validation in the Controller
 
-Once that data is submitted through the form to the controller, we handle it in our controller action. 
+Once that data is submitted through the form to the controller, we handle it in our controller action.
 
 ```php
 namespace app\controllers;
@@ -133,7 +133,7 @@ Since the action's view contains the HTML form we just built using the `Form` he
 ### Explicit Validation
 
 As shown in our example above `save()` will implictly validate the data prior saving. If you'd like
-to validate data explictly you'd use the entities `validate()` method. That method takes 2 parameters. 
+to validate data explictly you'd use the entities `validate()` method. That method takes 2 parameters.
 
 The `$entity` parameter specifies the model entity to validate, which is typically either a `Record` or `Document` object. In the  example below, the `$entity` parameter is equal to the `$post` object instance.
 
@@ -252,7 +252,7 @@ $user->errors(); // Returns:
 
 <div class="note note-version">This feature will become available with 1.1.0.</div>
 
-In order to make use of this feature, you must use _named validation rules_. 
+In order to make use of this feature, you must use _named validation rules_.
 
 This allows easier translation of messages and customization in case there is no
 control over the model (i.e. developing a "theme" for a customer without touching
@@ -264,8 +264,8 @@ they are part of the presenation layer.
 ```php
 $this->form->field('name', array(
 	'error' => array(
-		'foo' => 'Please please do not leave empty :)'	
-	)			
+		'foo' => 'Please please do not leave empty :)'
+	)
 ));
 ```
 
@@ -276,8 +276,8 @@ validation errors.
 $this->form->field('name', array(
 	'error' => array(
 		'default' => 'Something is wrong in this field.'
-		'foo' => 'Please please do not leave empty :)'	
-	)			
+		'foo' => 'Please please do not leave empty :)'
+	)
 ));
 ```
 

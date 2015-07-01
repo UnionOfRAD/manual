@@ -2,17 +2,17 @@
 
 ## Starting a New Project
 
-The best way to start a *project* is to base it on a already available project *distribution*. There are distributions for general web projects or for projects that require an micro-framework style approach. 
+The best way to start a *project* is to base it on a already available project *distribution*. There are distributions for general web projects or for projects that require an micro-framework style approach.
 Distributions come with a predefined app [file structure](./architecture/file-structure.md), some boilerplate code and the bundled core library.
 
-We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework). 
+We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework).
 
 ### Using Composer
 
 <div class="note note-version">This feature will become available with 1.1.0</div>
 
-For the start we'll use [composer](https://getcomposer.org/) to create our project in 
-the current directory as `project`. 
+For the start we'll use [composer](https://getcomposer.org/) to create our project in
+the current directory as `project`.
 
 ```bash
 composer create-project --prefer-dist unionofrad/framework project
@@ -21,7 +21,7 @@ composer create-project --prefer-dist unionofrad/framework project
 ### Using Git
 
 Don't want to use composer? No problem, you can also just use plain Git, too. The following command
-will clone the distribution into the current directory as `project`. The upstream's repository 
+will clone the distribution into the current directory as `project`. The upstream's repository
 will be setup with the name `distro`.
 
 ```bash
@@ -36,7 +36,7 @@ cd project
 git submodule update --init
 ```
 
-If everything worked as expected, you should now have the lithium core inside `project/libraries/lithium`. 
+If everything worked as expected, you should now have the lithium core inside `project/libraries/lithium`.
 
 ## Pedal to the Metal
 
@@ -45,12 +45,12 @@ webservers are described at the end of this guide.
 
 ### Permissions
 
-The framework will need write access to the `app/resources/tmp` as it used to store cached versions of 
+The framework will need write access to the `app/resources/tmp` as it used to store cached versions of
 already compiled templates or logs. The webserver use must be able to write to this directory.
 
 ### Starting the Webserver
 
-Make sure you are in the root of the project. Now start PHP's builtin webserver using the following command. Your project is then being served at 127.0.0.1 on port 8080. 
+Make sure you are in the root of the project. Now start PHP's builtin webserver using the following command. Your project is then being served at 127.0.0.1 on port 8080.
 
 ```bash
 php -S 127.0.0.1:8080 -t app/webroot index.php
@@ -74,9 +74,9 @@ latest available revision, which may not have been tagged yet.
 <div class="note note-version">This feature will become available with 1.1.0</div>
 
 ```bash
-composer create-project -s dev unionofrad/framework project 
+composer create-project -s dev unionofrad/framework project
 
-cd project 
+cd project
 git checkout dev
 
 cd libraries/lithium
