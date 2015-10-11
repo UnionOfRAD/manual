@@ -1,6 +1,6 @@
 # Creating a Plugin
 
-If you've written a piece of functionality that you want to share among multiple applications, or [distribute within the li3 community](http://lab.li3.me/), you'll want to create a _plugin_. The good news is, if you've already created a li3 application, you're more than half way there.
+If you've written a piece of functionality that you want to share among multiple applications, or distribute within the li3 community, you'll want to create a _plugin_. The good news is, if you've already created a li3 application, you're more than half way there.
 
 First, to understand how li3 deals with plugins, it's important to understand how it deals with _libraries_, so make sure you've read "[Working with External Libraries](http://li3.me/docs/manual/01_getting_started/external_libs)". In li3, everything is a library, including the li3 core, other frameworks, your application, and of course, plugins. By convention, plugins are simply libraries that conform to the same organizational conventions as a li3 application.
 

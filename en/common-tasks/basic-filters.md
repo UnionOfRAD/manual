@@ -182,7 +182,7 @@ Filters::apply('blog\models\Posts', 'find', function($self, $params, $chain) {
 
 ## Creating Filter-able Logic
 
-If you're planning on creating and distributing your own code (hopefully via the [li3 Laboratory](http://lab.li3.me/), among other things) you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful li3 filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
+If you're planning on creating and distributing your own code you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful li3 filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
 
 Let's imagine for a bit that you're creating a social media integration extension for li3. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
 
