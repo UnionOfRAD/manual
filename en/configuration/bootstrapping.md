@@ -4,7 +4,7 @@ Configuration in li3 is meant to be minimal and easy to understand. As such, it'
 
 The core configuration sets are either actively required from this main file, or commented out (because we like to run lean by default). Before creating new files, peruse the configurations in `app/config/bootstrap`, as many commonly used mechanisms (caching, sessions, globalization) already have configuration examples in this folder. 
 
-While we've included a lot of examples you get you started, feel free to add new files to the `boostrap` directory and require them from the main `bootstrap.php` file. If you're working in the cloud or interacting with a specific set of APIs or just need a place to keep a few global constants, those configurations are well-placed in this organization scheme.
+While we've included a lot of examples to get you started, feel free to add new files to the `boostrap` directory and require them from the main `bootstrap.php` file. If you're working in the cloud or interacting with a specific set of APIs or just need a place to keep a few global constants, those configurations are well-placed in this organization scheme.
 
 ### Action
 
