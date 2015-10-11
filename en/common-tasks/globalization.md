@@ -50,7 +50,7 @@ While determining the effective locale in an semi-automatic way works well for c
 
 ### g11n Filters
 
-One of the last things that `g11n.php` does in the bootstrap process is apply a filters to both the console command and controller action dispatchers. Here is the perfect place to decide how we set and switch between locales based on the information we have from the request and user agent.
+One of the last things that `g11n.php` does in the bootstrap process is apply filters to both the console command and controller action dispatchers. Here is the perfect place to decide how we set and switch between locales based on the information we have from the request and user agent.
 
 ```php
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
@@ -198,7 +198,7 @@ Validator::isPhone('PHONE NUMBER US', 'en_US');
 
 ## Using Localized Content
 
-While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in in your views. Here are the steps we'll cover:
+While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in your views. Here are the steps we'll cover:
 
 1. Marking messages as translatable.  The `$t()` and `$tn()` shortcut functions help the extraction tools identify where messages have been in views.
 

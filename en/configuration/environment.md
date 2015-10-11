@@ -80,7 +80,7 @@ Connections::add('default', array(
 ));
 ```
 
-While is is handy for using the same types of technologies in each environment, this mechanism allows you to switch between engines as well. For example, using different kinds of Cache engines in each environment:
+While it is handy for using the same types of technologies in each environment, this mechanism allows you to switch between engines as well. For example, using different kinds of Cache engines in each environment:
 
 ```php
 Cache::config(array(

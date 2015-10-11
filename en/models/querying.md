@@ -31,7 +31,7 @@ $posts = Posts::find('all', array(
 	'order' => array('created' => 'DESC')
 ));
 
-// Read the only the title of the newest post.
+// Read only the title of the newest post.
 $post = Posts::find('first', array(
 	'fields' => array('title'),
 	'order' => array('created' => 'DESC')
@@ -179,7 +179,7 @@ Comments::finder('recentCategories', function($self, $params, $chain){
 
 In cases where you always want finders results constrained to i.e. certain conditions, default query options can be used. Default options may be defined by using the `query()` method or alternatively by defining the `$_query` property on the model class.
 
-Specific query options overwrite default ones. As both are merged by simply using the `+` operator for arrays. Note that this can also be common pitfall.
+Specific query options overwrite default ones. As both are merged by simply using the `+` operator for arrays. Note that this can also be a common pitfall.
 
 ```php
 Posts::query(array(

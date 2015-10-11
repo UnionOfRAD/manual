@@ -50,7 +50,7 @@ In order to avoid overlapping cases and provide routing clarity, you can also sp
 Router::connect('/{:controller}/{:action}/{:id:\d+}');
 ```
 
-Here, we're routing incoming requests along to their respective controllers and actions, but also tacking on a new parameter "id" if the URL ends with a numerical component. The regex here is important. If not defined, this route would also match `/products/viewCategory/electronics` if defined before another route that matches it better.
+Here, we're routing incoming requests along to their respective controllers and actions, but also tracking on a new parameter "id" if the URL ends with a numerical component. The regex here is important. If not defined, this route would also match `/products/viewCategory/electronics` if defined before another route that matches it better.
 
 ### Default Parameters
 

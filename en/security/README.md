@@ -82,7 +82,7 @@ FormSignature::check($this->request, array(
 
 ## Preventing Mass Assignment
 
-To prevent you application from opening up to the so called [mass assingment vulnerabilty](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability), 
+To prevent your application from opening up to the so called [mass assingment vulnerabilty](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability), 
 the framework provides you with the _whitelist_ feature. This whitelist can be used to limit the set of fields which get updated during create or update operations.
 
 ```php

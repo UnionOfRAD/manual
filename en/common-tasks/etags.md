@@ -1,12 +1,12 @@
 # ETag Everything, Everything ETagg'ed
 
-The first goal of this guide is to show you how relatively easy adding web caching support to a li3 application is. The second goal is to introduce you to the topic of web caching topic in general, showing what makes it so interesting. 
+The first goal of this guide is to show you how relatively easy adding web caching support to a li3 application is. The second goal is to introduce you to the topic of web caching in general, showing what makes it so interesting. 
 
-The beneficial effects of web caching are most often underestimated but adding even just basic support to an existing application a guaranteed win for everybody involved. 
+The beneficial effects of web caching are most often underestimated but adding even just basic support to an existing application is a guaranteed win for everybody involved. 
 
 **Embrace the web!**
 
-Web caching is both simple and complex. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented is presented at the end to give additional pointers for further reading. 
+Web caching is both simple and complex. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented at the end to give additional pointers for further reading. 
 	
 ## Entity Tags
 

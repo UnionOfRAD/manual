@@ -11,14 +11,14 @@ Also, li3 makes it easy to extend models so that they fit your application's nee
 The `Model` class is the starting point for the domain logic of your application.  Models are tasked with providing meaning to otherwise raw and unprocessed data (e.g. user profile).  Models expose a consistent and unified API to interact with an underlying datasource (e.g. MongoDB, CouchDB, MySQL) for operations such as querying, saving, updating and deleting data from the persistent storage.
 
 <div class="note note-info">
-	As the framework is capable of working with document oriented data sources as it is with relational databases, we use the term <em>entity</em> to refer to twhat might be considered a document in one data source type or a record/row in another type.
+	As the framework is capable of working with document oriented data sources as it is with relational databases, we use the term <em>entity</em> to refer to what might be considered a document in one data source type or a record/row in another type.
 </div>
 
 Models allow you to interact with your data in two fundamentally different ways: [querying](querying.md) and [data mutation](data-mutation.md) (saving/updating/deleting). All query-related operations may be done through the static `find()` method, along with some additional utility methods provided for convenience. Classes extending the `Model` class should, conventionally, be named as plural, CamelCase and be placed in the `models` directory. i.e. a posts model would be `model/Posts.php`.
 
 ## Where To Go Next
 
-Read the section below on how to _create a model_ first, then continue with a quick look into the basic of creating [connections](connections.md), creating/updating/deleting entites in [data mutation](data-mutation.md), persisting entities by [saving](saving.md) them to the datastore. Finally [querying](querying.md) shows how to get all the precious data back.
+Read the section below on how to _create a model_ first, then continue with a quick look into the basics of creating [connections](connections.md), creating/updating/deleting entites in [data mutation](data-mutation.md), persisting entities by [saving](saving.md) them to the datastore. Finally [querying](querying.md) shows how to get all the precious data back.
 
 ## Creating a Model
 

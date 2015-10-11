@@ -4,7 +4,7 @@ Each model needs some meta-information to initialize. By default you don't have 
 information yourself. The model class is _smart_ enough to figure all of the configuration options
 out on its own - as long as you follow the frameworks conventions.
 
-However changing the meta-information may be desired in such cases where you are createing a model which needs to access a table which doesn't follow our conventions.
+However changing the meta-information may be desired in such cases where you are creating a model which needs to access a table which doesn't follow our conventions.
 
 ## Defining Meta Information
 
