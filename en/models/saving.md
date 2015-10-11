@@ -10,7 +10,7 @@ $post->author = 'Michael';
 $post->save();
 
 // Same as above.
-$post = Posts::crete(array(
+$post = Posts::create(array(
 	'title'  => 'My first blog post.',
 	'author' => 'Michael'
 ));
