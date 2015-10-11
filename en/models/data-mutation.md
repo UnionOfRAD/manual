@@ -28,7 +28,7 @@ This will create an update query against the object with an ID matching `$id`. A
 
 The `update()` method allows you to update multiple records or documents with the given data, restricted by the given set of criteria (optional).
 
-The `$data` parameter is typically an array of key/value pairs that specify the new data with which the records will be updated. For SQL databases, this can optionally be an SQL fragment representing the `SET` clause of an `UPDATE` query.  The `$conditions` parameter is an array of key/value pairs representing the scope of the records to be updated.  The `$options` parameter specifies ny database-specific options to use when performing the operation. The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `update()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
+The `$data` parameter is typically an array of key/value pairs that specify the new data with which the records will be updated. For SQL databases, this can optionally be an SQL fragment representing the `SET` clause of an `UPDATE` query.  The `$conditions` parameter is an array of key/value pairs representing the scope of the records to be updated.  The `$options` parameter specifies any database-specific options to use when performing the operation. The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `update()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
 
 ```
 // Change the author for all documents.
