@@ -31,7 +31,7 @@ $posts = Posts::find('all', array(
 	'order' => array('created' => 'DESC')
 ));
 
-// Read the only the title of the newest post.
+// Read only the title of the newest post.
 $post = Posts::find('first', array(
 	'fields' => array('title'),
 	'order' => array('created' => 'DESC')
