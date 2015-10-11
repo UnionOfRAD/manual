@@ -18,7 +18,7 @@ Models allow you to interact with your data in two fundamentally different ways:
 
 ## Where To Go Next
 
-Read the section below on how to _create a model_ first, then continue with a quick look into the basic of creating [connections](connections.md), creating/updating/deleting entites in [data mutation](data-mutation.md), persisting entities by [saving](saving.md) them to the datastore. Finally [querying](querying.md) shows how to get all the precious data back.
+Read the section below on how to _create a model_ first, then continue with a quick look into the basics of creating [connections](connections.md), creating/updating/deleting entites in [data mutation](data-mutation.md), persisting entities by [saving](saving.md) them to the datastore. Finally [querying](querying.md) shows how to get all the precious data back.
 
 ## Creating a Model
 
