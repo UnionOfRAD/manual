@@ -90,7 +90,7 @@ $pdo->rollback();
 
 ## Connections and Environments
 
-Many applications use different databases depending on which environment the application is currently being hosted from. For example, might want to switch your MongoDB connection from a locally hosted database in development, but use a cloud-based hosting service once you're in production. Connection configurations were built with this in mind.
+Many applications use different databases depending on which environment the application is currently being hosted from. For example, you might want to switch your MongoDB connection from a locally hosted database in development, but use a cloud-based hosting service once you're in production. Connection configurations were built with this in mind.
 
 Once your environments have been defined, use their names as keys in the configuration array, as shown here:
 
