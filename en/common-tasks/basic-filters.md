@@ -141,7 +141,7 @@ Connections::add('default', array(
 ));
 ```
 
-What we need to do is get a reference to the instance of the actual connection object define here so we can filter its methods. In this case, we'll use `Connections::get()` to get a reference to the actual adapter handling this connection. Since we've specified 'MySQL' as the adapter type, we'll get an instance of `lithium\data\source\database\adapter\MySql` when we call `Connections::get('default')`.
+What we need to do is get a reference to the instance of the actual connection object defined here so we can filter its methods. In this case, we'll use `Connections::get()` to get a reference to the actual adapter handling this connection. Since we've specified 'MySQL' as the adapter type, we'll get an instance of `lithium\data\source\database\adapter\MySql` when we call `Connections::get('default')`.
 
 Looking at the API shows us that there's an `_execute()` method we can filter. It's only parameter is the SQL being executed, and that's exactly what we'll need for our filter logic. Here's one way this could look:
 
