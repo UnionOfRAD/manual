@@ -6,7 +6,7 @@ The beneficial effects of web caching are most often underestimated but adding e
 
 **Embrace the web!**
 
-Web caching is both simple and complex. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented is presented at the end to give additional pointers for further reading. 
+Web caching is both simple and complex. As we don't want to put the cart before the horse, we start simple first. This article assumes that you have a basic understanding of HTTP and applies several simplifications. A full list is presented at the end to give additional pointers for further reading. 
 	
 ## Entity Tags
 
