@@ -198,7 +198,7 @@ Validator::isPhone('PHONE NUMBER US', 'en_US');
 
 ## Using Localized Content
 
-While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in in your views. Here are the steps we'll cover:
+While it may seem like a simple process from the outside, message globalization is actually a multi-step process. This section covers those steps, enabling you to fully use globalized content in your views. Here are the steps we'll cover:
 
 1. Marking messages as translatable.  The `$t()` and `$tn()` shortcut functions help the extraction tools identify where messages have been in views.
 
