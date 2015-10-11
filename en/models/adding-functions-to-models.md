@@ -57,7 +57,6 @@ class Users extends \lithium\data\Model {
 		return $entity->firstName . ' ' . $entity->middleInitial . '. ' . $entity->lastName;
 	}
 }
-?>
 ```
 
 If you want to add additional parameters, do so after you've specified the entity as the first:
