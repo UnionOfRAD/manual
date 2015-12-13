@@ -147,7 +147,7 @@ $post = Posts::create($data);
 
 if ($success = $post->validates()) {
 	// ...
-	$post->save(array('validate' => false));
+	$post->save(null, array('validate' => false));
 }
 ```
 
