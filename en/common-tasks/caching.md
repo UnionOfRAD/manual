@@ -3,19 +3,24 @@
 The `Cache` static class provides a consistent interface to configure and utilize the different cache adapters included with li3, as well as your own adapters.
 
 ## Included Adapters
-li3 ships with several adapters for caching.  The adapters can be found in `lithium/storage/cache/adapter`.
 
-* `Apc`: Alternative PHP Cache
-* `File`: A minimal file-based cache (file)
-* `Memcahce` (libmemcached)
-* `Memory`: A minimal in-memory cache
-* `Redis` (phpredis)
-* `Xcache`opcode cache
+The framework ships with several adapters for caching. These adapters can be found in
+`lithium/storage/cache/adapter`. Each adapter has its own special characteristics, 
+pick one (or two) dependent on your specific use case.
 
-Each adapter provides a consistent interface for the basic cache operations of `write`, `read`, `delete` and `clear`, which can be used interchangeably between all adapters. Some adapters may provide additional methods that are not consistently available across other adapters.
+* `Memcache` - A libmemcached based adapter, highly recommended.
+* `Apc` - Can be used if you're on an older PHP version and cannot use memcached, but have APC or APCu available.
+* `Redis` - Recommended if you're already using redis for other tasks.
+* `File` -  A minimal file-based cache, good if your app lives in constrained environment or you'd like to cache BLOBs.
+* `Memory` - A minimal in-memory cache, good for testing purposes.
+* `Xcache` - An alternative to `Apc`, not recommended as support might be phased out.
+
+Also see the [Cache Adapters API Documentation](http://li3.me/docs/lithium/storage/cache/adapter) for more information.
 
 ## Enabling/Disabling Caching
-To control whether or not caching is enabled, you can either comment or uncomment the following line in your application's `config/bootstrap.php` file:
+
+To control whether or not caching is enabled, you can either comment or uncomment the
+following line in your application's `config/bootstrap.php` file:
 
 ```php
 /**
@@ -26,26 +31,103 @@ require __DIR__ . '/bootstrap/cache.php';
 ```
 
 <div class="note note-info">
-	By default, caching is enabled in li3.
+	By default, caching is enabled in the framework.
 </div>
 
-## Setting Configuration Options
+## Configuration
 
-In most cases, you will configure various named cache configurations in your bootstrap process,
-which will then be available to you in all other parts of your application. A simple example configuration:
+In most cases, you will configure various named cache configurations in your bootstrap
+process, which will then be available to you in all other parts of your application. A
+simple example configuration:
 
 ```php
 Cache::config(array(
-    'local' => array('adapter' => 'Apc'),
+    'local' => array(
+        'adapter' => 'Apc'
+    ),
     'distributed' => array(
         'adapter' => 'Memcached',
-        'host' => '127.0.0.1:11211',
+        'host' => '127.0.0.1:11211'
     ),
-    'default' => array('adapter' => 'File')
-));
+    'default' => array(
+        'adapter' => 'File',
+        'strategies => array('Serializer')
+    )
+);
 ```
 
-## More information
+### Strategies
 
-* [Cache Class API Documentation](http://li3.me/docs/lithium/storage/Cache)
-* [Cache Adapters API Documentation](http://li3.me/docs/lithium/storage/cache/adapter)
+Each cache configuration can be configured with _strategies_. These influence how values are read and written
+into the cache. Some adapters already handle serialization for you, others like `File` do not do this. This
+is why we configure the `File` adapter using the general `Serializer` strategy. Other stratgies can be found
+in the [Cache Strategies API Documentation](http://li3.me/docs/lithium/storage/cache/strategy).
+
+### Scoping
+
+Adapter configurations can be scoped, adapters will then handle the
+namespacing of the keys transparently for you. This prevents caches
+from "stepping on each others toes".
+
+```
+Cache::config(array(
+    'primary'   => array('adapter' => 'Apc', 'scope' => 'primary'),
+    'secondary' => array('adapter' => 'Apc', 'scope' => 'secondary')
+);
+```
+
+## General Operation
+
+Adapters provide a consistent interface for basic cache operations (`write`, `read`,
+`increment`, `decrement`, `delete` and `clear`), which can be used interchangeably between
+all adapters. Some adapters may provide additional methods that are not consistently
+available across other adapters.
+
+### Writing to the Cache
+
+All cache operations take the name of the configuration as their first argument. This
+allows you to use the best cache configuration for your use cache.
+
+```php
+// Will store the value `'bar'` under the `foo` key, using the default expiry.
+Cache::write('default', 'foo', 'bar');
+```
+
+<div class="note">
+	The read/write and delete methods can handle multi keys/values or so called batch operations. 
+	Simply pass an array of keys (and value pairs) to the respective method.
+</div>
+
+To specify an **expiry**, use the 4th parameter of the method. Expiry time is a `strtotime()`
+compatible string. Alternatively an integer denoting the seconds until the item expires
+(TTL). If no expiry time is set, then the default cache expiration time set with the cache
+adapter configuration will be used. To persist an item use `Cache::PERSIST`.
+
+```php
+Cache::write('default', 'foo', 'bar', '+1 hour');
+Cache::write('default', 'foo', 'bar', Cache::PERSIST);
+```
+
+### (Atomically) Increment/Decrement Values
+
+Two specialized methods for writing to the cache are `Cache::increment()` and `Cache::decrement()`. These
+can be used i.e. if you want to increase a counter. Some adapters handle these operations atomically others
+can't. Please check your adapter configuration for details.
+
+```php
+Cache::increment('default', 'pageviews'); // increment count by one
+Cache::increment('default', 'pageviews', 2); // increment count by two
+```
+
+### Reading from the Cache
+
+Reading from cache is pretty is and after reading the above you should already be able to
+guess, how this works.
+
+```php
+// Will read the value under the `foo` key, if isn't found returns `null`.
+Cache::read('default', 'foo');
+```
+
+
+
