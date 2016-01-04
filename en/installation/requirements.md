@@ -15,7 +15,7 @@ version.
 
 |              | required PHP    | recommended PHP | compatible PHP       |
 | ------------ | --------------- | --------------- | -------------------- |
-| **1.0.x**    | >= 5.3.6        | >= 5.4.0        | >= 5.3.6 \| < 5.7.0  |
+| **1.0.x**    | >= 5.3.6        | >= 5.4.0        | >= 5.3.6 <7.0.0      |
 | **1.1.x**    | >= 5.5.0        | >= 5.6.0        | >= 5.5.0             |
 
 The vanilla PHP configuration should be in general fine. However its always good to double
