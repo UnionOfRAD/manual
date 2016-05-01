@@ -33,6 +33,6 @@ class Posts extends \lithium\data\Model {}
 ```
 
 <div class="note note-hint">
-	li3 also allows model creation via the console:  You can enter <code>li3 model create Posts</code> into the command line (assuming you have configured the command line for use) and the code above will automatically be created in a file called <code>\app\models\Posts.php</code>.
+	li3 also allows model creation via the console:  You can enter <code>li3 create model Posts</code> into the command line (assuming you have configured the command line for use) and the code above will automatically be created in a file called <code>\app\models\Posts.php</code>.
 </div>
 
