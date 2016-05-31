@@ -10,13 +10,8 @@ NGINX](./web-servers.md).
 ## PHP 
 
 Because the framework takes advantage of advanced **language** features, a recent PHP version
-is required. The compatibility table below shows which framework version requires which PHP
-version.
-
-|              | required PHP    | recommended PHP | compatible PHP       |
-| ------------ | --------------- | --------------- | -------------------- |
-| **1.0.x**    | >= 5.3.6        | >= 5.4.0        | >= 5.3.6 <7.0.0      |
-| **1.1.x**    | >= 5.5.0        | >= 5.6.0        | >= 5.5.0             |
+is required. [Please review the compatibility table](http://li3.me/versions) to see if your
+PHP version is supported.
 
 The vanilla PHP configuration should be in general fine. However its always good to double
 check that certain configuration options are set correctly. Certain features are not supported
