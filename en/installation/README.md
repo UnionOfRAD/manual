@@ -74,10 +74,10 @@ latest available revision, which may not have been tagged yet.
 composer create-project -s dev unionofrad/framework project
 
 cd project
-git checkout dev
+git checkout 1.0
 
 cd libraries/lithium
-git checkout dev
+git checkout 1.0
 ```
 
 ### Using Git
@@ -86,10 +86,10 @@ git checkout dev
 git clone --origin distro https://github.com/UnionOfRAD/framework.git project
 
 cd project
-git checkout dev
+git checkout 1.0
 
 cd libraries/lithium
-git checkout dev
+git checkout 1.0
 git pull
 ```
 
