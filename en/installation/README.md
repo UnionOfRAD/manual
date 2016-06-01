@@ -7,35 +7,12 @@ Distributions come with a predefined app [file structure](./architecture/file-st
 
 We'll base our new project off the officially supported [framework distribution](https://github.com/UnionOfRAD/framework).
 
-### Using Composer
-
-
 For the start we'll use [composer](https://getcomposer.org/) to create our project in
 the current directory as `project`.
 
 ```bash
 composer create-project --prefer-dist unionofrad/framework project
 ```
-
-### Using Git
-
-Don't want to use composer? No problem, you can also just use plain Git, too. The following command
-will clone the distribution into the current directory as `project`. The upstream's repository
-will be setup with the name `distro`.
-
-```bash
-git clone --origin distro https://github.com/UnionOfRAD/framework.git project
-```
-
-We'll than switch into that directory and initialize the submodules of that repository.
-Submodules are used in order to have no dependencies other than on the core library itself.
-
-```bash
-cd project
-git submodule update --init
-```
-
-If everything worked as expected, you should now have the lithium core inside `project/libraries/lithium`.
 
 ## Pedal to the Metal
 
@@ -68,8 +45,6 @@ The methods described in the previous sections will download the most recent tag
 the framework and core library. In some cases, it may be desirable to update both to the very
 latest available revision, which may not have been tagged yet.
 
-### Using Composer
-
 ```bash
 composer create-project -s dev unionofrad/framework project
 
@@ -79,18 +54,4 @@ git checkout 1.0
 cd libraries/lithium
 git checkout 1.0
 ```
-
-### Using Git
-
-```bash
-git clone --origin distro https://github.com/UnionOfRAD/framework.git project
-
-cd project
-git checkout 1.0
-
-cd libraries/lithium
-git checkout 1.0
-git pull
-```
-
 
