@@ -149,7 +149,10 @@ Comments::finder('recent', array(
 ));
 ```
 
-Some finder implementations might require a little processing in addition to a default set of conditions—somewhat like the . In that case, you can define a finder using a closure that will be called as part of li3's find chaining. In this use case, you supply the name of the finder along with a closure that looks much like a filter definition:
+Some finder implementations might require a little processing in addition to a default set
+of conditions. In that case, you can define a finder using a closure that will be called
+as part of li3's find chaining. In this use case, you supply the name of the finder along
+with a closure that looks much like a filter definition:
 
 ```php
 Comments::finder('recentCategories', function($self, $params, $chain){
