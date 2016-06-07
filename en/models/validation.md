@@ -213,7 +213,7 @@ Validator::isZeroToNine('7');
 
 ### Named Validation Rules
 
-<div class="note note-version">This feature will become available with 1.1.0.</div>
+<div class="note note-version">This feature is available beginning with 1.1.0.</div>
 
 Validation rules inside the model can be optionally defined as _named_ rules. This changes the format
 of the data `Model::errors()` returns and allows you to determine which exact rule failed.
@@ -250,7 +250,7 @@ $user->errors(); // Returns:
 
 ### Providing Custom Validation Messages in the Template
 
-<div class="note note-version">This feature will become available with 1.1.0.</div>
+<div class="note note-version">This feature is available beginning with 1.1.0.</div>
 
 In order to make use of this feature, you must use _named validation rules_.
 
