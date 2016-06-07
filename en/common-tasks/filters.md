@@ -1,4 +1,4 @@
-# The Filters Guide
+# The Filter System
 
 This guide is meant as an introductory course in creating filters in li3 applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
 

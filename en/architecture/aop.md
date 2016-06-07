@@ -20,9 +20,11 @@ modularity of these cross-cutting concerns.
 ## AOP
 
 Aspect Oriented Programming finds a home in the li3 in at least two main pieces of
-functionality: filters and strategies.
+functionality: [filters](../common-tasks/filters.md) 
+and strategies.
 
-An entire guide is devoted to li3's filtering system, but let's review it at a high
+[An entire guide is devoted to li3's filter system](../common-tasks/filters.md), 
+but let's review it at a high
 level to see how it fits in the AOP paradigm. A filter is basically a bit of code you
 want applied to the existing flow of logic in the framework. For example, you might want
 a bit of logic that logs errors and sends them to a web service for reporting. This

@@ -83,11 +83,11 @@
 			"common-tasks": {
 				"title": "Common Tasks",
 				"contents": {
-					"common-tasks/error-handling.md": {"title": "Error Handling"},
-					"common-tasks/logging.md": {"title": "Logging"},
+					"common-tasks/filters.md": {"title": "The Filter System"},
 					"common-tasks/simple-authentication.md": {"title": "Authentication"},
+					"common-tasks/logging.md": {"title": "Logging"},
 					"common-tasks/caching.md": {"title": "Caching"},
-					"common-tasks/basic-filters.md": {"title": "Basic Filtering"},
+					"common-tasks/error-handling.md": {"title": "Error Handling"},
 					"common-tasks/globalization.md": {"title": "Globalization"},
 					"common-tasks/console-applications.md": {"title": "Console Applications"},
 					"common-tasks/plugins.md": {"title": "Plugins"},
