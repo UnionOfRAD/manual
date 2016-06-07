@@ -40,35 +40,53 @@ Posts::update(array('title' => 'Untitled'), array('title' => ''));
 
 ## Delete
 
-Deleting entities from your datasource is accomplished using either the `remove()` or `delete()` methods.
+Deleting entities from your data source is accomplished using either the `delete()` 
+entity method or the static `remove()` method.
 
-Use `remove()` to remove data (documents, records, etc.) based on specified conditions & options.
+Ususally you should first retrieve the entity to-be-deleted, probably do some safety check
+and then delete it.
 
-The `$conditions` parameter is first and is an array of key/value pairs representing the scope of the records or documents to be deleted. Example: `'conditions' => array('status' => 'draft')`.  The `$options` parameter is an array that specifies any database-specific options to use when performing the operation.  The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
+```php
+$post = Posts::first(); // Read the first post.
+$post->delete(); // Delete first post.
+```
+
+To delete multiple records you first retrieve a set of entities
+then invoke the delete method on all of them. As the result 
+of the find call here is actually a `Collection` any method 
+called on the collection will be dispatched to each contained entity.
+
+
+```php
+// Select all drafted posts, $posts is a Collection.
+$posts = Posts::find('all', array(
+	'conditions' => array('is_draft' => true)			
+));
+
+// Iterates over each post in collection and deletes it.
+$posts->delete(); 
+
+// ... is the same as: 
+foreach ($posts as $post) {
+	$post->delete();
+}
+```
+
+As an alternative to quickly remove massive sets of entities `remove()` together with
+conditions can be used. The `$conditions` parameter is first and is an array of key/value
+pairs representing the scope of the records or documents to be deleted.
 
 ```
-// Delete all posts.
+// Delete all posts!!
 $success = Posts::remove();
 
-// Delete all posts with an empty title.
-Posts::remove(array('title' => ''));
+// Delete drafted posts only.
+Posts::remove(array('is_draft => true));
 ```
 
 <div class="note note-caution">
 	Using the <code>remove()</code> method with no <code>$conditions</code> 
 	parameter specified will delete all entities in your data source.
 </div>
-
-To delete the data associated with the a specified entity, use the `delete()` method.
-
-The parameter `$entity` is the entity to be deleted and as with `remove()`,  the `$options` parameter is an array specifies any database-specific options to use when performing the operation.  The options parameter varies amongst the various types of data sources.  More detail is available in the source code documentation for the `delete()` methods of each data source type (Example: `\lithium\data\source\Database.php`).
-
-```php
-// Read the first post
-$post = Posts::first();
-
-// Delete the data associated with the first post
-$result = Posts::delete($post);
-```
 
 
