@@ -94,6 +94,49 @@ Notice the new `with` key supplied to the model? This tells the model that you w
 
 As you can see from the output, the related data has been added on to the model result. While we're printing out array contents here, you can as easily loop through or access the same information at `$categories->products` in this case as well.
 
+## Ordering Related Data
+
+Ordering data works mostly as you'd expect it to. The following returns
+all categories and their associated products first unsorted and than sorted
+by the category title.
+
+Good practice is to qualify fields (with the model name) in such queries to make the
+statement unambigous.
+
+```php
+Categories::find('all', array(
+	'with' => 'Products'
+));
+
+Categories::find('all', array(
+	'with' => 'Products',
+	'order' => array('Categories.title')
+));
+```
+
+To have the nested products themselves sorted inside the `->products`, you 
+add the qualified relationship field to the order statement.
+
+```php
+Categories::find('all', array(
+	'order' => array('Categories.id', 'Products.price'),
+	'with' => 'Products'
+));
+```
+
+Did you note that we also added `Categories.id` in there? This is to keep
+a consistent result set. 
+
+<div class="note note-caution">
+	Sorting the whole result set just by the products 
+	price alone is <em>not</em> possible.
+</div>
+
+If you see an exception thrown (`Associated records hydrated out of order.`), than 
+simply order by the main models primary key first. Other frameworks will magically 
+rewrite the query for you and add that primary key automatically. li3 however has
+decided against this, as it doesn't want to mess with your queries.
+
 ## Saving Related Data
 
 Because relationship setup is simple, so is saving related data. When saving related data, just make sure the proper key values are set so that the underlying data storage engine can match up the data correctly.
