@@ -129,5 +129,46 @@ guess, how this works.
 Cache::read('default', 'foo');
 ```
 
+## Caching BLOBs
+
+<div class="note note-version">This feature is available beginning with 1.1.0.</div>
+
+BLOBs are binary large objects or simply put: _files_. The file cache adapter is capable
+of storing BLOBs using the following configuration. 
+
+```php
+Cache::config(array(
+	'blob' => array(
+		'adapter' => 'File', 
+		'streams' => true
+	)
+));
+```
+Imagine - upon user request - a PDF is compiled. This requires quite a 
+bit of CPU time and memory. Upon following requests for the same PDF you
+want to save some cycles and return the file from cache. This example
+shows you how.
+
+```php
+// We will need a stream handle we can write to and read from.
+$stream = fopen('php://temp', 'wb');
+
+// Pseudocode; generate a PDF then store it in the stream. 
+$pdf->generate()->store($stream);
+
+// We must rewind the stream, as Cache will not do this for us.
+rewind($stream);
+
+// Store the contents of $stream into a cache item.
+Cache::write('blob', 'productCatalogPdf', $stream);
+```
+
+```php
+// ... later somewhere else in the galaxy ...
+$stream = Cache::read('blob', 'productCatalogPdf');
+
+// Output $stream to the client.
+// echo stream_get_contents($stream);
+```
 
 

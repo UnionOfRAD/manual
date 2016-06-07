@@ -24,6 +24,7 @@ Please verify that:
 - Function overloading is disabled when using the `mbstring` extension.
 - PHP isn't compiled with curlwrappers.
 - Short Open Tags are disabled. Although this is not a strict requirement.
+- When using MongoDB you have the mongo extension >= 1.2.0 installed.
 
 While you're making PHP configuration changes, you might also consider having PHP display errors temporarily during development. Just change the relevant lines in your `php.ini`:
 
