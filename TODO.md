@@ -14,6 +14,8 @@ All lists are ordered by priority.
 - Adaptable, Environment specific settings
 - Example Applications
 - Expand Using in External Apps with Wordpress Integration
+- Plugins
+- Extending Lithium
 
 # Tutorials
 
