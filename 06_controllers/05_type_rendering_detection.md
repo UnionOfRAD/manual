@@ -14,7 +14,7 @@ The flow for handling a given type of a response works something like the follow
 The easiest way to set a type is by declaring it as part of the route. One of li3's default routes already does this for you:
 
 ```php
-Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', array('id' => null));
+Router::connect('/{:controller}/{:action}/{:id:[0-9]+}.{:type}', ['id' => null]);
 ```
 
 <div class="note note-info">
@@ -46,7 +46,7 @@ Let's assume that you are using a MySQL database as a datasource and you are ret
  * is an integer, uncomment the routes below to enable URLs like `/posts/edit/1138`,
  * `/posts/view/1138.json`, etc.
  */
-Router::connect('/{:controller}/{:action}/{:id:\d+}.{:type}', array('id' => null));
+Router::connect('/{:controller}/{:action}/{:id:\d+}.{:type}', ['id' => null]);
 Router::connect('/{:controller}/{:action}/{:id:\d+}');
 ```
 
@@ -68,10 +68,10 @@ With these pieces in place, pointing the browser to `blogposts/view/1` will retr
 You can also statically define the type for a route by adding the 'type' key to the route definition:
 
 ```php
-Router::connect('/latest/feed', array(
+Router::connect('/latest/feed', [
 	'Posts::index',
 	'type' => 'xml'
-));
+]);
 ```
 
 If you'd rather use other information to convey the request type to li3 (headers, GET variables, etc.) you can gather that information then set `$this->_render['type']` in the controller action.
@@ -79,7 +79,7 @@ If you'd rather use other information to convey the request type to li3 (headers
 Manual type rendering can also be done by handing the type's name to the render function:
 
 ```php
-$this->render(array('csv' => Post::find('all')));
+$this->render(['csv' => Post::find('all')]);
 ```
 
 ## Handler Registration
@@ -89,23 +89,23 @@ As mentioned earlier, type handlers are registered by the `\net\http\Media` clas
 Register your type by passing the relevant information to `Media::type()` inside the bootstrap. Here's what the general pattern looks like:
 
 ```php
-Media::type('typeName', 'contentType', array($options));
+Media::type('typeName', 'contentType', [$options]);
 ```
 
 To give you an idea of how this process is completed, let's register a new handler for the BSON data type. If you're curious, BSON is a binary, serialized form of JSON used by MongoDB. Start by declaring a new media type in `/config/boostrap/media.php` and uncommenting the `media.php` line in your main bootstrap file:
 
 ```php
-Media::type('bson', 'application/bson', array());
+Media::type('bson', 'application/bson', []);
 ```
 
 This gets us pretty far. If you make a request with a .bson extension that matches a configured route (one with {:type} in it), li3 will already hunt for a `.bson.php` template in the controller's template directory. You can continue to customize li3's behavior by utilizing the `$options` array you supply to `Media::type()`. After checking the API docs for `Media::type()`, we realize we can utilize a few options to make sure our response isn't housed in an HTML layout and use some functions we've defined for encoding and decoding the data:
 
 ```php
-Media::type('bson', 'application/bson', array(
+Media::type('bson', 'application/bson', [
 	'layout' => false,
 	'encode' => 'bson_encode',
 	'decode' => 'bson_decode'
-));
+]);
 ```
 
 Try the request again, and you'll get your BSON-encoded data, minus the HTML layout. Note that the bson_* functions used in this particular example are part of the PECL MongoDB extension. Don't worry if you don't have it installed: the main point is to realize that you can tell `Media` exactly what function to use to render the data (including using closures).

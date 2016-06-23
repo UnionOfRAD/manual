@@ -101,9 +101,9 @@ namespace app\models;
 
 class Posts extends \lithium\data\Model {
 
-	protected $_meta = array('connection' => false);
+	protected $_meta = ['connection' => false];
 
-	public $validates = array();
+	public $validates = [];
 }
 
 ?>
@@ -118,9 +118,9 @@ namespace app\models;
 
 class Posts extends \lithium\data\Model {
 
-	protected $_meta = array('connection' => false);
+	protected $_meta = ['connection' => false];
 
-	public $validates = array();
+	public $validates = [];
 
 	public static function isGoodTitle($title) {
 		return !stristr($title, 'top ten');
@@ -149,20 +149,20 @@ use lithium\data\collection\RecordSet;
 
 class MockPosts extends \app\models\Posts {
 
-	public static function find($type = 'all', array $options = array()) {
+	public static function find($type = 'all', array $options = []) {
 		switch ($type) {
 			case 'first':
-				return new RecordSet(array('data' => array(
+				return new RecordSet(['data' => [
 					'id' => 1, 'title' => 'Top ten reasons why this is a bad title.'
-				)));
+				]]);
 			break;
 			case 'all':
 			default :
-				return new RecordSet(array('data' => array(
-					array('id' => 1, 'title' => 'Top ten reasons why this is a bad title.'),
-					array('id' => 2, 'title' => 'Sensationalist Over-dramatization!'),
-					array('id' => 3, 'title' => 'Heavy Editorializing!'),
-				)));
+				return new RecordSet(['data' => [
+					['id' => 1, 'title' => 'Top ten reasons why this is a bad title.'],
+					['id' => 2, 'title' => 'Sensationalist Over-dramatization!'],
+					['id' => 3, 'title' => 'Heavy Editorializing!'],
+				]]);
 			break;
 		}
 	}
@@ -198,9 +198,9 @@ class MockObject extends \lithium\core\Object {
 	}
 }
 
-$object = MockObject::__set_state(array(
+$object = MockObject::__set_state([
 	'_protected' => 'testing'
-));
+]);
 
 $object->getProtected();        // 'testing'
 ```

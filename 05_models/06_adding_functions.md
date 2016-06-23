@@ -10,7 +10,7 @@ This section outlines a few of the ways you can extend model functionality as yo
 As a rule of thumb, all static methods work with a collection of objects on the database, while non-static methods are tied to one single document/record. Consider the following example:
 
 ```
-$post = Posts::first(array('conditions' => array('author' => 'foo')));
+$post = Posts::first(['conditions' => ['author' => 'foo']]);
 $post->title = 'Hello World';
 $post->save();
 ```
@@ -28,7 +28,7 @@ namespace app\models;
 
 class Users extends \lithium\data\Model {
 
-	protected static $_roles = array('admin', 'friend', 'stranger');
+	protected static $_roles = ['admin', 'friend', 'stranger'];
 
 	public static function roles() {
 		return static::$_roles;

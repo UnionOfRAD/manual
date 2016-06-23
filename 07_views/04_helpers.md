@@ -40,10 +40,10 @@ namespace app\extensions\helper;
 
 class AwesomeHtml extends \lithium\template\Helper {
 
-	protected $_strings = array(
+	protected $_strings = [
 		'awesome'    => '<a class="awesome" href="{:url}">{:title}</a>',
 		'super_cool' => '<span class="super"><a class="cool" href="{:url}">{:title}</a></span>',
-	);
+	];
 
 	public function link($title, $url, $options) {
 		$title = $this->escape($title);
@@ -57,9 +57,9 @@ Once this has been setup, we can use the new helper as we would any of the core 
 ```
 <p>
 	You should really check out
-	<?=$this->awesomeHtml->link('li3', 'http://li3.me', array(
+	<?=$this->awesomeHtml->link('li3', 'http://li3.me', [
 		'type' => 'super_cool'
-	)) ?>
+	]) ?>
 </p>
 ```
 

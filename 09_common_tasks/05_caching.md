@@ -41,19 +41,19 @@ process, which will then be available to you in all other parts of your applicat
 simple example configuration:
 
 ```php
-Cache::config(array(
-    'local' => array(
+Cache::config([
+    'local' => [
         'adapter' => 'Apc'
-    ),
-    'distributed' => array(
+    ],
+    'distributed' => [
         'adapter' => 'Memcached',
         'host' => '127.0.0.1:11211'
-    ),
-    'default' => array(
+    ],
+    'default' => [
         'adapter' => 'File',
-        'strategies => array('Serializer')
-    )
-);
+        'strategies => ['Serializer']
+    ]
+];
 ```
 
 ### Strategies
@@ -70,10 +70,10 @@ namespacing of the keys transparently for you. This prevents caches
 from "stepping on each others toes".
 
 ```
-Cache::config(array(
-    'primary'   => array('adapter' => 'Apc', 'scope' => 'primary'),
-    'secondary' => array('adapter' => 'Apc', 'scope' => 'secondary')
-);
+Cache::config([
+    'primary'   => ['adapter' => 'Apc', 'scope' => 'primary'],
+    'secondary' => ['adapter' => 'Apc', 'scope' => 'secondary']
+];
 ```
 
 ## General Operation
@@ -137,12 +137,12 @@ BLOBs are binary large objects or simply put: _files_. The file cache adapter is
 of storing BLOBs using the following configuration. 
 
 ```php
-Cache::config(array(
-	'blob' => array(
+Cache::config([
+	'blob' => [
 		'adapter' => 'File', 
 		'streams' => true
-	)
-));
+	]
+]);
 ```
 Imagine - upon user request - a PDF is compiled. This requires quite a 
 bit of CPU time and memory. Upon following requests for the same PDF you

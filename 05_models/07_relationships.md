@@ -23,7 +23,7 @@ Defining this object relationship is simple: you populate special properties on 
 ```php
 class Categories extends \lithium\data\Model {
 
-	public $hasMany = array('Products');
+	public $hasMany = ['Products'];
 }
 ```
 
@@ -32,14 +32,14 @@ This simple declaration relies on convention, and is the functional equivalent t
 ```php
 class Categories extends \lithium\data\Model {
 
-	public $hasMany = array('Products' => array(
+	public $hasMany = ['Products' => [
 		'to'          => 'Products',
 		'key'         => 'category_id',
-		'constraints' => array(),
-		'fields'      => array(),
+		'constraints' => [],
+		'fields'      => [],
 		'order'       => null,
 		'limit'       => null
-	));
+	]];
 }
 ```
 
@@ -52,9 +52,9 @@ All of the model relationships use these same keys (although there's no reason t
 Once a relationship as been configured, you can use your models to fetch related data. We can now do this in a controller:
 
 ```php
-$categories = Categories::find('all', array(
+$categories = Categories::find('all', [
 	'with' => 'Products'
-));
+]);
 
 print_r($categories->to('array'));
 /* outputs:
@@ -104,24 +104,24 @@ Good practice is to qualify fields (with the model name) in such queries to make
 statement unambigous.
 
 ```php
-Categories::find('all', array(
+Categories::find('all', [
 	'with' => 'Products'
-));
+]);
 
-Categories::find('all', array(
+Categories::find('all', [
 	'with' => 'Products',
-	'order' => array('Categories.title')
-));
+	'order' => ['Categories.title']
+]);
 ```
 
 To have the nested products themselves sorted inside the `->products`, you 
 add the qualified relationship field to the order statement.
 
 ```php
-Categories::find('all', array(
-	'order' => array('Categories.id', 'Products.price'),
+Categories::find('all', [
+	'order' => ['Categories.id', 'Products.price'],
 	'with' => 'Products'
-));
+]);
 ```
 
 Did you note that we also added `Categories.id` in there? This is to keep
@@ -158,7 +158,7 @@ class ProductsController extends \lithium\action\Controller {
 
 		// Create a list of categories to send to the view.
 		$categories = Categories::find('all');
-		$categoryList = array();
+		$categoryList = [];
 		foreach ($categories as $category) {
 			$categoryList[$category->id] = $category->name;
 		}

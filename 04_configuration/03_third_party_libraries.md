@@ -41,14 +41,14 @@ Again, because it conforms to the 5.3 namespacing standard, and because (using t
 Since PEAR is typically installed into a system directory (i.e. `/usr/local/lib/php`), you should first symlink it to `libraries/PEAR`, then add the following:
 
 ```php
-Libraries::add("PEAR", array(
+Libraries::add("PEAR", [
 	"prefix" => false,
 	"includePath" => true,
 	"transform" => function($class, $config) {
 		$file = $config['path'] . '/' . str_replace("_", "/", $class) . $config['suffix'];
 		return file_exists($file) ? $file : null;
 	}
-));
+]);
 ```
 
 There are a number of things to note about this configuration. First, while PEAR classes use package prefix, there is no standard vendor prefix, so the `'prefix'` setting must be overridden accordingly.
@@ -66,13 +66,13 @@ If you downloaded ZF1, or did an SVN checkout, you'll follow the alternative ins
 Once installed, ZF1 can be configured per the following. Again, because li3 assumes 5.3 standard namespacing in all libraries, some special considerations are necessary for dealing with class libraries written for 5.2 and lower.
 
 ```php
-Libraries::add("Zend", array(
+Libraries::add("Zend", [
 	"prefix" => "Zend_",
 	"includePath" => LITHIUM_LIBRARY_PATH, // or LITHIUM_APP_PATH . '/libraries'
 	"bootstrap" => "Loader/Autoloader.php",
-	"loader" => array("Zend_Loader_Autoloader", "autoload"),
+	"loader" => ["Zend_Loader_Autoloader", "autoload"],
 	"transform" => function($class) { return str_replace("_", "/", $class) . ".php"; }
-));
+]);
 ```
 
 First, because we're dealing with underscore-prefixed classes, we need to override the default prefix. Also, ZF1 depends on its parent directory being included in PHP's `include_path`, which we can tell `Libraries` to do, using the directory constants to provide an absolute path. Again, if your system is already configured for this, you can omit the `'includePath'` key.
@@ -84,14 +84,14 @@ Most importantly, we're overriding how class names are transformed into path nam
 Note, the following should appear **above** the primary ZF configuration, because they both have the same class prefix. However, this configuration will verify that a file exists before attempting to autoload it, allowing classes to "fall through" to other loaders.
 
 ```php
-Libraries::add("ZendIncubator", array(
+Libraries::add("ZendIncubator", [
 	"prefix" => "Zend_",
 	"includePath" => '/path/to/libraries/ZF_Install_Dir/incubator/library',
 	"transform" => function($class) {
 		$file = str_replace("_", "/", $class) . ".php";
 		return file_exists($file) ? $file : null;
 	}
-));
+]);
 ```
 
 ### Zend Framework 2.x
@@ -125,22 +125,22 @@ class EmailController extends \lithium\action\Controller {
 	 * Use this style for dynamic dependencies.
 	 */
 	protected function _init() {
-		$this->_classes += array(
+		$this->_classes += [
 			'pop3' => 'Zend_Mail_Storage_Pop3' // ZF1
 			'pop3' => 'Zend\Mail\Storage\Pop3' // ZF2
-		);
+		];
 	}
 
 	public function index() {
 		// If used statically:
-		$mail = new Zend_Mail_Storage_Pop3(array(
+		$mail = new Zend_Mail_Storage_Pop3([
 			'host' => 'localhost', 'user' => 'test', 'password' => 'test'
-		));
+		]);
 
 		// If used dynamically:
-		$mail = $this->_instance('pop3', array(
+		$mail = $this->_instance('pop3', [
 			'host' => 'localhost', 'user' => 'test', 'password' => 'test'
-		));
+		]);
 
 		return compact('mail');
 	}
@@ -156,23 +156,23 @@ Some legacy vendor libraries have no consistent class-to-file mapping scheme wha
  _Note_: For larger libraries, generating the map by hand can be tedious. Check out [the `Inspector` class](http://li3.me/docs/lithium/analysis/Inspector), which can be used to introspect classes and files to generate a map automatically.
 
 ```php
-Libraries::add('tcpdf', array(
+Libraries::add('tcpdf', [
 	'prefix' => false,
 	'transform' => function($class, $config) {
-		$map = array(
+		$map = [
 			'TCPDF2DBarcode'     => '2dbarcodes',
 			'TCPDFBarcode'       => 'barcodes',
 			'TCPDF_UNICODE_DATA' => 'unicode_data',
 			'PDF417'             => 'pdf417',
 			'TCPDF'              => 'tcpdf',
 			'QRcode'             => 'qrcode'
-		);
+		];
 		if (!isset($map[$class])) {
 			return false;
 		}
 		return "{$config['path']}/{$map[$class]}{$config['suffix']}";
 	}
-));
+]);
 ```
 
 Again, the lack of vendor prefix is denoted by setting `'prefix'` to `false`. Next, the class-to-file mapping function is passed in the `'transform'` key, which contains an array mapping class names to file names. These are then used to generate and return a full physical path to the correct file.

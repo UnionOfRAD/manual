@@ -11,7 +11,7 @@ Start by creating a new bootstrap file in the application directory called `/con
 ```php
 use lithium\core\ErrorHandler;
 
-$conditions = array('type' => 'lithium\action\DispatchException');
+$conditions = ['type' => 'lithium\action\DispatchException'];
 
 ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exception, $params) {
 	var_dump(compact('exception', 'params'));
@@ -28,20 +28,20 @@ use lithium\core\ErrorHandler;
 use lithium\analysis\Logger;
 use lithium\template\View;
 
-Logger::config(array('error' => array('adapter' => 'File')));
+Logger::config(['error' => ['adapter' => 'File']]);
 
 $render = function($template, $content) {
-	$view = new View(array(
-		'paths' => array(
+	$view = new View([
+		'paths' => [
 			'template' => '{:library}/views/{:controller}/{:template}.{:type}.php',
 			'layout'   => '{:library}/views/layouts/{:layout}.{:type}.php',
-		)
-	));
-	echo $view->render('all', compact('content'), compact('template') + array(
+		]
+	]);
+	echo $view->render('all', compact('content'), compact('template') + [
 		'controller' => 'errors',
 		'layout' => 'default',
 		'type' => 'html'
-	));
+	]);
 };
 ErrorHandler::apply('lithium\action\Dispatcher::run', $conditions, function($exception, $params) {
 	Logger::write('error', "Page Not Found...");

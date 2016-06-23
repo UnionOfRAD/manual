@@ -26,10 +26,10 @@ use lithium\net\http\Service;
 class Foo extends \lithium\core\Object {
 	public $service;
 	
-	public function __construct(array $config = array()) {
-		$defaults = array(
+	public function __construct(array $config = []) {
+		$defaults = [
 			'foo' => 'bar'
-		);
+		];
 		parent::__construct($config + $defaults);
 	}
 	
@@ -50,14 +50,14 @@ use app\extensions\Foo;
 $foo = new Foo();
 $foo->baz();               // 'bar'
 
-$foo2 = new Foo(array(
+$foo2 = new Foo([
 	'foo' => '123'
-));
+]);
 $foo2->baz();              // '123'
 
-$foo3 = new Foo(array(
+$foo3 = new Foo([
 	'init' => 'false'
-));
+]);
 get_class($foo3->service);  // PHP Warning...
 get_class($foo->service);  // 'lithium\net\http\Service'
 ```

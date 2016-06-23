@@ -34,7 +34,7 @@ We setup our `Files` model to use GridFs and also add a handy but stubbed `mimeT
 // models/Files.php
 
 class Files extends \lithium\data\Model {
-	protected $_meta = array('source' => 'fs.files');
+	protected $_meta = ['source' => 'fs.files'];
 
 	public function mimeType($entity) {
 		return 'image/png';
@@ -51,9 +51,9 @@ use lithium\net\http\Router;
 use lithium\action\Response;
 use app\models\Files;
 
-Router::connect('/files/{:id:[0-9a-f]{24}}.{:type}', array(), function($request) {
+Router::connect('/files/{:id:[0-9a-f]{24}}.{:type}', [], function($request) {
 	if (!$file = Files::first($request->id)) {
-		return new Response(array('status' => 404));
+		return new Response(['status' => 404]);
 	}
 	$response = new Response();
 	
@@ -65,10 +65,10 @@ Router::connect('/files/{:id:[0-9a-f]{24}}.{:type}', array(), function($request)
 	if ($condition === $hash) {
 		$response->status(304);
 	} else {
-		$response->headers += array(
+		$response->headers += [
 			'Content-Length' => $file->file->getSize(),
 			'Content-Type' => $file->mimeType(),
-		);
+		];
 		$response->body = $file->file->getBytes();
 	}
 	return $response;
@@ -99,7 +99,7 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 
 	if ($condition === $hash) {
 		$response->status(304);
-		$response->body = array();
+		$response->body = [];
 	}
 	return $response;
 });
@@ -113,21 +113,21 @@ In this case we are retrieving the latest commits from the li3 GitHub repository
 use lithium\data\Connections;
 use lithium\storage\Cache;
 
-Connections::add("github", array(
+Connections::add("github", [
    'scheme' => 'https',
    'type' => 'lithium\net\http\Service',
    'host' => 'api.github.com'
-));
+]);
 $github = Connections::get("github");
 $path = 'repos/unionofrad/lithium/commits';
 
 $cacheKey = 'api_github_com_' . str_replace('/', '_', $path);
 
-$options = array('return' => true);
+$options = ['return' => true];
 if ($cached = Cache::read('default', $cacheKey)) {
 	$options['headers']['If-None-Match'] = "\"{$cached['condition']}\"";
 }
-$response = $github->get($path, array('type' => 'json'), $options);
+$response = $github->get($path, ['type' => 'json'], $options);
 
 if ($response->status('code') == 304) {
 	return $cached['body'];

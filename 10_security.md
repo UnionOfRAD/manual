@@ -11,9 +11,9 @@ protect your application from injection attacks.
 ```php
 $author = 'UNTRUSTED USER INPUT';
 
-Posts::find('first', array(
-	'conditions' => array('author' => $author)
-));
+Posts::find('first', [
+	'conditions' => ['author' => $author]
+]);
 ```
 
 However you **cannot rely** on this feature if you use user input in any other place of a query. The 
@@ -28,9 +28,9 @@ if (!Posts::hasField($field)) {
 	throw new Exception('Invalid field.');
 }
 
-Posts::find('first', array(
-	'fields' => array($field, 'title')
-));
+Posts::find('first', [
+	'fields' => [$field, 'title']
+]);
 ```
 
 ## Securing Form Fields and Values
@@ -52,7 +52,7 @@ Inside the view:
 
 <?= $this->form->create($post) ?>
 	<?= $this->form->field('title') ?>
-	<?= $this->form->field('body', array('type' => 'textarea')) ?>
+	<?= $this->form->field('body', ['type' => 'textarea']) ?>
 	<?= $this->form->field('') ?>
 	<?= $this->form->submit('save') ?>
 <?= $this->form->end() ?>
@@ -73,11 +73,11 @@ When fields are inserted dynamically into the form (i.e. through JavaScript) the
 be manually excluded while checking the signature.
 
 ```php
-FormSignature::check($this->request, array(
-	'exclude' => array(
+FormSignature::check($this->request, [
+	'exclude' => [
 		'_wysihtml5'	
-	)			
-));
+	]			
+]);
 ```
 
 ## Preventing Mass Assignment
@@ -86,10 +86,10 @@ To prevent your application from opening up to the so called [mass assingment vu
 the framework provides you with the _whitelist_ feature. This whitelist can be used to limit the set of fields which get updated during create or update operations.
 
 ```php
-$data = array(
+$data = [
 	'name' => 'John Doe',
 	'email' => 'haxx0r@example.org' // Added by the attacker.
-);
+];
 
 $user = Users::findById($authed['user']['id']);
 $user->save();
@@ -100,9 +100,9 @@ case really just the name field gets updated.
 
 ```php
 $user = Users::findById($authed['user']['id']);
-$user->save($data, array(
-	'whitelist' => array('name')
-));
+$user->save($data, [
+	'whitelist' => ['name']
+]);
 ```
 
 <div class="note note-info">

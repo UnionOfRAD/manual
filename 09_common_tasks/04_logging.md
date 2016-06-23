@@ -7,13 +7,13 @@ Logging in li3 is handled through the `Logger` class.  This class is designed to
 When configuring adapters, you may specify one or more priorities for each, using the `'priority'` key. This key can be a single priority level (string), or an array of multiple levels. When a log message is written, all adapters that are configured to accept the priority level with which the message was written will receive the message.
 
 ```php
-Logger::config(array(
-	'default' => array('adapter' => 'Syslog'),
- 	'badnews' => array(
+Logger::config([
+	'default' => ['adapter' => 'Syslog'],
+ 	'badnews' => [
  		'adapter' => 'File',
- 		'priority' => array('emergency', 'alert', 'critical', 'error')
- 	)
- ));
+ 		'priority' => ['emergency', 'alert', 'critical', 'error']
+ 	]
+ ]);
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ Logger::critical('This is a critical message');
 By default, the logger will write a message to any adapter that has the specified priority in the log message in its configuration.  To write to an adapter other than the default adapter(s), you can use the options parameter which expects an array.
 
 ```php
-Logger::write('critical', 'This is a critical message', array('name' => 'badnews'));
+Logger::write('critical', 'This is a critical message', ['name' => 'badnews']);
 ```
 
 <div class="note note-info">

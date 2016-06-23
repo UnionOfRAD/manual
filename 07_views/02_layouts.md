@@ -14,9 +14,9 @@ A layout file looks like what you might typically expect of an HTML file.  Below
    <head>
    	<?=$this->html->charset();?>
    	<title>Application > <?=$this->title();?></title>
-   	<?=$this->html->style(array('debug', 'lithium'));?>
+   	<?=$this->html->style(['debug', 'lithium']);?>
    	<?=$this->scripts();?>
-   	<?=$this->html->link('Icon', null, array('type' => 'icon'));?>
+   	<?=$this->html->link('Icon', null, ['type' => 'icon']);?>
    </head>
    <body class="app">
    	<div id="container">
@@ -43,11 +43,11 @@ Once you have created a layout, it is just a matter of applying the layout to yo
 
 ```
 public function index() {
-	return $this->render(array('layout' => 'layoutName'));
+	return $this->render(['layout' => 'layoutName']);
 }
 ```
 
-If you do not specify a layout in the render call, li3 will use the default layout, which is found in `views/layouts/default.html.php`.  You can also disable the layout altogether by setting the layout's value to false (e.g. `$this->render(array('layout' => false))`).
+If you do not specify a layout in the render call, li3 will use the default layout, which is found in `views/layouts/default.html.php`.  You can also disable the layout altogether by setting the layout's value to false (e.g. `$this->render(['layout' => false])`).
 
 ##Setting a Default Layout
 You can also specify a default layout to be used for all methods in a controller.  This is done through the use of the protected `init()` method.  An example of how to set the default layout is shown below:

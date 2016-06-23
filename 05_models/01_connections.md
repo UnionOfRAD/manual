@@ -29,20 +29,20 @@ The second part of a connection is an array of configuration options specific to
 A quick look at the examples in the default `connections.php` file illustrate the possibilities:
 
 ```php
-Connections::add('default', array(
+Connections::add('default', [
 	'type' => 'MongoDb',
 	'host' => 'localhost',
 	'database' => 'project'
-));
+]);
 
-Connections::add('default', array(
+Connections::add('default', [
 	'type' => 'http',
 	'adapter' => 'CouchDb',
 	'host' => 'localhost',
 	'database' => 'project'
-));
+]);
 
-Connections::add('default', array(
+Connections::add('default', [
 	'type' => 'database',
 	'adapter' => 'MySql',
 	'host' => 'localhost',
@@ -50,7 +50,7 @@ Connections::add('default', array(
 	'password' => '',
 	'database' => 'project',
 	'encoding' => 'UTF-8'
-));
+]);
 ```
 
 ## Models and Connections
@@ -60,9 +60,9 @@ Models will look for the `'default'` connection first. If you've got more than o
 ```php
 class Posts extends \lithium\data\Model {
 
-	protected $_meta = array(
+	protected $_meta = [
 		'connection' => 'legacy'
-	);
+	];
 }
 ```
 
@@ -71,9 +71,9 @@ For connection-less models you may disable the connection altogether by setting 
 ```php
 class Movies extends \lithium\data\Model {
 
-	protected $_meta = array(
+	protected $_meta = [
 		'connection' => false
-	);
+	];
 }
 ```
 
@@ -95,18 +95,18 @@ Many applications use different databases depending on which environment the app
 Once your environments have been defined, use their names as keys in the configuration array, as shown here:
 
 ```php
-Connections:add('default', array( // 'default' is the name of the connection
-	'development' => array(
+Connections:add('default', [ // 'default' is the name of the connection
+	'development' => [
 		'type'     => 'MongoDb',
 		'host'     => 'localhost',
 		'database' => 'myapp'
-	),
-	'production' => array(
+	],
+	'production' => [
 		'type'     => 'MongoDb',
 		'host'     => 'flame.mongohq.com:27111',
 		'database' => 'myapp',
 		'login'    => 'myuser',
 		'password' => 'mysecret'
-	)	
-));
+	]	
+]);
 ```

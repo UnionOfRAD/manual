@@ -12,9 +12,9 @@ Let's start off with a basic query example from the main section.
 
 ```php
 // Read only posts where the author name is "tom"
-$posts = Posts::find('all', array(
-	'conditions' => array('author' => 'tom')
-));
+$posts = Posts::find('all', [
+	'conditions' => ['author' => 'tom']
+]);
 ```
 
 **$and**    
@@ -25,14 +25,14 @@ The second way is a little lengthier but is a great way to get familiar with how
 other, more advanced, queries.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'$and' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'$and' => [
 			'author' => 'tom',
 			'category' => 'technology'
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 You can see how this compares with [MongoDB's documentation](http://docs.mongodb.org/manual/reference/operator/and/)
@@ -45,14 +45,14 @@ Perhaps similar to **$and** is the **$or** operator. Let's say you wanted to fin
 category was "technology" or "politics" for example.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'$or' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'$or' => [
 			'category' => 'technology',
 			'category' => 'politics'
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 Of course you can specify different fields in the **$or** array value. For example, you may have tags
@@ -64,13 +64,13 @@ MongoDB also allows us to use an **$in** or **$nin** operator to look for values
 be in an array of values that you provide. So the above query could be written as:
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'category' => array(
-			'$in' => array('technology', 'politics')
-		)
-	)
-));
+$posts = Posts::find('all', [
+	'conditions' => [
+		'category' => [
+			'$in' => ['technology', 'politics']
+		]
+	]
+]);
 ```
 
 Notice that it's a little different in this case. The operator comes after the field where the **$or**
@@ -88,13 +88,13 @@ a created date more recent than a day from now, you could make the following que
 
 ```php
 $date = new MongoDate(strtotime('-1 day'));
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'created' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'created' => [
 			'$gt' => $date
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 Note something new here. We just used the `MongoDate` class (make sure you provide the use statement
@@ -117,13 +117,13 @@ So if you wanted to find all posts with a title field that contains a string (Wh
 
 ```php
 // Find all posts with a title that is a string. Type 2 is string.
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'title' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'title' => [
 			'$type' => 2
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 **$exists**    
@@ -133,13 +133,13 @@ a field actually exists and this is a perhaps a more common to use than the **$t
 
 ```php
 // Find all posts where the title field exists.
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'title' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'title' => [
 			'$exists' => true
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 You may use a query like this, to instead, find documents where a field does not exist in order to clean
@@ -157,20 +157,20 @@ database because the value for the LIKE condition wouldn't know what to do with 
 
 ```php
 // Find all posts where the title starts with "the"
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'title' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'title' => [
 			'like' => '/^the/i'
-		)
-	)
-));
+		]
+	]
+]);
 
 // This is also the same query...
-$posts = Posts::find('all', array(
-	'conditions' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
 		'title' => new MongoRegex('/^the/i')
-	)
-));
+	]
+]);
 ```
 
 Again, there are a ton of operators and we won't cover them all here. However, you should now be able to
@@ -182,11 +182,11 @@ can query for any of those sub-fields in much the same way using the same operat
 the top level field keys. Instead, you'll just use the `.` as a separator. Consider the following for example:
 
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
+$post = Posts::find('first', [
+	'conditions' => [
 		'author.name' => 'tom'
-	)
-));
+	]
+]);
 ```
 
 In this case we have a more complex author field. Instead of it just being a simple string value with a name,
@@ -204,27 +204,27 @@ you want to return all posts where the author's name is "tom" and where the auth
 allows us to match an entire document within an array.
 
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
-		'author' => array(
-			'$elemMatch' => array(
+$post = Posts::find('first', [
+	'conditions' => [
+		'author' => [
+			'$elemMatch' => [
 				'name' => 'tom',
 				'email' => 'tom@site.com'
-			)
-		)
-	)
-));
+			]
+		]
+	]
+]);
 ```
 
 Of course for this particular query the following also works the same:
 
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
+$post = Posts::find('first', [
+	'conditions' => [
 		'author.name' =>  'tom',
 		'author.email' => 'tom@site.com'
-	)
-));
+	]
+]);
 ```
 
 This next part is important and a little confusing. Let's assume we can have multiple authors for a post now.
@@ -232,12 +232,12 @@ Each author object in the document still has a name, e-mail address, etc. To mak
 also add a "location" to this sub-object. If you do not use **$elemMatch** and make a query like so:
 
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
+$post = Posts::find('first', [
+	'conditions' => [
 		'authors.name' =>  'tom',
 		'authors.location' => 'Palo Alto'
-	)
-));
+	]
+]);
 ```
 
 You're going to get back a bunch of documents that you might not want. To help illustrate, imagine the following
@@ -264,12 +264,12 @@ Because **two different sub-objects** on the "authors" field fulfilled the query
 specify an array key position in our query. If the query instead was like so:
 
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
+$post = Posts::find('first', [
+	'conditions' => [
 		'authors.0.name' =>  'tom',
 		'authors.0.location' => 'Palo Alto'
-	)
-));
+	]
+]);
 ```
 
 Then the above document would not be returned. However, this kind of query presents another problem. We don't know
@@ -279,16 +279,16 @@ you'll want to use **$elemMatch** to ensure you match a sub-object exactly.
 
 The following query:
 ```php
-$post = Posts::find('first', array(
-	'conditions' => array(
-		'authors' => array(
-			'$elemMatch' => array(
+$post = Posts::find('first', [
+	'conditions' => [
+		'authors' => [
+			'$elemMatch' => [
 				'name' => 'tom',
 				'location' => 'Palo Alto'
-			)
-		)
-	)
-));
+			]
+		]
+	]
+]);
 ```
 
 Would only return posts that had an author on the "authors" field that matched both conditions. It would not

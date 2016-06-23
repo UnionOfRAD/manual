@@ -37,20 +37,20 @@ The `connections.php` file in config lists the connections you have to external 
 Connections should be listed in this file, as calls to `Connections::add()`, like so:
 
 ```php
-Connections::add('default', array(
+Connections::add('default', [
     'type' => 'database',
     'adapter' => 'MySql',
     'host' => 'localhost',
     'login' => 'root',
     'password' => '',
     'database' => 'my_blog'
-));
+]);
 
-Connections::add('couch', array(
+Connections::add('couch', [
     'type' => 'http', 'adapter' => 'CouchDb', 'host' => '127.0.0.1', 'port' => 5984
-));
+]);
 
-Connections::add('mongo', array('type' => 'MongoDb', 'database' => 'project'));
+Connections::add('mongo', ['type' => 'MongoDb', 'database' => 'project']);
 ```
 
 The particulars on the adapter will shape how the connection definition is put together, but this list should constitute what you've got in `connections.php`.
@@ -62,7 +62,7 @@ Routes definitions is how you inform the framework how URLs and bits of code mat
 For example, I could specify that any request  to `/login` is handled by `UsersController::login()` like this:
 
 ```php
-Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+Router::connect('/login', ['controller' => 'users', 'action' => 'login']);
 ```
 
 More on routes later, but this file should house all such configuration information.

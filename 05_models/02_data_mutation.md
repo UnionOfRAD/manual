@@ -5,7 +5,7 @@
 The `create()` method instantiates a new record or document object, initialized with any data passed in.
 
 ```php
-$post = Posts::create(array('title' => 'New post'));
+$post = Posts::create(['title' => 'New post']);
 echo $post->title; // echoes 'New post'
 ```
 
@@ -17,7 +17,7 @@ echo $post->title; // echoes 'New post'
 This method can also be used to simulate loading a pre-existing object from the database, without actually querying the database:
 
 ```php
-$post = Posts::create(array('id' => $id, 'moreData' => 'foo'), array('exists' => true));
+$post = Posts::create(['id' => $id, 'moreData' => 'foo'], ['exists' => true]);
 $post->title = 'New title';
 $success = $post->save();
 ```
@@ -32,10 +32,10 @@ The `$data` parameter is typically an array of key/value pairs that specify the 
 
 ```
 // Change the author for all documents.
-Posts::update(array('author' => 'Michael'));
+Posts::update(['author' => 'Michael']);
 
 // Set a default title for all empty titles
-Posts::update(array('title' => 'Untitled'), array('title' => ''));
+Posts::update(['title' => 'Untitled'], ['title' => '']);
 ```
 
 ## Delete
@@ -59,9 +59,9 @@ called on the collection will be dispatched to each contained entity.
 
 ```php
 // Select all drafted posts, $posts is a Collection.
-$posts = Posts::find('all', array(
-	'conditions' => array('is_draft' => true)			
-));
+$posts = Posts::find('all', [
+	'conditions' => ['is_draft' => true]			
+]);
 
 // Iterates over each post in collection and deletes it.
 $posts->delete(); 
@@ -81,7 +81,7 @@ pairs representing the scope of the records or documents to be deleted.
 $success = Posts::remove();
 
 // Delete drafted posts only.
-Posts::remove(array('is_draft => true));
+Posts::remove(['is_draft => true]);
 ```
 
 <div class="note note-caution">

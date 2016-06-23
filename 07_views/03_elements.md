@@ -32,7 +32,7 @@ Displaying an element is accomplished via the `View::render()` method. In the fo
 <div class="products">
 <?php foreach ($products as $item): ?>
    <?php echo $this->_view->render(
-	   array('element' => 'product'), compact('item')
+	   ['element' => 'product'], compact('item')
    ) ?>
 <?php endforeach ?>
 </div>

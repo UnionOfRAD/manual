@@ -19,7 +19,7 @@ CakePHP provides a convenient place to add this configuration: `app/config/boots
 
 ```php
 define("LITHIUM_APP_PATH", dirname(__DIR__));
-lithium\core\Libraries::add('app', array('bootstrap' => false));
+lithium\core\Libraries::add('app', ['bootstrap' => false]);
 ```
 
 This correctly locates your app directory in li3's class loader, and suppresses `app`'s default bootstrap file.  You may now import your namespaced app classes in your CakePHP classes, and use li3 and CakePHP models and other classes in parallel. Note that `LITHIUM_APP_PATH` should be defined _before_ `Libraries.php` is included.

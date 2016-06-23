@@ -19,22 +19,22 @@ namespace app\models;
 
 class Users extends lithium\data\Model {
 
-	public $validates = array(
-		'name' => array(
-			array(
+	public $validates = [
+		'name' => [
+			[
 				'notEmpty',
 				'required' => true,
 				'message' => 'Please supply a name.'
-			)
-		),
-		'password' => array(
-			array(
+			]
+		],
+		'password' => [
+			[
 				'notEmpty',
 				'required' => true,
 				'message' => 'Please supply a password.'
-			)
-		)
-	);
+			]
+		]
+	];
 }
 ```
 
@@ -58,28 +58,28 @@ namespace app\models;
 
 class Users extends lithium\data\Model {
 
-	public $validates = array(
-		'name' => array(
-			array(
+	public $validates = [
+		'name' => [
+			[
 				'notEmpty',
 				'message' => 'Please supply a name.'
-			),
-			array(
+			],
+			[
 				'alphaNumeric',
 				'message' => 'A name may only contain letters and numbers.'
-			),
-			array(
+			],
+			[
 				'lengthBetween', 'min' => 7, 'max' => 23,
 				'message' => 'Must be between 7 and 23 characters long.'
-			)
-		),
-		'password' => array(
-			array(
+			]
+		],
+		'password' => [
+			[
 				'notEmpty',
 				'message' => 'Please supply a password.'
-			)
-		)
-	);
+			]
+		]
+	];
 }
 ```
 
@@ -147,7 +147,7 @@ $post = Posts::create($data);
 
 if ($success = $post->validates()) {
 	// ...
-	$post->save(null, array('validate' => false));
+	$post->save(null, ['validate' => false]);
 }
 ```
 
@@ -223,29 +223,29 @@ namespace app\models;
 
 class Users extends lithium\data\Model {
 
-	public $validates = array(
-		'name' => array(
-			'foo' => array(
+	public $validates = [
+		'name' => [
+			'foo' => [
 				'notEmpty'
 				'message' => 'Must not be empty.'
 				// ...
-			),
-			'bar' => array(
+			],
+			'bar' => [
 				// ...
-			)
-		)
-	);
+			]
+		]
+	];
 }
 ```
 
 ```php
 $user->validate();
 $user->errors(); // Returns:
-// array(
-//     'name' => array(
+// [
+//     'name' => [
 //         'foo' => 'Must not be empty'
-//     )
-// )
+//     ]
+// ]
 ```
 
 ### Providing Custom Validation Messages in the Template
@@ -262,10 +262,10 @@ Also some might prefer to provide messages in the template, as one could argue
 they are part of the presenation layer.
 
 ```php
-$this->form->field('name', array(
-	'error' => array(
-		'foo' => 'Please please do not leave empty :)'
-	)
+$this->form->field('name', [
+	'error' => [
+		'foo' => 'Please please do not leave empty :]'
+	]
 ));
 ```
 
@@ -273,11 +273,11 @@ Once a `'default'` key is set for the custom messages, it'll be used for any unm
 validation errors.
 
 ```php
-$this->form->field('name', array(
-	'error' => array(
+$this->form->field('name', [
+	'error' => [
 		'default' => 'Something is wrong in this field.'
-		'foo' => 'Please please do not leave empty :)'
-	)
+		'foo' => 'Please please do not leave empty :]'
+	]
 ));
 ```
 

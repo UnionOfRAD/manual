@@ -9,22 +9,22 @@ The default auth setup makes decisions based on information in your data store. 
 ```php
 use lithium\data\Connections;
 
-Connections::add('default', array(
+Connections::add('default', [
 	'type'     => 'database',
 	'adapter'  => 'MySql',
 	'database' => 'mydatabase',
 	'user'     => 'myusername',
 	'password' => 'mypassword'
-));
+]);
 ```
 
 If you're running with Mongo, it'll look a bit different:
 
 ```php
-Connections::add('default', array(
+Connections::add('default', [
 	'type'     => 'MongoDb',
 	'database' => 'mydatabase',
-));
+]);
 ```
 
 Developers using MySQL will need a `users` table with at least the columns `id`, `username`, and `password`. Those using Mongo will need a collection in the database with a similar structure. You can customize the model and fields that `Auth` will use as we'll see later. Make sure to take a moment and set up your `Users` model as well in `models/Users.php`:
@@ -59,13 +59,13 @@ Next, make sure your `Session` setup is using the PHP adapter, then create or un
 use lithium\storage\Session;
 use lithium\security\Auth;
 
-Session::config(array(
-	'default' => array('adapter' => 'Php')
-));
+Session::config([
+	'default' => ['adapter' => 'Php']
+]);
 
-Auth::config(array(
-	'default' => array('adapter' => 'Form')
-));
+Auth::config([
+	'default' => ['adapter' => 'Form']
+]);
 ```
 
 The `Session` setup is pretty straightforward, and the `Auth` configuration tells li3 which adapter we want to use (one suited for credentials submitted via web form), and details about the model involved and used to match incoming credentials against.
@@ -105,7 +105,7 @@ As a reference, the web form that sends the credentials and is the content of th
 ```php
 <?=$this->form->create(null); ?>
 	<?=$this->form->field('username'); ?>
-	<?=$this->form->field('password', array('type' => 'password')); ?>
+	<?=$this->form->field('password', ['type' => 'password']); ?>
 	<?=$this->form->submit('Log in'); ?>
 <?=$this->form->end(); ?>
 ```

@@ -76,13 +76,13 @@ This puts the class in the proper namespace, and imports some utility classes we
 Now, let's create a connection that uses this new data source. Add a few lines to `config/bootstrap/connections.php`:
 
 ```php
-Connections::add('github', array(
+Connections::add('github', [
 	'type'     => 'http',
 	'adapter'  => 'GitHub',
 	'login'    => 'myusername',
 	'password' => '5up3Rs3CrE7',
 	'token'    => 'e83fd93a7e099c8523ab99d003ce939a',
-));
+]);
 ```
 
 Since the GitHub API allows for an API token to be passed instead of a password, we've added that to the connection information.
@@ -94,7 +94,7 @@ namespace app\models;
 
 class Issues extends \lithium\data\Model {
 
-	public $_meta = array('connection' => 'github');
+	public $_meta = ['connection' => 'github'];
 }
 ```
 
@@ -116,8 +116,8 @@ class IssuesController extends \lithium\action\Controller {
 Now that we've got the basic classes in place, let's make sure that the model can connect to GitHub API correctly. Looking at the HTTP data source we're extending, we can see that the configuration details for the `lithium\net\http\Service` object are passed to the data source's constructor, along with the connection details. By overriding the constructor, we can supply our own GitHub-specific connection details:
 
 ```php
-public function __construct(array $config = array()) {
-	$defaults = array(
+public function __construct(array $config = []) {
+	$defaults = [
 		'scheme'   => 'https',
 		'host'     => 'github.com',
 		'port'     => 443,
@@ -127,7 +127,7 @@ public function __construct(array $config = array()) {
 		'auth'     => 'Basic',
 		'version'  => '1.1',
 		'basePath' => '/api/v2/json',
-	);
+	];
 	$config += $defaults;
 
 	if ($config['token']) {
@@ -146,11 +146,11 @@ Next, let's use our model to read from the data source. This is done by the mode
 
 ```php
 public function index() {
-	$results = Issues::find('all', array(
-		'conditions' => array(
+	$results = Issues::find('all', [
+		'conditions' => [
 			'user' => 'myuser', 'repo' => 'myrepo', 'state' => 'open'
-		)
-	));
+		]
+	]);
 }
 ```
 
@@ -159,16 +159,16 @@ If you try this, `$results` will get filled with the 404 response from GitHub's 
 Let's override `read()`, and inspect the `Query` object so we can direct the query to the GitHub API properly.
 
 ```php
-public function read($query, array $options = array()) {
-	$paths = array(
+public function read($query, array $options = []) {
+	$paths = [
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
-	);
+	];
 
-	$params = $query->export($this, array('keys' => array('source', 'conditions')));
+	$params = $query->export($this, ['keys' => ['source', 'conditions']]);
 	$source = $params['source'];
-	$conditions = (array) $params['conditions'] + array(
+	$conditions = (array) $params['conditions'] + [
 		'user' => '', 'repo' => '', 'state' => ''
-	);
+	];
 
 	if (!isset($paths[$source])) {
 		return null;
@@ -191,11 +191,11 @@ We'll format the data for use in the model using two important data source metho
 Both methods use li3's dependency injection mechanism to know what classes to use. As such, it's important to understand it at a basic level. Rather than a complex class structure of managers or containers, li3 uses class properties to manage class dependencies. If you look at the `$_classes` property of a li3 object, you'll see the types and fully namespaced class paths of each dependency. In our case, we want to define what `item()` uses to create data objects. Let's add a `$_classes` definition to our data source:
 
 ```php
-protected $_classes = array(
+protected $_classes = [
 	'service' => 'lithium\net\http\Service',
 	'entity'  => 'lithium\data\entity\Document',
 	'set'     => 'lithium\data\collection\DocumentSet',
-);
+];
 ```
 
 The `'service'` dependency is included in the array because it's needed for the parent `Http` data source class, but it's something we could redefine if needed. The most important points to note are the last two entries: `'entity'` and `'set'`. By defining these dependencies, we're telling the data source what classes to use to package our data, either in singular or plural form. Because GitHub API data responses are JSON objects (that sometimes include embedded objects), we'll use `Document` rather than `Record`.
@@ -203,16 +203,16 @@ The `'service'` dependency is included in the array because it's needed for the 
 Once that's in place, we can adjust our `read()` function to return the results of an `item()` call:
 
 ```php
-public function read($query, array $options = array()) {
-	$paths = array(
+public function read($query, array $options = []) {
+	$paths = [
 		'issues' => '/issues/list/{:user}/{:repo}/{:state}'
-	);
+	];
 
-	$params = $query->export($this, array('source', 'conditions'));
+	$params = $query->export($this, ['source', 'conditions']);
 	$source = $params['source'];
-	$conditions = (array) $params['conditions'] + array(
+	$conditions = (array) $params['conditions'] + [
 		'user' => '', 'repo' => '', 'state' => ''
-	);
+	];
 
 	if (!isset($paths[$source])) {
 		return null;
@@ -220,7 +220,7 @@ public function read($query, array $options = array()) {
 	$path = String::insert($paths[$source], array_map('urlencode', (array) $conditions));
 	$result = json_decode($this->connection->get($this->_config['basePath'] . $path), true);
 
-	return $this->item($query->model(), $result[$source], array('class' => 'set'));
+	return $this->item($query->model(), $result[$source], ['class' => 'set']);
 }
 ```
 
@@ -231,14 +231,14 @@ Running `find()` on our `Issues` model now gives us a `DocumentSet`, but if we i
 The `cast()` method is used by the data source to recursively inspect and transform data as it's placed into a collection. In this case, we'll use `cast()` to transform arrays into `Document` objects:
 
 ```php
-public function cast($entity, array $data, array $options = array()) {
+public function cast($entity, array $data, array $options = []) {
 	$model = $entity->model();
 
 	foreach ($data as $key => $val) {
 		if (!is_array($val)) {
 			continue;
 		}
-		$data[$key] = $this->item($model, $val, array('class' => 'entity'));
+		$data[$key] = $this->item($model, $val, ['class' => 'entity']);
 	}
 	return parent::cast($entity, $data, $options);
 }
@@ -267,12 +267,12 @@ public function index() {
 The API specifies that we POST to a URL composed of the user and repository names, and includes data about title and body. We'll need to make a new `create()` method in our data source that assembles the right URL and POST data based off what it receives from the model. In this case, `create()` is handed a `Query` that has an `Entity` we can inspect and use.
 
 ```php
-public function create($query, array $options = array()) {
-	$paths = array(
+public function create($query, array $options = []) {
+	$paths = [
 		'issues' => '/issues/open/{:user}/{:repo}'
-	);
+	];
 
-	$params = $query->export($this, array('source', 'data'));
+	$params = $query->export($this, ['source', 'data']);
 	$source = $params['source'];
 	$data = array_map('urlencode', (array) $params['data']['data']);
 
@@ -284,7 +284,7 @@ public function create($query, array $options = array()) {
 	switch ($source) {
 		case 'issues':
 			$data = $query->entity()->data();
-			$data = array_intersect_key($data, array('title' => '', 'body' => ''));
+			$data = array_intersect_key($data, ['title' => '', 'body' => '']);
 		break;
 	}
 	$result = json_decode($this->connection->post($path, $data), true);
@@ -336,7 +336,7 @@ use lithium\data\model\QueryException;
 Then, override the `delete()` method of the parent class, and throw the exception:
 
 ```php
-public function delete($query, array $options = array()) {
+public function delete($query, array $options = []) {
 	throw new QueryException("Delete operations are not supported by this API.");
 }
 ```
@@ -362,23 +362,23 @@ We can clean some of this up by extracting code out into properties and helper m
 The first step is to extract out the paths for the available operations on each resource:
 
 ```php
-protected $_sources = array(
-	'issues' => array(
-		'paths' => array(
-			'create' => array(
-				'/issues/open/{:user}/{:repo}' => array('user', 'repo')
-			),
-			'read' => array(
-				'issues/show/{:user}/{:repo}/{:number}' => array('user', 'repo', 'number'),
-				'issues/list/{:user}/{:repo}/{:label}' => array('user', 'repo', 'label'),
-				'issues/list/{:user}/{:repo}/{:state}' => array('user', 'repo', 'state'),
-				'issues/list/{:user}/{:repo}/{:state}/{:search}' => array(
+protected $_sources = [
+	'issues' => [
+		'paths' => [
+			'create' => [
+				'/issues/open/{:user}/{:repo}' => ['user', 'repo']
+			],
+			'read' => [
+				'issues/show/{:user}/{:repo}/{:number}' => ['user', 'repo', 'number'],
+				'issues/list/{:user}/{:repo}/{:label}' => ['user', 'repo', 'label'],
+				'issues/list/{:user}/{:repo}/{:state}' => ['user', 'repo', 'state'],
+				'issues/list/{:user}/{:repo}/{:state}/{:search}' => [
 					'user', 'repo', 'state', 'search'
-				)
-			)
-		)
-	)
-);
+				]
+			]
+		]
+	]
+];
 ```
 
 Here, we have one key for each resource our data source will expose (we can add more later), and within that, we have a listing of paths, one for each operation, with each URL matching up to an array of keys required to use each one. Also note that the URLs are nested within a `'paths'` key. This allows us to associate other data with each resource down the road, i.e. a schema indicating the various fields exposed, and their data types.
@@ -411,8 +411,8 @@ This method will first check to see if a path is defined for the resource/operat
 When a match is found, it uses `$params` to generate an API URL, which is returned to the calling method. Now, let's refactor the `read()` method, by removing the string-handling code that was previously used to generate URLs, and replace it with a simple set-and-check block which calls our new `_path()` method:
 
 ```php
-public function read($query, array $options = array()) {
-	$params = $query->export($this, array('source', 'conditions'));
+public function read($query, array $options = []) {
+	$params = $query->export($this, ['source', 'conditions']);
 	$source = $params['source'];
 	$conditions = (array) $params['conditions'];
 
@@ -424,7 +424,7 @@ public function read($query, array $options = array()) {
 	if (isset($result['error'])) {
 		throw new QueryException($result['error']);
 	}
-	return $this->item($query->model(), $result[$source], array('class' => 'set'));
+	return $this->item($query->model(), $result[$source], ['class' => 'set']);
 }
 ```
 

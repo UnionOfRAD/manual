@@ -62,9 +62,9 @@ li3 addresses this issue of dependencies in a uniform way, using the protected `
 class Dispatcher extends \lithium\core\StaticObject {
 
 	// ...
-	protected static $_classes = array(
+	protected static $_classes = [
 		'router' => 'lithium\net\http\Router'
-	);
+	];
 	// ...
 }
 ```

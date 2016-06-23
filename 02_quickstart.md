@@ -33,11 +33,11 @@ Now that we have a database up and running and talking to PHP, let's tell li3 ab
 
 ```php
 // MongoDB Connection
-Connections::add('default', array(
+Connections::add('default', [
 	'type' =>  'MongoDb', 
 	'database' => 'blog', 
 	'host' => 'localhost'
-));
+]);
 ```
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
@@ -86,7 +86,7 @@ namespace app\controllers;
 class PostsController extends \lithium\action\Controller {
 
 	public function index() {
-		return array('foo' => 'bar', 'title' => 'Posts');
+		return ['foo' => 'bar', 'title' => 'Posts'];
 	}
 }
 ```
@@ -138,7 +138,7 @@ Currently - inside the action - we just create an empty post object and pass it 
 ```
 <?=$this->form->create($post); ?>
 	<?=$this->form->field('title');?>
-	<?=$this->form->field('body', array('type' => 'textarea'));?>
+	<?=$this->form->field('body', ['type' => 'textarea']);?>
 	<?=$this->form->submit('save'); ?>
 <?=$this->form->end(); ?>
 ```
@@ -183,7 +183,7 @@ The result of the save operation (`$success`) is then passed back to the view so
 To give you a little more of an idea what li3's doing "behind the scenes" here, the following pieces of code are equivalent:
 
 ```php
-$post = Posts::create(array('title' => 'First Post', 'body' => 'Body text!'));
+$post = Posts::create(['title' => 'First Post', 'body' => 'Body text!']);
 $post->save();
 
 // or:
@@ -196,7 +196,7 @@ $post->save();
 // or: 
 
 $post = Posts::create();
-$post->save(array('title' => 'First Post', 'body' => 'Body text!'));
+$post->save(['title' => 'First Post', 'body' => 'Body text!']);
 ```
 
 Feel free now to have a play with this method and use your browser to add a few posts to your blog. Coming up next: displaying them!
@@ -221,7 +221,7 @@ var_dump($posts->to('array'));
 // example output:
 //
 // [0]=>
-//  array(3) {
+//  [3] {
 //    ["_id"]=>
 //    string(24) "4afddab78bd3c34f41757396"
 //    ["title"]=>

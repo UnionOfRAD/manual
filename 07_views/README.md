@@ -14,7 +14,7 @@ Controller-layer data is made available to the template by means of view variabl
 Keys in those arrays determine the names of the view variables. The following lines of code placed in a controller action method all result in a view variable named `$foo` with the contents `"bar"`:
 
 ```php
-$this->set(array('foo' => 'bar'));
+$this->set(['foo' => 'bar']);
 
 // -- or --
 
@@ -23,7 +23,7 @@ $this->set(compact('foo'));
 
 // -- or --
 
-return array('foo' => 'bar');
+return ['foo' => 'bar'];
 
 // -- or --
 
@@ -84,11 +84,11 @@ Because different components of the view layer are often reused, li3 includes th
 echo $this->_render('element', 'nav');
 
 // pass additional variables to the element
-echo $this->_render('element', 'nav', array(
+echo $this->_render('element', 'nav', [
   'some' => 'additional',
   'vars' => 'available',
   'in' => 'nav.html.php'
-));
+]);
 ```
 
 Layouts contain the header and footer of a rendered view, and are defined in `app/views/layouts`. Unless otherwise directed, li3 will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`.
@@ -103,9 +103,9 @@ class MyController extends \lithium\action\Controller {
    *
    * @var array
    */
-  protected $_render = array(
+  protected $_render = [
     'layout' => 'yourLayoutName'
-  );
+  ];
 
   /**
    * This action uses another layout which is located
@@ -129,7 +129,7 @@ If you're in the view layer, `$this` refers to the current `Renderer` adapter. R
  * `$this->url()`: Used for reverse routing lookups in views. For example: 
 
 ```
-$this->url(array('Posts::view', 'id' => 13));
+$this->url(['Posts::view', 'id' => 13]);
 // Returns the URL for the matching route, e.g. '/posts/view/13'
 ```
 
@@ -151,14 +151,14 @@ Like `url()`, this handler is a wrapper for another class method, [`Media::asset
 
 ```
 // Returns the path if the file exists, otherwise false.
-$path = $this->path('files/download_835.pdf', array('check' => true));
+$path = $this->path('files/download_835.pdf', ['check' => true]);
 ```
 
 You can also add a timestamp to the end of the URL, which is useful for working with browser caches:
 
 ```
 // Returns i.e. '<app path>/css/application.css?1290108597'
-$style = $this->path('css/application.css', array('timestamp' => true));
+$style = $this->path('css/application.css', ['timestamp' => true]);
 ```
 
 See the `$options` parameter of `Media::asset()` for more information.

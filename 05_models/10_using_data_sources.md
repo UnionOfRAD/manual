@@ -22,20 +22,20 @@ Most of the time, using a data source is an automatic part of setting up a conne
 ```php
 use lithium\data\Connections;
 
-Connections::add('default', array(
+Connections::add('default', [
 	'type' => 'MongoDb',
 	'host' => 'localhost',
 	'database' => 'my_lithium_app'
-));
+]);
 
-Connections::add('legacy', array(
+Connections::add('legacy', [
 	'type' => 'database',
 	'adapter' => 'MySql',
 	'host' => 'localhost',
 	'login' => 'root',
 	'password' => '53Cre7',
 	'database' => 'my_older_lithium_app'
-));
+]);
 ```
 
 The `Connections` class handles adapter classes efficiently by only loading adapter classes and creating instances when they are requested (using `Connections::get()`).

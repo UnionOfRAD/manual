@@ -13,20 +13,20 @@ $posts = Posts::find('all');
 $post = Posts::find('first');
 
 // Read all posts with the newest ones first.
-$posts = Posts::find('all', array(
-	'order' => array('created' => 'DESC')
-));
+$posts = Posts::find('all', [
+	'order' => ['created' => 'DESC']
+]);
 
 // Read only the title of the newest post.
-$post = Posts::find('first', array(
-	'fields' => array('title'),
-	'order' => array('created' => 'DESC')
-));
+$post = Posts::find('first', [
+	'fields' => ['title'],
+	'order' => ['created' => 'DESC']
+]);
 
 // Read only posts where the author name is "michael".
-$posts = Posts::find('all', array(
-	'conditions' => array('author' => 'michael')
-));
+$posts = Posts::find('all', [
+	'conditions' => ['author' => 'michael']
+]);
 ```
 
 <div class="note note-caution">
@@ -65,9 +65,9 @@ i.e. `'array('is_published' => true)`.  The following example finds all
 posts author name is `michael`.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array('author' => 'michael')
-));
+$posts = Posts::find('all', [
+	'conditions' => ['author' => 'michael']
+]);
 ```
 
 By default the conditions are AND'ed together so the following
@@ -75,36 +75,36 @@ example would require each post to be published **and** authored
 by `michael`.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
 		'author' => 'michael',
 		'is_published' => true
-	)
-));
+	]
+]);
 ```
 
 To OR conditions together use the following syntax.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'or' => array(
+$posts = Posts::find('all', [
+	'conditions' => [
+		'or' => [
 			'author' => 'michael',
 			'is_published' => true
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 To find all records from a set of authors use the array
 syntax.
 
 ```php
-$posts = Posts::find('all', array(
-	'conditions' => array(
-		'author' => array('michael', 'nate')
-	)
-));
+$posts = Posts::find('all', [
+	'conditions' => [
+		'author' => ['michael', 'nate']
+	]
+]);
 ```
 
 ## Ordering
@@ -116,13 +116,13 @@ syntax `array('title' => 'ASC', 'id' => 'ASC)`.
 
 The following are equal groups:
 ```php
-Posts::find('all', array('order' => 'title'));
-Posts::find('all', array('order' => 'title ASC'));
-Posts::find('all', array('order' => array('title')));
-Posts::find('all', array('order' => array('title' => 'ASC')));
+Posts::find('all', ['order' => 'title']);
+Posts::find('all', ['order' => 'title ASC']);
+Posts::find('all', ['order' => ['title']]);
+Posts::find('all', ['order' => ['title' => 'ASC']]);
 
-Posts::find('all', array('order' => array('title', 'id')));
-Posts::find('all', array('order' => array('title' => 'ASC', 'id' => 'ASC')));
+Posts::find('all', ['order' => ['title', 'id']]);
+Posts::find('all', ['order' => ['title' => 'ASC', 'id' => 'ASC']]);
 ```
 
 ## Restricting Returned Fields
@@ -132,9 +132,9 @@ all fields are retrieved. To optimize query performance, limit to just the ones 
 needed.
 
 ```php
-Posts::find('all', array(
-	'fields' => array('title', 'author')			
-));
+Posts::find('all', [
+	'fields' => ['title', 'author']			
+]);
 ```
 
 ## Limiting Number of Records
@@ -142,9 +142,9 @@ Posts::find('all', array(
 The `'limit'` option allows to limit the set of returned records to a maximum number.
 
 ```php
-Posts::find('all', array(
+Posts::find('all', [
 	'limit' => 10			
-));
+]);
 ```
 
 ## Pagination
@@ -154,14 +154,14 @@ together with the limit option specifying the number of records per page. The fi
 page starts at `1`.
 
 ```php
-$page1 = Posts::find('all', array(
+$page1 = Posts::find('all', [
 	'page' => 1,
 	'limit' => 10	
-));
-$page2 = Posts::find('all', array(
+]);
+$page2 = Posts::find('all', [
 	'page' => 2,
 	'limit' => 10	
-));
+]);
 ```
 
 ## Shorthands
@@ -188,9 +188,9 @@ value.
 ```php
 $posts = Posts::findAllByUsername('michael');
 // ... is functionally equal to ...
-$posts = Posts::find('all', array(
-	'conditions' => array('username' => 'michael')
-));
+$posts = Posts::find('all', [
+	'conditions' => ['username' => 'michael']
+]);
 ```
 
 ## Custom Finders
@@ -203,13 +203,13 @@ As you use your models, you might start to wish for a shortcut. For example,
 instead of having to do this repeatedly:
 
 ```php
-$recentComments = Comments::find('all', array(
-	'conditions' => array(
-		'created' => array(
+$recentComments = Comments::find('all', [
+	'conditions' => [
+		'created' => [
 			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 You could create a custom finder method that packages the specified conditions into a one-liner:
@@ -228,13 +228,13 @@ so li3 knows how to form the query. The definition in this simple case looks
 just like the query array we supplied to `find()` earlier:
 
 ```php
-Comments::finder('recent', array(
-	'conditions' => array(
-		'created' => array(
+Comments::finder('recent', [
+	'conditions' => [
+		'created' => [
 			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	)
-));
+		]
+	]
+]);
 ```
 
 Some finder implementations might require a little processing in addition to a default set
@@ -251,17 +251,17 @@ closure that looks much like a filter definition:
 ```php
 Comments::finder('recentCategories', function($params, $next){
 	// Set up default conditions
-	$defaults = array(
-		'created' => array(
+	$defaults = [
+		'created' => [
 			'>=' => date('Y-m-d H:i:s', time() - (86400 * 3))
-		)
-	);
+		]
+	];
 	
 	// Merge with supplied params
 	$params['options']['conditions'] = $defaults + (array) $params['options']['conditions'];
 	
 	// Do a bit of reformatting
-	$results = array();
+	$results = [];
 	foreach ($next($params) as $entity) {
 		$results[] = $entity->categoryName;
 	}
@@ -308,24 +308,24 @@ Specific query options overwrite default ones. As both are merged by simply usin
 operator for arrays. Note that this can also be a common pitfall.
 
 ```php
-Posts::query(array(
-	'conditions' => array('is_published' => true),
+Posts::query([
+	'conditions' => ['is_published' => true],
 	'limit' => 4
-));
+]);
 
 // Will retrieve maximum of 4 results which are published.
 Posts::find('all');
 
 // Potential pitfall: will retrieve results published or not 
 // for author michael. Limited to 4 results maximum.
-Posts::find('all', array(
-	'conditions' => array('author' => 'michael')			
-));
+Posts::find('all', [
+	'conditions' => ['author' => 'michael']			
+]);
 
 // Will retrieve only published results for author michael.
 // Limited to 4 results.
-Posts::find('all', array(
-	'conditions' => array('author' => 'michael', 'is_published' => true)
-));
+Posts::find('all', [
+	'conditions' => ['author' => 'michael', 'is_published' => true]
+]);
 ```
 

@@ -10,10 +10,10 @@ $post->author = 'Michael';
 $post->save();
 
 // Same as above.
-$post = Posts::create(array(
+$post = Posts::create([
 	'title'  => 'My first blog post.',
 	'author' => 'Michael'
-));
+]);
 $post->save();
 
 // Find the first blog post and change the author
@@ -41,7 +41,7 @@ To override the validation checks and save anyway, you can pass the `'validate'`
 ```php
 $post->title = "We Don't Need No Stinkin' Validation";
 $post->body = "I know what I'm doing.";
-$post->save(null, array('validate' => false));
+$post->save(null, ['validate' => false]);
 ```
 
 <div class="note note-hint">

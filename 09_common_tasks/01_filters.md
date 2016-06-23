@@ -86,7 +86,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 		return $ctrl;
 	}
 	return function() use ($request) {
-		return new Response(compact('request') + array('location' => 'Sessions::add'));
+		return new Response(compact('request') + ['location' => 'Sessions::add']);
 	};
 });
 ```
@@ -108,7 +108,7 @@ use lithium\security\Auth;
 
 class SessionsController extends \lithium\action\Controller {
 
-	public $publicActions = array('add');
+	public $publicActions = ['add'];
 
 	public function add() {
 		if ($this->request->data) {
@@ -131,14 +131,14 @@ One more example is common enough to cover: logging. When building a large appli
 The approach here requires a bit of understanding how li3's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
 ```php
-Connections::add('default', array(
+Connections::add('default', [
 	'type' => 'database',
 	'adapter' => 'MySql',
 	'host' => 'localhost',
 	'login' => 'myusername',
 	'password' => 'mypassword',
 	'database' => 'app_name'
-));
+]);
 ```
 
 What we need to do is get a reference to the instance of the actual connection object defined here so we can filter its methods. In this case, we'll use `Connections::get()` to get a reference to the actual adapter handling this connection. Since we've specified 'MySQL' as the adapter type, we'll get an instance of `lithium\data\source\database\adapter\MySql` when we call `Connections::get('default')`.
@@ -150,9 +150,9 @@ use lithium\analysis\Logger;
 use lithium\data\Connections;
 
 // Set up the logger configuration to use the file adapter.
-Logger::config(array(
-	'default' => array('adapter' => 'File')
-));
+Logger::config([
+	'default' => ['adapter' => 'File']
+]);
 
 // Filter the database adapter returned from the Connections object.
 Connections::get('default')->applyFilter('_execute', function($self, $params, $chain) {
@@ -195,7 +195,7 @@ class Twitter {
 
 	public function tweet($status, $options) {
 
-		$defaults = array('responseFormat' => 'json');
+		$defaults = ['responseFormat' => 'json'];
 		$options += $defaults;
 
 		// Twitter connection and data transfer logic goes here...
@@ -213,7 +213,7 @@ class Twitter extends \lithium\core\Object {
 
 	public function tweet($status, $options) {
 
-		$defaults = array('responseFormat' => 'json');
+		$defaults = ['responseFormat' => 'json'];
 		$options += $defaults;
 
 		$params = compact('status', 'options');
@@ -235,7 +235,7 @@ class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
 
-		$defaults = array('responseFormat' => 'json');
+		$defaults = ['responseFormat' => 'json'];
 		$options += $defaults;
 
 		$params = compact('status', 'options');
@@ -259,7 +259,7 @@ class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
 		$auth = static::$_classes['oauth'];
-		$defaults = array('responseFormat' => 'json');
+		$defaults = ['responseFormat' => 'json'];
 		$options += $defaults;
 
 		$params = compact('status', 'options');

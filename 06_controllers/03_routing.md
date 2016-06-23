@@ -22,7 +22,7 @@ Let's start with a simple example: connecting a URL with a controller method:
 
 ```php
 // The following lines are equivalent...
-Router::connect('/help', array('controller' => 'Users', 'action' => 'support'));
+Router::connect('/help', ['controller' => 'Users', 'action' => 'support']);
 Router::connect('/help', 'Users::support');
 ```
 
@@ -41,7 +41,7 @@ This action forwards the users on to the `view()` method of `RostersController`,
 Apart from allowing users to supply those values, you can also supply them statically in a route:
 
 ```php
-Router::connect('/socks', array('Products::view', 'id' => 72739));
+Router::connect('/socks', ['Products::view', 'id' => 72739]);
 ```
 
 In order to avoid overlapping cases and provide routing clarity, you can also specify a route parameter with an accompanying regular expression. Similarly defined routes use the `{:paramname:regex}` syntax. There are a few examples in the default `routes.php` file that ships with li3:
@@ -72,20 +72,20 @@ Continuation routes are a new class of route definitions that wrap other routes.
 This is done by using the special `{:args}` parameter and setting the `continue` parameter to `true`. Once this is defined, you can allow later routes to match as needed. Here's a simple example to wrap your application's URLs according to locale:
 
 ```php
-Router::connect('/{:locale:en|de|it|jp}/{:args}', array(), array('continue' => true));
+Router::connect('/{:locale:en|de|it|jp}/{:args}', [], ['continue' => true]);
 ```
 
 As you can see, this route tells li3 that routes that are prefixed with 'en', 'de', 'it', or 'jp' should set an additional `locale` request parameter then be passed back to the router for further matching. A few other examples:
 
 ```php
 // API endpoint versioning (i.e. /v1/products/list.json)
-Router::connect('/{:version:v\d+}/{:args}', array(), array('continue' => true));
+Router::connect('/{:version:v\d+}/{:args}', [], ['continue' => true]);
 
 // Admin routing...
-Router::connect('/admin/{:args}', array(), array('continue' => true));
+Router::connect('/admin/{:args}', [], ['continue' => true]);
 
 // For rendering all static pages...
-Router::connect('/pages/{:args}', 'Pages::view', array('continue' => true));
+Router::connect('/pages/{:args}', 'Pages::view', ['continue' => true]);
 ```
 
 ### Route Matching
@@ -100,7 +100,7 @@ Full details are supplied in the API docs, but the basic idea is that you can us
 // Imagine this route has already been defined:
 Router::connect('/unicorns', 'Ponies::magic');
 
-Router::match(array('controller' => 'Ponies', 'action' => 'magic'));
+Router::match(['controller' => 'Ponies', 'action' => 'magic']);
 // Returns '/unicorns'
 Router::match('Ponies::magic');
 // Also returns '/unicorns'

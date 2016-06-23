@@ -116,10 +116,10 @@ class Repos extends \lithium\console\Command {
     }
     $this->out("{:green}Org: $org{:end}");
 
-    $service = new Service(array(
+    $service = new Service([
       'scheme' => 'https',
       'host'   => 'api.github.com'
-    ));
+    ]);
 
     $repos = $service->get('/orgs/' . $org . '/repos');
     $this->header("$org Repos:");

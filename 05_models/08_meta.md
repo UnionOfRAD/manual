@@ -22,11 +22,11 @@ change meta-information. All options will be merged with the defaults.
 ```php
 class Posts extends \lithium\data\Model {
 
-	protected $_meta = array(
+	protected $_meta = [
 		'connection' => 'legacy',
 		'source' => 'tblPost',
 		'key' => 'post_id'
-	);
+	];
 }
 
 // ... or ...

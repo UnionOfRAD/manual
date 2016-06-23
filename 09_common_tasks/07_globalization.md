@@ -21,10 +21,10 @@ The settings for the current locale (and available locales) are kept as environm
 Here, you can decide which locale is your default effective locale, and also which locales your application will support. Do so by defining environment variables like so:
 
 ```php
-Environment::set('development', array(
+Environment::set('development', [
 	'locale' => 'en', // the default effective locale
-	'locales' => array('en' => 'English') // locales available for your application
-));
+	'locales' => ['en' => 'English'] // locales available for your application
+]);
 ```
 
 ## Locale Detection
@@ -57,7 +57,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 	if (!$params['request']->locale()) {
 		$params['request']->locale(Locale::preferred($params['request']));
 	}
-	Environment::set(true, array('locale' => $params['request']->locale()));
+	Environment::set(true, ['locale' => $params['request']->locale()]);
 
 	return $chain->next($self, $params, $chain);
 });
@@ -82,7 +82,7 @@ A localized route is configured by connecting a continuation route. This example
 Once the route has been connected, all the other application routes become localized and may now carry a locale:
 
 ```php
-Router::connect('/{:locale:[a-zA-Z_]+}/{:args}', array(), array('continue' => true));
+Router::connect('/{:locale:[a-zA-Z_]+}/{:args}', [], ['continue' => true]);
 ```
 
 Once this is in place, our application's routes will illustrate the effective locale, i.e.:
@@ -115,13 +115,13 @@ The class is able to aggregate globalized data from different sources, which all
 use lithium\g11n\Catalog;
 
 // Configures the runtime source.
-Catalog::config(array('runtime' => array('adapter' => 'Memory')));
+Catalog::config(['runtime' => ['adapter' => 'Memory']]);
 
-$data = array(
+$data = [
 	'laboratory' => 'Labor',
 	'life' => 'Leben'
-);
-Catalog::write('message', 'de', $data, array('name' => 'runtime'));
+];
+Catalog::write('message', 'de', $data, ['name' => 'runtime']);
 
 // Reads from the runtime g11n configuration
 Catalog::read('runtime', 'message', 'de');
@@ -130,7 +130,7 @@ Catalog::read('runtime', 'message', 'de');
 Catalog::read('runtime', 'message', 'de_DE');
 
 // Reads from just the runtime source.
-Catalog::read('runtime', 'message', 'de', array('name' => 'runtime'));
+Catalog::read('runtime', 'message', 'de', ['name' => 'runtime']);
 ```
 
 By default, the g11n bootstrap configures a `runtime` (using the `Memory` adapter) and a `lithium` catalog (using the php adapter for validations and translation shipped with the framework).
@@ -140,14 +140,14 @@ For an ad-hoc solution (i.e. translating API messages) it's workable to utilize 
 In order to allow the application to read write gettext resource files (PO and MO) we configure `Catalog` as follows:
 
 ```php
-Catalog::config(array(
-	'runtime' => array('adapter' => 'Memory'),
-	'app' => array('adapter' => 'Gettext', 'path' => LITHIUM_APP_PATH . '/resources/g11n'),
-	'lithium' => array(
+Catalog::config([
+	'runtime' => ['adapter' => 'Memory'],
+	'app' => ['adapter' => 'Gettext', 'path' => LITHIUM_APP_PATH . '/resources/g11n'],
+	'lithium' => [
 		'adapter' => 'Php',
 		'path' => LITHIUM_LIBRARY_PATH . '/lithium/g11n/resources/php'
-	)
-) + Catalog::config());
+	]
+] + Catalog::config());
 ```
 
 
@@ -163,7 +163,7 @@ The **code adapter** extracts message IDs for creating message catalog templates
 The **php adapter** allows for reading from files containing data in PHP format.
 
 ```php
-return array('the artists' => 'die Künstler');
+return ['the artists' => 'die Künstler'];
 ```
 
 ### G11n Data Storage
@@ -185,7 +185,7 @@ li3's g11n framework ships with some localized validation rules for phone number
 ```php
 use lithium\util\Validator;
 
-foreach (array('phone', 'postalCode', 'ssn') as $name) {
+foreach (['phone', 'postalCode', 'ssn'] as $name) {
     Validator::add($name, Catalog::read('runtime', "validation.{$name}", 'en_US'));
 }
 ```
@@ -214,8 +214,8 @@ The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—ar
 
 ```php
 <?= $t('green'); ?>
-<?= $tn('House', 'Houses', array('count' => 3)); ?>
-<?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
+<?= $tn('House', 'Houses', ['count' => 3]); ?>
+<?= $t('Everything is so {:color}.', ['color' => $t('green')]); ?>
 ```
 
 If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
@@ -259,7 +259,7 @@ Next, treating text like you would with `String::insert()` can make things easie
 <?= "Gary's Fine Clarinets " . $t('is really great'); ?>
 
 <!-- Better: -->
-<?= $t('Everything is so {:color}.', array('color' => $t('green'))); ?>
+<?= $t('Everything is so {:color}.', ['color' => $t('green')]); ?>
 ```
 
 Also, avoid the use of escaped characters, or markup of any kind inside of translated messages. This makes it much less error prone, as your language team may not be as keen on well-structured HTML as you are.
@@ -269,13 +269,13 @@ Also, avoid the use of escaped characters, or markup of any kind inside of trans
 Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
 
 ```html
-<?= $t('foo', array('noop' => true)); ?>
-<?= $tn('foo', 'bar', array('noop' => true)); /* we don't need to pass `'count'` in this case */ ?>
+<?= $t('foo', ['noop' => true]); ?>
+<?= $tn('foo', 'bar', ['noop' => true]); /* we don't need to pass `'count'` in this case */ ?>
 ```
 
 File: `a.php`:
 ```html
-<?= $t('foo', array('noop' => true)); /* the extractor picks up `foo` */ ?>
+<?= $t('foo', ['noop' => true]); /* the extractor picks up `foo` */ ?>
 ```
 
 File: `b.php`:

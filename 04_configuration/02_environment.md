@@ -44,10 +44,10 @@ If none of those conditions are met, the default is production.
 Once detection is configured, you're able to set environment-specific variables inside of your bootstrap files.
 
 ```php
-Environment::set('development', array('service_endpoint', 'dev.service.example.com'));
-Environment::set('staging'    , array('service_endpoint', 'beta.service.example.com'));
-Environment::set('qa'         , array('service_endpoint', 'qa1.service.example.com'));
-Environment::set('production' , array('service_endpoint', 'www.service.example.com'));
+Environment::set('development', ['service_endpoint', 'dev.service.example.com']);
+Environment::set('staging'    , ['service_endpoint', 'beta.service.example.com']);
+Environment::set('qa'         , ['service_endpoint', 'qa1.service.example.com']);
+Environment::set('production' , ['service_endpoint', 'www.service.example.com']);
 
 // If run on my local system:
 Environment::get('service_endpoint'); // 'dev.service.example.com'
@@ -60,35 +60,35 @@ Subclasses of the core `Adaptable` class (`Logger`, `Connections`, `Cache`, `Ses
 The most common example is configuring different database connections based on environment. Here's a quick example:
 
 ```php
-Connections::add('default', array(
-    'production' => array(
+Connections::add('default', [
+    'production' => [
         'type'     => 'database',
         'adapter'  => 'MySql',
         'host'     => 'live.example.com',
         'login'    => 'mysqluser',
         'password' => 's3cr3tg035h3rE',
         'database' => 'app-production'
-    ),
-    'development' => array(
+    ],
+    'development' => [
         'type'     => 'database',
         'adapter'  => 'MySql',
         'host'     => 'localhost',
         'login'    => 'root',
         'password' => '4d1fFeR3n75eCr37',
         'database' => 'app'
-    )
-));
+    ]
+]);
 ```
 
 While it is handy for using the same types of technologies in each environment, this mechanism allows you to switch between engines as well. For example, using different kinds of Cache engines in each environment:
 
 ```php
-Cache::config(array(
-    'userData' => array(
-        'development' => array('adapter' => 'File'),
-        'production' => array('adapter' => 'Memcache')
-    )
-));
+Cache::config([
+    'userData' => [
+        'development' => ['adapter' => 'File'],
+        'production' => ['adapter' => 'Memcache']
+    ]
+]);
 ```
 
 For more information about creating your own classes that utilize `Adaptable` and `Environment` for automatically changing settings, see the Adaptable guide in the Advanced Tasks section.
