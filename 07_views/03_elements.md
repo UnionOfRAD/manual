@@ -38,4 +38,4 @@ Displaying an element is accomplished via the `View::render()` method. In the fo
 </div>
 ```
 
-A complete description of the `render()` method can be found in the li3 API documentation under [View::render()](http://li3.me/docs/lithium/template/View::render)
+A complete description of the `render()` method can be found in the li3 API documentation under [View::render()](http://li3.me/docs/api/lithium/latest:1.x/lithium/template/View::render)

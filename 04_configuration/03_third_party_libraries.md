@@ -4,7 +4,7 @@ li3 applications are made up of collections of _libraries_. A library is any dis
 
 ## Basics
 
-Libraries are managed by the `lithium\core\Libraries` class, which handles auto-loading, service location, and introspecting available classes. When loading classes, li3 assumes a [PSR-0 compatible](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) class mapping structure. For more information, see the [documentation for the `Libraries` class](http://li3.me/docs/lithium/core/Libraries).
+Libraries are managed by the `lithium\core\Libraries` class, which handles auto-loading, service location, and introspecting available classes. When loading classes, li3 assumes a [PSR-0 compatible](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) class mapping structure. For more information, see the [documentation for the `Libraries` class](http://li3.me/docs/api/lithium/latest:1.x/lithium/core/Libraries).
 
 The default li3 distribution ships with two `libraries` directories: one located at the root of the distribution, and one located in the `app` folder (or any application you generate with the console tooling). Libraries can be installed into either of these directories, and both are used interchangeably throughout this guide. The global `libraries` directory is intended for libraries which are shared across multiple applications, whereas the local directory is intended for application-specific ones, and will override the global directory in the event of a conflict.
 
@@ -16,7 +16,7 @@ Generally, there are two ways in which a library can be packaged and distributed
 
 The alternative approach is for a distribution to contain its library in a subdirectory. Examples would be the [Zend Framework](https://github.com/zendframework/zf2/tree/master/library) or [Symfony 2](https://github.com/symfony/symfony/tree/master/src).
 
-In the first case, installation is as simple as downloading (or cloning, or adding as a submodule) the library you wish to use into your `libraries` directory. When registering the library with [`Libraries::add()`](http://li3.me/docs/lithium/core/Libraries::add(), no other configuration is necessary, since li3 knows where to look for it, and how to map its classes.
+In the first case, installation is as simple as downloading (or cloning, or adding as a submodule) the library you wish to use into your `libraries` directory. When registering the library with [`Libraries::add()`](http://li3.me/docs/api/lithium/latest:1.x/lithium/core/Libraries::add(), no other configuration is necessary, since li3 knows where to look for it, and how to map its classes.
 
 Since that's not possible for libraries in the second case, we recommend an alternative installation: download (clone, etc.) the distribution to `libraries/_source`, and symlink the root of the library source into the `libraries` directory.
 
@@ -153,7 +153,7 @@ class EmailController extends \lithium\action\Controller {
 
 Some legacy vendor libraries have no consistent class-to-file mapping scheme whatsoever. These libraries must be mapped by hand. Below is an example of a small library (TCPDF), containing just a few files.
 
- _Note_: For larger libraries, generating the map by hand can be tedious. Check out [the `Inspector` class](http://li3.me/docs/lithium/analysis/Inspector), which can be used to introspect classes and files to generate a map automatically.
+ _Note_: For larger libraries, generating the map by hand can be tedious. Check out [the `Inspector` class](http://li3.me/docs/api/lithium/latest:1.x/lithium/analysis/Inspector), which can be used to introspect classes and files to generate a map automatically.
 
 ```php
 Libraries::add('tcpdf', [

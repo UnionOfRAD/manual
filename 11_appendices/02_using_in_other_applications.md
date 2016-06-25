@@ -26,4 +26,4 @@ This correctly locates your app directory in li3's class loader, and suppresses 
 
 ## Defining data connections
 
-If you plan on using li3's data layer, you need to create `connections.php` inside `LITHIUM_APP_PATH/config`.  If you are defining your connections dynamically, this file can be empty. By convention, however, this file is used to configure your database and web service connections.  See [`lithium\data\Connections`](http://li3.me/docs/lithium/data/Connections) for more information on how to do this.
+If you plan on using li3's data layer, you need to create `connections.php` inside `LITHIUM_APP_PATH/config`.  If you are defining your connections dynamically, this file can be empty. By convention, however, this file is used to configure your database and web service connections.  See [`lithium\data\Connections`](http://li3.me/docs/api/lithium/latest:1.x/lithium/data/Connections) for more information on how to do this.
