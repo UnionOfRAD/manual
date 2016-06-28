@@ -16,7 +16,7 @@ Before you define a model relationship in your code, it's important to understan
 	If you're having a hard time remembering hasOne/hasMany versus belongsTo, just
 	remember this: if the current model contains some sort of marker (like a foreign key), it
 	<em>belongsTo</em> another model.
-<div>
+</div>
 
 Defining this object relationship is simple: you populate special properties on the model object. For example, let's say we're building an online store. Each `Category` is filled with many `Product` objects. In this case, we'd want to specify `Category` hasMany `Product`. Let's see how this is done:
 
