@@ -176,8 +176,8 @@ Posts::find(23);
 Posts::all();
 ```
 
-<div class="note">
-	Note `list` is a keyword in PHP and so cannot be called magically like other finders.
+<div class="note note-info">
+	Note <code>list</code> is a keyword in PHP and so cannot be called magically like other finders.
 </div>
 
 The example below shows two different approaches to finding all the posts related to the

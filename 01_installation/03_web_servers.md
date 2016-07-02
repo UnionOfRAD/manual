@@ -109,7 +109,7 @@ Setup a site by right clicking "Sites" and click "Add Web Site"
 
 Your li3 application should now be accessible via IIS.
 
-<div class="note">
+<div class="note note-info">
 	Tested with IIS7 (which is shipped with Windows 7).
 </div>
 

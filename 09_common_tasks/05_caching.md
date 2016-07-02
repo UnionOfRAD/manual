@@ -93,7 +93,7 @@ allows you to use the best cache configuration for your use cache.
 Cache::write('default', 'foo', 'bar');
 ```
 
-<div class="note">
+<div class="note note-hint">
 	The read/write and delete methods can handle multi keys/values or so called batch operations. 
 	Simply pass an array of keys (and value pairs) to the respective method.
 </div>
