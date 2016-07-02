@@ -19,7 +19,7 @@ We also need some sort of persistent storage layer for our blog posts. In this e
 
 
 <div class="note note-info">
-	The framework has support for both relational (MySQL, MariaDB, PostgreSQL, SQLite) and NoSQL databases (MongoDB, CouchDB) and is one of the first frameworks to support both types of databases through one single ORM.
+	The framework has support for both relational (MySQL, MariaDB, PostgreSQL, SQLite) and NoSQL databases (MongoDB, CouchDB) and is one of the first frameworks to support both types of databases through one single ORM/ODM hybrid.
 </div>
 
 To initialize the database, follow the instructions for your operating system inside the _Installation_ chapter of the [official MongoDB manual](http://docs.mongodb.org/manual/) and finally, start up the database engine.

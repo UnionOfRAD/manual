@@ -22,7 +22,7 @@ webservers in production can be found on the [Web-Servers](web-servers) page.
 ### Permissions
 
 The framework will need write access to the `app/resources/tmp` as it used to store cached versions of
-already compiled templates or logs. The webserver use must be able to write to this directory.
+already compiled templates or logs. The webserver user must be able to write to this directory.
 
 ### Starting the Webserver
 
