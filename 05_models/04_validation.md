@@ -84,7 +84,7 @@ class Users extends lithium\data\Model {
 ```
 
 <div class="note note-hint">
-	For a complete list of built-in validation rules, see the <a href="http://li3.me/docs/api/lithium/latest:1.x/lithium/util/Validator"><code>Validator</code> API</a>.
+	For a complete list of built-in validation rules, see the <a href="/docs/api/lithium/latest:1.x/lithium/util/Validator"><code>Validator</code> API</a>.
 </div>
 
 ### Form Validation

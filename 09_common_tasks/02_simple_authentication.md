@@ -164,6 +164,6 @@ Router::connect('/logout', 'Sessions::delete');
 
 If you'd like to get under the hood and see how li3 handles password hashing, auth queries & session writes, etc., check out the API documentation for the following:
 
- - [The `Auth` class](http://li3.me/docs/api/lithium/latest:1.x/lithium/security/Auth)
- - [The `Form` auth adapter](http://li3.me/docs/api/lithium/latest:1.x/lithium/security/auth/adapter/Form)
- - [The `Password` class](http://li3.me/docs/api/lithium/latest:1.x/lithium/security/Password)
+ - [The `Auth` class](/docs/api/lithium/latest:1.x/lithium/security/Auth)
+ - [The `Form` auth adapter](/docs/api/lithium/latest:1.x/lithium/security/auth/adapter/Form)
+ - [The `Password` class](/docs/api/lithium/latest:1.x/lithium/security/Password)

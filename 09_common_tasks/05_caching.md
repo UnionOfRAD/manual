@@ -15,7 +15,7 @@ pick one (or two) dependent on your specific use case.
 * `Memory` - A minimal in-memory cache, good for testing purposes.
 * `Xcache` - An alternative to `Apc`, not recommended as support might be phased out.
 
-Also see the [Cache Adapters API Documentation](http://li3.me/docs/api/lithium/latest:1.x/lithium/storage/cache/adapter) for more information.
+Also see the [Cache Adapters API Documentation](/docs/api/lithium/latest:1.x/lithium/storage/cache/adapter) for more information.
 
 ## Enabling/Disabling Caching
 
@@ -61,7 +61,7 @@ Cache::config([
 Each cache configuration can be configured with _strategies_. These influence how values are read and written
 into the cache. Some adapters already handle serialization for you, others like `File` do not do this. This
 is why we configure the `File` adapter using the general `Serializer` strategy. Other stratgies can be found
-in the [Cache Strategies API Documentation](http://li3.me/docs/api/lithium/latest:1.x/lithium/storage/cache/strategy).
+in the [Cache Strategies API Documentation](/docs/api/lithium/latest:1.x/lithium/storage/cache/strategy).
 
 ### Scoping
 

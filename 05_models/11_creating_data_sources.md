@@ -46,7 +46,7 @@ Focus on understanding the meaning behind these methods for now—we'll be imple
 
 Once models understand the basic shape for your data, the next step is facilitating communication between the data source and its associated models.
 
-In li3, models ask the data source questions through [`Query` objects](http://li3.me/docs/api/lithium/latest:1.x/lithium/data/model/Query), and the data source (typically) answers with one or more `Entity` objects, which are either a `Record` or a `Document`. For example, when a model is to find data, it packages up a `Query` object that contains structured data about what sort of information the model is asking for, in what order it expects it returned in, paging information, etc.
+In li3, models ask the data source questions through [`Query` objects](/docs/api/lithium/latest:1.x/lithium/data/model/Query), and the data source (typically) answers with one or more `Entity` objects, which are either a `Record` or a `Document`. For example, when a model is to find data, it packages up a `Query` object that contains structured data about what sort of information the model is asking for, in what order it expects it returned in, paging information, etc.
 
 It passes this `Query` to the data source, which connects and authenticates to the data store. It inspects the query to see what the model needs, interacts with the underlying data store, and wraps the response data in some sort of `Entity`. If the response requires more than one `Entity`, it's usually wrapped up in a `Collection` like a `RecordSet` or `DocumentSet`.
 
@@ -54,7 +54,7 @@ Once the model has the `Entity` (or collection of entities), it can provide that
 
 ## Example Data Source: GitHub Issues API
 
-Let's dive into a real-life example of creating a data source. For the remainder of this guide, we'll walk through the process of creating a new data source that connects to, authenticates with, and moves data to and from the GitHub API. Version 2 of the GitHub API is available via a simple RESTful interface that uses HTTP authentication. We'll be setting up a new data source, using the existing [`data\source\Http` base class](http://li3.me/docs/api/lithium/latest:1.x/lithium/data/source/Http) as a starting point.
+Let's dive into a real-life example of creating a data source. For the remainder of this guide, we'll walk through the process of creating a new data source that connects to, authenticates with, and moves data to and from the GitHub API. Version 2 of the GitHub API is available via a simple RESTful interface that uses HTTP authentication. We'll be setting up a new data source, using the existing [`data\source\Http` base class](/docs/api/lithium/latest:1.x/lithium/data/source/Http) as a starting point.
 
 ### Setup
 
@@ -71,7 +71,7 @@ class GitHub extends \lithium\data\source\Http {}
 
 This puts the class in the proper namespace, and imports some utility classes we'll be using later on.
 
- _A note on organization:_ Most data source adapters break down into a few basic _types_. For example, all relational databases are of the `database` type. They all work similarly, all share a common base class, and all live in `data\source\database` (in core), or `extensions\adapter\data\source\database` (in an application or plugin). Likewise with data sources that connect to databases or web services over HTTP. However, other data sources like [ `MongoDb`](http://li3.me/docs/api/lithium/latest:1.x/lithium/data/source/MongoDb) don't have a type. This distinction becomes important when configuring them, as seen below.
+ _A note on organization:_ Most data source adapters break down into a few basic _types_. For example, all relational databases are of the `database` type. They all work similarly, all share a common base class, and all live in `data\source\database` (in core), or `extensions\adapter\data\source\database` (in an application or plugin). Likewise with data sources that connect to databases or web services over HTTP. However, other data sources like [ `MongoDb`](/docs/api/lithium/latest:1.x/lithium/data/source/MongoDb) don't have a type. This distinction becomes important when configuring them, as seen below.
 
 Now, let's create a connection that uses this new data source. Add a few lines to `config/bootstrap/connections.php`:
 
