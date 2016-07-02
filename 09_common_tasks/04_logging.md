@@ -42,5 +42,5 @@ Logger::write('critical', 'This is a critical message', ['name' => 'badnews']);
 
 ## See Also
 
-* [List of Logger Adapters](/docs/lithium/analysis/logger/adapter)
-* [Logger API Documentation](/docs/lithium/analysis/Logger)
+* [List of Logger Adapters](/docs/api/lithium/latest:1.x/lithium/analysis/logger/adapter)
+* [Logger API Documentation](/docs/api/lithium/latest:1.x/lithium/analysis/Logger)

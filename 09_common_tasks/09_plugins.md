@@ -2,11 +2,11 @@
 
 If you've written a piece of functionality that you want to share among multiple applications, or distribute within the li3 community, you'll want to create a _plugin_. The good news is, if you've already created a li3 application, you're more than half way there.
 
-First, to understand how li3 deals with plugins, it's important to understand how it deals with _libraries_, so make sure you've read "[Working with 3rd Party Libraries](http://li3.me/docs/manual/configuration/third-party-libraries.md)". In li3, everything is a library, including the li3 core, other frameworks, your application, and of course, plugins. By convention, plugins are simply libraries that conform to the same organizational conventions as a li3 application.
+First, to understand how li3 deals with plugins, it's important to understand how it deals with _libraries_, so make sure you've read "[Working with 3rd Party Libraries](../configuration/third-party-libraries.md)". In li3, everything is a library, including the li3 core, other frameworks, your application, and of course, plugins. By convention, plugins are simply libraries that conform to the same organizational conventions as a li3 application.
 
 ## Requirements
 
-While there are very few (really no) _hard_ requirements for li3 plugins, there are several very strong recommendations. First and foremost is that you follow the namespacing standards outlined in the [`Libraries` class documentation](http://li3.me/docs/api/lithium/latest:1.x/lithium/core/Libraries). Second, your plugin should include a `config` directory containing a `bootstrap.php` file. Finally, as mentioned above, it's best to conform to the same directory structure as a li3 application. And of course, classes must be namespaced accordingly, with the root namespace matching the name of the plugin. (An exception to this would be if you were using an organizational or vendor-level namespace within which your plugin lived, in which case the plugin's root namespace would look like `vendor\plugin_name`).
+While there are very few (really no) _hard_ requirements for li3 plugins, there are several very strong recommendations. First and foremost is that you follow the namespacing standards outlined in the [`Libraries` class documentation](/docs/api/lithium/latest:1.x/lithium/core/Libraries). Second, your plugin should include a `config` directory containing a `bootstrap.php` file. Finally, as mentioned above, it's best to conform to the same directory structure as a li3 application. And of course, classes must be namespaced accordingly, with the root namespace matching the name of the plugin. (An exception to this would be if you were using an organizational or vendor-level namespace within which your plugin lived, in which case the plugin's root namespace would look like `vendor\plugin_name`).
 
 ## What Can Plugins Include?
 
@@ -24,7 +24,7 @@ git clone https://github.com/UnionOfRAD/li3_plugin li3_my
 
 ## Installing and Configuring
 
-As with other libraries, plugins are installed in your local or system `libraries` directory by cloning, symlinking, etc. (Again, see "[Working with 3rd Party Libraries](http://li3.me/docs/manual/configuration/third-party-libraries.md)"). An important thing to know when developing plugins is that when your library is registered through [`Libraries::add()`](http://li3.me/docs/api/lithium/latest:1.x/lithium/core/Libraries::add(), it can also be configured with custom settings.
+As with other libraries, plugins are installed in your local or system `libraries` directory by cloning, symlinking, etc. (Again, see "[Working with 3rd Party Libraries](../configuration/third-party-libraries.md)"). An important thing to know when developing plugins is that when your library is registered through [`Libraries::add()`](/docs/api/lithium/latest:1.x/lithium/core/Libraries::add()), it can also be configured with custom settings.
 
 While `add()`'s `$config` parameter specifies several default configuration settings, it is also possible to pass any other arbitrary information that you may wish to use in your plugin. This data can then be retrieved within your plugin by calling `Libraries::get('plugin_name')` or `Libraries::get('plugin_name', 'key')`.
 
