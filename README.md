@@ -11,10 +11,10 @@ what the framework can do, and—more importantly—what it can do for _you_. Th
 guides is meant to give you a world-class tour of the framework. You'll learn
 how it implements and you can leverage 
 [MVC](architecture/mvc), 
-[data access](models), 
+[data access](models/), 
 [authentication](common-tasks/simple-authentication), 
 authorization,
-[validation](models/validation.md), 
+[validation](models/validation), 
 [internationalization](common-tasks/globalization),
 [layouts](views/layouts), 
 [unit testing](quality-code/testing) and more. In short,
