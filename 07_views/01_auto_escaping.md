@@ -5,30 +5,30 @@ You might have noticed on other pages in the manual that li3 uses the short tag 
 When the view layer is rendered, each template is processed by a tokenizer before it is compiled into its final form. During this step something like this with "short tags":
 
 ```
-<?=$variable; ?>
+<?= $variable ?>
 ```
 
 Is translated into something like this, which is properly escaped:
 
 ```php
-<?php echo $h($variable); ?>
+<?php echo $h($variable) ?>
 ```
 
 The `$h()` function is there to escape HTML output. This mechanism provides an easy and effective way to make sure all dynamically-generated data is displayed safely in your HTML template.
 
-We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (XSS) and related attack techniques.
+We highly recommend using the `<?= ... ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (XSS) and related attack techniques.
 
 <div class="note note-info">
 One exception to this rule is when a line of template code references the `$this` object. In those cases, output is written directly to the template, rather than being filtered through `$h()`. This is so that content from helpers is not double-escaped. As such, the following two statements are equivalent:
 </div>
 
 ```php
-<?=$this->form->create(); ?>
-<?php echo $this->form->create(); ?>
+<?= $this->form->create() ?>
+<?php echo $this->form->create() ?>
 ```
 
 This is an important consideration when accessing properties and methods from the template renderer. If you intend to echo content directly from `$this` which is not coming from a helper (this is not a common occurence), you must manually escape it, like so:
 
 ```
-<?php echo $h($this->foo); ?>
+<?php echo $h($this->foo) ?>
 ```

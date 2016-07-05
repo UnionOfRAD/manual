@@ -103,11 +103,11 @@ If the user has been successfully verified, the session is updated to mark the u
 As a reference, the web form that sends the credentials and is the content of the `add` view at `views/sessions/add.html.php` should contain something that looks like this:
 
 ```php
-<?=$this->form->create(null); ?>
-	<?=$this->form->field('username'); ?>
-	<?=$this->form->field('password', ['type' => 'password']); ?>
-	<?=$this->form->submit('Log in'); ?>
-<?=$this->form->end(); ?>
+<?= $this->form->create(null) ?>
+	<?= $this->form->field('username') ?>
+	<?= $this->form->field('password', ['type' => 'password']) ?>
+	<?= $this->form->submit('Log in') ?>
+<?= $this->form->end() ?>
 ```
 
 ## Protecting Resources

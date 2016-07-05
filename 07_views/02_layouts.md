@@ -12,22 +12,22 @@ A layout file looks like what you might typically expect of an HTML file.  Below
 <!doctype html>
    <html>
    <head>
-   	<?=$this->html->charset();?>
-   	<title>Application > <?=$this->title();?></title>
-   	<?=$this->html->style(['debug', 'lithium']);?>
-   	<?=$this->scripts();?>
-   	<?=$this->html->link('Icon', null, ['type' => 'icon']);?>
+   	<?= $this->html->charset() ?>
+   	<title>Application > <?= $this->title() ?></title>
+   	<?= $this->html->style(['debug', 'lithium']) ?>
+   	<?= $this->scripts() ?>
+   	<?= $this->html->link('Icon', null, ['type' => 'icon']) ?>
    </head>
    <body class="app">
    	<div id="container">
    		<div id="header">
    			<h1>Application</h1>
    			<h2>
-   				Powered by <?=$this->html->link('li3', 'http://li3.me/');?>.
+   				Powered by <?= $this->html->link('li3', 'http://li3.me/') ?>.
    			</h2>
    		</div>
    		<div id="content">
-   			<?=$this->content();?>
+   			<?= $this->content() ?>
    		</div>
    	</div>
    </body>

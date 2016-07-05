@@ -34,7 +34,7 @@ return compact('foo');
 Once this has been done in the controller, you can access the data like so:
 
 ```
-<p>Spit out data like this: <?=$foo ?></p>
+<p>Spit out data like this: <?= $foo ?></p>
 ```
 
 li3 templates are just PHP, so feel free to toss in conditionals, loops and other presentation-based logic as needed.
@@ -46,31 +46,31 @@ You might have noticed that the above example uses the short tag syntax to outpu
 When the view layer is rendered, each template is processed by a tokenizer before it is compiled into its final form. During this step something like this:
 
 ```
-<?=$variable; ?>
+<?= $variable ?>
 ```
 
 Is translated into something like this:
 
 ```
-<?php echo $h($variable); ?>
+<?php echo $h($variable) ?>
 ```
 
 The `$h()` function you see used there escapes HTML. To make a long story short, this mechanism provides an easy way for you to make sure all dynamically-generated data is safely landing in your HTML template.
 
-We highly recommend using the `<?= ...; ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (and related) attack techniques.
+We highly recommend using the `<?= ... ?>` syntax in your views, as it aids greatly in hardening your application against cross-site scripting (and related) attack techniques.
 
  _Note:_ One exception to this rule is when a line of template code references the `$this` object. In those cases, output is written directly to the template, rather than being filtered through `$h()`. This is so that content from helpers is not double-escaped. As such, the following two statements are equivalent:
 
 ```
-<?=$this->form->create(); ?>
+<?= $this->form->create() ?>
 
-<?php echo $this->form->create(); ?>
+<?php echo $this->form->create() ?>
 ```
 
 This is an important consideration when accessing properties and methods from the template renderer. If you intend to echo content directly from `$this` which is not coming from a helper (this is not a common occurence), you must manually escape it, like so:
 
 ```
-<?php echo $h($this->foo); ?>
+<?php echo $h($this->foo) ?>
 ```
 
 ## Layouts & Elements
@@ -118,7 +118,7 @@ class MyController extends \lithium\action\Controller {
 }
 ```
 
-Layouts should call `<?=$this->content(); ?>` to render the content of the inner view template in the desired location.
+Layouts should call `<?= $this->content() ?>` to render the content of the inner view template in the desired location.
 
 ### Output Handlers
 
@@ -169,10 +169,10 @@ See the `$options` parameter of `Media::asset()` for more information.
 
 ```
 // In your view:
-<?php $this->title('Home'); ?>
+<?php $this->title('Home') ?>
 
 // In your layout:
-<title>My Awesome Application: <?= $this->title(); ?></title>
+<title>My Awesome Application: <?= $this->title() ?></title>
 ```
 
  * `$this->scripts()`: Prints out the scripts specified for the current template. Usually, this is used by the [`script()` method of the `Html` helper](/docs/api/lithium/latest:1.x/lithium/template/helper/Html::script) when the `'inline'` option is set to `false`. However, you can append tags manually as well:
@@ -181,25 +181,25 @@ See the `$options` parameter of `Media::asset()` for more information.
 // In your view:
 <?php 
 $this->scripts('<script src="https://example.org/js/jquery.min.js"></script>'); 
-$this->scripts('<script src="https://example.org/js/jquery-ui.min.js"></script>');
+$this->scripts('<script src="https://example.org/js/jquery-ui.min.js"></script>')
 ?>
 
 // In your layout:
 <head>
- <?=$this->scripts(); ?>
+ <?= $this->scripts() ?>
 </head>
 ```
 
  In particular, this is useful when page-specific scripts are created inline in the page, and you'd like to place them in the `<head />` along with your other scripts:
 
 ```
-<?php ob_start(); ?>
+<?php ob_start() ?>
 <script type="text/javascript">
 $(document).ready(function() {
 	// Do work here...
 });
 </script>
-<?php $this->scripts(ob_get_clean()); ?>
+<?php $this->scripts(ob_get_clean()) ?>
 ```
 
  * `$this->styles()`: Much the same as `scripts()` above, the `styles()` handler acts as a repository for any page-specific style sheets to be included in the layout. While primarily used by the [`style()` method of the `Html` helper](/docs/api/lithium/latest:1.x/lithium/template/helper/Html::style) (again, see the `'inline'` option), it may be used manually as well:
@@ -208,11 +208,11 @@ $(document).ready(function() {
 // In your view:
 <?php
  $this->styles('<link rel="stylesheet" type="text/css" href="/reset.css" />');
- $this->styles('<link rel="stylesheet" type="text/css" href="/users.css" />');
+ $this->styles('<link rel="stylesheet" type="text/css" href="/users.css" />')
 ?>
 
 // In your layout:
 <head>
-  <?= $this->styles(); ?>
+  <?= $this->styles() ?>
 </head>
 ```

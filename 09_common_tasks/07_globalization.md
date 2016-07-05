@@ -93,12 +93,12 @@ Once this is in place, our application's routes will illustrate the effective lo
 As a final example, here's a bit of view code you could use to switch between locales:
 
 ```html
-<?php use lithium\core\Environment; ?>
+<?php use lithium\core\Environment ?>
  <div id="locale-navigation">
 	<ul>
 		<?php foreach (Environment::get('locales') as $locale => $name): ?>
-			<li><?=$this->html->link($name, compact('locale') + $this->_request->params); ?></li>
-		<?php endforeach; ?>
+			<li><?= $this->html->link($name, compact('locale') + $this->_request->params) ?></li>
+		<?php endforeach ?>
 	</ul>
 </div>
 ```
@@ -213,9 +213,9 @@ While it may seem like a simple process from the outside, message globalization 
 The two convenience aliases for `Message::translate()`—`$t()` and `$tn()`—are injected into the view as output filters by default. This allows for the following syntax throughout templates:
 
 ```php
-<?= $t('green'); ?>
-<?= $tn('House', 'Houses', ['count' => 3]); ?>
-<?= $t('Everything is so {:color}.', ['color' => $t('green')]); ?>
+<?= $t('green') ?>
+<?= $tn('House', 'Houses', ['count' => 3]) ?>
+<?= $t('Everything is so {:color}.', ['color' => $t('green')]) ?>
 ```
 
 If you need access to translated content outside of a view, use `extract()` to use these aliases like so:
@@ -244,10 +244,10 @@ When embedding translated messages into your application, it's best to use entir
 
 ```html
 <!-- Not so great: -->
-<?= $t('welcome'); ?>
+<?= $t('welcome') ?>
 
 <!-- Better: -->
-<?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?'); ?>
+<?= $t('Welcome to Gary\'s Fine Clarinets™. How can we help you today?') ?>
 ```
 
 It's also best to split paragraphs into single sentences as well. This makes things more atomic and granular where large chunks of content may be difficult to work with:
@@ -256,10 +256,10 @@ Next, treating text like you would with `String::insert()` can make things easie
 
 ```html
 <!-- Not so great: -->
-<?= "Gary's Fine Clarinets " . $t('is really great'); ?>
+<?= "Gary's Fine Clarinets " . $t('is really great') ?>
 
 <!-- Better: -->
-<?= $t('Everything is so {:color}.', ['color' => $t('green')]); ?>
+<?= $t('Everything is so {:color}.', ['color' => $t('green')]) ?>
 ```
 
 Also, avoid the use of escaped characters, or markup of any kind inside of translated messages. This makes it much less error prone, as your language team may not be as keen on well-structured HTML as you are.
@@ -269,7 +269,7 @@ Also, avoid the use of escaped characters, or markup of any kind inside of trans
 Passing the `'noop'` option to `Message::translate()` will result in the default message being returned. Since the short-hand translation functions use `translate()` internally, you can use the option to just mark a string for translation without it actually being translated during runtime:
 
 ```html
-<?= $t('foo', ['noop' => true]); ?>
+<?= $t('foo', ['noop' => true]) ?>
 <?= $tn('foo', 'bar', ['noop' => true]); /* we don't need to pass `'count'` in this case */ ?>
 ```
 
@@ -280,8 +280,8 @@ File: `a.php`:
 
 File: `b.php`:
 ```html
-<?php $section = 'foo'; ?>
-<?= $t($section); ?>
+<?php $section = 'foo' ?>
+<?= $t($section) ?>
 ```
 
 ### Knock Out

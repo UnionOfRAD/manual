@@ -104,7 +104,7 @@ Next, let's create a `View` that uses the dummy data from `PostsController::inde
 Start by creating a new file at `project/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
 ```
-li3 is less dense than <?=$foo;?>ium.
+li3 is less dense than <?= $foo ?>ium.
 ```
 
 Save this file, and now you can view the Posts index page by pointing your browser to `http://project.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.md) of the manual.
@@ -136,11 +136,11 @@ Before you can use a model and its methods we must tell that we're planning to u
 Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `project/app/views/posts/add.html.php`:
 
 ```
-<?=$this->form->create($post); ?>
-	<?=$this->form->field('title');?>
-	<?=$this->form->field('body', ['type' => 'textarea']);?>
-	<?=$this->form->submit('save'); ?>
-<?=$this->form->end(); ?>
+<?= $this->form->create($post) ?>
+	<?= $this->form->field('title') ?>
+	<?= $this->form->field('body', ['type' => 'textarea']) ?>
+	<?= $this->form->submit('save') ?>
+<?= $this->form->end() ?>
 ```
 
 This view code sets up a simple HTML form, using the `Form` helper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
@@ -177,7 +177,7 @@ The result of the save operation (`$success`) is then passed back to the view so
 ```
 <?php if ($success): ?>
 	<p>Post Successfully Saved</p>
-<?php endif; ?>
+<?php endif ?>
 ```
 
 To give you a little more of an idea what li3's doing "behind the scenes" here, the following pieces of code are equivalent:
@@ -241,7 +241,7 @@ At this point, our index view should be aware of the `$posts` `Document` object.
 	<h1><?= $post->title ?></h1>
 	<p><?= $post->body ?></p>
 </article>
-<?php endforeach; ?>
+<?php endforeach ?>
 ```
 
 As you can see, `Posts` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `http://project.dev/posts` to see the output.

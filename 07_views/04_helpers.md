@@ -8,7 +8,7 @@ Helper usage in li3 is simple because helpers are lazy-loaded by the renderer. T
 
 ```
 <p>
-Here is a <?=$this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
+Here is a <?= $this->html->link('link', 'http://li3.me') ?> you'll all enjoy.
 </p>
 ```
 
@@ -57,7 +57,7 @@ Once this has been setup, we can use the new helper as we would any of the core 
 ```
 <p>
 	You should really check out
-	<?=$this->awesomeHtml->link('li3', 'http://li3.me', [
+	<?= $this->awesomeHtml->link('li3', 'http://li3.me', [
 		'type' => 'super_cool'
 	]) ?>
 </p>

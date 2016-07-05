@@ -72,11 +72,11 @@ Then create the templates.
 
 ```html
 <h2>Add user</h2>
-<?=$this->form->create($user); ?>
-	<?=$this->form->field('username'); ?>
-	<?=$this->form->field('password', ['type' => 'password']); ?>
-	<?=$this->form->submit('Create me'); ?>
-<?=$this->form->end(); ?>
+<?= $this->form->create($user) ?>
+	<?= $this->form->field('username') ?>
+	<?= $this->form->field('password', ['type' => 'password']) ?>
+	<?= $this->form->submit('Create me') ?>
+<?= $this->form->end() ?>
 ```
 
 `views/users/index.html.php`:
@@ -86,7 +86,7 @@ Then create the templates.
 
 <ul>
 	<?php foreach ($users as $user) { ?>
-		<li><?=$user->username; ?></li>
+		<li><?= $user->username ?></li>
 	<?php } ?>
 </ul>
 ```

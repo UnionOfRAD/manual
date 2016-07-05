@@ -92,11 +92,11 @@ class Users extends lithium\data\Model {
 Here's a simple form we might use to collect user data. This would be contained in `app/views/users/add.html.php`.
 
 ```
-<?= $this->form->create($user); ?>
-	<?= $this->form->field('name'); ?>
-	<?= $this->form->field('password'); ?>
-	<?= $this->form->submit('save user'); ?>
-<?= $this->form->end(); ?>
+<?= $this->form->create($user) ?>
+	<?= $this->form->field('name') ?>
+	<?= $this->form->field('password') ?>
+	<?= $this->form->submit('save user') ?>
+<?= $this->form->end() ?>
 ```
 
 By using the `Form` helper and binding our user entity to it, we gain the additional benefit that later validation errors are handled and - should some exist - displayed automatically for us.
