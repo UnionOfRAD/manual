@@ -78,14 +78,6 @@ $result = $router::process($request);
 
 Not all dependencies are configured this way, but it is the predominant convention throughout the framework. In almost all other cases, dependencies which cannot be changed are dependencies on utility methods, which are almost always referentially transparent. Because of this, these hard-coded dependencies add no difficulty or complexity in testing.
 
-### I just installed li3, and I'm getting a fatal error that looks like this...
-
-**Function name must be a string in .../lithium/util/collection/Filters.php on line ...**
-
-This is happening because you have [ eAccelerator](http://eaccelerator.net/) installed. eAccelerator is an optimizer / opcode cache for PHP which does not fully support PHP 5.3. The solution is to disable it, and switch to a working, better-supported accelerator, like APC or Xcache.
-
-If you didn't know you had eAccelerator installed, it's because you're running MAMP, which comes pre-bundled with eAccelerator. In this case, the solution is to man up (or woman up) and [get Homebrew](https://github.com/mxcl/homebrew). You'll be glad you did.
-
 ### Why are there 'libraries' folder in both the root directory and the app directory?
 
 Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the `/app/libraries` directory. Other libraries are shared by one or more apps. The `/libraries` directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the `/app/libraries` directories for multiple applications.

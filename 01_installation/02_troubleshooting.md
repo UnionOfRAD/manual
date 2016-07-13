@@ -37,3 +37,18 @@ Warning: Unexpected character in input: '\' (ASCII=92) state=1 in /path/to/lithi
 ```
 
 This means you're not running PHP 5.3 or later.  Please check your PHP version and update as appropriate.
+
+## I'm getting a fatal error that looks like this...
+
+**Function name must be a string in .../lithium/util/collection/Filters.php on line ...**
+
+This is happening because you have [eAccelerator](http://eaccelerator.net/) installed.
+eAccelerator is an optimizer / opcode cache for PHP which does not fully support PHP 5.3.
+The solution is to disable it, and switch to a working, better-supported accelerator, like
+the bulitin [Opcache](http://php.net/manual/en/book.opcache.php).
+
+If you didn't know you had eAccelerator installed, it's because you're running MAMP, which
+sometime comes pre-bundled with eAccelerator. In this case, the solution is to man up (or
+woman up) and get [Homebrew](https://github.com/mxcl/homebrew). You'll be glad you did.
+
+
