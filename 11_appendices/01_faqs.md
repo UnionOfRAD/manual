@@ -1,4 +1,8 @@
-# FAQ
+---
+title: FAQs
+---
+
+# Frequently Asked Questions
 
 ### PHP short tags in templates? Haven't those been deprecated for, like, ever?
 
