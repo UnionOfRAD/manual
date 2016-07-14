@@ -28,7 +28,7 @@ One of the benefits when using MongoDB is that you also get a nice place to stor
 
 While there are many good things that come with storing you files this way, one downside is that in order to respond to file requests now involves PHP and the database in addition to the web server. To compensate this overhead we'll modify the route handler used for serving the files to use web caching.
 
-We setup our `Files` model to use GridFs and also add a handy but stubbed `mimeType()` [instance method](../models/adding-functions-to-models.md). You really want to implement real MIME-type detection here. Either go directly with the [fileinfo extension](http://php.net/manual/en/intro.fileinfo.php) or and alternative solution like [the mm\Mime\Type class](https://github.com/davidpersson/mm/blob/master/src/Mime/Type.php).
+We setup our `Files` model to use GridFs and also add a handy but stubbed `mimeType()` [instance method](../models/adding-functions-to-models). You really want to implement real MIME-type detection here. Either go directly with the [fileinfo extension](http://php.net/manual/en/intro.fileinfo.php) or and alternative solution like [the mm\Mime\Type class](https://github.com/davidpersson/mm/blob/master/src/Mime/Type.php).
 
 ```php
 // models/Files.php

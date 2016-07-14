@@ -5,7 +5,7 @@
 You need a **web server** to run your app, preferably running on your local machine (you do
 all of your development locally, right, right??). As PHP, the framework itself runs just
 fine on most popular web servers. [Setup guides are available for Apache, IIS, Lighttpd, and
-NGINX](./web-servers.md).
+NGINX](./web-servers).
  
 ## PHP 
 

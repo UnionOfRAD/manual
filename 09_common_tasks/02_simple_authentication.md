@@ -41,7 +41,7 @@ Once you've got that setup, your application more or less interacts with the dat
 
 Creating users that are compatible with the `Auth` setup is worth noting. While configurable, the default setup assumes a users data source with a hashed `password` field, and a `username` field. Please keep these defaults in mind as you create controller logic or view forms that interact with user data.
 
-For convenience, we also recommend setting up a filter to automatically hash user passwords when new users are created. You can see an example filter in the __Model__ section of the [MVC auth setup instructions](simple-auth-user.md). You can continue to follow those instructions to create a controller and template that will allow you to generate users within your application.
+For convenience, we also recommend setting up a filter to automatically hash user passwords when new users are created. You can see an example filter in the __Model__ section of the [MVC auth setup instructions](simple-auth-user). You can continue to follow those instructions to create a controller and template that will allow you to generate users within your application.
 
 ## Bootstrapping Auth
 

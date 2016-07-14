@@ -45,14 +45,14 @@ The first parameter just names the connection something that can be read by peop
 The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/app/bootstrap/connections.php` file for more information.
 
 <div class="note note-hint">
-	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping.md">Bootstrapping Guide</a> for more detail on how to configure the framework.
+	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping">Bootstrapping Guide</a> for more detail on how to configure the framework.
 </div>
 
 Our application is now set up and talking to the MongoDB database server, so we are ready to begin coding our blogging platform!
 
 ## MVC Starts with M
 
-li3 uses the [MVC pattern](./architecture/mvc.md). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
+li3 uses the [MVC pattern](./architecture/mvc). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
 
 First, create a new file at `project/app/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
@@ -76,7 +76,7 @@ namespace app\controllers;
 class PostsController extends \lithium\action\Controller {}
 ```
 
-You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the li3 [coding convention](/docs/specs/accepted/LSR-0-coding.md), and you should stick to it to take full advantage of the framework's automagic.
+You may have noticed a trend: filenames are CamelCase, as are classnames. Folder paths match their respective namespace, and are under_scored. This is part of the li3 [coding convention](/docs/book/specs/1.x/accepted/LSR-0-coding), and you should stick to it to take full advantage of the framework's automagic.
 
 Let's go ahead and create an initial action as well. Create a new `index()` function in your newly created controller. Before we try and link all three of the model, controller and viewer together, let's just set up a simple action that pushes some dummy data to the view. Here's how it's done:
 
@@ -107,7 +107,7 @@ Start by creating a new file at `project/app/views/posts/index.html.php` (you'll
 li3 is less dense than <?= $foo ?>ium.
 ```
 
-Save this file, and now you can view the Posts index page by pointing your browser to `http://project.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing.md) of the manual.
+Save this file, and now you can view the Posts index page by pointing your browser to `http://project.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing) of the manual.
 
 What you're seeing used here in this view's code is also the default and preferred way to output data to an HTML page in li3. The short tags (`<?= ... ?>`) are automatically rewritten by li3 to escape the output and keep you safe from the legions of attacks based on unescaped output. This means that the view code you're seeing doesn't end up as short tags when it gets to PHP's parser, so don't worry about your PHP installation or short tag handling. If you really need it, there's also always `<?php echo ... ?>`.
 

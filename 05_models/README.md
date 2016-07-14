@@ -3,10 +3,10 @@
 Models play a key role in nearly every web application. Their main purpose is to abstract business logic and database operations from higher levels (controllers and views). They also act as a gatekeeper and—if properly implemented—make sure that only valid and allowed data gets passed through them. Models in li3 have three main purposes:
 
  1. Provide an abstraction layer to the underlying data source(s)
- 2. Perform common data operations (like [fetching](querying.md) and [storing](saving.md) data)
- 3. Help with [validating](validation.md) data.
+ 2. Perform common data operations (like [fetching](querying) and [storing](saving) data)
+ 3. Help with [validating](validation) data.
 
-Also, li3 makes it easy to extend models so that they fit your application's needs. Thanks to the nifty autoloading mechanism, models are lazy-loaded and are only initialized when you need them. In the next sections you will learn how to use models and perform common operations on them. Later sections will provide you with a more detailed look on models like [relationships](relationships.md) between them and how to [extend models](adding-functions-to-models.md) to fit your application's needs.
+Also, li3 makes it easy to extend models so that they fit your application's needs. Thanks to the nifty autoloading mechanism, models are lazy-loaded and are only initialized when you need them. In the next sections you will learn how to use models and perform common operations on them. Later sections will provide you with a more detailed look on models like [relationships](relationships) between them and how to [extend models](adding-functions-to-models) to fit your application's needs.
 
 The `Model` class is the starting point for the domain logic of your application.  Models are tasked with providing meaning to otherwise raw and unprocessed data (e.g. user profile).  Models expose a consistent and unified API to interact with an underlying datasource (e.g. MongoDB, CouchDB, MySQL) for operations such as querying, saving, updating and deleting data from the persistent storage.
 
@@ -14,11 +14,11 @@ The `Model` class is the starting point for the domain logic of your application
 	As the framework is capable of working with document oriented data sources as it is with relational databases, we use the term <em>entity</em> to refer to what might be considered a document in one data source type or a record/row in another type.
 </div>
 
-Models allow you to interact with your data in two fundamentally different ways: [querying](querying.md) and [data mutation](data-mutation.md) (saving/updating/deleting). All query-related operations may be done through the static `find()` method, along with some additional utility methods provided for convenience. Classes extending the `Model` class should, conventionally, be named as plural, CamelCase and be placed in the `models` directory. i.e. a posts model would be `model/Posts.php`.
+Models allow you to interact with your data in two fundamentally different ways: [querying](querying) and [data mutation](data-mutation) (saving/updating/deleting). All query-related operations may be done through the static `find()` method, along with some additional utility methods provided for convenience. Classes extending the `Model` class should, conventionally, be named as plural, CamelCase and be placed in the `models` directory. i.e. a posts model would be `model/Posts.php`.
 
 ## Where To Go Next
 
-Read the section below on how to _create a model_ first, then continue with a quick look into the basics of creating [connections](connections.md), creating/updating/deleting entites in [data mutation](data-mutation.md), persisting entities by [saving](saving.md) them to the datastore. Finally [querying](querying.md) shows how to get all the precious data back.
+Read the section below on how to _create a model_ first, then continue with a quick look into the basics of creating [connections](connections), creating/updating/deleting entites in [data mutation](data-mutation), persisting entities by [saving](saving) them to the datastore. Finally [querying](querying) shows how to get all the precious data back.
 
 ## Creating a Model
 

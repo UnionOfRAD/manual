@@ -46,7 +46,7 @@ $post->save(null, ['validate' => false]);
 
 <div class="note note-hint">
 	There is more information about validation and how to use the
-	<code>validates()</code> in the <a href="./validation.md">Validation</a> chapter. 
+	<code>validates()</code> in the <a href="./validation">Validation</a> chapter. 
 </div>
 
 The `$entity` parameter is the record or document object to be saved in the database. This parameter is implicit and should not be passed under normal circumstances. In the above example, the call to `save()` on the `$post` object is transparently proxied through to the `Posts` model class, and `$post` is passed in as the `$entity` parameter.  The `$data` parameter is for any data that should be assigned to the record before it is saved.
