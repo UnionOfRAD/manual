@@ -15,10 +15,10 @@ class Users extends \lithium\data\Model {}
 Then, create a model filter in a new bootstrap file in `app/config/bootstrap/` called `user.php`. This file will automatically hash user passwords before the accounts are created. The `Password` class will automatically use the most secure hashing method available on your system:
 
 ```php
-use app\models\Users;
 use lithium\security\Password;
+use lithium\aop\Filters;
 
-Users::applyFilter('save', function($self, $params, $chain) {
+Filters::apply('app\models\Users', 'save', function($self, $params, $chain) {
 	if ($params['data']) {
 		$params['entity']->set($params['data']);
 		$params['data'] = [];
