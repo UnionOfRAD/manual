@@ -188,3 +188,30 @@ You'll probably need to add a line item in your `/etc/hosts` file as well:
 ```
 
 Restart your lighttpd process, and you're done!
+
+## Using Caddy
+
+Caddy is a new HTTP/2 web server with automatic HTTPS written in Go. It is pretty fast and easy to learn. You can get a quick start reading the [Getting Started](https://caddyserver.com/docs/getting-started) chapter from the [documentation](https://caddyserver.com/docs).
+
+To make use of Caddy and be able to start the Caddy Server with the command `caddy` there has to be a Caddyfile present. This file resides in the root directory of the project.
+
+The following example file is typically stored at `/path/to/framework` with the name `Caddyfile`.
+
+```nginx
+localhost:2020
+
+gzip
+
+root app/webroot
+fastcgi / localhost:9000 php
+
+log app/resources/tmp/logs/access.log
+errors app/resources/tmp/logs/error.log
+
+rewrite / {
+	if {file} not favicon.ico
+	to {path} {path}/ /index.php?url={query}
+}
+```
+
+If you want to run Caddy with different plugins, check their documentation for a list of all possible directives.
