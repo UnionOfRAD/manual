@@ -34,7 +34,7 @@ There will be no separate manuals for minor versions. Instead features available
 in since certain versions are documented as follows:
 
 ```html
-<div class="note note-version">This feature is available since 1.1.0.</div>
+<div class="note note-version">This feature is available with version 1.1.</div>
 ```
 
 ### Code

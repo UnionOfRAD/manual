@@ -131,7 +131,7 @@ Cache::read('default', 'foo');
 
 ## Caching BLOBs
 
-<div class="note note-version">This feature is available beginning with 1.1.0.</div>
+<div class="note note-version">This feature is available with version 1.1.</div>
 
 BLOBs are binary large objects or simply put: _files_. The file cache adapter is capable
 of storing BLOBs using the following configuration. 
