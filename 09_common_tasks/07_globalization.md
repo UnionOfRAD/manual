@@ -53,15 +53,17 @@ While determining the effective locale in an semi-automatic way works well for c
 One of the last things that `g11n.php` does in the bootstrap process is apply filters to both the console command and controller action dispatchers. Here is the perfect place to decide how we set and switch between locales based on the information we have from the request and user agent.
 
 ```php
-Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
+Filters::apply(Dispatcher::class, '_callable', function($params, $next) {
 	if (!$params['request']->locale()) {
 		$params['request']->locale(Locale::preferred($params['request']));
 	}
 	Environment::set(true, ['locale' => $params['request']->locale()]);
 
-	return $chain->next($self, $params, $chain);
+	return $next($params);
 });
 ```
+
+<div class="note note-info">This example uses new-style filters, available with 1.1.</div>
 
 This filter does the following:
 
@@ -289,10 +291,12 @@ File: `b.php`:
 If you're using templates which use the aliased translation functions but don't want to do any globalization, you can disable the lookup of translations by using a filter.
 
 ```php
-Message::applyFilter('_translated', function($self, $params, $chain) {
+Filters::apply(Message::class, '_translated', function($params, $next) {
 	return null;
 });
 ```
+
+<div class="note note-info">This example uses new-style filters, available with 1.1.</div>
 
 ## Extracting Marked Messages & Creating Templates
 

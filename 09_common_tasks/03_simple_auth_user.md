@@ -16,9 +16,10 @@ Then, create a model filter in a new bootstrap file in `app/config/bootstrap/` c
 
 ```php
 use app\models\Users;
+use lithium\aop\Filters;
 use lithium\security\Password;
 
-Users::applyFilter('save', function($self, $params, $chain) {
+Filters::apply(Users::class, 'save', function($params, $next) {
 	if ($params['data']) {
 		$params['entity']->set($params['data']);
 		$params['data'] = [];
@@ -26,9 +27,11 @@ Users::applyFilter('save', function($self, $params, $chain) {
 	if (!$params['entity']->exists()) {
 		$params['entity']->password = Password::hash($params['entity']->password);
 	}
-	return $chain->next($self, $params, $chain);
+	return $next($params);
 });
 ```
+
+<div class="note note-info">This example uses new-style filters, available with 1.1.</div>
 
 Now add the following line to app/config/bootstrap.php to include your new user.php bootstrap file.
 

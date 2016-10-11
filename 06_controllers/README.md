@@ -362,20 +362,21 @@ public function index() {
 
 Filtering controller logic can be a bit tricky to the new li3 user, due to the flexible and elegant way the dispatch cycle executes.
 
-When a request is sent to a li3 application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked.
+When a request is sent to an application, the Dispatcher first uses the Router to determine which controller to load. Once a target controller has been identified, a new controller object is created and invoked.
 
 This last invokation step is performed inside of the dispatcher's `_callable()` method. Because of this, filters that wish to inject logic before or after controller actions is often done against `_callable()`. Doing so allows you access to parameters that are normally available to the controller, as well as the right controller instance, allowing you to call its methods.
 
  _Note:_ You might have seen some filters run against the dispatcher's `run()` method instead. In many cases, this should work just fine. The difference in using `_callable()` is that with the latter, you'll end up with access to the active controller instance itself, along with its parameters.
 
-The `g11n` filters that come with li3 form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
+The `g11n` filters that come with the standard distribution form an illustrative example. Consider this slightly modified (for simplicity) version of that same filter:
 
 ```php
+use lithium\aop\Filters;
 use lithium\action\Dispatcher;
 
-Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
+Filters::apply(Dispatcher::class, '_callable', function($params, $next) {
 	$request = $params['request'];
-	$controller = $chain->next($self, $params, $chain);
+	$controller = $next($params);
 
 	if (!$request->locale) {
 		$request->params['locale'] = Locale::preferred($request);
@@ -385,16 +386,19 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
 });
 ```
 
-Here you can see that you've got access to the request parameters and the controller instance itself in the first two lines of the `applyfilter()` call. In this case, the g11n framework is inspecting the request and setting locale settings accordingly, but when creating your own filter, you'd have access to the same data.
+<div class="note note-info">This example uses new-style filters, available with 1.1.</div>
 
-An important case to consider that's also covered in the g11n filters is remembering to also filter li3's other dispatcher: the console action dispatcher. In other words, if you truly want to effect every action in an application, you might consider also filtering the `lithium\console\Dispatcher` as well as the `lithium\action\Dispatcher`.
+Here you can see that you've got access to the request parameters and the controller instance itself in the first two lines of the `Filters::apply()` call. In this case, the g11n framework is inspecting the request and setting locale settings accordingly, but when creating your own filter, you'd have access to the same data.
+
+An important case to consider that's also covered in the g11n filters is remembering to also filter the frameworks other dispatcher: the console action dispatcher. In other words, if you truly want to effect every action in an application, you might consider also filtering the `lithium\console\Dispatcher` as well as the `lithium\action\Dispatcher`.
 
 In this case, you'll want to use the special use/as syntax:
 
 ```php
+use lithium\aop\Filters;
 use lithium\action\Dispatcher as ActionDispatcher;
 use lithium\console\Dispatcher as ConsoleDispatcher;
 
-ActionDispatcher::applyFilter(...);
-ConsoleDispatcher::applyFilter(...);
+Filters::apply(ActionDispatcher::class /*, ... */);
+Filters::apply(ConsoleDispatcher::class /*, ... */);
 ```
