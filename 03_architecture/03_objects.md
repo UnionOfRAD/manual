@@ -62,13 +62,11 @@ get_class($foo3->service);  // PHP Warning...
 get_class($foo->service);  // 'lithium\net\http\Service'
 ```
 
-## Filtering
-
-The `Object` class also allows subclasses to filter their methods. An entire guide has been dedicated to filters, and you'll find examples and explanations later in this chapter.
-
-Long story short, a filterable method is created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Object::_filter()` (or `StaticObject::_filter()` for static objects) to allow for chain management. 
-
-Subclasses of `Object` use the filter methods to allow other developers to wrap logic around their own without cluttering the object's API.
+<div class="note note-version">
+	The filtering system was overhauled in framework version 1.1. Filters are
+	now managed via a dedicated Filters class, instead of before where Object managed 
+	them.
+</div>
 
 
 

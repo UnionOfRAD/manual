@@ -1,29 +1,34 @@
 # The Filter System
 
-This guide is meant as an introductory course in creating filters in li3 applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
-
+This guide is meant as an introductory course in creating filters in applications. Filters are essentially an efficient way of introducing event-driven communication between classes in your application. They allow you to inject bits of logic in the middle of main-line program flow while at the same time keeping the API clean, avoiding tight class coupling and some sort of centralized publish/subscribe system.
 What would you need a filter for? Here are some quick examples:
 
-* A 'before filter' that marks the 'created' column in your database with the current date
+* A _before filter_ that marks the `'created'` column in your database with the current date
 * Intercepting certain requests to deliver raw file contents rather than an HTML response
 * Wrapping profiling measurements around each dispatched request
 * Checking each request to make sure the user has been authenticated
 * Logging various events in your application
 * Creating a read-through cache filter that encapsulates the process of checking whether a result has been cached, serving a cached result, and writing results to a cache backend
 
-By the end of this guide, you should feel comfortable in your understanding of the theory and best practices behind filters, as well as identifying filterable logic in li3 and creating your own filterable methods.
+By the end of this guide, you should feel comfortable in your understanding of the theory and best practices behind filters, as well as identifying filterable logic in the framework and creating your own filterable methods.
+
+<div class="note note-version">
+	The filtering system was overhauled in framework version
+	1.1. This guide uses the new API in its examples and
+	descriptions. The pre-1.1 syntax is documented <a href="/docs/api/lithium/1.0.x/lithium/util/collection/Filters">here</a>.
+</div>
 
 ## Aspect-Oriented Programming
 
-li3's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems.
+The framework's filter system is inspired by similar concepts in Aspect-Oriented Programming, or AOP. In AOP, an aspect refers to a bit of logic that is scattered throughout an application. Usually, it's a piece of logic that is used in a number of different points in the application, often in completely unrelated systems.
 
 There are a few examples of aspects that you're probably already familiar with. Logging and authentication are two great ones. Both are used in many different parts of an application, and maintaining something so widespread can get tricky unless you're organized. Not only that, those bits of logic aren't really part of the code that makes up your business logic. In other words, they're separate _concerns_.
 
 ## Filter Structure
 
-Long story short, a filterable method is created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Object::_filter()` (or `StaticObject::_filter()` for static objects) to allow for chain management.
+Long story short, a filterable method is created by encapsulating the main logic for a method inside a closure. That closure is then passed to `Filters::run()` to allow for chain management.
 
-Applying a custom filter to a filterable method is done by calling the `applyFilter()` method of the object. The first argument specifies the name of the method to filter, and the second argument is the closure that defines what you want the filter to do.
+Applying a custom filter to a filterable method is done by calling `Filters::apply()` with the appropriate information about the method. The first argument specifies the fully quallified class name, the second the name of the method to filter, and the third argument is the closure that defines what you want the filter to do.
 
 The following sections will illustrate a few examples that should help you understand how both to apply and create filters.
 
@@ -34,32 +39,32 @@ Since it's likely to be more common, let's tackle applying filters first. The lo
 Let's imagine for a moment that we're aiming to add a filter to a li3 application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
 
 ```php
+use lithium\aop\Filters;
 use lithium\action\Dispatcher;
 
-Dispatcher::applyFilter('run', function($self, $params, $chain) {
-	return $chain->next($self, $params, $chain);
+Filters::apply(Dispatcher::class, 'run', function($params, $next) {
+	return $next($params);	
 });
 ```
 
-This is the basic structure for applying a filter: call the apply `applyFilter()` method on the class or object in question, hand it the name of the method you'd like to filter, then a closure that implements your filter logic. Let's talk about the parameters involved in the closure:
+This is the basic structure for applying a filter: call `Filters::apply()` with information on the class or object in question, hand it the name of the method you'd like to filter, then a closure that implements your filter logic. 
 
-* `$self`: If the filter is applied on an object instance, then `$self` will be that instance. If applied to a static class, `$self` is a string containing the fully-namespaced class name.
+But let's talk about the parameters involved in the closure:
 
-* `$params`: Contains an associative array of the parameters that are passed into the method. You can modify or inspect these parameters before allowing the method to continue.
+_The first parameter_, `$params` gives you access to any parameters that original method implementation had access to. The bulk of your logic will often be in accessing or modifying what's in those parameters before allowing the filters chain advance and continue.
 
-* `$chain`: Finally, `$chain` is an instance of the `lithium\util\collection\Filters` class, and it contains the list of filters in line to be executed. The last item in `$chain` is the original method implementation itself (we'll look at this more later).
+_The second and last parameter_, `$next`, is important. It is a function supposed to be called with just `$params` as its only parameter. Once called, the next filter in line will be executed until it reaches the last item in the filter chain: the original method implementation itself. 
 
-The first parameter, `$self`, is present to allow you to use the other methods or properties on the object you're filtering.
-
-Next, `$params` gives you access to any parameters that original method implementation had access to. The bulk of your logic will often be in accessing or modifying what's in those parameters.
-
-The last parameter is important. You can see above that right now the closure returns the results of the logic next in line in the filter chain. Unless you want to short-circuit filter execution (which includes the base logic of the method you're filtering), you'll want to include this somewhere in your filter logic. The position this call has in your filter also might be important. For example, if you're creating a filter you want to have happen __after__ a certain method, your custom filter logic should follow the `next()` call rather than proceed it:
+Unless you want to short-circuit filter execution (which includes the base logic of the method you're filtering), you'll want to include this somewhere in your filter logic. The position this call has in your filter also might be important. For example, if you're creating a filter you want to have happen __after__ a certain method, your custom filter logic should follow the `next()` call rather than proceed it:
 
 ```php
-SomeClass::applyFilter('methodName', function($self, $params, $chain) {
-	$result = $chain->next($self, $params, $chain);
+use lithium\aop\Filters;
 
-	// Custom logic goes here.
+Filters::apply(SomeClass::class, 'methodName', function($params, $next) {
+	// Custom "before" logic goes here.
+	$result = $next($params); // if you don't call $next() the chain is short-circuited
+	// Custom "after" logic goes here.
+	return $result;
 });
 ```
 
@@ -70,12 +75,13 @@ When designing filters, it's important to have a clear understanding of the meth
 For this filter, we'll intercept the method after it finds a controller object (assuming it finds one), but before it returns it to `Dispatcher::run()`:
 
 ```php
+use lithium\aop\Filters;
 use lithium\action\Dispatcher;
 use lithium\action\Response;
 use lithium\security\Auth;
 
-Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
-	$ctrl    = $chain->next($self, $params, $chain);
+Filters::apply(Dispatcher::class, '_callable', function($params, $next) {
+	$ctrl    = $next($params);
 	$request = isset($params['request']) ? $params['request'] : null;
 	$action  = $params['params']['action'];
 
@@ -128,7 +134,7 @@ Although authentication is a very deep subject, through this example you should 
 
 One more example is common enough to cover: logging. When building a large application, it's handy to log SQL queries made against your data store. It helps in debugging and performance optimization. Let's cover building a quick filter around your data connection logic in order to log SQL statements to a file.
 
-The approach here requires a bit of understanding how li3's data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
+The approach here requires a bit of understanding how the data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
 ```php
 Connections::add('default', [
@@ -137,52 +143,43 @@ Connections::add('default', [
 	'host' => 'localhost',
 	'login' => 'myusername',
 	'password' => 'mypassword',
-	'database' => 'app_name'
+	'database' => 'appname'
 ]);
 ```
 
-What we need to do is get a reference to the instance of the actual connection object defined here so we can filter its methods. In this case, we'll use `Connections::get()` to get a reference to the actual adapter handling this connection. Since we've specified 'MySQL' as the adapter type, we'll get an instance of `lithium\data\source\database\adapter\MySql` when we call `Connections::get('default')`.
+Looking at the API of the data source adapters, we want to add logging to the `_execute()` method. Its only parameter is the SQL being executed, and that's exactly what we'll need for our filter logic.
 
-Looking at the API shows us that there's an `_execute()` method we can filter. It's only parameter is the SQL being executed, and that's exactly what we'll need for our filter logic. Here's one way this could look:
+The adapter classes are implemented as concrete classes. That's also why `Connections::get('default')` in the example below will give us an instance of the `MySql` class. Using that we can continue and filter just calls to that particular instance or using a different syntax in `Filters::apply()`, to filter *any* instance of that class.
 
 ```php
+use lithium\aop\Filters;
 use lithium\analysis\Logger;
 use lithium\data\Connections;
+use lithium\data\source\database\adapter\MySql;
 
 // Set up the logger configuration to use the file adapter.
 Logger::config([
 	'default' => ['adapter' => 'File']
 ]);
 
-// Filter the database adapter returned from the Connections object.
-Connections::get('default')->applyFilter('_execute', function($self, $params, $chain) {
+// Filter any instance of the MySql adapter (preferred):
+Filters::apply(MySql::class, '_execute', function($params, $next) {
 	// Hand the SQL in the params headed to _execute() to the logger:
-	Logger::debug(date("D M j G:i:s") . " " . $params['sql']);
+	Logger::debug(date('D M j G:i:s') . ' ' . $params['sql']);
 
 	// Always make sure to keep the filter chain going.
-	return $chain->next($self, $params, $chain);
+	return $next($params);
 });
-```
 
-## Applying Filters Lazily
-
-One issue that may arise when applying filters to static classes inside of bootstrap logic is triggering the autoloading of those classes. This consumes memory, as well as invoking any other processes which may be triggered when a class is loaded.
-
-For this reason, it is sometimes preferrable to apply filters to a class without direct invocation. The `Filters` class, which powers the filter system, includes an `apply` method that enables this.
-
-Using the fully-qualified name of the class to which you want to apply the filter, you may invoke `Filters::apply()`, which will store the filter until the method to which it is applied first executes:
-
-```php
-use lithium\util\collection\Filters;
-
-Filters::apply('blog\models\Posts', 'find', function($self, $params, $chain) {
-	// Filter logic is then written the same as it would be for non-lazy filters
+// Filter just that single instance:
+Filters::apply(Connections::get('default'), '_execute', function($params, $next) {
+	// ...
 });
 ```
 
 ## Creating Filter-able Logic
 
-If you're planning on creating and distributing your own code you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of the powerful li3 filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
+If you're planning on creating and distributing your own code you might consider writing parts of your API to be filter-able. This allows other developers to take advantage of our powerful filter system, while at the same time helping you avoid writing extra callback methods or configuration options in your code.
 
 Let's imagine for a bit that you're creating a social media integration extension for li3. The library will connect to popular social networking sites to post or gather information. Since you're offering this to other developers to use in their applications, it'd be nice to enable filtering on some of the logic.
 
@@ -204,11 +201,13 @@ class Twitter {
 }
 ```
 
-Here we've got a basic method implementation. Of note is the `$options` parameter: the li3 API is a big fan of keeping parameter counts small using options arrays. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
+Here we've got a basic method implementation. Of note is the `$options` parameter: the framework API is a big fan of keeping parameter counts small using options arrays. Coding to that same standard helps developers more quickly understand how to put things together. Here you can see a bit of prep work happen before the main logic of the method, mostly just in merging some default values into the supplied options.
 
-Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `$this->_filter()`, and returning the result of that call. Here's what it looks like:
+Once we've got the core logic in, adding the ability to filter it is relatively painless. What we end up doing is wrapping up the core implementation in a closure that we hand to `Filters::run()`, and returning the result of that call. Here's what it looks like:
 
 ```php
+use lithium\aop\Filters;
+
 class Twitter extends \lithium\core\Object {
 
 	public function tweet($status, $options) {
@@ -218,7 +217,7 @@ class Twitter extends \lithium\core\Object {
 
 		$params = compact('status', 'options');
 
-		return $this->_filter(__METHOD__, $params, function($self, $params) {
+		return Filters::run($this, __FUNCTION__, $params, function($params) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
 		});
@@ -226,11 +225,13 @@ class Twitter extends \lithium\core\Object {
 }
 ```
 
-The `filter()` method takes three arguments. The first is the name of the method, the second is an array of parameters the original method implementation takes. The last parameter is a closure containing the original method implementation. That's it! If you're doing something pretty simple - that's all you need to do. Note that in order to call `$this->_filter()`, the class must extend `lithium\core\Object` (or a subclass thereof).
+The `filter()` method takes four arguments. The first is the object instance (`$this`) or the class' name (`get_called_class()`), the second is the name of the method, the third is an array of parameters the original method implementation takes. The last parameter is a closure containing the original method implementation. That's it! If you're doing something pretty simple - that's all you need to do. 
 
 There are a few situations that make things a bit different. One example is if your method is accessed statically. Let's adjust our `tweet()` example to illustrate (note that the parent class also changes):
 
 ```php
+use lithium\aop\Filters;
+
 class Twitter extends \lithium\core\StaticObject {
 
 	public static function tweet($status, $options) {
@@ -240,7 +241,7 @@ class Twitter extends \lithium\core\StaticObject {
 
 		$params = compact('status', 'options');
 
-		return static::_filter(__FUNCTION__, $params, function($self, $params) {
+		return Filters::run(get_called_class(), __FUNCTION__, $params, function($params) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
 		});
@@ -248,7 +249,7 @@ class Twitter extends \lithium\core\StaticObject {
 }
 ```
 
-Mostly the same... just call `static::_filter()` instead of `$this->_filter()`.
+Mostly the same... 
 
 Another situation that makes things a bit tricky is if your main method implementation requires the use of properties or methods that would normally be out of scope once everything has been wrapped in a closure (i.e. private or protected members). For example, let's say our `tweet()` method logic makes use of a class called `OAuth` that's already a property of the `Twitter` class.
 
@@ -264,7 +265,7 @@ class Twitter extends \lithium\core\StaticObject {
 
 		$params = compact('status', 'options');
 
-		return static::_filter(__FUNCTION__, $params, function($self, $params) use ($auth) {
+		return Filters::run(get_called_class(), __FUNCTION__, $params, function($params) use ($auth) {
 			// Twitter connection and data transfer logic goes here...
 			return $result;
 		});
