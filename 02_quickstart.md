@@ -7,9 +7,9 @@ By the time you have finished this section you will have built a simple blogging
 
 ## Setting Up
 
-First things first: let's make sure our first project is installed and working. If you haven't already installed one then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
+First things first: let's make sure our first app is installed and working. If you haven't already installed one then check out the [installation guide](./installation) in this manual. Make sure to follow each of the steps in the guide carefully.
 
-After completing installation, you should be able to navigate your browser to the path that you installed your intitial project (e.g. `http://project.dev` or `http://127.0.0.1:8080`, the rest of this blog tutorial assumes you have installed it there) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
+After completing installation, you should be able to navigate your browser to the path that you installed your intitial app (e.g. `http://app.dev` or `http://127.0.0.1:8080`, the rest of this blog tutorial assumes you have installed it there) and it will display a page that starts like the snippet below. Note that some of the ticks and crosses may be different depending on what is set up on your system, but all of the boxes should be green or blue. If they aren't then please follow the instructions beneath them to fix the problem.
 
 ![Example initial li3 homepage](/assets/img/default_app_welcome.png "Example initial li3 homepage")
 
@@ -29,7 +29,7 @@ in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Dri
 
 Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://docs.mongodb.org/manual/tutorial/getting-started/) is a great place to get some help.
 
-Now that we have a database up and running and talking to PHP, let's tell li3 about it. Do this by editing `project/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
+Now that we have a database up and running and talking to PHP, let's tell li3 about it. Do this by editing `config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
 
 ```php
 // MongoDB Connection
@@ -42,7 +42,7 @@ Connections::add('default', [
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/config/bootstrap/connections.php` file for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `config/bootstrap/connections.php` file for more information.
 
 <div class="note note-hint">
 	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping">Bootstrapping Guide</a> for more detail on how to configure the framework.
@@ -54,7 +54,7 @@ Our application is now set up and talking to the MongoDB database server, so we 
 
 li3 uses the [MVC pattern](./architecture/mvc). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
 
-First, create a new file at `project/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
+First, create a new file at `models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
 ```php
 namespace app\models;
@@ -68,7 +68,7 @@ But wait, what? What about the schema setup? Actually, MongoDB doesn't require y
 
 ## In Control
 
-The controller setup is just as simple when getting started. Create a new file at `project/controllers/PostsController.php` and fill it with the following:
+The controller setup is just as simple when getting started. Create a new file at `controllers/PostsController.php` and fill it with the following:
 
 ```php
 namespace app\controllers;
@@ -101,13 +101,13 @@ return compact('lions', 'tigers', 'bears');
 
 Next, let's create a `View` that uses the dummy data from `PostsController::index()`.
 
-Start by creating a new file at `project/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
+Start by creating a new file at `views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
 ```
 li3 is less dense than <?= $foo ?>ium.
 ```
 
-Save this file, and now you can view the Posts index page by pointing your browser to `http://project.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing) of the manual.
+Save this file, and now you can view the Posts index page by pointing your browser to `http://app.dev/posts`. li3 handles the routing and dispatching behind the scenes. You can learn more about setting up custom routes in the [controller section](../controllers/routing) of the manual.
 
 What you're seeing used here in this view's code is also the default and preferred way to output data to an HTML page in li3. The short tags (`<?= ... ?>`) are automatically rewritten by li3 to escape the output and keep you safe from the legions of attacks based on unescaped output. This means that the view code you're seeing doesn't end up as short tags when it gets to PHP's parser, so don't worry about your PHP installation or short tag handling. If you really need it, there's also always `<?php echo ... ?>`.
 
@@ -133,7 +133,7 @@ class PostsController extends \lithium\action\Controller {
 
 Before you can use a model and its methods we must tell that we're planning to use the moodel class via the `use` statement. The statement needs to be added at the beginning of our `PostsController.php` file, but _after_ the namespace declaration.
 
-Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `project/views/posts/add.html.php`:
+Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `views/posts/add.html.php`:
 
 ```
 <?= $this->form->create($post) ?>
@@ -145,7 +145,7 @@ Currently - inside the action - we just create an empty post object and pass it 
 
 This view code sets up a simple HTML form, using the `Form` helper. Don't stress the details of what the helper is doing at this point - what it outputs is most important for now.
 
-When we call `$this->form->create()` we pass the currently empty post object as the first argument. This binds the post to the form we're about to create and allows the `Form` helper to _know_ about the post schema. Note that we don't include an `url` parameter when creating the form. li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `http://project.dev/posts/add`, just as we need.
+When we call `$this->form->create()` we pass the currently empty post object as the first argument. This binds the post to the form we're about to create and allows the `Form` helper to _know_ about the post schema. Note that we don't include an `url` parameter when creating the form. li3 assumes you mean the controller method that corresponds to the name of the view (in this case `add()`) and want to use POST. This is another example of how li3 defaults to the most common case so that your code can be as concise and expressive as possible - in this case, it's pointed to `http://app.dev/posts/add`, just as we need.
 
 Let's move back to the controller, and handle the data the HTML form is sending us. Here's what our `add()` action should now look like:
 
@@ -244,5 +244,5 @@ At this point, our index view should be aware of the `$posts` `Document` object.
 <?php endforeach ?>
 ```
 
-As you can see, `Posts` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `http://project.dev/posts` to see the output.
+As you can see, `Posts` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `http://app.dev/posts` to see the output.
 

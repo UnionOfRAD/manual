@@ -50,7 +50,7 @@ Connections::add('couch', [
     'type' => 'http', 'adapter' => 'CouchDb', 'host' => '127.0.0.1', 'port' => 5984
 ]);
 
-Connections::add('mongo', ['type' => 'MongoDb', 'database' => 'project']);
+Connections::add('mongo', ['type' => 'MongoDb', 'database' => 'app']);
 ```
 
 The particulars on the adapter will shape how the connection definition is put together, but this list should constitute what you've got in `connections.php`.

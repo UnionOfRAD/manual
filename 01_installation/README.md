@@ -1,17 +1,17 @@
 # Installation
 
-## Starting a New Project
+## Starting a New Application
 
-The best way to start a *project* is to base it on a already available project *distribution*. There are distributions for general web projects or for projects that require an micro-framework style approach.
+The best way to start a *app* is to base it on a already available application *distribution*. There are distributions for general web apps or for apps that require an micro-framework style approach.
 Distributions come with a predefined app [file structure](../architecture/file-structure), some boilerplate code and the bundled core library.
 
-We'll base our new project off the officially supported [standard distribution](https://github.com/UnionOfRAD/framework).
+We'll base our new app off the officially supported [standard distribution](https://github.com/UnionOfRAD/framework).
 
-For the start we'll use [composer](https://getcomposer.org/) to create our project in
-the current directory as `project`.
+For the start we'll use [composer](https://getcomposer.org/) to create our application in
+the current directory as `app`.
 
 ```bash
-composer create-project --prefer-dist unionofrad/framework project
+composer create-project --prefer-dist unionofrad/framework app
 ```
 
 ## Pedal to the Metal
@@ -26,13 +26,13 @@ already compiled templates or logs. The webserver user must be able to write to 
 
 ### Starting the Webserver
 
-Make sure you are in the root of the project. Now start PHP's builtin webserver using the following command. Your project is then being served at 127.0.0.1 on port 8080.
+Make sure you are in the root of the app. Now start PHP's builtin webserver using the following command. Your app is then being served at 127.0.0.1 on port 8080.
 
 ```bash
 php -S 127.0.0.1:8080 -t webroot index.php
 ```
 
-Finally, pull up the project in your browser and visit [`http://127.0.0.1:8080`](http://127.0.0.1:8080).
+Finally, pull up the app in your browser and visit [`http://127.0.0.1:8080`](http://127.0.0.1:8080).
 At this point, you should be presented with the default home page. **You're up and running!**
 
 
@@ -43,9 +43,9 @@ the framework and core library. In some cases, it may be desirable to update bot
 latest available revision, which may not have been tagged yet.
 
 ```bash
-composer create-project -s dev unionofrad/framework project
+composer create-project -s dev unionofrad/framework app
 
-cd project
+cd app
 git checkout 1.0
 
 cd libraries/lithium

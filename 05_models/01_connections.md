@@ -32,14 +32,14 @@ A quick look at the examples in the default `connections.php` file illustrate th
 Connections::add('default', [
 	'type' => 'MongoDb',
 	'host' => 'localhost',
-	'database' => 'project'
+	'database' => 'app'
 ]);
 
 Connections::add('default', [
 	'type' => 'http',
 	'adapter' => 'CouchDb',
 	'host' => 'localhost',
-	'database' => 'project'
+	'database' => 'app'
 ]);
 
 Connections::add('default', [
@@ -48,7 +48,7 @@ Connections::add('default', [
 	'host' => 'localhost',
 	'login' => 'root',
 	'password' => '',
-	'database' => 'project',
+	'database' => 'app',
 	'encoding' => 'UTF-8'
 ]);
 ```

@@ -19,17 +19,17 @@ By default, these files can be utilized by finding all references to `AllowOverr
 </Directory>
 ```
 
-Once you've made sure `AllowOverride` has been set correctly, you can toss a project in your `DocumentRoot`. Using the past example, placing the project in `/Library/WebServer/Documents/project` would allow you to access your application at `http://localhost/project`.
+Once you've made sure `AllowOverride` has been set correctly, you can toss an application in your `DocumentRoot`. Using the past example, placing the application in `/Library/WebServer/Documents/app` would allow you to access your application at `http://localhost/app`.
 
-**In production**, it is recommended that you set `AllowOverride` to `None` and instead, create a `<VirtualHost />` configuration pointed at your application's `webroot` directory, which contains the rewrite rules. For example, if your application is located in `/var/www/html/project`, your configuration would resemble the following:
+**In production**, it is recommended that you set `AllowOverride` to `None` and instead, create a `<VirtualHost />` configuration pointed at your application's `webroot` directory, which contains the rewrite rules. For example, if your application is located in `/var/www/html/app`, your configuration would resemble the following:
 
 ```apache
 <VirtualHost *:80>
 	ServerName example.com
-	DocumentRoot "/var/www/html/project/webroot"
+	DocumentRoot "/var/www/html/app/webroot"
 	ErrorLog "logs/error_log"
 
-	<Directory "/var/www/html/project/webroot">
+	<Directory "/var/www/html/app/webroot">
 		RewriteEngine On
 		RewriteCond %{REQUEST_FILENAME} !-d
 		RewriteCond %{REQUEST_FILENAME} !-f
@@ -51,7 +51,7 @@ The following example file is typically stored at `/etc/nginx/sites-available/ex
 server {
 	listen 80;
 	server_name example.org;
-	root /path/to/project/webroot;
+	root /path/to/app/webroot;
 	
 	index index.php;
 	try_files $uri $uri/ /index.php?$args;	
@@ -93,7 +93,7 @@ Next, follow the setup instructions for [PHP on IIS](http://php.iis.net/) for ei
 Setup a site by right clicking "Sites" and click "Add Web Site"
 
 1. Enter your website name.
-2. Enter the physical path to your application's webroot directory (_\path\to\project\webroot_).
+2. Enter the physical path to your application's webroot directory (_\path\to\app\webroot_).
 3. _Optional:_ If your content is in your home directory, click "Connect As" and click "Specific User". From there enter your Windows login details, as this will allow IIS to have proper access to the application.
 4. Enter the desired port.
 5. Click "OK".
@@ -103,7 +103,7 @@ Setup a site by right clicking "Sites" and click "Add Web Site"
 1. Locate your site in the "Sites" tree and click it.
 2. Locate the URL Rewrite icon from the extension installed earlier.
 3. On the right hand side under "Inbound Rules" click "Import Rules"
-4. Click the ellipsis (...) next to the field box and locate the `.htaccess` file within your `\path\to\project\webroot\` directory and select it.
+4. Click the ellipsis (...) next to the field box and locate the `.htaccess` file within your `\path\to\app\webroot\` directory and select it.
 5. Click "Import".
 6. On the right hand side, click "Apply".
 
@@ -176,7 +176,7 @@ Finally, in your `lighttpd.conf`, add the following conditional:
 
 ```lighty
 	$HTTP["host"] =~ "lithium.local" {
-		server.document-root = "/path/to/project/webroot/"
+		server.document-root = "/path/to/app/webroot/"
 		magnet.attract-physical-path-to = ( "/path/to/li3.lua" )
 	}
 ```
@@ -193,9 +193,9 @@ Restart your lighttpd process, and you're done!
 
 Caddy is a new HTTP/2 web server with automatic HTTPS written in Go. It is pretty fast and easy to learn. You can get a quick start reading the [Getting Started](https://caddyserver.com/docs/getting-started) chapter from the [documentation](https://caddyserver.com/docs).
 
-To make use of Caddy and be able to start the Caddy Server with the command `caddy` there has to be a Caddyfile present. This file resides in the root directory of the project.
+To make use of Caddy and be able to start the Caddy Server with the command `caddy` there has to be a Caddyfile present. This file resides in the root directory of the application.
 
-The following example file is typically stored at `/path/to/project` with the name `Caddyfile`.
+The following example file is typically stored at `/path/to/app` with the name `Caddyfile`.
 
 ```nginx
 localhost:2020

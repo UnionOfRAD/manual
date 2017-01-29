@@ -128,7 +128,7 @@ class SessionsController extends \lithium\action\Controller {
 
 The rest of the code necessary to implement user authentication is covered in another chapter, but take special note of the `$publicActions` property in the controller. Without this, the `add()` action would be treated as private, resulting in an infinite redirect loop.
 
-Although authentication is a very deep subject, through this example you should be able to see how, whatever your project's rules and constraints are, integrating into your application should be straightforward, and most importantly, unobtrusive.
+Although authentication is a very deep subject, through this example you should be able to see how, whatever your app's rules and constraints are, integrating into your application should be straightforward, and most importantly, unobtrusive.
 
 ## Applying Filters: Logging
 

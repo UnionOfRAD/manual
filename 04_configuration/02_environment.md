@@ -22,7 +22,7 @@ To customize this behavior, use the `Environment::is()` method inside a bootstra
 Environment::is(function($request){
   $host = $request->env('HTTP_HOST');
   
-  if ($host == 'project.local' || $host == 'localhost') {
+  if ($host == 'app.local' || $host == 'localhost') {
     return 'development';
   }
   if (preg_match('/^qa/', $host)) {
