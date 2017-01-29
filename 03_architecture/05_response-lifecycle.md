@@ -4,7 +4,7 @@ When building an application with li3, it's important to understand how a typica
 
 ## Initial Request and Bootstrapping
 
-While a li3 application can be configured a number of different ways, the safest is by pointing your web server to the `/app/webroot` folder inside the application. It can be pointed at the root directory of the application, but either way, the request is forwarded on until `/app/webroot/index.php` handles it.
+While a li3 application can be configured a number of different ways, the safest is by pointing your web server to the `webroot` folder inside the application. It can be pointed at the root directory of the application, but either way, the request is forwarded on until `webroot/index.php` handles it.
 
 This directory index file does two things: first, it loads up li3's main bootstrap file (and any related bootstrap files therein). Second, it instantiates the dispatcher, and hands its `run()` method a new `Request` object. The `Request` object aggregates all the GET / POST / environment data, and is the canonical source of any of that information throughout the life of the request.
 

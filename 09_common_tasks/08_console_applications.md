@@ -20,11 +20,11 @@ PATH=$PATH:/usr/local/lithium/console
 
 # Creating a new Command
 
-User-defined commands are located in `/app/extensions/command/` by
+User-defined commands are located in `extensions/command` by
 default. Let's create a simple application that list the repositories of
 a given organization.
 
-First, create the new file at `/app/extensions/command/Repos.php`. This
+First, create the new file at `extensions/command/Repos.php`. This
 is what we'll start with:
 
 ```php

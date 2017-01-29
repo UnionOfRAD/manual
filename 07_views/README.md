@@ -2,10 +2,10 @@
 
 As one of the three pillars of the Model-View-Controller design pattern, the `View` class (along with other supporting classes) is responsible for taking the data passed from the request and/or controller, inserting this into the requested template/layout, and then returning the fully rendered content.
 
-Unless otherwise specified, each controller action method results in a rendered view (usually as HTML). View names and locations are determined by convention, according the controller and action names involved. The basic pattern is that views are organized inside `app/views/{controller name}`, with each template named `{action name}.{media}.php`. For example:
+Unless otherwise specified, each controller action method results in a rendered view (usually as HTML). View names and locations are determined by convention, according the controller and action names involved. The basic pattern is that views are organized inside `views/{controller name}`, with each template named `{action name}.{media}.php`. For example:
 
- * `UsersController::login()` --> `/app/views/users/login.html.php`
- * `NewsItemsController::viewAll()` --> `/app/views/news_items/view_all.html.php`
+ * `UsersController::login()` --> `views/users/login.html.php`
+ * `NewsItemsController::viewAll()` --> `views/news_items/view_all.html.php`
 
 ## Accessing View Variables
 
@@ -75,12 +75,12 @@ This is an important consideration when accessing properties and methods from th
 
 ## Layouts & Elements
 
-Because different components of the view layer are often reused, li3 includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views. Unless otherwise configured, elements are defined in `app/views/elements`.
+Because different components of the view layer are often reused, li3 includes the common functionality of wrapping view templates inside of layouts and including small, re-usable view components called 'elements' inside of views. Unless otherwise configured, elements are defined in `views/elements`.
 
 `$this->_render()` is used within the views to include elements. Any variables passed from the controller to the parent view are also available in the element.  The third argument of `$this->_render()` can be used to pass additional variables.
 
 ```php
-// renders app/views/elements/nav.html.php
+// renders views/elements/nav.html.php
 echo $this->_render('element', 'nav');
 
 // pass additional variables to the element
@@ -91,7 +91,7 @@ echo $this->_render('element', 'nav', [
 ]);
 ```
 
-Layouts contain the header and footer of a rendered view, and are defined in `app/views/layouts`. Unless otherwise directed, li3 will wrap a view's template with the layout defined in `app/views/layouts/default.{type}.php`.
+Layouts contain the header and footer of a rendered view, and are defined in `views/layouts`. Unless otherwise directed, li3 will wrap a view's template with the layout defined in `views/layouts/default.{type}.php`.
 
 ```php
 namespace app\controllers;
@@ -109,7 +109,7 @@ class MyController extends \lithium\action\Controller {
 
   /**
    * This action uses another layout which is located
-   * at `app/views/layouts/anotherLayout.html.php` by default.
+   * at `views/layouts/anotherLayout.html.php` by default.
    * @return array
    */
   public function someAction() {

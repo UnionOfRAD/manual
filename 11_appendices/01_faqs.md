@@ -84,5 +84,9 @@ Not all dependencies are configured this way, but it is the predominant conventi
 
 ### Why are there 'libraries' folder in both the root directory and the app directory?
 
-Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the `/app/libraries` directory. Other libraries are shared by one or more apps. The `/libraries` directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the `/app/libraries` directories for multiple applications.
+<div class="note note-version">
+	More recent distributions don't have 2 libraries folders anymore.
+</div>
+
+Some libraries are used by a single app or on an app-by-app basis. These apps store libraries in the `app/libraries` directory. Other libraries are shared by one or more apps. The `libraries` directory is provided to make administration of these libraries easier. There is also a (typically negligible) disk space savings as any given library isn't duplicated in the `app/libraries` directories for multiple applications.
 

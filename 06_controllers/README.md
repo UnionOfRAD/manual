@@ -6,9 +6,9 @@ This guide is meant to introduce you to li3 controllers: their features, behavio
 
 ## Controller Actions
 
-li3 controllers reside inside the `/app/controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
+li3 controllers reside inside the `controllers` directory and extend the `lithium\action\Controller` core class. Let's start by creating a simple controller inside of an application. Controllers are often named after the objects they manage. This way the URL and model line up as well, and it's easy to know where certain bits of logic should live.
 
-For example, let's create a new controller UsersController. Let's create a new file in `/app/controllers/UsersController.php` that looks like this:
+For example, let's create a new controller UsersController. Let's create a new file in `controllers/UsersController.php` that looks like this:
 
 ```php
 namespace app\controllers;
@@ -106,7 +106,7 @@ Error handling in li3 is done using the core ErrorHandler class. `ErrorHandler` 
 
 Let's start by creating a way to handle page not found-like errors. If a request can't be routed properly, the li3 dispatcher will throw an exception to let you know that a controller or view can't be found. Though the example here will be specific to this case, it should provide a mental framework that will allow you to understand how to catch errors and exceptions, and handle them accordingly.
 
-Start by creating a new bootstrap file in /app/config/bootstrap/error.php:
+Start by creating a new bootstrap file in config/bootstrap/error.php:
 
 ```php
 use lithium\core\ErrorHandler;

@@ -8,11 +8,11 @@ Since the unit testing framework is built into li3, you might already have it up
 
 The li3 Unit Test Dashboard is where you'll be able to view test cases, run unit tests, and view reports. Initially, you'll only be seeing li3's core tests. Soon enough, however, you'll be managing your own application's unit testing setup.
 
-All of your application's unit tests will reside in `/app/tests/`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
+All of your application's unit tests will reside in `tests`. There are three main test folders you'll need to be using: `cases`, `integration`, and `mocks`. The `cases` folder holds unit tests for single classes, `integration` holds test cases that span two or more classes, and `mocks` is used to create fake data for use during testing.
 
 ## Test Cases
 
-The `cases` folder is used to house all the core logic for your unit tests. If you take a peek inside `/app/tests/cases`, you'll see that you already have three folders used to organize your application's unit tests. This folder structure dictates the namespace for each unit test class, and should generally mirror your application's class/namespace structure.
+The `cases` folder is used to house all the core logic for your unit tests. If you take a peek inside `tests/cases`, you'll see that you already have three folders used to organize your application's unit tests. This folder structure dictates the namespace for each unit test class, and should generally mirror your application's class/namespace structure.
 
 Let's start out by creating a simple test case as a working example. Our first working example will be a model unit test. Let's start by creating one using the `li3 create` console command.
 
@@ -138,7 +138,7 @@ Mocks are used in place of actual sources of information. You can create a mock 
 
 Let's create a MockPosts that returns test data we can use to run through our `isGoodTitle()` method. One easy way to do that is to create a new class that just returns a RecordSet (in the case of an SQL database) or a Document (in the case of a document database) collection.
 
-Start by creating a new file in `app/tests/mocks/data/MockPosts.php`:
+Start by creating a new file in `tests/mocks/data/MockPosts.php`:
 
 ```php
 <?php

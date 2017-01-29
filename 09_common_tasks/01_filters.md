@@ -36,7 +36,7 @@ The following sections will illustrate a few examples that should help you under
 
 Since it's likely to be more common, let's tackle applying filters first. The location of the filter application might depend some on what it is you're filtering, but bootstrap files are often a good choice.
 
-Let's imagine for a moment that we're aiming to add a filter to a li3 application that checks for authenticated users. Let's start with a basic filter setup, and place it in `app/bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
+Let's imagine for a moment that we're aiming to add a filter to a li3 application that checks for authenticated users. Let's start with a basic filter setup, and place it in `bootstrap/session.php` (if you look at `session.php`, you'll notice there's already some configuration for defining session storage and authentication). The thinking here is that we want to inject a bit of authentication verification logic as the dispatcher receives each request. Since `Dispatcher::run()` is filterable, we'll apply the filter to it:
 
 ```php
 use lithium\aop\Filters;
@@ -134,7 +134,7 @@ Although authentication is a very deep subject, through this example you should 
 
 One more example is common enough to cover: logging. When building a large application, it's handy to log SQL queries made against your data store. It helps in debugging and performance optimization. Let's cover building a quick filter around your data connection logic in order to log SQL statements to a file.
 
-The approach here requires a bit of understanding how the data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `app/config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
+The approach here requires a bit of understanding how the data layer works. In the setup of your application, you've probably created new database (or other datasource) connections in `config/bootstrap/connections.php`. Here's what a simple connection to a MySQL database might look like:
 
 ```php
 Connections::add('default', [

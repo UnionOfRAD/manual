@@ -173,8 +173,8 @@ return ['the artists' => 'die Künstler'];
 Nearly all adapters require a path to a directory containing globalized data. Data is conventionally stored in the following default locations:
 
 - `libraries/lithium/g11n/resources[/{php,po}]`
-- `app/resources/g11n[/{php,po}]`
-- `app/plugins/PLUGIN/resources/g11n[/{php,po}]`
+- `resources/g11n[/{php,po}]`
+- `plugins/PLUGIN/resources/g11n[/{php,po}]`
 
 Data can either be stored directly below `resources/g11n` or in a subdirectory. If data is stored in a subdirectory, adapters expect a `php` subdirectory to contain data for usage with the PHP adapter and `po` to contain files for usage with the gettext adapter.
 

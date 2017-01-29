@@ -26,10 +26,10 @@ Once you've made sure `AllowOverride` has been set correctly, you can toss a pro
 ```apache
 <VirtualHost *:80>
 	ServerName example.com
-	DocumentRoot "/var/www/html/project/app/webroot"
+	DocumentRoot "/var/www/html/project/webroot"
 	ErrorLog "logs/error_log"
 
-	<Directory "/var/www/html/project/app/webroot">
+	<Directory "/var/www/html/project/webroot">
 		RewriteEngine On
 		RewriteCond %{REQUEST_FILENAME} !-d
 		RewriteCond %{REQUEST_FILENAME} !-f
@@ -51,7 +51,7 @@ The following example file is typically stored at `/etc/nginx/sites-available/ex
 server {
 	listen 80;
 	server_name example.org;
-	root /path/to/project/app/webroot;
+	root /path/to/project/webroot;
 	
 	index index.php;
 	try_files $uri $uri/ /index.php?$args;	
@@ -93,8 +93,8 @@ Next, follow the setup instructions for [PHP on IIS](http://php.iis.net/) for ei
 Setup a site by right clicking "Sites" and click "Add Web Site"
 
 1. Enter your website name.
-2. Enter the physical path to your application's webroot directory (_\path\to\lithium\app\webroot_).
-3. _Optional:_ If your content is in your home directory, click "Connect As" and click "Specific User". From therec enter your Windows login details, as this will allow IIS to have proper access to the application.
+2. Enter the physical path to your application's webroot directory (_\path\to\project\webroot_).
+3. _Optional:_ If your content is in your home directory, click "Connect As" and click "Specific User". From there enter your Windows login details, as this will allow IIS to have proper access to the application.
 4. Enter the desired port.
 5. Click "OK".
 
@@ -103,7 +103,7 @@ Setup a site by right clicking "Sites" and click "Add Web Site"
 1. Locate your site in the "Sites" tree and click it.
 2. Locate the URL Rewrite icon from the extension installed earlier.
 3. On the right hand side under "Inbound Rules" click "Import Rules"
-4. Click the ellipsis (...) next to the field box and locate the `.htaccess` file within your `\path\to\lithium\app\webroot\` directory and select it.
+4. Click the ellipsis (...) next to the field box and locate the `.htaccess` file within your `\path\to\project\webroot\` directory and select it.
 5. Click "Import".
 6. On the right hand side, click "Apply".
 
@@ -176,7 +176,7 @@ Finally, in your `lighttpd.conf`, add the following conditional:
 
 ```lighty
 	$HTTP["host"] =~ "lithium.local" {
-		server.document-root = "/path/to/your/app/webroot/"
+		server.document-root = "/path/to/project/webroot/"
 		magnet.attract-physical-path-to = ( "/path/to/li3.lua" )
 	}
 ```
@@ -195,18 +195,18 @@ Caddy is a new HTTP/2 web server with automatic HTTPS written in Go. It is prett
 
 To make use of Caddy and be able to start the Caddy Server with the command `caddy` there has to be a Caddyfile present. This file resides in the root directory of the project.
 
-The following example file is typically stored at `/path/to/framework` with the name `Caddyfile`.
+The following example file is typically stored at `/path/to/project` with the name `Caddyfile`.
 
 ```nginx
 localhost:2020
 
 gzip
 
-root app/webroot
+root webroot
 fastcgi / localhost:9000 php
 
-log app/resources/tmp/logs/access.log
-errors app/resources/tmp/logs/error.log
+log resources/tmp/logs/access.log
+errors resources/tmp/logs/error.log
 
 rewrite / {
 	if {file} not favicon.ico

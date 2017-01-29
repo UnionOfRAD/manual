@@ -21,7 +21,7 @@ webservers in production can be found on the [Web-Servers](web-servers) page.
 
 ### Permissions
 
-The framework will need write access to the `app/resources/tmp` as it used to store cached versions of
+The framework will need write access to the `resources/tmp` as it used to store cached versions of
 already compiled templates or logs. The webserver user must be able to write to this directory.
 
 ### Starting the Webserver
@@ -29,7 +29,7 @@ already compiled templates or logs. The webserver user must be able to write to 
 Make sure you are in the root of the project. Now start PHP's builtin webserver using the following command. Your project is then being served at 127.0.0.1 on port 8080.
 
 ```bash
-php -S 127.0.0.1:8080 -t app/webroot index.php
+php -S 127.0.0.1:8080 -t webroot index.php
 ```
 
 Finally, pull up the project in your browser and visit [`http://127.0.0.1:8080`](http://127.0.0.1:8080).

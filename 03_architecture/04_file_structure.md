@@ -85,7 +85,7 @@ Custom application adapters should be placed in this folder, organized by subfol
 
 Custom console applications are placed in `command`.  Commands you create should be built similar to those you see in `/lithium/console/command`.
 
-As an example, say I created a custom mailer queue, and I need to create a command to fill up the queue with announcement emails and trigger the send process. I'd create a new class called `QueueFiller` that extends `lithium\console\Command`, and place it in `app/extensions/command/QueueFiller.php`.
+As an example, say I created a custom mailer queue, and I need to create a command to fill up the queue with announcement emails and trigger the send process. I'd create a new class called `QueueFiller` that extends `lithium\console\Command`, and place it in `extensions/command/QueueFiller.php`.
 
 Once there, running `li3 queue-filler` from the command line will trigger the logic I've written.
 

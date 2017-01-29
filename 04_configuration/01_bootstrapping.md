@@ -1,8 +1,8 @@
 # Bootstrapping
 
-Configuration in li3 is meant to be minimal and easy to understand. As such, it's based on a simple set of PHP files that are included as needed. The main boostrap file is `app/config/bootstrap.php` and houses all of the configuration for your application. While there might be a tendency to add bits of configuration to this file, realize it's really only meant as a switchhouse for other configuration details.
+Configuration in li3 is meant to be minimal and easy to understand. As such, it's based on a simple set of PHP files that are included as needed. The main boostrap file is `config/bootstrap.php` and houses all of the configuration for your application. While there might be a tendency to add bits of configuration to this file, realize it's really only meant as a switchhouse for other configuration details.
 
-The core configuration sets are either actively required from this main file, or commented out (because we like to run lean by default). Before creating new files, peruse the configurations in `app/config/bootstrap`, as many commonly used mechanisms (caching, sessions, globalization) already have configuration examples in this folder. 
+The core configuration sets are either actively required from this main file, or commented out (because we like to run lean by default). Before creating new files, peruse the configurations in `config/bootstrap`, as many commonly used mechanisms (caching, sessions, globalization) already have configuration examples in this folder. 
 
 While we've included a lot of examples to get you started, feel free to add new files to the `boostrap` directory and require them from the main `bootstrap.php` file. If you're working in the cloud or interacting with a specific set of APIs or just need a place to keep a few global constants, those configurations are well-placed in this organization scheme.
 
@@ -32,13 +32,13 @@ All globalization configuration happens here. Timezone, current locale, catalog 
 
 ### Libraries
 
-Every collection of classes located in a single base directory is handled as a _library_ in li3. With the exception of the primary library (initially called "app"), these packages of code are usually found in `/libraries` or `app/libraries` and are managed, listed, and enabled here.
+Every collection of classes located in a single base directory is handled as a _library_ in li3. With the exception of the primary library (initially called "app"), these packages of code are usually found in `libraries` and are managed, listed, and enabled here.
 
 The first part of this configuration file sets up the main path components the rest of li3 will base itself from. Unless you're doing some customization, you can probably leave this as-is. It actually keeps things running a bit faster than they would otherwise. 
 
 At the bottom of the file, however, you'll see the main components of the appliation being registered by the `Libraries::add()` method. Note that the "app" library, including li3 itself are handled just like any other third-party addon or plugin.
 
-This manual is also a library: enabled by downloading the codebase to `/libraries` (or `app/libraries`) and adding this to `libraries.php`:
+This manual is also a library: enabled by downloading the codebase to `libraries` and adding this to `libraries.php`:
 
 ```php
 Libraries::add('manual');

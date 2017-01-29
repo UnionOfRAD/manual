@@ -2,7 +2,7 @@
 
 Connection configuration is the first place you need to start when working with models. li3 supports a number of different relational and non-relational databases, and each is defined through the connection configuration.
 
-Connections are configured in the core bootstrap file `app/config/bootstrap/connections.php`. The `Connections::add()` method is used in this file to make different connections available to your models. 
+Connections are configured in the core bootstrap file `config/bootstrap/connections.php`. The `Connections::add()` method is used in this file to make different connections available to your models. 
 
 Each connection is made up of two parts: the first part is the name that identifies the connection. This must be unique, and can be used to fetch connection details and configure models. If you create a connection named "default", your models will use it unless configured otherwise.
 

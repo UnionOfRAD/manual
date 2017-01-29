@@ -8,7 +8,7 @@ Since different components of the view layer are often reused, li3 includes the 
 - single post items
 - widgets i.e. upcoming events, blogroll.
 
-Unless otherwise configured, elements are defined in `app/views/elements`. Inside this folder, the files you define will be tailored to display the output for your chosen element.  As an example, the code below defines a product element.  The file name is `app/views/elements/product.html.php`.
+Unless otherwise configured, elements are defined in `views/elements`. Inside this folder, the files you define will be tailored to display the output for your chosen element.  As an example, the code below defines a product element.  The file name is `views/elements/product.html.php`.
 
 ```html
 <article class="product">

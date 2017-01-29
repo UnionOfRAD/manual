@@ -18,7 +18,7 @@ Remember, you can use helpers anywhere in the view layer: inside layouts, view t
 
 ## Creating Your Own Helpers
 
-To create a custom helper, create a class in the `app/extensions/helper/` directory that extends li3's base `Helper` class. As a simple example, let's create a simple helper that creates a special sort of link by creating a new file in `app/extensions/helper/AwesomeHtml.php`:
+To create a custom helper, create a class in the `extensions/helper/` directory that extends li3's base `Helper` class. As a simple example, let's create a simple helper that creates a special sort of link by creating a new file in `extensions/helper/AwesomeHtml.php`:
 
 ```php
 namespace app\extensions\helper;
@@ -65,7 +65,7 @@ Once this has been setup, we can use the new helper as we would any of the core 
 
 ## Extending (and replacing) Core Helpers
 
-li3 gives preference to your classes over the core. If you want to create your own version of the core helpers, it's as easy as creating a new class inside the `app/extensions/helper` directory with the same name.
+li3 gives preference to your classes over the core. If you want to create your own version of the core helpers, it's as easy as creating a new class inside the `extensions/helper` directory with the same name.
 
 For example, we can replace li3's core `Html` helper class with our newly created helper class by renaming the class and filename to 'Html' rather than 'AwesomeHtml'. Doing this also allows you to leave your templates untouched: calls to `$this->html` will reference your helper automatically.
 

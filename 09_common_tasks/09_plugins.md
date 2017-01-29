@@ -34,4 +34,4 @@ As mentioned above, your plugin can also include custom routing and web assets. 
 
 Likewise with static assets, such as JavaScript, images and CSS files, they are loaded from plugins using a filter which can be found in `config/bootstrap/media.php`. By default, this is commented out in the bootstrap of the primary application, so it should first be enabled. Then, assets can be loaded from the `webroot` directory of the plugin (this directory can be overridden by passing a custom value to the `'webroot'` key in `Libraries::add()`).
 
-While this works simply in development, the performance is not as good as direct filesystem access. In production, it's better to create a symlink from `libraries/plugin_name/webroot` to `main_app/webroot/plugin_name`.
+While this works simply in development, the performance is not as good as direct filesystem access. In production, it's better to create a symlink from `libraries/plugin_name/webroot` to `webroot/plugin_name`.

@@ -24,7 +24,7 @@ Read the section below on how to _create a model_ first, then continue with a qu
 
 li3 provides you with a general-purpose class that all your models should extend. You can find the `Model` class in the `lithium\data` namespace. If you do nothing more than extend it, you instantly get a bunch of functionality that covers basic CRUD as well as more complex tasks.
 
-Let's say you want to store and manage blog posts in your database. According to our conventions, you create a new file called `Posts.php` in `app/models`. The basic structure looks like this:
+Let's say you want to store and manage blog posts in your database. According to our conventions, you create a new file called `Posts.php` in `models`. The basic structure looks like this:
 
 ```
 namespace app\models;

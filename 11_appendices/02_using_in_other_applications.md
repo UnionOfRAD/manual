@@ -15,7 +15,7 @@ lithium\core\Libraries::add('lithium');
 
 ## Integrating with CakePHP
 
-CakePHP provides a convenient place to add this configuration: `app/config/bootstrap.php`.  Additionally, if you'd like to intermingle li3 classes (models and controllers) with their CakePHP counterparts, you can add the following (again, to `bootstrap.php`):
+CakePHP provides a convenient place to add this configuration: `config/bootstrap.php`.  Additionally, if you'd like to intermingle li3 classes (models and controllers) with their CakePHP counterparts, you can add the following (again, to `bootstrap.php`):
 
 ```php
 define("LITHIUM_APP_PATH", dirname(__DIR__));

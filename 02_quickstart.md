@@ -29,7 +29,7 @@ in the [official MongoDB manual](http://docs.mongodb.org/manual/) under [PHP Dri
 
 Now, if you refresh the browser page for your installation, you should see a green tick by MongoDB like in the image above. If you  still have a cross or run into any other problems along the way, MongoDB's [Getting Started guide](http://docs.mongodb.org/manual/tutorial/getting-started/) is a great place to get some help.
 
-Now that we have a database up and running and talking to PHP, let's tell li3 about it. Do this by editing `project/app/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
+Now that we have a database up and running and talking to PHP, let's tell li3 about it. Do this by editing `project/config/bootstrap/connections.php`. First, remove any connections that exist in the file, then add a new connection for our blog:
 
 ```php
 // MongoDB Connection
@@ -42,7 +42,7 @@ Connections::add('default', [
 
 The first parameter just names the connection something that can be read by people. li3 also automatically uses the `'default'` connection elsewhere in our code unless otherwise specified.
 
-The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/app/bootstrap/connections.php` file for more information.
+The second array-type parameter is used to specify the connection. In this example, we're specifying a connection with `'type'` `'MongoDb'` for a database called `'blog'` on the `'localhost'` MongoDB server. These parameters can be specified in a number of different ways - see the `project/config/bootstrap/connections.php` file for more information.
 
 <div class="note note-hint">
 	Editing bootstrap files like this is a common way of configuring li3. See the <a href="./configuration/bootstrapping">Bootstrapping Guide</a> for more detail on how to configure the framework.
@@ -54,7 +54,7 @@ Our application is now set up and talking to the MongoDB database server, so we 
 
 li3 uses the [MVC pattern](./architecture/mvc). If you're not familiar with using this pattern in web development you'll want to read up on it later, but for now let's create your first model, a `Posts` model that will handle the domain logic for blog posts.
 
-First, create a new file at `project/app/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
+First, create a new file at `project/models/Posts.php`. If you name your files and structure your code according to li3's conventions, the core library code will automatically do the heavy (and monotonous) lifting. This means that the model file itself is short and simple.
 
 ```php
 namespace app\models;
@@ -68,7 +68,7 @@ But wait, what? What about the schema setup? Actually, MongoDB doesn't require y
 
 ## In Control
 
-The controller setup is just as simple when getting started. Create a new file at `project/app/controllers/PostsController.php` and fill it with the following:
+The controller setup is just as simple when getting started. Create a new file at `project/controllers/PostsController.php` and fill it with the following:
 
 ```php
 namespace app\controllers;
@@ -101,7 +101,7 @@ return compact('lions', 'tigers', 'bears');
 
 Next, let's create a `View` that uses the dummy data from `PostsController::index()`.
 
-Start by creating a new file at `project/app/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
+Start by creating a new file at `project/views/posts/index.html.php` (you'll need to create the posts directory). Let's start simple, and print out the data we so carefully crafted in our controller:
 
 ```
 li3 is less dense than <?= $foo ?>ium.
@@ -133,7 +133,7 @@ class PostsController extends \lithium\action\Controller {
 
 Before you can use a model and its methods we must tell that we're planning to use the moodel class via the `use` statement. The statement needs to be added at the beginning of our `PostsController.php` file, but _after_ the namespace declaration.
 
-Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `project/app/views/posts/add.html.php`:
+Currently - inside the action - we just create an empty post object and pass it to the view which we'll create next in a new file at `project/views/posts/add.html.php`:
 
 ```
 <?= $this->form->create($post) ?>
@@ -231,9 +231,9 @@ var_dump($posts->to('array'));
 //  }
 ```
 
-If you're curious, you might also try `$posts->to('json')` to see some additional options. To enable this functionality, remember to uncomment the `require __DIR__ . '/bootstrap/media.php';` line in `app/config/bootstrap.php`.
+If you're curious, you might also try `$posts->to('json')` to see some additional options. To enable this functionality, remember to uncomment the `require __DIR__ . '/bootstrap/media.php';` line in `config/bootstrap.php`.
 
-At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Replace the existing code in `/app/views/posts/index.html.php` with the following:
+At this point, our index view should be aware of the `$posts` `Document` object. Iterating through that object and printing out our post information is easy. Replace the existing code in `views/posts/index.html.php` with the following:
 
 ```
 <?php foreach ($posts as $post): ?>

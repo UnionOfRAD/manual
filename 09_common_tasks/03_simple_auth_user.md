@@ -12,7 +12,7 @@ namespace app\models;
 class Users extends \lithium\data\Model {}
 ```
 
-Then, create a model filter in a new bootstrap file in `app/config/bootstrap/` called `user.php`. This file will automatically hash user passwords before the accounts are created. The `Password` class will automatically use the most secure hashing method available on your system:
+Then, create a model filter in a new bootstrap file in `config/bootstrap/` called `user.php`. This file will automatically hash user passwords before the accounts are created. The `Password` class will automatically use the most secure hashing method available on your system:
 
 ```php
 use app\models\Users;
@@ -33,7 +33,7 @@ Filters::apply(Users::class, 'save', function($params, $next) {
 
 <div class="note note-info">This example uses new-style filters, available with 1.1.</div>
 
-Now add the following line to app/config/bootstrap.php to include your new user.php bootstrap file.
+Now add the following line to config/bootstrap.php to include your new user.php bootstrap file.
 
 ```php
 require __DIR__ . '/bootstrap/user.php';

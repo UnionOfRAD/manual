@@ -89,7 +89,7 @@ class Users extends lithium\data\Model {
 
 ### Form Validation
 
-Here's a simple form we might use to collect user data. This would be contained in `app/views/users/add.html.php`.
+Here's a simple form we might use to collect user data. This would be contained in `views/users/add.html.php`.
 
 ```
 <?= $this->form->create($user) ?>
