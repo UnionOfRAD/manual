@@ -33,6 +33,38 @@ Posts::find('first', [
 ]);
 ```
 
+## Preventing HTTP Host Header Attacks
+
+The framework uses the information from the `Host` header when constructing
+absolute URLs (i.e. through `Router::match()` or inside views via
+`$this->url()` and `$this->html->link()`. 
+
+[HTTP Host Header Attacks](https://de.slideshare.net/DefconRussia/http-host-header-attacks) are
+an attack where the `Host` header is manipulated by the attacker, to redirect
+victims to a website he controls and ultimately gain confidential information. 
+
+A common attack scenario are password reset mails that contain a link with
+a reset token. By sending a hostname with the `Host` header he controls the
+attacker forces the framework to generate an incorrect absolute URL, which when
+clicked, redirects the reset request to his server where he is able to log the
+reset token.
+
+There are two ways, which can also be combined, to protect against this kind of attack. 
+
+First, check the `Host` header against a whitelist before the request
+enters the framework. The standard distro contains such a filter in the
+`config/bootstrap/action.php` file. To activate it, uncomment and configure
+the whitelist.
+
+Second, when building absolute URLs inside relevant views/emails, explicitly specify the host.
+
+```php
+echo $this->url(
+	['action' => 'reset', 'token' => 'secr3t'], 
+	['absolute' => true, 'host' => 'example.org']
+);
+```
+
 ## Securing Form Fields and Values
 
 The `FormSignature` class cryptographically signs web forms, to prevent adding or removing

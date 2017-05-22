@@ -246,3 +246,9 @@ At this point, our index view should be aware of the `$posts` `Document` object.
 
 As you can see, `Posts` model `Document` objects expose their data through properties. Once this view has been saved, fire up your browser and check `http://app.dev/posts` to see the output.
 
+## Where to go from here
+
+To get an even deeper understanding of the framework dive into the documentation for 
+[Models](./models), [Controllers](./controllers) and [Views](./views). [Common Tasks](./common-tasks) has hands-on guides for implementing user authentication workflows, integrating logging, caching and more. 
+
+Be sure to also read our [Security Guide](./quality-code/security) to get information on how to built secure applications right from the start. 
