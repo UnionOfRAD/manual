@@ -76,12 +76,12 @@ As an alternative to quickly remove massive sets of entities `remove()` together
 conditions can be used. The `$conditions` parameter is first and is an array of key/value
 pairs representing the scope of the records or documents to be deleted.
 
-```
+```php
 // Delete all posts!!
 $success = Posts::remove();
 
 // Delete drafted posts only.
-Posts::remove(['is_draft => true]);
+Posts::remove(['is_draft' => true]);
 ```
 
 <div class="note note-caution">
