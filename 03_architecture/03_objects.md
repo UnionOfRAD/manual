@@ -1,5 +1,12 @@
 # Constructors and Initialization
 
+<div class="note note-version">
+	The framework base classes, as described below have been deprecated in 1.2
+	and will be removed in 2.0. Most of their features have been extracted into
+	their classes, i.e. filters into <code>aop\Filters</code>, auto-configuration
+	into <code>core\AutoConfigurable</code>.
+</div>
+
 The base class in li3's hierarchy, `lithium\core\Object`, forms the basic logic for all of the concrete classes in the framework. This class defines several conventions for how classes in li3 should be structured:
 
  * Universal constructor
@@ -61,12 +68,3 @@ $foo3 = new Foo([
 get_class($foo3->service);  // PHP Warning...
 get_class($foo->service);  // 'lithium\net\http\Service'
 ```
-
-<div class="note note-version">
-	The filtering system was overhauled in framework version 1.1. Filters are
-	now managed via a dedicated Filters class, instead of before where Object managed 
-	them.
-</div>
-
-
-

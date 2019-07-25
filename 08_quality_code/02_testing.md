@@ -186,6 +186,11 @@ Head back to the Unit Test Dashboard to make sure this runs successfully, and yo
 
 ### State
 
+<div class="note note-version">
+	As part of the deprecation of the framework base classes in 1.2,
+	<code>__set_state()</code> has been deprecated without a replacement.
+</div>
+
 One challenge with testing is creating and initializing your objects. The `__set_state()` function allows test writers to quickly create objects with their pre-existing properties and values intact. This method can be called statically on any class that extends `Object` to return an instance of itself.
 
 ```php
