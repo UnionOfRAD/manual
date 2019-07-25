@@ -63,7 +63,7 @@ This allows `A` to be swapped out for another class, and makes `B` much easier t
 li3 addresses this issue of dependencies in a uniform way, using the protected `$_classes` attribute. Consider the following snippet from the `lithium\action\Dispatcher` class:
 
 ```php
-class Dispatcher extends \lithium\core\StaticObject {
+class Dispatcher {
 
 	// ...
 	protected static $_classes = [
